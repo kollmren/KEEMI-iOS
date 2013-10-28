@@ -1,0 +1,64 @@
+//
+//  LayImage.h
+//  Lay
+//
+//  Created by Rene Kollmorgen on 31.01.13.
+//  Copyright (c) 2013 Rene. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef enum LayImageId_ {
+    LAY_IMAGE_NAV_BACK,
+    LAY_IMAGE_NAV_FORWARD,
+    LAY_IMAGE_QUESTION_NAV_BACK,
+    LAY_IMAGE_QUESTION_NAV_FORWARD,
+    LAY_IMAGE_SETTINGS,
+    LAY_IMAGE_SEARCH,
+    LAY_IMAGE_CANCEL,
+    LAY_IMAGE_QUERY,
+    LAY_IMAGE_QUERY_MINI,
+    LAY_IMAGE_LEARN,
+    LAY_IMAGE_LEARN_MINI,
+    LAY_IMAGE_CREDITS,
+    LAY_IMAGE_FAVOURITES,
+    LAY_IMAGE_FAVOURITES_SELECTED,
+    LAY_IMAGE_FAVOURITES_MINI,
+    LAY_IMAGE_RESOURCES,
+    LAY_IMAGE_RESOURCES_SELECTED,
+    LAY_IMAGE_RESOURCES_MINI,
+    LAY_IMAGE_NOTES,
+    LAY_IMAGE_NOTES_SELECTED,
+    LAY_IMAGE_NOTES_MINI,
+    LAY_IMAGE_TWITTER,
+    LAY_IMAGE_STATISTICS,
+    LAY_IMAGE_DONE,
+    LAY_IMAGE_WRONG,
+    LAY_IMAGE_INFO,
+    LAY_IMAGE_INFO_HINT,
+    LAY_IMAGE_FLAG,
+    LAY_IMAGE_LIST,
+    LAY_IMAGE_ZOOM_OUT,
+    LAY_IMAGE_QUESTION_BUBBLE,
+    LAY_IMAGE_TOOLBAR_TOOLS,
+    LAY_IMAGE_CAMERA,
+    LAY_PAGE_INDICATOR_ENABLED,
+    LAY_IMAGE_ARROW_NORTH,
+    LAY_IMAGE_USER,
+    LAY_IMAGE_USER_SELECTED,
+    LAY_IMAGE_UNPACK,
+    LAY_IMAGE_IMPORT,
+    LAY_IMAGE_MAIL,
+    LAY_IMAGE_ADD
+} LayImageId;
+
+extern NSString *const LayIconResourcePath;
+
+@interface LayImage : NSObject
+
+// Retuns an image with the default color
++(UIImage*) imageWithId:(LayImageId)imageIdentifier;
+
++(UIImage*) imageNamed:(NSString*) nameOfTheIcon;
+
+@end

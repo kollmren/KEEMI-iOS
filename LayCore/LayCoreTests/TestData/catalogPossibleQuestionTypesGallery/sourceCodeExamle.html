@@ -1,0 +1,965 @@
+<html>
+<head>
+<meta name="viewport" content="width=320, user-scalable=false;">
+</head>
+<body>
+<!-- HTML generated using hilite.me --><div style="background: #f0f0f0; overflow:auto;width:auto;border:solid gray;border-width:.0em .0em .0em .0em;padding:.2em .6em;"><table><tr><td><pre style="margin: 0; line-height: 125%">  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #60a0b0; font-style: italic">//</span>
+<span style="color: #60a0b0; font-style: italic">//  LayInfoDialogViewController.m</span>
+<span style="color: #60a0b0; font-style: italic">//  Lay</span>
+<span style="color: #60a0b0; font-style: italic">//</span>
+<span style="color: #60a0b0; font-style: italic">//  Created by Luis Remirez on 07.03.13.</span>
+<span style="color: #60a0b0; font-style: italic">//  Copyright (c) 2013 Rene. All rights reserved.</span>
+<span style="color: #60a0b0; font-style: italic">//</span>
+
+<span style="color: #007020">#import &quot;LayInfoDialog.h&quot;</span>
+<span style="color: #007020">#import &quot;LayFrame.h&quot;</span>
+<span style="color: #007020">#import &quot;LayStyleGuide.h&quot;</span>
+<span style="color: #007020">#import &quot;LayImageRibbon.h&quot;</span>
+<span style="color: #007020">#import &quot;LayImage.h&quot;</span>
+<span style="color: #007020">#import &quot;LayMediaData.h&quot;</span>
+<span style="color: #007020">#import &quot;LayAppNotifications.h&quot;</span>
+<span style="color: #007020">#import &quot;LayIconButton.h&quot;</span>
+<span style="color: #007020">#import &quot;LayExplanationView.h&quot;</span>
+
+<span style="color: #007020">#import &quot;Explanation+Utilities.h&quot;</span>
+<span style="color: #007020">#import &quot;Resource+Utilities.h&quot;</span>
+
+<span style="color: #007020">#import &quot;MWLogging.h&quot;</span>
+
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> CGSize ICON_SIZE <span style="color: #666666">=</span> { <span style="color: #40a070">28.0f</span>, <span style="color: #40a070">28.0f</span> };
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> NSInteger HEIGTH_FILLED_RIBBON <span style="color: #666666">=</span> <span style="color: #40a070">190.0f</span>;
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> NSInteger TAG_IMAGE_RIBBON <span style="color: #666666">=</span> <span style="color: #40a070">1001</span>;
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> NSInteger TAG_TITLE_CONTAINER <span style="color: #666666">=</span> <span style="color: #40a070">1002</span>;
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> NSUInteger TAG_WEB_VIEW <span style="color: #666666">=</span> <span style="color: #40a070">1004</span>;
+<span style="color: #007020; font-weight: bold">static</span> <span style="color: #007020; font-weight: bold">const</span> NSUInteger TAG_CLOSE_BUTTON <span style="color: #666666">=</span> <span style="color: #40a070">1006</span>;
+
+<span style="color: #007020; font-weight: bold">@interface</span> <span style="color: #0e84b5; font-weight: bold">LayInfoDialog</span>() {
+    UIView<span style="color: #666666">*</span> externalMainView;
+    UIScrollView<span style="color: #666666">*</span> scrollView;
+    UIView<span style="color: #666666">*</span> webPage;
+    UIActivityIndicatorView <span style="color: #666666">*</span>activity;
+    UIView<span style="color: #666666">*</span> infoView;
+    UIView<span style="color: #666666">*</span> eventView;
+    UIImageView<span style="color: #666666">*</span> icon;
+    UILabel <span style="color: #666666">*</span>title;
+    UIView <span style="color: #666666">*</span>titleContainer;
+    NSDictionary<span style="color: #666666">*</span> images;
+    CGFloat titleLabelWidth;
+    
+    CGFloat maxHeightOfInfoView;
+    __weak <span style="color: #902000">id</span> caller;
+    <span style="color: #902000">SEL</span> selector;
+}
+
+<span style="color: #007020; font-weight: bold">@end</span>
+
+<span style="color: #007020; font-weight: bold">@implementation</span> <span style="color: #0e84b5; font-weight: bold">LayInfoDialog</span>
+
+<span style="color: #007020; font-weight: bold">static</span> LayInfoDialog <span style="color: #666666">*</span>singleton <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+
+<span style="color: #007020; font-weight: bold">+</span>(<span style="color: #902000">void</span>) <span style="color: #06287e">initSingletonWithMainView:</span>(UIView<span style="color: #666666">*</span>)<span style="color: #bb60d5">mainView_</span> {
+    <span style="color: #007020; font-weight: bold">if</span>(singleton<span style="color: #666666">==</span><span style="color: #007020">nil</span>) {
+        singleton <span style="color: #666666">=</span> [[LayInfoDialog alloc] initWithMainView<span style="color: #666666">:</span>mainView_];
+    }
+}
+
+<span style="color: #007020; font-weight: bold">+</span>(LayInfoDialog<span style="color: #666666">*</span>) <span style="color: #06287e">instanceOf</span> {
+    <span style="color: #007020; font-weight: bold">return</span> singleton;
+}
+
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">id</span>) <span style="color: #06287e">initWithMainView:</span>(UIView<span style="color: #666666">*</span>)<span style="color: #bb60d5">mainView_</span> {
+    self <span style="color: #666666">=</span> [super init];
+    <span style="color: #007020; font-weight: bold">if</span> (self) {
+        externalMainView <span style="color: #666666">=</span> mainView_;
+        
+        [self registerIcons];
+        [self setupViews];
+        
+        maxHeightOfInfoView <span style="color: #666666">=</span> mainView_.frame.size.height <span style="color: #666666">*</span> <span style="color: #40a070">0.9f</span>;
+    }
+    
+    <span style="color: #007020; font-weight: bold">return</span> self;
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>)<span style="color: #06287e">registerIcons</span> {
+    UIImage <span style="color: #666666">*</span>infoIcon <span style="color: #666666">=</span> [LayImage imageWithId<span style="color: #666666">:</span>LAY_IMAGE_INFO];
+    UIImage <span style="color: #666666">*</span>statisticIcon <span style="color: #666666">=</span> [LayImage imageWithId<span style="color: #666666">:</span>LAY_IMAGE_STATISTICS];
+    images <span style="color: #666666">=</span> [[NSDictionary alloc] initWithObjectsAndKeys<span style="color: #666666">:</span>
+              infoIcon, <span style="color: #4070a0">@&quot;INFO&quot;</span>, statisticIcon, <span style="color: #4070a0">@&quot;STATISTIC&quot;</span>,
+              <span style="color: #007020">nil</span>];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>) <span style="color: #06287e">setupViews</span> {
+    LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    eventView <span style="color: #666666">=</span> [[UIView alloc] initWithFrame<span style="color: #666666">:</span>externalMainView.frame];
+    eventView.hidden <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+    eventView.backgroundColor <span style="color: #666666">=</span> [[LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>] getColor<span style="color: #666666">:</span>InfoBackgroundColor];
+    [externalMainView addSubview<span style="color: #666666">:</span>eventView];
+    <span style="color: #60a0b0; font-style: italic">//</span>
+    <span style="color: #007020; font-weight: bold">const</span> CGSize sizeEventView <span style="color: #666666">=</span> eventView.frame.size;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat yPosInfoView <span style="color: #666666">=</span> <span style="color: #40a070">30.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthOfInfoView <span style="color: #666666">=</span> sizeEventView.width;
+    infoView <span style="color: #666666">=</span> [[UIView alloc] initWithFrame<span style="color: #666666">:</span>CGRectMake(<span style="color: #40a070">0.0f</span>, yPosInfoView, widthOfInfoView, <span style="color: #40a070">0.0f</span>)];
+    infoView.backgroundColor <span style="color: #666666">=</span> [styleGuide getColor<span style="color: #666666">:</span>BackgroundColor];
+    infoView.clipsToBounds <span style="color: #666666">=</span> TRUE;
+    scrollView <span style="color: #666666">=</span> [[UIScrollView alloc] initWithFrame<span style="color: #666666">:</span>CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, widthOfInfoView, <span style="color: #40a070">0.0f</span>)];
+    scrollView.showsVerticalScrollIndicator <span style="color: #666666">=</span> <span style="color: #007020">NO</span>;
+    scrollView.showsHorizontalScrollIndicator <span style="color: #666666">=</span> <span style="color: #007020">NO</span>;
+    scrollView.bouncesZoom <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+    scrollView.decelerationRate <span style="color: #666666">=</span> UIScrollViewDecelerationRateFast;
+    scrollView.backgroundColor <span style="color: #666666">=</span> [UIColor clearColor];
+    [infoView addSubview<span style="color: #666666">:</span>scrollView];
+    <span style="color: #60a0b0; font-style: italic">// title</span>
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat yPosTitle <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat hIndent <span style="color: #666666">=</span> [styleGuide getHorizontalScreenSpace];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat withOfSubViews <span style="color: #666666">=</span> widthOfInfoView <span style="color: #666666">-</span> <span style="color: #40a070">2</span><span style="color: #666666">*</span>hIndent;
+    <span style="color: #007020; font-weight: bold">const</span> CGRect titleContainerRect <span style="color: #666666">=</span> CGRectMake(hIndent, yPosTitle, withOfSubViews, <span style="color: #40a070">0.0f</span>);
+    self<span style="color: #666666">-&gt;</span>titleContainer <span style="color: #666666">=</span> [[UIView alloc]initWithFrame<span style="color: #666666">:</span>titleContainerRect];
+    self<span style="color: #666666">-&gt;</span>titleContainer.tag <span style="color: #666666">=</span> TAG_TITLE_CONTAINER;
+    self<span style="color: #666666">-&gt;</span>titleContainer.backgroundColor <span style="color: #666666">=</span> [styleGuide getColor<span style="color: #666666">:</span>WhiteTransparentBackground];
+    icon <span style="color: #666666">=</span> [[UIImageView alloc] initWithFrame<span style="color: #666666">:</span>CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, ICON_SIZE.width, ICON_SIZE.height)];
+    [self<span style="color: #666666">-&gt;</span>titleContainer addSubview<span style="color: #666666">:</span>icon];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat SPACE_ICON_TITLE <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat xPosLabel <span style="color: #666666">=</span> ICON_SIZE.width <span style="color: #666666">+</span> SPACE_ICON_TITLE;
+    self<span style="color: #666666">-&gt;</span>titleLabelWidth <span style="color: #666666">=</span> withOfSubViews <span style="color: #666666">-</span> xPosLabel;
+    title <span style="color: #666666">=</span> [[UILabel alloc] initWithFrame<span style="color: #666666">:</span>CGRectMake(xPosLabel, <span style="color: #40a070">0.0f</span>, self<span style="color: #666666">-&gt;</span>titleLabelWidth , <span style="color: #40a070">0.0f</span>)];
+    title.numberOfLines <span style="color: #666666">=</span> <span style="color: #40a070">3</span>;
+    title.textAlignment <span style="color: #666666">=</span>  NSTextAlignmentLeft;
+    title.backgroundColor <span style="color: #666666">=</span> [UIColor clearColor];
+    title.font <span style="color: #666666">=</span> [styleGuide getFont<span style="color: #666666">:</span>HeaderFont];
+    title.textColor <span style="color: #666666">=</span> [styleGuide getColor<span style="color: #666666">:</span>TextColor];
+    [self<span style="color: #666666">-&gt;</span>titleContainer addSubview<span style="color: #666666">:</span>title];
+    [scrollView addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleContainer];
+    [eventView addSubview<span style="color: #666666">:</span>infoView];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>)<span style="color: #06287e">setTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> {
+    [LayFrame setWidthWith<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleLabelWidth toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>title];
+    title.text <span style="color: #666666">=</span> title_;
+    [title sizeToFit];
+    CGFloat newContainerHeight <span style="color: #666666">=</span> title.frame.size.height;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat iconHeight <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>icon.frame.size.height;
+    <span style="color: #007020; font-weight: bold">if</span>(iconHeight <span style="color: #666666">&gt;</span> newContainerHeight) {
+        newContainerHeight <span style="color: #666666">=</span> iconHeight;
+    }
+    [LayFrame setHeightWith<span style="color: #666666">:</span>newContainerHeight toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleContainer animated<span style="color: #666666">:</span><span style="color: #007020">NO</span>];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showStatistic:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">caller:</span>(<span style="color: #902000">id</span>)<span style="color: #bb60d5">caller_</span> <span style="color: #06287e">selector:</span>(<span style="color: #902000">SEL</span>)<span style="color: #bb60d5">selector_</span> {
+    UIImage<span style="color: #666666">*</span> image <span style="color: #666666">=</span> [images objectForKey<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;STATISTIC&quot;</span>];
+    <span style="color: #007020; font-weight: bold">return</span> [self showInfo<span style="color: #666666">:</span>info withTitle<span style="color: #666666">:</span>title_ andIcon<span style="color: #666666">:</span>image mediaList<span style="color: #666666">:</span><span style="color: #007020">nil</span> caller<span style="color: #666666">:</span>caller_ selector<span style="color: #666666">:</span>selector_];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showShortExplanation:</span>(Explanation<span style="color: #666666">*</span>)<span style="color: #bb60d5">explanation</span> {
+    icon.image <span style="color: #666666">=</span> [images objectForKey<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;INFO&quot;</span>];
+    scrollView.contentOffset <span style="color: #666666">=</span> CGPointMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>);
+    [LayFrame setHeightWith<span style="color: #666666">:</span><span style="color: #40a070">0.0f</span> toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView animated<span style="color: #666666">:</span><span style="color: #007020">NO</span>];
+    <span style="color: #007020; font-weight: bold">const</span> CGPoint infoViewCenter <span style="color: #666666">=</span> CGPointMake(self<span style="color: #666666">-&gt;</span>infoView.frame.origin.x, self<span style="color: #666666">-&gt;</span>externalMainView.frame.size.height<span style="color: #666666">/</span><span style="color: #40a070">2</span>);
+    [LayFrame setPos<span style="color: #666666">:</span>infoViewCenter toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView];
+    
+    <span style="color: #007020; font-weight: bold">for</span>(UIView<span style="color: #666666">*</span> subView <span style="color: #007020; font-weight: bold">in</span> [scrollView subviews]) {
+        [subView removeFromSuperview];
+    }
+    
+    LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat hIndent <span style="color: #666666">=</span> [styleGuide getHorizontalScreenSpace];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthOfInfoItemText <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.frame.size.width <span style="color: #666666">-</span> <span style="color: #40a070">2</span><span style="color: #666666">*</span>hIndent;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat vSpace <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    CGFloat yPos <span style="color: #666666">=</span> vSpace;
+    <span style="color: #007020; font-weight: bold">const</span> CGRect explanationViewRect <span style="color: #666666">=</span> CGRectMake(hIndent, yPos, widthOfInfoItemText, <span style="color: #40a070">0.0f</span>);
+    LayExplanationView <span style="color: #666666">*</span>explanationView <span style="color: #666666">=</span> [[LayExplanationView alloc]initWithFrame<span style="color: #666666">:</span>explanationViewRect andExplanation<span style="color: #666666">:</span>explanation];
+    yPos <span style="color: #666666">+=</span> explanationView.frame.size.height;
+    [scrollView addSubview<span style="color: #666666">:</span>explanationView];
+    
+    CGSize size <span style="color: #666666">=</span> CGSizeMake(scrollView.frame.size.width, yPos);
+    scrollView.contentSize <span style="color: #666666">=</span> size;
+    <span style="color: #007020; font-weight: bold">if</span>(yPos<span style="color: #666666">&gt;</span>maxHeightOfInfoView) {
+        yPos <span style="color: #666666">=</span> maxHeightOfInfoView;
+    }
+    
+    [LayFrame setHeightWith<span style="color: #666666">:</span>yPos toView<span style="color: #666666">:</span>scrollView animated<span style="color: #666666">:</span><span style="color: #007020">NO</span>];
+    
+    UITapGestureRecognizer <span style="color: #666666">*</span>singleTap <span style="color: #666666">=</span> [[UITapGestureRecognizer alloc]
+                                         <span style="color: #002070; font-weight: bold">initWithTarget:</span>self action<span style="color: #666666">:</span><span style="color: #007020; font-weight: bold">@selector</span>(hide)];
+    [eventView addGestureRecognizer<span style="color: #666666">:</span>singleTap];
+    
+    NSNotification <span style="color: #666666">*</span>note <span style="color: #666666">=</span> [NSNotification notificationWithName<span style="color: #666666">:</span>(NSString<span style="color: #666666">*</span>)LAY_NOTIFICATION_EXPLANATION_PRESENTED object<span style="color: #666666">:</span>self];
+    [[NSNotificationCenter defaultCenter] postNotification<span style="color: #666666">:</span>note];
+
+    [self open];
+    <span style="color: #007020; font-weight: bold">return</span> infoView;
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showResource:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">link:</span>(NSObject<span style="color: #666666">*</span>)<span style="color: #bb60d5">resource</span> {
+    icon.image <span style="color: #666666">=</span> [images objectForKey<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;INFO&quot;</span>];
+    [LayFrame setHeightWith<span style="color: #666666">:</span><span style="color: #40a070">0.0f</span> toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView animated<span style="color: #666666">:</span><span style="color: #007020">NO</span>];
+    <span style="color: #007020; font-weight: bold">const</span> CGPoint infoViewCenter <span style="color: #666666">=</span> CGPointMake(self<span style="color: #666666">-&gt;</span>infoView.frame.origin.x, self<span style="color: #666666">-&gt;</span>externalMainView.frame.size.height<span style="color: #666666">/</span><span style="color: #40a070">2</span>);
+    [LayFrame setPos<span style="color: #666666">:</span>infoViewCenter toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView];
+    [self setTitle<span style="color: #666666">:</span>title_];
+    
+    UIView <span style="color: #666666">*</span>closeButton <span style="color: #666666">=</span> [self<span style="color: #666666">-&gt;</span>infoView viewWithTag<span style="color: #666666">:</span>TAG_CLOSE_BUTTON];
+    <span style="color: #007020; font-weight: bold">if</span>(closeButton) {
+        [closeButton removeFromSuperview];
+    }
+    
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>activity) {
+       [self<span style="color: #666666">-&gt;</span>activity removeFromSuperview];
+        self<span style="color: #666666">-&gt;</span>activity <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+    }
+    
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>webPage) {
+        [self<span style="color: #666666">-&gt;</span>webPage removeFromSuperview];
+        self<span style="color: #666666">-&gt;</span>webPage <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+        
+    }
+    
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat vSpace <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat xPosWebPage <span style="color: #666666">=</span> <span style="color: #40a070">20.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat heightWebPage <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>externalMainView.frame.size.height;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthWebPage <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>externalMainView.frame.size.width;
+    <span style="color: #007020; font-weight: bold">const</span> CGRect webPageFrame <span style="color: #666666">=</span> CGRectMake(<span style="color: #40a070">0.0f</span>, xPosWebPage, widthWebPage, heightWebPage);
+    self<span style="color: #666666">-&gt;</span>webPage <span style="color: #666666">=</span> [[UIView alloc]initWithFrame<span style="color: #666666">:</span>webPageFrame];
+    [self<span style="color: #666666">-&gt;</span>webPage addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleContainer];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat yPosWebView <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>titleContainer.frame.origin.y <span style="color: #666666">+</span> self<span style="color: #666666">-&gt;</span>titleContainer.frame.size.height <span style="color: #666666">+</span> vSpace;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat heightWebView <span style="color: #666666">=</span> heightWebPage <span style="color: #666666">-</span> yPosWebView <span style="color: #666666">-</span> vSpace;
+    <span style="color: #007020; font-weight: bold">const</span> CGRect webViewFrame <span style="color: #666666">=</span> CGRectMake(<span style="color: #40a070">0.0f</span>, yPosWebView, widthWebPage, heightWebView);
+    UIWebView <span style="color: #666666">*</span>webView <span style="color: #666666">=</span> [[UIWebView alloc]initWithFrame<span style="color: #666666">:</span>webViewFrame];
+    webView.scalesPageToFit <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+    webView.tag <span style="color: #666666">=</span> TAG_WEB_VIEW;
+    webView.delegate <span style="color: #666666">=</span> self;
+    [self<span style="color: #666666">-&gt;</span>webPage addSubview<span style="color: #666666">:</span>webView];
+    
+    LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    <span style="color: #007020; font-weight: bold">if</span>([resource isKindOfClass<span style="color: #666666">:</span>[NSString class]]) {
+        NSString <span style="color: #666666">*</span>link_ <span style="color: #666666">=</span> (NSString<span style="color: #666666">*</span>)resource;
+        NSURL <span style="color: #666666">*</span>link <span style="color: #666666">=</span> [NSURL URLWithString<span style="color: #666666">:</span>link_];
+        <span style="color: #007020; font-weight: bold">if</span>(link) {
+            activity <span style="color: #666666">=</span> [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle<span style="color: #666666">:</span>UIActivityIndicatorViewStyleWhiteLarge];
+            activity.color <span style="color: #666666">=</span> [styleGuide getColor<span style="color: #666666">:</span>ButtonSelectedColor];
+            activity.center <span style="color: #666666">=</span> CGPointMake(CGRectGetMidX(webPage.layer.bounds), CGRectGetMidY(webPage.layer.bounds));
+            [self<span style="color: #666666">-&gt;</span>webPage addSubview<span style="color: #666666">:</span>activity];
+            NSURLRequest <span style="color: #666666">*</span>request <span style="color: #666666">=</span> [NSURLRequest requestWithURL<span style="color: #666666">:</span>link];
+            [webView loadRequest<span style="color: #666666">:</span>request];
+        } <span style="color: #007020; font-weight: bold">else</span> {
+            MWLogError([LayInfoDialog class], <span style="color: #4070a0">@&quot;Can not open link:%@&quot;</span>, link_);
+        }
+    } <span style="color: #007020; font-weight: bold">else</span> <span style="color: #007020; font-weight: bold">if</span>([resource isKindOfClass<span style="color: #666666">:</span>[NSData class]]) {
+         NSData <span style="color: #666666">*</span>data <span style="color: #666666">=</span> (NSData<span style="color: #666666">*</span>)resource;
+         [webView loadData<span style="color: #666666">:</span>data MIMEType<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;text/html&quot;</span> textEncodingName<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;UTF-8&quot;</span> baseURL<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    } <span style="color: #007020; font-weight: bold">else</span> {
+        MWLogError([LayInfoDialog class], <span style="color: #4070a0">@&quot;Can not open resource of type:%@&quot;</span>, resource);
+    }
+    
+    [self<span style="color: #666666">-&gt;</span>scrollView removeFromSuperview];
+    [self<span style="color: #666666">-&gt;</span>infoView addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>webPage];
+    [self openWebPage];
+    
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat indent <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGSize closeButtonSize <span style="color: #666666">=</span> CGSizeMake(<span style="color: #40a070">50.0f</span> <span style="color: #666666">+</span> indent, <span style="color: #40a070">30.0f</span>);
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat yPosCloseButton <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.frame.size.height <span style="color: #666666">-</span> closeButtonSize.height;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat xPosCloseButton <span style="color: #666666">=</span> <span style="color: #666666">-</span>closeButtonSize.width;
+    <span style="color: #007020; font-weight: bold">const</span> CGRect closeButtonFrame <span style="color: #666666">=</span> CGRectMake(xPosCloseButton, yPosCloseButton, closeButtonSize.width, closeButtonSize.height);
+    closeButton <span style="color: #666666">=</span> [[UIView alloc]initWithFrame<span style="color: #666666">:</span>closeButtonFrame];
+    UIButton <span style="color: #666666">*</span>iconButon <span style="color: #666666">=</span> [LayIconButton buttonWithId<span style="color: #666666">:</span>LAY_BUTTON_CANCEL];
+    [closeButton addSubview<span style="color: #666666">:</span>iconButon];
+    iconButon.center <span style="color: #666666">=</span> CGPointMake(closeButtonSize.width<span style="color: #666666">/</span><span style="color: #40a070">2.0f</span> <span style="color: #666666">+</span> indent, closeButtonSize.height<span style="color: #666666">/</span><span style="color: #40a070">2.0f</span>);
+    [iconButon addTarget<span style="color: #666666">:</span>self action<span style="color: #666666">:</span><span style="color: #007020; font-weight: bold">@selector</span>(hide) forControlEvents<span style="color: #666666">:</span>UIControlEventTouchUpInside];
+    [styleGuide makeRoundedBorder<span style="color: #666666">:</span>closeButton withBackgroundColor<span style="color: #666666">:</span>GrayTransparentBackground andBorderColor<span style="color: #666666">:</span>ClearColor];
+    [self<span style="color: #666666">-&gt;</span>infoView addSubview<span style="color: #666666">:</span>closeButton];
+
+    CALayer <span style="color: #666666">*</span>closeButtonLayer <span style="color: #666666">=</span> closeButton.layer;
+    [UIView animateWithDuration<span style="color: #666666">:</span><span style="color: #40a070">0.4</span> animations<span style="color: #666666">:^</span>{
+        closeButtonLayer.position <span style="color: #666666">=</span> CGPointMake((closeButtonSize.width<span style="color: #666666">/</span><span style="color: #40a070">2.0f</span>) <span style="color: #666666">-</span> indent,
+                                                closeButtonLayer.position.y);
+        
+    }];
+    
+    <span style="color: #007020; font-weight: bold">return</span> infoView;
+
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showInfo:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> {
+    <span style="color: #007020; font-weight: bold">return</span> [self showInfo<span style="color: #666666">:</span>info withTitle<span style="color: #666666">:</span>title_ caller<span style="color: #666666">:</span><span style="color: #007020">nil</span> selector<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showInfo:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">andMediaList:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">mediaList</span> {
+    <span style="color: #007020; font-weight: bold">return</span> [self showInfo<span style="color: #666666">:</span>info withTitle<span style="color: #666666">:</span>title_ mediaList<span style="color: #666666">:</span>mediaList caller<span style="color: #666666">:</span><span style="color: #007020">nil</span> selector<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showInfo:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">caller:</span>(<span style="color: #902000">id</span>)<span style="color: #bb60d5">caller_</span> <span style="color: #06287e">selector:</span>(<span style="color: #902000">SEL</span>)<span style="color: #bb60d5">selector_</span> {
+    UIImage<span style="color: #666666">*</span> image <span style="color: #666666">=</span> [images objectForKey<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;INFO&quot;</span>];
+    <span style="color: #007020; font-weight: bold">return</span> [self showInfo<span style="color: #666666">:</span>info withTitle<span style="color: #666666">:</span>title_ andIcon<span style="color: #666666">:</span>image mediaList<span style="color: #666666">:</span><span style="color: #007020">nil</span> caller<span style="color: #666666">:</span>caller_ selector<span style="color: #666666">:</span>selector_];
+}
+
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showInfo:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">mediaList:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">mediaList</span> <span style="color: #06287e">caller:</span>(<span style="color: #902000">id</span>)<span style="color: #bb60d5">caller_</span> <span style="color: #06287e">selector:</span>(<span style="color: #902000">SEL</span>)<span style="color: #bb60d5">selector_</span> {
+    UIImage<span style="color: #666666">*</span> image <span style="color: #666666">=</span> [images objectForKey<span style="color: #666666">:</span><span style="color: #4070a0">@&quot;INFO&quot;</span>];
+    <span style="color: #007020; font-weight: bold">return</span> [self showInfo<span style="color: #666666">:</span>info withTitle<span style="color: #666666">:</span>title_ andIcon<span style="color: #666666">:</span>image mediaList<span style="color: #666666">:</span>mediaList caller<span style="color: #666666">:</span>caller_ selector<span style="color: #666666">:</span>selector_];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">showInfo:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">info</span> <span style="color: #06287e">withTitle:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">title_</span> <span style="color: #06287e">andIcon:</span>(UIImage<span style="color: #666666">*</span>)<span style="color: #bb60d5">icon_</span> <span style="color: #06287e">mediaList:</span>(NSArray<span style="color: #666666">*</span>)<span style="color: #bb60d5">mediaList</span> <span style="color: #06287e">caller:</span>(<span style="color: #902000">id</span>)<span style="color: #bb60d5">caller_</span> <span style="color: #06287e">selector:</span>(<span style="color: #902000">SEL</span>)<span style="color: #bb60d5">selector_</span> {
+    caller <span style="color: #666666">=</span> caller_;
+    selector <span style="color: #666666">=</span> selector_;
+    scrollView.contentOffset <span style="color: #666666">=</span> CGPointMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>);
+    
+    [LayFrame setHeightWith<span style="color: #666666">:</span><span style="color: #40a070">0.0f</span> toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView animated<span style="color: #666666">:</span><span style="color: #007020">NO</span>];
+    <span style="color: #007020; font-weight: bold">const</span> CGPoint infoViewCenter <span style="color: #666666">=</span> CGPointMake(self<span style="color: #666666">-&gt;</span>infoView.frame.origin.x, self<span style="color: #666666">-&gt;</span>externalMainView.frame.size.height<span style="color: #666666">/</span><span style="color: #40a070">2</span>);
+    [LayFrame setPos<span style="color: #666666">:</span>infoViewCenter toView<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>infoView];
+    
+    icon.image <span style="color: #666666">=</span> icon_;
+    
+    [self setTitle<span style="color: #666666">:</span>title_];
+    
+    NSArray<span style="color: #666666">*</span> children <span style="color: #666666">=</span> [scrollView subviews];
+    <span style="color: #007020; font-weight: bold">for</span>(UIView<span style="color: #666666">*</span> child <span style="color: #007020; font-weight: bold">in</span> children) {
+        <span style="color: #007020; font-weight: bold">if</span>(child.tag <span style="color: #666666">!=</span> TAG_TITLE_CONTAINER)
+            [child removeFromSuperview];
+    }
+    
+    LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat hIndent <span style="color: #666666">=</span> [styleGuide getHorizontalScreenSpace];
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthOfInfoItemText <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.frame.size.width <span style="color: #666666">-</span> <span style="color: #40a070">2</span><span style="color: #666666">*</span>hIndent;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat vSpace <span style="color: #666666">=</span> <span style="color: #40a070">10.0f</span>;
+    CGFloat yPos <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>titleContainer.frame.origin.y <span style="color: #666666">+</span> self<span style="color: #666666">-&gt;</span>titleContainer.frame.size.height <span style="color: #666666">+</span> <span style="color: #40a070">2</span><span style="color: #666666">*</span>vSpace;
+    CGRect frame <span style="color: #666666">=</span> scrollView.frame;
+    
+    <span style="color: #007020; font-weight: bold">for</span>(NSString<span style="color: #666666">*</span> s <span style="color: #007020; font-weight: bold">in</span> info) {
+        UIView<span style="color: #666666">*</span> entry <span style="color: #666666">=</span> [self newEntry<span style="color: #666666">:</span>s withWith<span style="color: #666666">:</span>widthOfInfoItemText];
+        entry.backgroundColor <span style="color: #666666">=</span> [UIColor clearColor];
+        [LayFrame setXPos<span style="color: #666666">:</span>hIndent toView<span style="color: #666666">:</span>entry];
+        [LayFrame setYPos<span style="color: #666666">:</span>yPos toView<span style="color: #666666">:</span>entry];
+        [scrollView addSubview<span style="color: #666666">:</span>entry];
+        yPos <span style="color: #666666">+=</span> entry.frame.size.height <span style="color: #666666">+</span> vSpace;
+    }
+    <span style="color: #60a0b0; font-style: italic">//</span>
+    <span style="color: #007020; font-weight: bold">if</span>(mediaList <span style="color: #666666">&amp;&amp;</span> [mediaList count]<span style="color: #666666">&gt;</span><span style="color: #40a070">0</span>) {
+        <span style="color: #007020; font-weight: bold">const</span> CGRect ribbonFrame <span style="color: #666666">=</span> CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, infoView.frame.size.width, HEIGTH_FILLED_RIBBON);
+        
+        LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+        <span style="color: #007020; font-weight: bold">const</span> CGSize ribbonEntrySize <span style="color: #666666">=</span> [styleGuide maxRibbonEntrySize];
+        LayImageRibbon <span style="color: #666666">*</span>imageRibbon <span style="color: #666666">=</span> [[LayImageRibbon alloc]initWithFrame<span style="color: #666666">:</span>ribbonFrame entrySize<span style="color: #666666">:</span>ribbonEntrySize andOrientation<span style="color: #666666">:</span>HORIZONTAL];
+        imageRibbon.tag <span style="color: #666666">=</span> TAG_IMAGE_RIBBON;
+        imageRibbon.pageMode <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+        imageRibbon.entriesInteractive <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+        imageRibbon.animateTap <span style="color: #666666">=</span> <span style="color: #007020">NO</span>;
+        imageRibbon.ribbonDelegate <span style="color: #666666">=</span> self;
+        <span style="color: #007020; font-weight: bold">for</span> (Media<span style="color: #666666">*</span> answerMedia <span style="color: #007020; font-weight: bold">in</span> mediaList) {
+            LayMediaData <span style="color: #666666">*</span>mediaData <span style="color: #666666">=</span> [LayMediaData byMediaObject<span style="color: #666666">:</span>answerMedia];
+            [imageRibbon addEntry<span style="color: #666666">:</span>mediaData withIdentifier<span style="color: #666666">:</span><span style="color: #40a070">0</span>];
+        }
+        <span style="color: #007020; font-weight: bold">if</span>([imageRibbon numberOfEntries]<span style="color: #666666">&gt;</span><span style="color: #40a070">0</span>) {
+            [imageRibbon layoutRibbon];
+        }
+        [LayFrame setYPos<span style="color: #666666">:</span>yPos toView<span style="color: #666666">:</span>imageRibbon];
+        [imageRibbon fitHeightOfRibbonToEntryContent];
+        [scrollView addSubview<span style="color: #666666">:</span>imageRibbon];
+        yPos <span style="color: #666666">+=</span> imageRibbon.frame.size.height <span style="color: #666666">+</span> vSpace;
+    }
+    NSNotification <span style="color: #666666">*</span>note <span style="color: #666666">=</span> [NSNotification notificationWithName<span style="color: #666666">:</span>(NSString<span style="color: #666666">*</span>)LAY_NOTIFICATION_EXPLANATION_PRESENTED object<span style="color: #666666">:</span>self];
+    [[NSNotificationCenter defaultCenter] postNotification<span style="color: #666666">:</span>note];
+    
+    CGSize size <span style="color: #666666">=</span> CGSizeMake(frame.size.width, yPos);
+    scrollView.contentSize <span style="color: #666666">=</span> size;
+    <span style="color: #007020; font-weight: bold">if</span>(yPos<span style="color: #666666">&gt;</span>maxHeightOfInfoView) {
+        yPos <span style="color: #666666">=</span> maxHeightOfInfoView;
+    }
+    
+    frame.size <span style="color: #666666">=</span> CGSizeMake(frame.size.width, yPos);
+    scrollView.frame <span style="color: #666666">=</span> frame;
+    
+    UITapGestureRecognizer <span style="color: #666666">*</span>singleTap <span style="color: #666666">=</span> [[UITapGestureRecognizer alloc]
+                                         <span style="color: #002070; font-weight: bold">initWithTarget:</span>self action<span style="color: #666666">:</span><span style="color: #007020; font-weight: bold">@selector</span>(hide)];
+    [eventView addGestureRecognizer<span style="color: #666666">:</span>singleTap];
+
+    [self open];
+    <span style="color: #007020; font-weight: bold">return</span> infoView;
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>) <span style="color: #06287e">open</span> {
+    self<span style="color: #666666">-&gt;</span>eventView.hidden <span style="color: #666666">=</span> <span style="color: #007020">NO</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat newInfoViewHeight <span style="color: #666666">=</span> scrollView.frame.size.height;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthOfInfoView <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.frame.size.width;
+    CALayer <span style="color: #666666">*</span>infoViewLayer <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.layer;
+    [UIView animateWithDuration<span style="color: #666666">:</span><span style="color: #40a070">0.3</span> animations<span style="color: #666666">:^</span>{
+        infoViewLayer.position <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>externalMainView.layer.position;
+        infoViewLayer.bounds <span style="color: #666666">=</span> CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, widthOfInfoView, newInfoViewHeight);
+    }];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>) <span style="color: #06287e">openWebPage</span> {
+    self<span style="color: #666666">-&gt;</span>eventView.hidden <span style="color: #666666">=</span> <span style="color: #007020">NO</span>;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat newInfoViewHeight <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>webPage.frame.size.height;
+    <span style="color: #007020; font-weight: bold">const</span> CGFloat widthOfInfoView <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.frame.size.width;
+    CALayer <span style="color: #666666">*</span>infoViewLayer <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>infoView.layer;
+    [UIView animateWithDuration<span style="color: #666666">:</span><span style="color: #40a070">0.3</span> animations<span style="color: #666666">:^</span>{
+        infoViewLayer.position <span style="color: #666666">=</span> self<span style="color: #666666">-&gt;</span>externalMainView.layer.position;
+        infoViewLayer.bounds <span style="color: #666666">=</span> CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, widthOfInfoView, newInfoViewHeight);
+    }];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>)<span style="color: #06287e">cleanupView</span> {
+    UIView <span style="color: #666666">*</span>closeButton <span style="color: #666666">=</span> [self<span style="color: #666666">-&gt;</span>infoView viewWithTag<span style="color: #666666">:</span>TAG_CLOSE_BUTTON];
+    <span style="color: #007020; font-weight: bold">if</span>(closeButton) {
+        [closeButton removeFromSuperview];
+    }
+    
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>activity) {
+        [self<span style="color: #666666">-&gt;</span>activity removeFromSuperview];
+        self<span style="color: #666666">-&gt;</span>activity <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+    }
+    
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>webPage) {
+        UIWebView <span style="color: #666666">*</span>webView <span style="color: #666666">=</span> (UIWebView<span style="color: #666666">*</span>)[self<span style="color: #666666">-&gt;</span>webPage viewWithTag<span style="color: #666666">:</span>TAG_WEB_VIEW];
+        webView.delegate <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+        [self<span style="color: #666666">-&gt;</span>webPage removeFromSuperview];
+        self<span style="color: #666666">-&gt;</span>webPage <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+        
+    }
+}
+
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>) <span style="color: #06287e">hide</span> {
+    [self cleanupView];
+    
+    <span style="color: #007020; font-weight: bold">if</span>(caller <span style="color: #666666">&amp;&amp;</span> [caller respondsToSelector<span style="color: #666666">:</span>selector]) {
+        [caller performSelector<span style="color: #666666">:</span>selector];
+    }
+    
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>scrollView.superview <span style="color: #666666">==</span> <span style="color: #007020">nil</span>) {
+        <span style="color: #60a0b0; font-style: italic">// if the webview was shown</span>
+        [self<span style="color: #666666">-&gt;</span>scrollView addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleContainer];
+        [self<span style="color: #666666">-&gt;</span>infoView addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>scrollView];
+    } <span style="color: #007020; font-weight: bold">else</span> <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>titleContainer.superview <span style="color: #666666">==</span> <span style="color: #007020">nil</span>) {
+        <span style="color: #60a0b0; font-style: italic">// if an explanation was shown</span>
+        [self<span style="color: #666666">-&gt;</span>scrollView addSubview<span style="color: #666666">:</span>self<span style="color: #666666">-&gt;</span>titleContainer];
+    }
+    
+    self<span style="color: #666666">-&gt;</span>eventView.hidden <span style="color: #666666">=</span> <span style="color: #007020">YES</span>;
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(UIView<span style="color: #666666">*</span>) <span style="color: #06287e">newEntry:</span>(NSString<span style="color: #666666">*</span>)<span style="color: #bb60d5">text</span> <span style="color: #06287e">withWith:</span>(<span style="color: #902000">int</span>)<span style="color: #bb60d5">width</span>{
+    UILabel<span style="color: #666666">*</span> label <span style="color: #666666">=</span> [[UILabel alloc]initWithFrame<span style="color: #666666">:</span>CGRectMake(<span style="color: #40a070">0.0f</span>, <span style="color: #40a070">0.0f</span>, width, <span style="color: #40a070">0.0f</span>)];
+    label.backgroundColor <span style="color: #666666">=</span> [UIColor clearColor];
+    label.textAlignment <span style="color: #666666">=</span> NSTextAlignmentLeft;
+    LayStyleGuide <span style="color: #666666">*</span>styleGuide <span style="color: #666666">=</span> [LayStyleGuide instanceOf<span style="color: #666666">:</span><span style="color: #007020">nil</span>];
+    label.font <span style="color: #666666">=</span> [styleGuide getFont<span style="color: #666666">:</span>NormalFont];
+    label.textColor <span style="color: #666666">=</span> [styleGuide getColor<span style="color: #666666">:</span>TextColor];
+    label.numberOfLines <span style="color: #666666">=</span> <span style="color: #40a070">0</span>;
+    label.text <span style="color: #666666">=</span> text;
+    [label sizeToFit];
+    <span style="color: #007020; font-weight: bold">return</span> label;
+}
+
+<span style="color: #60a0b0; font-style: italic">// LayImageRibbonDelegate</span>
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>)<span style="color: #06287e">entryTapped:</span>(NSInteger)<span style="color: #bb60d5">identifier</span> {
+    [self hide];
+}
+
+<span style="color: #007020; font-weight: bold">-</span>(<span style="color: #902000">void</span>)<span style="color: #06287e">scrolledToPage:</span>(NSInteger)<span style="color: #bb60d5">page</span> {
+    
+}
+
+<span style="color: #60a0b0; font-style: italic">//</span>
+<span style="color: #60a0b0; font-style: italic">// UIWebViewDelegate</span>
+<span style="color: #60a0b0; font-style: italic">//</span>
+
+<span style="color: #007020; font-weight: bold">-</span> (<span style="color: #902000">void</span>)<span style="color: #06287e">webViewDidFinishLoad:</span>(UIWebView <span style="color: #666666">*</span>)<span style="color: #bb60d5">webView</span> {
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>activity) {
+        [self<span style="color: #666666">-&gt;</span>activity stopAnimating];
+        [self<span style="color: #666666">-&gt;</span>activity removeFromSuperview];
+        self<span style="color: #666666">-&gt;</span>activity <span style="color: #666666">=</span> <span style="color: #007020">nil</span>;
+    }
+}
+
+<span style="color: #007020; font-weight: bold">-</span> (<span style="color: #902000">void</span>)<span style="color: #06287e">webViewDidStartLoad:</span>(UIWebView <span style="color: #666666">*</span>)<span style="color: #bb60d5">webView</span> {
+    <span style="color: #007020; font-weight: bold">if</span>(self<span style="color: #666666">-&gt;</span>activity) {
+        [self<span style="color: #666666">-&gt;</span>activity startAnimating];
+       
+    }
+}
+
+
+
+<span style="color: #007020; font-weight: bold">@end</span>
+</pre></td></tr></table></div>
+</body>
+</html>

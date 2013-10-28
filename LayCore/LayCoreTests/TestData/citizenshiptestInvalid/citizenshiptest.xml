@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <info format="0.1">
+    <title>Einbürgerungstest</title>
+    <cover></cover>
+    <author><name>Bundesministerium des Inneren</name></author>
+    <publisher>
+      <name>Bundesministerium des Inneren</name>
+      <logo></logo>
+      <link></link>
+    </publisher>
+  </info>
+  <questions>
+    <question name="q1">
+      <!-- A text element is required for a question -->
+      <!-- <text>Welches Wappen gehört zum Bundesland Berlin?</text> -->
+      <answer type="singlechoice">
+	<answerItem correct="yes">
+	  <text>Wappen 1</text>
+	</answerItem>
+	<answerItem correct="no">
+	  <text>Wappen 2</text>
+	</answerItem>
+	<answerItem correct="no">
+	  <text>Wappen 3</text>
+	</answerItem>
+	<answerItem correct="no">
+	  <text>Wappen 4</text>
+	</answerItem>
+      </answer>
+    </question>
+  </questions>
+</catalog>

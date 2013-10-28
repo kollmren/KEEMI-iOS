@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <info format="0.1">
+        <title>Der Einbürgerungstest(Auszug)</title>
+        <cover><media type="image" ref="EinbuergerungstestCover.png"/></cover>
+        <author><name>René Kollmorgen</name></author>
+        <publisher>
+            <name>PaaSQ Limited</name>
+            <logo><media type="image" ref="logo.png"/></logo>
+            <link></link>
+        </publisher>
+        <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+        <language>deutsch</language>
+        <topic>Allgemeinbildung</topic>
+        <version>0.1</version>
+    </info>
+    <questionList>
+        <question type="singleChoice" name="wappenDeutschland">
+            <text>Welches ist das Wappen der Bundesrepublik Deutschland?</text>
+            <answer explanation="deutscheWappen" style="column">
+                <answerItem correct="yes">
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no" explanation="christusmonogramm">
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="grundrechte">
+            <text>Welches Recht gehört zu den Grundrechten in Deutschland?</text>
+            <answer explanation="grundrechte">
+                <answerItem correct="no">
+                    <text>Waffenbesitz</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Faustrecht</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Meinungsfreiheit</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Selbstjustiz</text>
+                </answerItem>
+            </answer>
+        </question>
+    </questionList>
+    <explanationList>
+        <explanation name="deutscheWappen">
+            <title>Das Wappen der Bundesrepublik Deutschland</title>
+            <section>
+            	<text>Das Bundeswappen ist das Staatswappen der Bundesrepublik Deutschland. Es weist die Farben der Nationalflagge Schwarz-Rot-Gold auf. Das Hoheitszeichen zeigt auf goldgelbem, unten spitz zulaufendem Wappenschild in zeichenhaft reduzierter Form den einköpfigen schwarzen Adler, den Kopf nach rechts gewendet, die Flügel offen, aber mit geschlossenem Gefieder, Schnabel, Zunge und Fänge von roter Farbe, den sogenannten Bundesadler. Das Wappen ist identisch mit dem von Karl-Tobias Schwab 1926 entworfenen, ab 1928 gebräuchlichen Staatswappen des Deutschen Reichs der Zeit der Weimarer Republik, dessen Adler noch als Reichsadler bezeichnet wird. Das Bundeswappen unterscheidet sich vom Bundesschild, dem den deutschen Bundesbehörden und der Bundeswehr für Dienstflaggen und Truppenfahnen vorbehaltenen Halbrundschild mit einer Variante des Bundesadlers. Das Bundeswappen ist neben dem Bundessiegel, der Bundesflagge, der Bundeshymne, der Bundeshauptstadt und dem Tag der Deutschen Einheit ein Staatssymbol Deutschlands, allerdings ohne Verfassungs- oder Gesetzesrang.</text>
+            </section>
+        </explanation>
+        <explanation name="christusmonogramm">
+            <title>Das Christusmonogramm</title>
+            <section>
+            	<text>Das Christusmonogramm ΧΡ, auch Chi-Rho oder Konstantinisches Kreuz genannt, früher auch Christogramm, ist nach dem Kreuz und dem Fisch das am häufigsten verwendete Symbol für Jesus Christus. Besonders in der Spätantike war es weit verbreitet. Es wird seit dem 2. Jahrhundert n. Chr. von Christen verwendet, um ihren Glauben an Jesus Christus darzustellen und um sich untereinander zu erkennen.</text>
+            </section>
+        </explanation>
+        <explanation name="grundrechte">
+            <title>Grundrechte in Deutschland</title>
+            <section>
+            	<text>Die Meinungsfreiheit ist ein in Artikel 5 der Verfassung garantiertes Grundrecht: "Jeder hat das Recht, seine Meinung in Wort, Schrift und Bild frei zu äußern und zu verbreiten und sich aus allgemein zugänglichen Quellen ungehindert zu unterrichten. Die Pressefreiheit und die Freiheit der Berichterstattung durch Rundfunk und Film werden gewährleistet. Eine Zensur findet nicht statt."</text>
+            	<text>Waffenbesitz ist kein Grundrecht - zum Besitz von Waffen braucht man in Deutschland eine Erlaubnis. Eine Schusswaffe in der Öffentlichkeit dürfen in Deutschland neben der Polizei nur wenige Personen mitführen, zum Beispiel Schutzpersonal von Geldtransportern oder besonders gefährdete Staatsanwälte.</text>
+            	<text>Selbstjustiz steht unter Strafe. Auch das Faustrecht - das Recht des Stärkeren - gilt in Deutschland nicht.</text>
+            </section>
+        </explanation>
+    </explanationList>
+</catalog>

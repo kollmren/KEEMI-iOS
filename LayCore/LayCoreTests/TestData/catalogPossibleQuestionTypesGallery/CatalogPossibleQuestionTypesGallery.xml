@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <info format="0.1">
+    <title>This catalog shows the possible question-types KEEMI can handle, the title is pretty long, pretty long</title>
+    <cover>
+      <media type="image" ref="Cover.png"/>
+    </cover>
+    <author>
+      <name>Rene Kollmorgen, Oswald Kolle, Mister x, Mister y, Mister z, Mister a</name>
+    </author>
+    <publisher>
+      <name>The name of the publisher</name>
+      <link>www.paasq.com</link>
+    </publisher>
+    <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+    <language>deutsch</language>
+    <topic>Allgemeinbildung</topic>
+    <source>https://www.dropbox.com/s/lkfwt5p2wcxbnha/catalogPossibleQuestionTypesGallery.zip</source>
+    <about>
+      <section>
+        <title>Weitere Autoren</title>
+        <text>Autor 1</text>
+        <text>Autor 2</text>
+        <text>Autor 3</text>
+      </section>
+      <section>
+        <title>Bildnachweise</title>
+        <text>Bildnachweis 1</text>
+        <text>Bildnachweis 2</text>
+        <text>Bildnachweis 3</text>
+      </section>
+    </about>
+    <version>2.0</version>
+  </info>
+  <questionList>
+    <question type="singleChoice" name="question1">
+      <text>Dies ist eine Frage. Eine Frage kann sehr kurz oder auch sehr lang sein. Wie lang eine Frage ist bestimmt der Autor. Nur eine Antwort ist richtig!</text>
+      <answer>
+        <answerItem correct="no">
+          <text>Antwort A</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort B</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort C</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort D</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Antwort E(diese ist richtig)</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="singleChoice" name="javaQuestion" topic="java">
+      <title>Java SE 7 Programmer I - Sample Questions</title>
+      <text>What is the result? (only one answer is correct, this answer has a html-media marked as large)</text>
+      <answer shuffleAnswers="NO">
+        <mediaList>
+          <media type="html" ref="java1.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>A) c x y g </text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>B) c g x y  </text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>C) x c y g</text>
+        </answerItem>
+        <answerItem correct="yes" explanation="javaInit">
+          <text>D) x y c g</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>E) y x c g</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>F) y c g x </text>
+        </answerItem>
+      </answer>
+      <resourceList>
+        <resource name="resJavaQuestion"/>
+      </resourceList>
+    </question>
+    <question type="flashcard" name="question3">
+      <title>Der Titel der Frage</title>
+      <text>Dies ist eine Karteikarte. Es gibt keine vorgegebenen Antworten.</text>
+      <answer>
+        <answerItem correct="no">
+          <text>1. Antwort A</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>2. Antwort B</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>3. Antwort C</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>4. Antwort D</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>5. Antwort E(diese ist richtig)</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="flashcard" name="question4">
+      <text>Dies ist eine Karteikarte. Für die Antworten sind Bilder hinterlegt. </text>
+      <answer style="column">
+        <answerItem correct="yes">
+          <media type="image" ref="image144x77.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x77.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x77.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x77.png"/>
+        </answerItem>
+        <answerItem correct="yes" explanation="explanation1">
+          <media type="image" ref="image144x77.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="multipleChoice" name="question5">
+      <title>Der Titel der Frage. Dieser Titel ist ein bisschen länger als ein Titel sein sollte. Die max. Länge an Zeichen eines Titels ist nicht festgelegt. Ein Titel sollte jedoch nicht zu lang sein.</title>
+      <text>Dies ist eine Multiple-Choice Frage, mehrere Antworten können richtig sein.</text>
+      <answer style="row">
+        <answerItem correct="yes">
+          <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="multipleChoice" name="question6">
+      <text>Dies ist Frage6. Jede Frage hat eine eindeutige Nummer. (Mehrere Antwortern sind korrekt!)</text>
+      <answer>
+        <mediaList>
+          <media type="html" ref="aHtmlWithATitle.html"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <text>Antwort A(auch richtig)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort B</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort C</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort D</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Antwort E(diese ist richtig)</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="multipleChoice" name="question7">
+      <text>Dies ist Frage7(image-media markiert als large). Diese Frage ist ziemlich lang, hat ganz viel Text, hat ganz viel Text, hat ganz viel Text, hat ganz viel Text. Der Text geht noch weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter</text>
+      <answer>
+        <mediaList>
+          <media type="image" ref="image3_144x144.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <text>Antwort A(auch richtig)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort B</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort C</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort D</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Antwort E(diese ist richtig)</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="multipleChoice" name="question8">
+      <title>Dieser Titel ist auch ein wenig länge. Der Titel geht über zwei Zeilen ...</title>
+      <text>Dies ist Frage8 eigentlich wie Frage 7 nur noch mit einem Titel ;)(image-media markiert als large). Diese Frage ist ziemlich lang, hat ganz viel Text, hat ganz viel Text, hat ganz viel Text, hat ganz viel Text. Der Text geht noch weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter weiter und weiter</text>
+      <answer>
+        <mediaList>
+          <media type="image" ref="image3_144x144.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <text>Antwort A(auch richtig)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort B</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort C</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort D</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Antwort E(diese ist richtig)</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="multipleChoice" name="question9">
+      <text>Dies ist Frage 9. Frage 9 hat auch ein Medium markiert als large. Weiterhin werden für die Antwort Bilder und Text genutzt.</text>
+      <answer shuffleAnswers="NO">
+        <mediaList>
+          <media type="image" ref="image3_144x144.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <text>Antwort A(auch richtig)</text>
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort B</text>
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort C</text>
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Antwort D</text>
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Antwort E(diese ist richtig)</text>
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="flashcard" name="question10">
+      <text>Dies ist eine Karteikarte Nr.10. Für die Antworten sind Bilder hinterlegt. Zusätzlich ist ein Bild zur Frage hinterlegt.</text>
+      <answer style="column">
+        <mediaList>
+          <media type="image" ref="RibbonImage.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="flashcard" name="question11">
+      <text>Dies ist eine Karteikarte Nr.11. Diese ist ähnlich der 10. aber mit mehreren Bildern zur Frage!</text>
+      <answer style="column">
+        <mediaList>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="singleChoice" name="question12">
+      <text>Frage12, mit Media markiert als large</text>
+      <answer style="column">
+        <mediaList>
+          <media type="image" ref="image1280x640.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="singleChoice" name="question13">
+      <text>Frage13 Frage mit HTML als Media</text>
+      <answer style="column">
+        <mediaList>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="singleChoice" name="question14">
+      <text>Frage14 Frage mit HTML als Media</text>
+      <answer style="column">
+        <mediaList>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question name="question15" type="singleChoice">
+      <text>Frage 15 mit zu großen Bildern für die Spaltenanordnung!</text>
+      <answer style="column">
+        <answerItem correct="yes">
+          <media type="image" ref="ButtonImage.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="ButtonImage.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="ButtonImage.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="ButtonImage.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question name="question16" type="singleChoice">
+      <text>Frage 16 mitBildern und Text!</text>
+      <answer>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+          <text>(yes)Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image2_144x144.png"/>
+          <text>....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="aHtmlWithATitle.html" large="yes"/>
+          <text>(html)....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="ButtonImage.png"/>
+           <text>(großes Bild)....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+      </answer>
+    </question>
+     <question type="singleChoice" name="question17">
+      <text>Frage17</text>
+      <answer style="column">
+        <mediaList>
+          <media type="image" ref="image1280x640.png"/>
+        </mediaList>
+        <answerItem correct="yes">
+          <media type="image" ref="image144x144.png"/>
+          <text>A)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+          <text>B)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+          <text>C)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image144x144.png"/>
+          <text>D)</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="image" ref="image2_144x144.png"/>
+          <text>E)</text>
+        </answerItem>
+      </answer>
+    </question>
+     <question type="singleChoice" name="question18">
+      <text>Frage18 Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial ...</text>
+      <answer style="row">
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="singleChoice" name="question19">
+      <text>Frage19 Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial ...</text>
+      <answer style="row">
+       <mediaList>
+          <media type="image" ref="image1280x640.png"/>
+          <media type="image" ref="image2_144x144.png"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. ... Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+     <question type="singleChoice" name="question20">
+      <text>Frage20 Frage mit HTML als Media(mitViewPort)</text>
+      <answer>
+        <mediaList>
+          <media type="html" ref="java3MitViewport.html"/>
+          <media type="html" ref="java3MitViewport.html"/>
+          <media type="html" ref="java3MitViewport.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+          <media type="image" ref="image4_144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+           <media type="image" ref="image144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+           <media type="image" ref="image3_144x144.png"/>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+     <question type="singleChoice" name="question21">
+      <text>Frage21 Frage mit HTML als Media(ohne viewport)</text>
+      <answer>
+        <mediaList>
+          <media type="html" ref="java2.html"/>
+          <media type="html" ref="java2.html"/>
+          <media type="html" ref="java2.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <!-- 22 -->
+     <question type="singleChoice" name="question22">
+      <text>Frage22 Frage mit HTML als Media(mit viewport)</text>
+      <answer>
+        <mediaList>
+          <media type="html" ref="sourceCodeExamle.html"/>
+          <media type="html" ref="sourceCodeExamle.html"/>
+          <media type="html" ref="sourceCodeExamle.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <!-- 23 -->
+     <question type="singleChoice" name="question23">
+      <text>Frage23 Frage mit HTML als Media(ohne viewport)</text>
+      <answer>
+        <mediaList>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+        </mediaList>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+        </answerItem>
+        <answerItem correct="no">
+          <text>Hat zwei text-nodes Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+          <text>text-node Nr. 2</text>
+        </answerItem>
+        <answerItem correct="no">
+          <media type="html" ref="htmlWithCenteredParagraph.html"/>
+        </answerItem>
+        <answerItem correct="yes">
+          <media type="image" ref="image2_144x144.png"/>
+        </answerItem>
+      </answer>
+    </question>
+    <question type="wordResponse" name="question24">
+    	<text>Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
+    	<answer>
+    		<answerItem correct="yes">
+    			<text>1. Konrad Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2. Konrad Hermann Joseph Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    		<!-- text is trimmed -->
+    			<text>  Conrad Hermann Joseph Adenauer  </text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>3. Konrad Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>4. Konrad Hermann Joseph Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    		<!-- text is trimmed -->
+    			<text>  5. Conrad Hermann Joseph Adenauer  </text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>6. Konrad Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>7. Konrad Hermann Joseph Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    		<!-- text is trimmed -->
+    			<text>  8. Conrad Hermann Joseph Adenauer  </text>
+    		</answerItem>
+    	</answer>
+    </question>
+    <!--  25 -->
+    <question type="wordResponse" name="question25">
+    	<text>Wie 24 mit Bilder für Antwort. Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
+    	<answer>
+    	 <mediaList>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+          <media type="html" ref="htmlWithCssFormatedDivs.html"/>
+        </mediaList>
+    		<answerItem correct="yes" explanation="explanation1">
+    			<text>1. Konrad Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2. Konrad Hermann Joseph Adenauer</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    		<!-- text is trimmed -->
+    			<text>  3. Conrad Hermann Joseph Adenauer  </text>
+    		</answerItem>
+    	</answer>
+    </question>
+        <!--  26 -->
+    <question type="wordResponse" name="question26">
+    	<text>Hauptstadt von Deutschland ...</text>
+    	<answer>
+    		<answerItem correct="yes">
+    			<text>Berlin</text>
+    		</answerItem>
+    	</answer>
+    </question>
+  </questionList>
+  <mediaList>
+    <media type="image" ref="image1280x640.png" large="yes"/>
+    <media type="html" ref="aHtmlWithATitle.html" large="yes"/>
+    <media type="html" ref="java1.html" large="yes"/>
+    <media type="image" ref="image144x144.png" label="Das ist ein Label zum Bild" showLabelBeforeEvaluated="no"/>
+    <media type="image" ref="image2_144x144.png" label="Dieses Label ist ein bisschen zu lang für den zur Verfügung stehenden Platz" showLabelBeforeEvaluated="yes"/>
+    <media type="image" large="yes" ref="image3_144x144.png" label="Dieses Label ist ein bisschen zu lang für den zur Verfügung stehenden Platz" showLabelBeforeEvaluated="yes"/>
+  </mediaList>
+  <resourceList>
+    <resource name="resJavaQuestion" type="website">
+      <title>Oracle Certification - Java SE 7 Programmer I - Sample Questions</title>
+      <link>http://education.oracle.com/pls/web_prod-plq-dad/db_pages.getpage?page_id=303&amp;p_certName=SQ1Z0_803</link>
+    </resource>
+  </resourceList>
+  <topicList>
+  <topic name="java">
+  	<title>Java Programming</title>
+  </topic>
+  </topicList>
+  <explanationList>
+  	<explanation name="explanation1">
+  	<title>Title of the explanation1</title>
+  	<section>
+  		<title>Title of section1</title>
+  		<text>1 Some text as explanation ...</text>
+  		<text>2 Some text as explanation ...</text>
+  		<text>3 Some text as explanation ...</text>
+  		<mediaList>
+  			 <media type="html" ref="java1.html" large="yes"/>
+  		</mediaList>
+  	</section>
+  	<section>
+  		<title>Title of section2</title>
+  		<text>1 Some text as explanation ...</text>
+  		<text>2 Some text as explanation ...</text>
+  		<text>3 Some text as explanation ...</text>
+  	</section>
+  	</explanation>
+  	<explanation name="javaInit">
+  		<title></title>
+  		<section>
+  			<text>A static initialization block is a normal block of code enclosed in braces, { }, and preceded by the static keyword(figure 1)</text>
+  			<text> A class can have any number of static initialization blocks, and they can appear anywhere in the class body. The runtime system guarantees that static initialization blocks are called in the order that they appear in the source code. There is an alternative to static blocks — you can write a private static method as figure2 shows.</text><text>The advantage of private static methods is that they can be reused later if you need to reinitialize the class variable.</text>
+  			<mediaList>
+  				<media ref="staticInit01.html" type="html"/>
+  				<media ref="staticInit02.html" type="html"/>
+  			</mediaList>
+  		</section>
+  	</explanation>
+  </explanationList>
+</catalog>

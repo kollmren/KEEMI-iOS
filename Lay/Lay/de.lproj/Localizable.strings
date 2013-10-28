@@ -1,0 +1,151 @@
+/* 
+  Localizable.strings
+  KEEMI
+
+  Created by Rene Kollmorgen on 15.05.13.
+  Copyright (c) 2013 Rene. All rights reserved.
+*/
+/* Import */
+"ImportQuestion" = "Möchtest Du den Katalog importieren?";
+"ImportOkLabel" = "Importieren";
+"ImportAbortLabel" = "Abbrechen";
+"ImportSuccessfully" = "Der Katalog wurde importiert.";
+"ImportErrorShort" = "Fehler beim importieren";
+"ImportError" = "Beim Importieren des Katalogs traten Fehler auf.";
+"ImportErrorEmailAuthor" = "Beim Importieren des Katalogs traten Fehler auf. Wenn Du Mail bereits eingerichtet hast kannst Du jetzt einen Fehlerbericht an den Autor des Katalogs senden.";
+"ImportSendReportMail" = "Sende Fehlerbericht";
+"ImportNotSentReport" = "Bericht wurde nicht gesendet.";
+"ImportSavedReport" = "Bericht wurde gespeichert.";
+"ImportSentReport" = "Bericht wurde verschickt.";
+"ImportCouldNotSentReport" = "Der Bericht konnte nicht verschicht werden.";
+"ImportOpenCatalogError" = "Der Katalog konnte nicht geöffnet werden. Bitte schicke einen Fehlerbericht zum Entwickler von KEEMI.";
+"ImportShowDescription" = "Zeige Beschreibung ...";
+"ImportHiddeDescription" = "Beschreibung ausblenden";
+"ImportInfoDuplicateCatalog" = "Der unten aufgeführte Fragenkatalog(Titel, Verleger) ist bereits gespeichert. Der gespeicherte Katalog muss gelöscht werden, um ein Import durchzuführen!";
+"ImportDeleteDuplicateCatalogButton" = "Lösche gespeicherten Katalog";
+"ImportDeletedDuplicateCatalogSuccessfully" = "Der gespeicherte Katalog wurde gelöscht!";
+"ImportDeletedDuplicateCatalogWithErrors" = "Der gespeicherte Katalog konnte nicht gelöscht werden.";
+"ImportReadingInfoFailed" = "Formatfehler";
+"ImportUnpackCatalog" = "Entpacke Katalog ...";
+"ImportUnpackCatalogError" = "Der Katalog konnte nicht entpackt werden!";
+"ImportReadCatalogInfo" = "Lese Kataloginformationen ...";
+"ImportCatalogState" = "Katalog wird importiert ...";
+"ImportDeleteCatalogState" = "Lösche Katalog ...";
+"ImportStillATaskInProgress" = "Das Öffnen eines Katalogs wurde ignoriert, da ein Katalog gerade verarbeitet wird!";
+"ImportCatalogCreateThumbnailState" = "Erstelle Miniaturbilder ...";
+/* General */
+"Help" = "Hilfe";
+"BackToMyCatalogs" = "Zeige meine Kataloge";
+"OpenCatalog" = "Öffne Katalog";
+"MyCatalogs" = "Meine Kataloge";
+"MyCatalogsNoCatalogsStored" = "Keine Kataloge gespeichert.";
+"CatalogLearn" = "Lernen";
+"CatalogShare" = "Mail";
+"CatalogRecall" = "Abfragen";
+"CatalogRecallByTopic" = "nach Thema";
+"CatalogCredits" = "Impressum";
+"CatalogResources" = "Quellen";
+"CatalogFavourites" = "Favoriten";
+"CatalogStatistic" = "Lernstand";
+"CatalogMenuStatistic" = "Lernstand";
+"CatalogStatisticLegendCorrect" = "richtig beantwortet";
+"CatalogStatisticLegendIncorrect" = "falsch beantwortet";
+"CatalogStatisticLegendNeverAnswered" = "noch nicht beantwortet";
+"CatalogStatisticLegendAnswered" = "beantwortetet";
+"CatalogStatisticKnowNotAnweredYet" = "unbeantwortet";
+"CatalogStatisticKnowNothing" = "nicht eingeprägt";
+"CatalogStatisticKnowBad" = "schlecht eingeprägt";
+"CatalogStatisticKnowWell" = "halbwegs eingeprägt";
+"CatalogStatisticKnowGood" = "gut eingeprägt";
+"CatalogStatisticKnowReliable" = "sicher eingeprägt";
+"CatalogStatisticMenuTitle" = "Lernstand";
+"Save" = "Speichern";
+"Cancel" = "Abbrechen";
+"CatalogQuestionAnswerTitle" = "Antwort:";
+/* Share */
+"CatalogShareByMailSubject" = "KEEMI Fragenkatalog";
+"CatalogShareByMailText" = "Hier ein Link zu einem interessanten Fragenkatalog. Link:";
+/* Notes */
+"CatalogNotes" = "Notizen";
+"NotesAddTextNote" = "Text hinzufügen";
+"NotesAddTextNoteTitle" = "Notiz hinzufügen";
+"NotesEditTextNoteTitle" = "Notiz bearbeiten";
+"NotesAddImageNote" = "Foto hinzufügen";
+"NotesTitleTextNode" = "Notiz vom: %@";
+/* Catalog Info */
+"CatalogDetailLabelAuthor" = "Autor";
+"CatalogDetailLabelPublisher" = "Verleger";
+"CatalogDetailLabelNumberOdQuestions" = "Fragen";
+"CatalogDetailLabelNumberOdExplanations" = "Erklärungen";
+"CatalogDetailLabelLanguage" = "Sprache";
+"CatalogDetailLabelVersion" = "Version";
+"CatalogDetailLabelTopic" = "Thema";
+"CatalogDetailLabelSource" = "Download";
+"CatalogDetailLabelLink" = "Webseite";
+"CatalogDetailLabelAuthorEmail" = "E-Mail(Autor)";
+"CatalogDetailLabelPublisherEmail" = "E-Mail(Verleger)";
+"CatalogNumberOfQuestionsLabel" = "Fragen: %u";
+"CatalogNumberOfExplanationsLabel" = "Erklärungen: %u";
+"CatalogTitleOfDefaultTopic" = "Fragen";
+"CatalogNoCatalogsStored" = "Keine Kataloge gespeichert!";
+/* Credits */
+"CatalogCreditsTitle" = "Impressum";
+/* Catalog Favourites */
+"CatalogNumberOfFavouritesLabel" = "Favoriten: %u";
+"CatalogFavouritesTitle" = "Favoriten";
+/* Catalog Resources */
+"ResourceWebLink" = "Web";
+"ResourceBookLink" = "Bücher";
+"ResourceFileLink" = "Dateien";
+"WebAddLinkButtonTitle" = "Weblink hinzufügen";
+"FileAddLinkButtonTitle" = "Dateiverweis hinzufügen";
+"BookAddLinkButtonTitle" = "Buchverweis hinzufügen";
+"WebEditLinkButtonTitle" = "Weblink bearbeiten";
+"FileEditLinkButtonTitle" = "Dateiverweis bearbeiten";
+"BookEditLinkButtonTitle" = "Buchverweis bearbeiten";
+"ResourceInvalidLinkMessage" = "ungültiger Link";
+"ResourceTitleDefault" = " Titel";
+"ResourceLinkDefault" = " Link (Beispiel: http://www.abc.com/pfad)";
+"ResourceBookDefault" = " Beispiel: Seite 39 und 76";
+"ResourceBookLinkValue" = "Buch";
+"ResourceOpenQuestionsTitle" = "Fragen";
+"ResourceOpenExplanationsTitle" = "Erklärungen";
+"ResourceEditTitle" = "Bearbeiten";
+/* Question-Session */
+"QuestionSessionSelectTopicsTitle" = "Themen";
+"QuestionSessionDefaultTopicTitle" = "ohne Thema";
+"QuestionSessionCancelToImportCatalogTitle" = "Abfragen beenden um einen Fragenkatalog zu importieren?";
+"QuestionSessionCancelToImportCatalogCancelSession" = "Abfragen beenden";
+"QuestionSessionCancelToImportCatalogContinueSession" = "Fragenkatalog nicht importieren";
+"QuestionSessionAnswerCorrect" = "Richtig";
+"QuestionSessionAnswerWrong" = "Falsch";
+"QuestionSessionAnswerSkipped" = "Übersprungen";
+"QuestionSessionAnswerExplanation" = "Kurze Erläuterung";
+"QuestionSessionAnswerStatistic" = "Ergebnis";
+"QuestionSessionTopicNumberSelectedQuestions" = "Anzahl ausgewählter Fragen";
+"QuestionSessionTopicNumberSelectedExplanations" = "Anzahl ausgewählter Erklärungen";
+"QuestionSessionCardShowAnswer" = "Zeige die Antwort";
+"QuestionSessionCardHideAnswer" = "Antwort ausblenden";
+"QuestionSessionCardUserWasRight" = "Hab es gewusst";
+"QuestionSessionCheckAnswer" = "Prüfen";
+"QuestionSessionDeleteText" = "Lösche die Eingabe";
+/* Error messages */
+"ErrorCatalogToOpenDoesnNotExist" = "Die zu öffnende Datei existiert nicht. Der Katalog kann nicht importiert werden";
+"ErrorCouldNotConfigureApp" = "Bei der Konfiguration der Anwendung traten Fehler auf!";
+"ErrorAlertMessageSendBugReport" = "KEEMI wurde nicht ordnungsgemäß beendet! Bitte sende uns den Fehlerbericht um die App zu verbessern. Danke.";
+/* Info */
+"InfoTitle" = "Informationen";
+"InfoGeneral" = "Allgemein";
+"InfoHelp" = "Hilfe";
+"InfoSupport" = "Support";
+"InfoAppVersionTitle" = "App-Version";
+"InfoSupportFeedback" = "Kontaktiere uns";
+"InfoSupportFaq" = "FAQ";
+"InfoSupportBugReport" = "Einen Fehler melden";
+"InfoFeedbackSubject" = "KEEMI Feedback";
+"InfoContentSizeCategoryDidChange" = "Die Einstellungen zur Textgröße wurden geändert. Um die Änderungen anzuwenden navigiere bitte zur Katalogübersicht:\"Meine%@Kataloge\"";
+"InfoBugReportSubject" = "KEEMI Fehlerbericht";
+/* Mail */
+"MailNotConfiguredText" = "Du hast noch kein Standard E-Mail Account angelegt!";
+"MailSendButton" = "Senden";
+"MailCancelButton" = "Abbrechen";

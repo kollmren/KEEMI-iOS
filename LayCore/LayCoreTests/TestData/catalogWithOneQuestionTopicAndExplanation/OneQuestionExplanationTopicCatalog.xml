@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <info format="0.1" version="0.1">
+        <title>Catalog with one question,explanation and topic</title>
+        <cover><media type="image" ref="citizenTest.jpeg"/></cover>
+        <author><name>The KEEMI-Author</name></author>
+        <publisher>
+            <name>This is a very long name of a publisher. A name can be expand max. 3 number of lines.</name>
+            <logo><media type="image" ref="logo.png"/></logo>
+            <link>www.paasq.com</link>
+        </publisher>
+        <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+        <language>deutsch</language>
+        <topic>Allgemeinbildung</topic>
+        <source>www.paasq.com</source>
+        <about>
+        	<section>
+        		<title>Weitere Autoren</title>
+        		<text>Autor 1</text>
+        		<text>Autor 2</text>
+        		<text>Autor 3</text>
+        	</section>
+        	<section>
+        		<title>Bildnachweise</title>
+        		<text>Bildnachweis 1</text>
+        		<text>Bildnachweis 2</text>
+        		<text>Bildnachweis 3</text>
+        	</section>
+        </about>
+    </info>
+    <questionList>
+        <!-- The topic reference is ignored! --> 
+        <question type="singleChoice" topic="wappen" name="wappenBundeslandBerlin">
+            <text>Welches Wappen gehört zum Bundesland Berlin?</text>
+            <answer>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen03.png"/>
+                </answerItem>
+                <answerItem correct="yes" explanationReference="berlinerWappen">
+                    <media type="image" ref="berlinWappen04.png"/>
+                </answerItem>
+            </answer>
+        </question>
+    </questionList>
+    <explanationList>
+    	<explanation name="wappen">
+    	<title>Title of the explanation</title>
+    		<section><title>Title of section 1</title>
+    			<text>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland</text>
+    			<text>Text, Text, Text</text>
+    			<mediaList><media type="image" ref="berlinWappen02.png"/></mediaList>
+    		</section>
+    		<section><title>Title of section 2</title>
+    			<text>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland</text>
+    			<text>Text, Text, Text</text>
+    			<mediaList>
+    				<media type="image" ref="berlinWappen01.png"/>
+    				<media type="image" ref="berlinWappen03.png"/>
+    			</mediaList>
+    		</section>
+    	</explanation>
+    </explanationList>
+    <topicList>
+    <topic name="wappen">
+    	<title>Topic Wappen</title>
+    </topic>
+    </topicList>
+</catalog>

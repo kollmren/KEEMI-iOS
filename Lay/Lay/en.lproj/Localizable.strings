@@ -1,0 +1,157 @@
+/* 
+  Localizable.strings
+  KEEMI
+
+  Created by Rene Kollmorgen on 15.05.13.
+  Copyright (c) 2013 Rene. All rights reserved.
+*/
+/* Import */
+"ImportQuestion" = "Do you want to import the catalog?";
+"ImportOkLabel" = "Import";
+"ImportAbortLabel" = "Cancel";
+"ImportSuccessfully" = "Catalog imported successfully";
+"ImportErrorShort" = "Failure during import.";
+"ImportError" = "Could not import the catalog.";
+"ImportErrorEmailAuthor" = "Could not import the catalog. If you have already setup the Mail app you can send an error report to the author of the catalog now.";
+"ImportSendReportMail" = "Send error report.";
+"ImportNotSentReport" = "Did not send the report.";
+"ImportSavedReport" = "Saved the report.";
+"ImportSentReport" = "Sent report.";
+"ImportCouldNotSentReport" = "Could not send the report.";
+"ImportOpenCatalogError" = "Could not open the catalog. Please send an error report.";
+"ImportShowDescription" = "Show description ...";
+"ImportHiddeDescription" = "Hide description";
+"ImportInfoDuplicateCatalog" = "The catalog below is already stored in your list of catalogs. If you want to import the new catalog delete the already stored catalog first!";
+"ImportDeleteDuplicateCatalogButton" = "Delete stored catalog";
+"ImportDeletedDuplicateCatalogSuccessfully" = "Stored catalog successfully deleted";
+"ImportDeletedDuplicateCatalogWithErrors" = "Could not delete stored catalog.";
+"ImportReadingInfoFailed" = "Incorrect format";
+"ImportUnpackCatalog" = "Unpack catalog ...";
+"ImportUnpackCatalogError" = "Unpacking failed!";
+"ImportReadCatalogInfo" = "Read catalog information ...";
+"ImportCatalogState" = "Importing catalog ...";
+"ImportCatalogCreateThumbnailState" = "Create thumbnails ...";
+"ImportDeleteCatalogState" = "Delete catalog ...";
+"ImportStillATaskInProgress" = "The opening of a catalog was ignored, as another catalog is sill in progress!";
+/* General */
+"Help" = "Help";
+"BackToMyCatalogs" = "Show my catalogs";
+"OpenCatalog" = "Open catalog";
+"MyCatalogs" = "My catalogs";
+"MyCatalogsNoCatalogsStored" = "No catalogs stored.";
+"CatalogLearn" = "Learn";
+"CatalogShare" = "Mail";
+"CatalogRecall" = "Recall";
+"CatalogRecallByTopic" = "by topic";
+"CatalogCredits" = "About";
+"CatalogResources" = "Resources";
+"CatalogFavourites" = "Favourites";
+"CatalogStatistic" = "Knowledge Level";
+"CatalogMenuStatistic" = "Level";
+"CatalogStatisticLegendCorrect" = "correctly answered";
+"CatalogStatisticLegendIncorrect" = "incorrectly answered";
+"CatalogStatisticLegendNeverAnswered" = "unanswered";
+"CatalogStatisticLegendAnswered" = "answered";
+"CatalogStatisticKnowNotAnweredYet" = "never answered";
+"CatalogStatisticKnowNothing" = "no knowledge";
+"CatalogStatisticKnowBad" = "minimal knowledge";
+"CatalogStatisticKnowWell" = "basic knowledge";
+"CatalogStatisticKnowGood" = "good knowledge";
+"CatalogStatisticKnowReliable" = "secure knowledge";
+"CatalogStatisticMenuTitle" = "Knowledge Level";
+"Save" = "Save";
+"Cancel" = "Cancel";
+"CatalogQuestionAnswerTitle" = "Answer:";
+/* Share */
+"CatalogShareByMailSubject" = "KEEMI question catalog";
+"CatalogShareByMailText" = "Send you a link to an interesting question catalog. Link:";
+/* Notes */
+"CatalogNotes" = "Notes";
+"NotesAddTextNote" = "Add text";
+"NotesAddTextNoteTitle" = "Add note";
+"NotesEditTextNoteTitle" = "Edit note";
+"NotesAddImageNote" = "Add photo";
+"NotesTitleTextNode" = "Note from: %@";
+/* Catalog Info */
+"CatalogDetailLabelAuthor" = "Author";
+"CatalogDetailLabelPublisher" = "Publisher";
+"CatalogDetailLabelNumberOdQuestions" = "Questions";
+"CatalogDetailLabelNumberOdExplanations" = "Explanations";
+"CatalogDetailLabelLanguage" = "Language";
+"CatalogDetailLabelVersion" = "Version";
+"CatalogDetailLabelTopic" = "Topic";
+"CatalogDetailLabelSource" = "Source";
+"CatalogDetailLabelLink" = "Website";
+"CatalogDetailLabelAuthorEmail" = "E-Mail(Author)";
+"CatalogDetailLabelPublisherEmail" = "E-Mail(Publisher)";
+"CatalogNumberOfQuestionsLabel" = "Questions: %u";
+"CatalogNumberOfExplanationsLabel" = "Explanations: %u";
+"CatalogTitleOfDefaultTopic" = "Questions";
+"CatalogNoCatalogsStored" = "No catalogs stored!";
+/* Credits */
+"CatalogCreditsTitle" = "Copyright";
+/* Catalog Favourites */
+"CatalogNumberOfFavouritesLabel" = "Favourites: %u";
+"CatalogFavouritesTitle" = "Favourites";
+/* Catalog Resources */
+"ResourceWebLink" = "Web";
+"ResourceBookLink" = "Books";
+"ResourceFileLink" = "Files";
+"WebAddLinkButtonTitle" = "Add weblink";
+"FileAddLinkButtonTitle" = "Add link to file";
+"BookAddLinkButtonTitle" = "Add book reference";
+"WebEditLinkButtonTitle" = "Edit weblink";
+"FileEditLinkButtonTitle" = "Edit link to file";
+"BookEditLinkButtonTitle" = "Edit book reference";
+"ResourceInvalidLinkMessage" = "invalid link";
+"ResourceTitleDefault" = " Title";
+"ResourceLinkDefault" = " Link (Example: http://www.abc.com/path)";
+"ResourceBookDefaulf" = " Example: page 39 and 76";
+"ResourceBookLinkValue" = "Book";
+"ResourceOpenQuestionsTitle" = "Questions";
+"ResourceOpenExplanationsTitle" = "Explanations";
+"ResourceEditTitle" = "Edit";
+/* Question-Session */
+"QuestionSessionSelectTopicsTitle" = "Topics";
+"QuestionSessionDefaultTopicTitle" = "without topic";
+"QuestionSessionCancelToImportCatalogTitle" = "Cancel session to import a catalog?";
+"QuestionSessionCancelToImportCatalogCancelSession" = "Cancel session";
+"QuestionSessionCancelToImportCatalogContinueSession" = "Don't want to import a catalog";
+"QuestionSessionAnswerCorrect" = "Correct";
+"QuestionSessionAnswerWrong" = "Incorrect";
+"QuestionSessionAnswerSkipped" = "Skipped";
+"QuestionSessionAnswerExplanation" = "Short explanation";
+"QuestionSessionAnswerStatistic" = "Result";
+"QuestionSessionTopicNumberSelectedQuestions" = "Number of selected questions";
+"QuestionSessionTopicNumberSelectedExplanations" = "Number of selected explanations";
+"QuestionSessionCardShowAnswer" = "Show answer";
+"QuestionSessionCardHideAnswer" = "Hide answer";
+"QuestionSessionCardUserWasRight" = "I was right";
+"QuestionSessionCheckAnswer" = "Check";
+"QuestionSessionDeleteText" = "Clear the input";
+/* Error messages */
+"ErrorCatalogToOpenDoesnNotExist" = "Undefined location of catalog! Can not open catalog!";
+"ErrorCouldNotConfigureApp" = "The configuration of the application failed!";
+"ErrorAlertMessageSendBugReport" = "KEEMI did not quit normally last time! Please send us a Bug Report that we can improve the app. Thanks.";
+/* Info */
+"InfoTitle" = "Information";
+"InfoGeneral" = "General";
+"InfoHelp" = "Help";
+"InfoSupport" = "Support";
+"InfoAppVersionTitle" = "App-Version";
+"InfoSupportFeedback" = "Feedback";
+"InfoSupportFaq" = "FAQ";
+"InfoSupportBugReport" = "Report a Bug";
+"InfoFeedbackSubject" = "KEEMI Feedback";
+"InfoContentSizeCategoryDidChange" = "The size of text settings were changed. To apply the settings go to the overview of catalogs:\"My%@ Catalogs\"";
+"InfoBugReportSubject" = "KEEMI Bug-Report";
+/* Mail */
+"MailNotConfiguredText" = "You did not create a standard E-Mail account!";
+"MailSendButton" = "Send";
+"MailCancelButton" = "Cancel";
+
+
+
+
+
+

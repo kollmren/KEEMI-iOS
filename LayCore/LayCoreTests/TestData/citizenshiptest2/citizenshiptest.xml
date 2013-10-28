@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <info format="0.1" version="0.1">
+        <title>Citizenshiptest2</title>
+        <cover><media type="image" ref="citizenTest.jpeg"/></cover>
+        <author><name>The KEEMI-Author</name></author>
+        <publisher>
+            <name>This is a very long name of a publisher. A name can be expand max. 3 number of lines.</name>
+            <logo><media type="image" ref="logo.png"/></logo>
+            <link></link>
+        </publisher>
+        <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+        <instruction showEachTime="No">In diesem Testfragebogen werden Sie 33 Fragen beantworten. Zu jeder Frage werden Ihnen vier verschiedene Antwortmöglichkeiten angeboten. Dabei ist immer nur eine der Antwortmöglichkeiten richtig! Setzen Sie bitte ein Kreuz in das Kästchen, das vor der richtigen Antwort steht.</instruction>
+        <language>deutsch</language>
+        <topic>Allgemeinbildung</topic>
+    </info>
+    <questionList>
+        <question name="q1" type="singleChoice">
+            <text>Welches Wappen gehört zum Bundesland Berlin?</text>
+            <answer>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen03.png"/>
+                </answerItem>
+                <answerItem correct="yes" explanationReference="berlinerWappen">
+                    <media type="image" ref="berlinWappen04.png"/>
+                </answerItem>
+            </answer>
+        </question>
+        <question name="q2" type="singleChoice">
+            <text>Welches ist das Wappen der Bundesrepublik Deutschland?</text>
+            <answer explanationReference="deutscheWappen">
+                <answerItem correct="yes">
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no" explanationReference="deutscheWappen">
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </answerItem>
+            </answer>
+        </question>
+        <question name="q3" type="singleChoice">
+            <text>Welches ist das Wappen der Bundesrepublik Deutschland die Zweite?</text>
+            <answer explanationReference="deutscheWappen">
+                <answerItem correct="yes">
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no" explanationReference="deutscheWappen">
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </answerItem>
+            </answer>
+        </question>
+        <question name="q4" type="multipleChoice" topic="bundeskanzler">
+            <text>Welche Personen sind auf den folgenden Bildern zu sehen?</text>
+            <answer explanationReference="bundeskanzler">
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+                <answerItem correct="yes" style="column;keep-height">
+                    <text>Konrad Adenauer</text>
+                </answerItem>
+                <answerItem correct="yes" style="column">
+                    <text>Ludwig Erhard</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Willy Brandt</text>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </answerItem>
+                <answerItem correct="no" style="column">
+                    <text>Helmut Schmidt</text>
+                </answerItem>
+                <answerItem correct="no" style="column">
+                    <text>Helmut Kohl</text>
+                </answerItem>
+            </answer>
+        </question>
+    </questionList>
+    <explanationList>
+        <explanation name="deutscheWappen">
+            <title>Wappen der Bundesrepublik Deutschland</title>
+            <shortly>
+                <text>Das Christusmonogramm ΧΡ, auch Chi-Rho oder Konstantinisches Kreuz genannt, früher auch Christogramm, ist nach dem Kreuz und dem Fisch das am häufigsten verwendete Symbol für Jesus Christus. Besonders in der Spätantike war es weit verbreitet. Es wird seit dem 2. Jahrhundert n. Chr. von Christen verwendet, um ihren Glauben an Jesus Christus darzustellen und um sich untereinander zu erkennen.</text>
+                <mediaList>
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </mediaList>
+            </shortly>
+        </explanation>
+        <explanation name="berlinerWappen">
+            <title>Wappen von Berlin</title>
+            <shortly>
+                <text>1 Das Wappen des Landes und der Stadt Berlin zeigen den Berliner Bären.</text>
+                <text>2 Der Bär war nicht von Anbeginn das Symbol der Stadt.</text>
+                <text>3 Über mehrere Jahrhunderte teilte sich der Bär die Siegel- und Wappenbilder mit dem brandenburgischen und preußischen Adler.</text>
+                <text>4 Warum sich die Berliner für den Bären als Wappentier entschieden, lässt sich aufgrund fehlender Unterlagen nicht eindeutig klären.</text>
+            </shortly>
+        </explanation>
+        <explanation name="bundeskanzler" topic="bundeskanzler">
+            <title>Ehemalige Bundeskanzler</title>
+            <shortly>
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+                <text>Konrad Hermann Joseph Adenauer (* 5. Januar 1876 in Köln; † 19. April 1967 in Rhöndorf, Stadtteil von Bad Honnef; eigentlich Conrad Hermann Joseph Adenauer) war von 1949 bis 1963 erster Bundeskanzler der Bundesrepublik Deutschland und von 1951 bis 1955 zugleich erster Bundesminister des Auswärtigen.</text>
+                <text>Ludwig Wilhelm Erhard (* 4. Februar 1897 in Fürth; † 5. Mai 1977 in Bonn) war ein deutscher Politiker (CDU), von 1949 bis 1963 Bundesminister für Wirtschaft und von 1963 bis 1966 zweiter Bundeskanzler der Bundesrepublik Deutschland.</text>
+                <text>Willy Brandt (* 18. Dezember 1913 in Lübeck als Herbert Ernst Karl Frahm; † 8. Oktober 1992 in Unkel) war ein deutscher sozialdemokratischer Politiker. Er war von 1957 bis 1966 Regierender Bürgermeister von Berlin, von 1966 bis 1969 Bundesaußenminister und Stellvertreter des Bundeskanzlers im Kabinett Kiesinger sowie von 1969 bis 1974 vierter Bundeskanzler der Bundesrepublik Deutschland. </text>
+                <mediaList>
+                    <media type="image" ref="Schmidt.jpg"/>
+                    <media type="image" ref="Kiesinger.jpg"/>
+                </mediaList>
+            </shortly>
+        </explanation>
+    </explanationList>
+    <mediaList>
+        <media type="image" ref="Konrad_Adenauer.jpg" label="Konrad Adenauer" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="Ludwig_Erhard.jpg" label="Ludwig Erhard" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="Willy_Brandt.jpg" label="Willy Brandt" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="berlinWappen03.png" label="Wappen Land Hessen" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="deutschlandWappen02.png" label="Christusmonogramm"/>
+    </mediaList>
+    <topicList>
+        <topic name="bundeskanzler">
+            <title>Frühere Bundeskanzler</title>
+            <text>Der Bundeskanzler ist der Regierungschef der Bundesrepublik Deutschland. Er bestimmt die Bundesminister und die Richtlinien der Politik der Bundesregierung. Der Bundeskanzler ist faktisch der mächtigste deutsche Amtsträger, steht jedoch in der deutschen protokollarischen Rangfolge unter dem Bundespräsidenten als Staatsoberhaupt und dem Bundestagspräsidenten als Repräsentanten des einzig direkt vom Volk gewählten Bundesorgans[1] nur an dritthöchster Stelle.</text>
+            <media type="image" ref="HelmutKohl.jpg"/>
+        </topic>
+    </topicList>
+</catalog>

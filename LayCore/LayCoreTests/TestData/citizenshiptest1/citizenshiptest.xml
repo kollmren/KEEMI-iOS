@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <info format="0.1">
+        <title>Citizenshiptest1</title>
+        <cover><media type="image" ref="citizenTest.jpeg"/></cover>
+        <author><name>The KEEMI-Author</name></author>
+        <publisher>
+            <name>This is a very long name of a publisher. A name can be expand max. 3 number of lines.</name>
+            <logo><media type="image" ref="logo.png"/></logo>
+            <link>www.paasq.com</link>
+        </publisher>
+        <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+        <language>deutsch</language>
+        <topic>Allgemeinbildung</topic>
+        <source>www.paasq.com</source>
+        <about>
+        	<section>
+        		<title>Weitere Autoren</title>
+        		<text>Autor 1</text>
+        		<mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+        		<text>Autor 2</text>
+        		<text>Autor 3</text>
+        	</section>
+        	<section>
+        		<title>Bildnachweise</title>
+        		<text>Bildnachweis 1</text>
+        		<text>Bildnachweis 2</text>
+        		<text>Bildnachweis 3</text>
+        	</section>
+        </about>
+    </info>
+    <questionList>
+        <question type="singleChoice" topic="wappen" name="wappenBundeslandBerlin">
+            <text>Welches Wappen gehört zum Bundesland Berlin?</text>
+            <answer style="column">
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen03.png"/>
+                </answerItem>
+                <answerItem correct="yes" explanation="berlinerWappen">
+                    <media type="image" ref="berlinWappen04.png"/>
+                </answerItem>
+            </answer>
+            <resourceList>
+            	<resource name="res1"/>
+            	<resource name="res2"/>
+            </resourceList>
+        </question>
+        <question type="singleChoice" topic="wappen" name="wappenDeutschland">
+            <text>Welches ist das Wappen der Bundesrepublik Deutschland?</text>
+            <answer explanation="deutscheWappen" style="column">
+                <answerItem correct="yes">
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no" explanation="deutscheWappen">
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </answerItem>
+            </answer>
+            <resourceList>
+            	<resource name="res1"/>
+            </resourceList>
+        </question>
+        <question type="singleChoice" topic="wappen" name="wappenDeutschland2">
+            <text>Welches ist das Wappen der Bundesrepublik Deutschland die Zweite?</text>
+            <answer explanation="deutscheWappen" style="column">
+                <answerItem correct="yes">
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                </answerItem>
+                <answerItem correct="no" explanation="deutscheWappen">
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </answerItem>
+            </answer>
+            <resourceList>
+            	<resource name="res1"/>
+            	<resource name="res2"/>
+            </resourceList>
+        </question>
+        <question type="multipleChoice" topic="bundeskanzler" name="bundeskanzler">
+            <text>Welche Personen sind auf den folgenden Bildern zu sehen?</text>
+            <answer explanation="bundeskanzler">
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+                <answerItem correct="yes">
+                    <text>Konrad Adenauer</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Ludwig Erhard</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Willy Brandt</text>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Helmut Schmidt</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Helmut Kohl</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="grundrecht">
+            <text>Welches Recht gehört zu den Grundrechten in Deutschland?</text>
+            <answer>
+                <answerItem correct="no" explanation="waffenbesitz">
+                    <text>Waffenbesitz</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Faustrecht</text>
+                </answerItem>
+                <answerItem correct="yes" explanation="meinungsfreiheit">
+                    <text>Meinungsfreiheit</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Selbstjustiz</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="bundesland">
+            <text>Die Bundesrepublik Deutschland besteht aus ...</text>
+            <answer explanation="bundesländer">
+                <answerItem correct="no">
+                    <text>12 Bezirken.</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>16 Bundesländern.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>einem Oststaat und einem Weststaat.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>16 Freistaaten.</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="sozialversicherung">
+            <text>Womit finanziert der deutsche Staat die Sozialversicherung?</text>
+            <answer>
+                <answerItem correct="no">
+                    <text>Kirchensteuern</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Sozialabgaben</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Spendengeldern</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Vereinsbeiträgen</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="pressefreiheit">
+            <text>Eine Partei im deutschen Bundestag will die Pressefreiheit abschaffen. Ist das möglich?</text>
+            <answer>
+                <answerItem correct="no">
+                    <text>Ja, wenn mehr als die Hälfte der Abgeordneten im Bundestag dafür sind.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Ja, aber dazu müssen zwei Drittel der Abgeordneten im Bundestag dafür sein.</text>
+                </answerItem>
+                <answerItem correct="yes" explanation="pressefreiheit">
+                    <text>Nein, denn die Pressefreiheit ist ein Grundrecht. Es kann nicht abgeschafft werden.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Nein, denn nur der Bundesrat kann die Pressefreiheit abschaffen.</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="landesregierung">
+            <text>Was hat jedes deutsche Bundesland?</text>
+            <answer>
+                <answerItem correct="no">
+                    <text>einen eigenen Außenminister / eine eigene Außenministerin</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>eine eigene Währung</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>eine eigene Armee</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>eine eigene Regierung</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="nationalhymne">
+            <text>Mit welchen Worten beginnt die deutsche Nationalhymne?</text>
+            <answer explanation="nationalhymne">
+                <answerItem correct="no">
+                    <text>Völker, hört die Signale ...</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Einigkeit und Recht und Freiheit ...</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Freude schöner Götterfunken ...</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Deutschland einig Vaterland ...</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="flashcard" name="card1">
+            <title>Translate</title>
+            <text>I played very badly today.</text>
+            <answer>
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+                <answerItem correct="yes">
+                    <text>Ich habe heute sehr schlecht gespielt</text>
+                </answerItem>
+                <answerItem correct="no" explanation="nationalhymne">
+                    <text>Zweite Antwort</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="flashcard" name="card2">
+            <text>Nenne vier Filme in denen Daniel Day-Lewis mitspielte!</text>
+            <answer>
+                <answerItem correct="yes">
+                    <text>Die Bounty</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Mein wunderbarer Waschsalon</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Die unerträgliche Leichtigkeit des Seins</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Der letzte Mohikaner</text>
+                </answerItem>
+            </answer>
+        </question>
+        <question type="singleChoice" name="java1">
+        	<title>Answer the question</title>
+            <text>What is the result of the following code?</text>
+            <answer>
+                <mediaList>
+                    <media type="html" ref="java1.html" large="yes"/>
+                </mediaList>
+                <answerItem correct="no">
+                    <text>The output is "true" and MyStuff fulfills the Object.equals() contract.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>The output is "false" and MyStuff fulfills the Object.equals() contract.</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>The output is "true" and MyStuff does NOT fulfill the Object.equals() contract.</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>The output is "false" and MyStuff does NOT fulfill the Object.equals() contract</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Compilation fails</text>
+                </answerItem>
+            </answer>
+        </question>
+    </questionList>
+    <explanationList>
+        <explanation name="deutscheWappen">
+            <title>Wappen der Bundesrepublik Deutschland</title>
+            <section>
+                <text>Das Christusmonogramm ΧΡ, auch Chi-Rho oder Konstantinisches Kreuz genannt, früher auch Christogramm, ist nach dem Kreuz und dem Fisch das am häufigsten verwendete Symbol für Jesus Christus. Besonders in der Spätantike war es weit verbreitet. Es wird seit dem 2. Jahrhundert n. Chr. von Christen verwendet, um ihren Glauben an Jesus Christus darzustellen und um sich untereinander zu erkennen.</text>
+                <mediaList>
+                    <media type="image" ref="deutschlandWappen01.png"/>
+                    <media type="image" ref="deutschlandWappen02.png"/>
+                    <media type="image" ref="deutschlandWappen03.png"/>
+                    <media type="image" ref="deutschlandWappen04.png"/>
+                </mediaList>
+            </section>
+            <resourceList>
+            	<resource name="res1"/>
+            	<resource name="res2"/>
+            </resourceList>
+        </explanation>
+        <explanation name="berlinerWappen">
+            <title>Wappen von Berlin</title>
+            <section>
+                <text>1 Das Wappen des Landes und der Stadt Berlin zeigen den Berliner Bären.</text>
+                <text>2 Der Bär war nicht von Anbeginn das Symbol der Stadt.</text>
+                <text>3 Über mehrere Jahrhunderte teilte sich der Bär die Siegel- und Wappenbilder mit dem brandenburgischen und preußischen Adler.</text>
+                <text>4 Warum sich die Berliner für den Bären als Wappentier entschieden, lässt sich aufgrund fehlender Unterlagen nicht eindeutig klären.</text>
+            </section>
+        </explanation>
+        <explanation name="bundeskanzler" topic="bundeskanzler">
+            <title>Ehemalige Bundeskanzler</title>
+            <section>
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg"/>
+                    <media type="image" ref="Ludwig_Erhard.jpg"/>
+                    <media type="image" ref="Willy_Brandt.jpg"/>
+                </mediaList>
+                <text>Konrad Hermann Joseph Adenauer (* 5. Januar 1876 in Köln; † 19. April 1967 in Rhöndorf, Stadtteil von Bad Honnef; eigentlich Conrad Hermann Joseph Adenauer) war von 1949 bis 1963 erster Bundeskanzler der Bundesrepublik Deutschland und von 1951 bis 1955 zugleich erster Bundesminister des Auswärtigen.</text>
+                <text>Ludwig Wilhelm Erhard (* 4. Februar 1897 in Fürth; † 5. Mai 1977 in Bonn) war ein deutscher Politiker (CDU), von 1949 bis 1963 Bundesminister für Wirtschaft und von 1963 bis 1966 zweiter Bundeskanzler der Bundesrepublik Deutschland.</text>
+                <text>Willy Brandt (* 18. Dezember 1913 in Lübeck als Herbert Ernst Karl Frahm; † 8. Oktober 1992 in Unkel) war ein deutscher sozialdemokratischer Politiker. Er war von 1957 bis 1966 Regierender Bürgermeister von Berlin, von 1966 bis 1969 Bundesaußenminister und Stellvertreter des Bundeskanzlers im Kabinett Kiesinger sowie von 1969 bis 1974 vierter Bundeskanzler der Bundesrepublik Deutschland. </text>
+                <mediaList>
+                    <media type="image" ref="Schmidt.jpg"/>
+                    <media type="image" ref="Kiesinger.jpg"/>
+                </mediaList>
+            </section>
+            <resourceList>
+            	<resource name="res1"/>
+            	<resource name="res2"/>
+            </resourceList>
+        </explanation>
+        <explanation name="meinungsfreiheit">
+            <title>Meinungsfreiheit</title>
+            <section>
+                <text>Die Meinungsfreiheit ist ein in Artikel 5 der Verfassung garantiertes Grundrecht: "Jeder hat das Recht, seine Meinung in Wort, Schrift und Bild frei zu äußern und zu verbreiten und sich aus allgemein zugänglichen Quellen ungehindert zu unterrichten. Die Pressefreiheit und die Freiheit der Berichterstattung durch Rundfunk und Film werden gewährleistet. Eine Zensur findet nicht statt."</text>
+            </section>
+        </explanation>
+        <explanation name="waffenbesitz">
+            <title>Waffenbesitz</title>
+            <section>
+                <text>Waffenbesitz ist kein Grundrecht - zum Besitz von Waffen braucht man in Deutschland eine Erlaubnis. Eine Schusswaffe in der Öffentlichkeit dürfen in Deutschland neben der Polizei nur wenige Personen mitführen, zum Beispiel Schutzpersonal von Geldtransportern oder besonders gefährdete Staatsanwälte.</text>
+            </section>
+        </explanation>
+        <explanation name="bundesländer">
+            <title>Deutschland besteht aus 16 Bundesländern</title>
+            <section>
+                <text>Bezirke sind Verwaltungsgebiete in den Bundesländern. Im Bundesland Nordrhein-Westfalen gibt es beispielsweise fünf Bezirke. Aber auch in größeren Städten gibt es Bezirke, zum Beispiel ist Berlin in 12 Bezirke unterteilt.</text><text>
+                    Von 1949 bis bis 1990 war Deutschland in die Bundesrepublik Deutschland im Westen und die Deutsche Demokratische Republik (DDR) im Osten geteilt. Drei der 16 Bundesländer bezeichnen sich als Freistaaten (Bayern, Sachsen und Thüringen), das hat jedoch keine rechtliche Bedeutung. Freistaat ist ein Synonym für Republik, ein vom Monarchen freier Staat.</text><text>
+                        Die 16 Bundesländer sind - in alphabetischer Reihenfolge: Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen, Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz, Saarland, Sachsen-Anhalt, Sachsen, Schleswig-Holstein und Thüringen.</text>
+            </section>
+        </explanation>
+        <explanation name="sozialabgaben">
+            <title>Sozialabgaben</title>
+            <section>
+                <text>Zu den Sozialabgaben gehören die Beiträge zur gesetzlichen Renten-, Arbeitslosen- und Pflegeversicherung, die jeweils zur Hälfte von Arbeitgeber und Arbeitnehmer bezahlt werden - außerdem die gesetzliche Kranken- und Unfallversicherung.</text><text>
+                    Mit den Kirchensteuern finanzieren sich die Kirchen, diese Steuern werden nur von den Kirchenmitglieder gezahlt. Mit Spendengeldern finanzieren sich wohltätige Organisationen. Vereinsbeiträge zahlen Mitglieder von Vereinen, zum Beispiel von Sportvereinen, um damit die Arbeit des Vereins zu finanzieren.</text>
+            </section>
+        </explanation>
+        <explanation name="pressefreiheit">
+            <title>Pressefreiheit ist ein Grundrecht</title>
+            <section>
+                <text>Normale Gesetzesänderungen können mit einfacher Mehrheit im Bundestag beschlossen werden. Für eine Verfassungsänderung ist eine Zwei-Drittel-Mehrheit im Bundestag und im Bundesrat nötig. Grundrechte haben jedoch einen besonderen Schutz. Sie können zwar mit einer Zwei-Drittel-Mehrheit verändert werden, müssen aber "in ihrem Wesen" erhalten bleiben. Zwei Artikel des Grundgesetzes sind besonders geschützt: Artikel 1 über die Unantastbarkeit der Menschenwürde und Artikel 20, der die Mitwirkung der Länder bei der Gesetzgebung festschreibt.</text>
+            </section>
+        </explanation>
+        <explanation name="nationalhymne">
+            <title>Pressefreiheit ist ein Grundrecht</title>
+            <section>
+                <text>"Einigkeit und Recht und Freiheit ..." Der Text wurde von Heinrich Hoffmann von Fallersleben geschrieben, die Musik komponierte Joseph Haydn.</text>
+                <text>"Völker, hört die Signale ..." ist aus dem Refrain "der Internationalen", einem der bekanntesten Kampflieder der Arbeiterbewegung.</text>
+                <text>"Freude schöner Götterfunken ..." stammt aus der von Friedrich Schiller gedichteten "Ode an die Freude", die Ludwig van Beethoven in seiner 9. Sinfonie vertont hat.</text>
+                <text>"Deutschland einig Vaterland ..." ist eine Zeile aus der Nationalhymne der DDR "Auferstanden aus Ruinen" - der Text stammt von Johannes Becher, die Melodie von Hanns Eisler.</text>
+            </section>
+        </explanation>
+        <explanation name="notLinked">
+            <title>Keine verlinkte Erklärung</title>
+            <section>
+                <text>Keine verlinkte Erklärung ...</text>
+            </section>
+        </explanation>
+    </explanationList>
+    <mediaList>
+        <media type="image" ref="Konrad_Adenauer.jpg" label="Konrad Adenauer" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="Ludwig_Erhard.jpg" label="Ludwig Erhard" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="Willy_Brandt.jpg" label="Willy Brandt" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="berlinWappen03.png" label="Wappen Land Hessen" showLabelBeforeEvaluated="YES"/>
+        <media type="image" ref="deutschlandWappen02.png" label="Christusmonogramm"/>
+        <media type="html" ref="java1.html" large="yes"/>
+    </mediaList>
+    <topicList>
+        <topic name="bundeskanzler">
+            <title>Frühere Bundeskanzler</title>
+            <text>Der Bundeskanzler ist der Regierungschef der Bundesrepublik Deutschland. Er bestimmt die Bundesminister und die Richtlinien der Politik der Bundesregierung. Der Bundeskanzler ist faktisch der mächtigste deutsche Amtsträger, steht jedoch in der deutschen protokollarischen Rangfolge unter dem Bundespräsidenten als Staatsoberhaupt und dem Bundestagspräsidenten als Repräsentanten des einzig direkt vom Volk gewählten Bundesorgans[1] nur an dritthöchster Stelle.</text>
+            <media type="image" ref="HelmutKohl.jpg"/>
+        </topic>
+        <topic name="wappen">
+            <title>Wappen</title>
+            <text>Ein Wappen ist in europäischer Tradition ein bleibendes (erbliches), nach bestimmten Regeln erstelltes Zeichen in Form eines Schildes für eine Person, Familie, Personengruppe oder personifizierte Objekte, Organisationen und Gemeinwesen (Gemeinden, Länder, Staaten), das in seiner Form auf den ritterlichen Schutzschilden beruht.</text>
+        </topic>
+    </topicList>
+    <resourceList>
+    	<resource name="res1" type="website">
+    		<title>Bundeskanzler (Deutschland)</title>
+    		<link>http://de.wikipedia.org/wiki/Bundeskanzler_(Deutschland)</link>
+    	</resource>
+    	<resource name="res2" type="file">
+    		<title>Bundeskanzler (Deutschland)</title>
+    		<link>http://de.wikipedia.org/wiki/Bundeskanzler_(Deutschland)</link>
+    	</resource>
+    	<resource name="res3" type="book">
+    		<title>Bundeskanzler (Deutschland)</title>
+    		<link>http://de.wikipedia.org/wiki/Bundeskanzler_(Deutschland)</link>
+    	</resource>
+    </resourceList>
+</catalog>

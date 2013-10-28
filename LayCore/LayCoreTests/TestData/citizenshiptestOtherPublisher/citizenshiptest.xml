@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <info format="0.1">
+    <title>Einbürgerungstest</title>
+    <cover><media type="image" ref="citizenTest.jpeg"/></cover>
+    <author><name>Bundesministerium des Inneren</name></author>
+    <publisher>
+      <name>Bundesministerium</name>
+      <logo><media type="image" ref="bmi_logo.png"/></logo>
+      <link></link>
+    </publisher>
+  </info>
+  <questionList>
+    <question type="singleChoice" name="q1">
+      <text>Welches Wappen gehört zum Bundesland Berlin?</text>
+      <answer>
+	<answerItem correct="no">
+	  <media type="image" ref="berlinWappen01.png" label=""/>
+	</answerItem>
+	<answerItem correct="no">
+	  <media type="image" ref="berlinWappen02.png" label=""/>
+	</answerItem>
+	<answerItem correct="no">
+	  <text>Wappen 3</text>
+	  <media type="image" ref="berlinWappen03.png" label=""/>
+	</answerItem>
+	<answerItem correct="yes">
+	  <text>Wappen 4</text>
+	  <media type="image" ref="berlinWappen04.png" label=""/>
+	</answerItem>
+      </answer>
+    </question>
+  </questionList>
+</catalog>

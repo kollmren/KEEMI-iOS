@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <info format="0.1">
+        <title>Einbürgerungstest</title>
+        <cover><media type="image" ref="citizenTest.jpeg"/></cover>
+        <author><name>Bundesamt für Migration und Flüchtlinge</name></author>
+        <publisher>
+            <name>Bundesamt für Migration und Flüchtlinge</name>
+            <logo><media type="image" ref="logo.png"/></logo>
+            <link></link>
+        </publisher>
+        <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
+        <instruction showEachTime="No">In diesem Testfragebogen werden Sie 33 Fragen beantworten. Zu jeder Frage werden Ihnen vier verschiedene Antwortmöglichkeiten angeboten. Dabei ist immer nur eine der Antwortmöglichkeiten richtig! Setzen Sie bitte ein Kreuz in das Kästchen, das vor der richtigen Antwort steht.</instruction>
+        <language>deutsch</language>
+        <topic>Allgemeinbildung</topic>
+        <version>0.1</version>
+    </info>
+    <questionList>
+        <question name="q1" type="singleChoice">
+            <text>Welches Wappen gehört zum Bundesland Berlin?</text>
+            <answer>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen01.png" label=""/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen02.png" label=""/>
+                </answerItem>
+                <answerItem correct="no">
+                    <media type="image" ref="berlinWappen03.png" label=""/>
+                </answerItem>
+                <answerItem correct="yes">
+                    <media type="image" ref="berlinWappen04.png" label=""/>
+                </answerItem>
+            </answer>
+        </question>
+        <question name="q2" type="multipleChoice">
+            <text>Welche Personen sind auf den folgenden Bildern zu sehen?</text>
+            <answer style="column">
+                <mediaList>
+                    <media type="image" ref="Konrad_Adenauer.jpg" label=""/>
+                    <media type="image" ref="Ludwig_Erhard.jpg" label=""/>
+                    <media type="image" ref="Willy_Brandt.jpg" label=""/>
+                </mediaList>
+                <answerItem correct="yes">
+                    <text>Konrad Adenauer</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Ludwig Erhard</text>
+                </answerItem>
+                <answerItem correct="yes">
+                    <text>Willy Brandt</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Helmut Schmidt</text>
+                </answerItem>
+                <answerItem correct="no">
+                    <text>Helmut Kohl</text>
+                </answerItem>
+            </answer>
+        </question>
+    </questionList>
+</catalog>

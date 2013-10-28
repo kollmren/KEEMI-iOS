@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "0500"
+   version = "1.3">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A718EEA2163D72AE00F52061"
+               BuildableName = "libLayCore.a"
+               BlueprintName = "LayCore"
+               ReferencedContainer = "container:LayCore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "NO"
+      buildConfiguration = "Debug">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A718EEB3163D72AF00F52061"
+               BuildableName = "LayCoreTests.octest"
+               BlueprintName = "LayCoreTests"
+               ReferencedContainer = "container:LayCore.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "LayXmlCatalogFileReaderTests/testReadInvalidCatalog">
+               </Test>
+               <Test
+                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalog">
+               </Test>
+               <Test
+                  Identifier = "LayXmlDocumentDataCatcherTests">
+               </Test>
+               <Test
+                  Identifier = "LayXmlNodeTests">
+               </Test>
+               <Test
+                  Identifier = "LayXmlPathTests">
+               </Test>
+               <Test
+                  Identifier = "MWLoggingTests">
+               </Test>
+               <Test
+                  Identifier = "LayRandomLeitnerDatasourceTests">
+               </Test>
+               <Test
+                  Identifier = "LayQuestionQuerySessionTests">
+               </Test>
+               <Test
+                  Identifier = "LayOrderedQuestionDatasourceTests">
+               </Test>
+               <Test
+                  Identifier = "LayOrderedExplanationDatasourceTests">
+               </Test>
+               <Test
+                  Identifier = "LayExplanationLearnSessionTests">
+               </Test>
+               <Test
+                  Identifier = "LayDataStoreTests">
+               </Test>
+               <Test
+                  Identifier = "LayCatalogUtilitiesTests">
+               </Test>
+               <Test
+                  Identifier = "LayCatalogManagerTests">
+               </Test>
+               <Test
+                  Identifier = "LayCatalogImportTests">
+               </Test>
+               <Test
+                  Identifier = "LayAnswerStyleTests">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
+      </Testables>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Debug"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
