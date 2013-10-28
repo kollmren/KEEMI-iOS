@@ -30,6 +30,7 @@
 #import "UGCExplanation+Utilities.h"
 #import "UGCQuestion+Utilities.h"
 #import "UGCNote.h"
+#import "UGCMedia.h"
 
 #import "MWLogging.h"
 
@@ -349,7 +350,7 @@ static Class g_classObj = nil;
 //
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
     LayNoteCell *noteCell = (LayNoteCell *)[tableView cellForRowAtIndexPath:indexPath];
-    if(noteCell.note && noteCell.note.image) {
+    if(noteCell.note && noteCell.note.mediaRef) {
         [self showImageNote:noteCell.note];
     } else {
         [self showTextNote:noteCell.note];
@@ -594,7 +595,7 @@ static Class g_classObj = nil;
 }
 
 -(void)showImageNote:(UGCNote*)note {
-    if(note && note.image) {
+    if(note && note.mediaRef) {
         UIWindow *window = self.tableView.window;
         LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
         UIView *backgound = [[UIView alloc] initWithFrame:window.frame];
@@ -604,7 +605,7 @@ static Class g_classObj = nil;
         
         UIView *container = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, backgound.frame.size.width, 0.0f)];
         container.clipsToBounds = YES;
-        UIImage *image = [UIImage imageWithData:note.image];
+        UIImage *image = [UIImage imageWithData:note.mediaRef.data];
         
         LayMediaData *mediaData = [LayMediaData byUIImage:image];
         const CGRect mediaViewRect = CGRectMake(0.0f, 0.0f, backgound.frame.size.width, backgound.frame.size.height);
@@ -773,8 +774,13 @@ static Class g_classObj = nil;
         }
         uNote = [uStore insertObject:UGC_OBJECT_NOTE];
         uNote.text = text;
-        uNote.image = UIImageJPEGRepresentation(image,1.0f);
-        uNote.thumbnail = [self thumbnailDataFromImage:image];
+        if(image) {
+            MWLogInfo([LayVcNotes class], @"Add note with image!");
+            UGCMedia *uMedia = [uStore insertObject:UGC_OBJECT_MEDIA];
+            uMedia.data = UIImageJPEGRepresentation(image,1.0f);
+            uMedia.thumbnail = [self thumbnailDataFromImage:image];
+            [uNote setMediaRef:uMedia];
+        }
         uNote.catalogRef = uCatalog;
         if(self->explanationParam) {
             UGCExplanation *uExplanation = [uCatalog explanationByName:self->explanationParam.name];

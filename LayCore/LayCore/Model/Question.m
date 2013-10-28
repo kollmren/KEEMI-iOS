@@ -19,7 +19,6 @@
 @dynamic favourite;
 @dynamic checked;
 @dynamic hint;
-@dynamic introduction;
 @dynamic name;
 @dynamic number;
 @dynamic question;

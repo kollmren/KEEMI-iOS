@@ -21,6 +21,10 @@
 @dynamic questionRef;
 @dynamic catalogRef;
 @dynamic explanationRef;
+@dynamic createdFrom;
+@dynamic hashString;
+@dynamic mediaRef;
+@dynamic name;
 
 -(void)awakeFromInsert {
     [super awakeFromInsert];

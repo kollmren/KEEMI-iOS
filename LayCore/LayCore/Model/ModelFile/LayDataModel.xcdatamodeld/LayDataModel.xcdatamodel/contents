@@ -17,9 +17,10 @@
     </entity>
     <entity name="AnswerItem" representedClassName="AnswerItem" syncable="YES">
         <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="sessionData" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sessionNumber" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sessionString" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="setByUser" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="answerMediaRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AnswerMedia" inverseName="answerItemRef" inverseEntity="AnswerMedia" syncable="YES"/>
@@ -56,9 +57,12 @@
         <relationship name="publisherRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Publisher" inverseName="catalogRef" inverseEntity="Publisher" syncable="YES"/>
         <relationship name="questionRef" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Question" inverseName="catalogRef" inverseEntity="Question" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="catalogRef" inverseEntity="Resource" syncable="YES"/>
+        <relationship name="sectionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="catalogRef" inverseEntity="Section" syncable="YES"/>
         <relationship name="topicRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Topic" inverseName="catalogRef" inverseEntity="Topic" syncable="YES"/>
     </entity>
     <entity name="Explanation" representedClassName="Explanation" syncable="YES">
+        <attribute name="groupNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sectionCounter" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -68,6 +72,7 @@
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="explanationRef" inverseEntity="Catalog" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="explanationRef" inverseEntity="Resource" syncable="YES"/>
         <relationship name="sectionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="explanationRef" inverseEntity="Section" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="explanationRef" inverseEntity="Tag" syncable="YES"/>
         <relationship name="thumbnailRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="explanationRef" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="topicRef" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Topic" inverseName="explanationRef" inverseEntity="Topic" syncable="YES"/>
     </entity>
@@ -85,10 +90,23 @@
         <relationship name="answerItemRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnswerItem" inverseName="mediaRef" inverseEntity="AnswerItem" syncable="YES"/>
         <relationship name="answerMediaRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnswerMedia" inverseName="mediaRef" inverseEntity="AnswerMedia" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="coverRef" inverseEntity="Catalog" syncable="YES"/>
+        <relationship name="mediaImageMapRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MediaImageMap" inverseName="mediaRef" inverseEntity="MediaImageMap" syncable="YES"/>
         <relationship name="publisherRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Publisher" inverseName="logo" inverseEntity="Publisher" syncable="YES"/>
         <relationship name="sectionMediaRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SectionMedia" inverseName="mediaRef" inverseEntity="SectionMedia" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="mediaRef" inverseEntity="Tag" syncable="YES"/>
         <relationship name="thumbnailRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Thumbnail" inverseName="mediaRef" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="topicRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Topic" inverseName="mediaRef" inverseEntity="Topic" syncable="YES"/>
+    </entity>
+    <entity name="MediaImageMap" representedClassName="MediaImageMap" syncable="YES">
+        <attribute name="catalogID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="positionX" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="positionY" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="sessionString" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="mediaRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Media" inverseName="mediaImageMapRef" inverseEntity="Media" syncable="YES"/>
     </entity>
     <entity name="Publisher" representedClassName="Publisher" syncable="YES">
         <attribute name="descr" optional="YES" attributeType="String" syncable="YES"/>
@@ -102,8 +120,10 @@
         <attribute name="caseNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="checked" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="favourite" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="groupBreakPathAfterWrongAnswers" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hint" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="introduction" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="question" optional="YES" attributeType="String" syncable="YES"/>
@@ -112,6 +132,8 @@
         <relationship name="answerRef" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Answer" inverseName="questionRef" inverseEntity="Answer" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="questionRef" inverseEntity="Catalog" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="questionRef" inverseEntity="Resource" syncable="YES"/>
+        <relationship name="sectionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="questionRef" inverseEntity="Section" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tag" inverseName="questionRef" inverseEntity="Tag" syncable="YES"/>
         <relationship name="thumbnailRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="questionRef" inverseEntity="Thumbnail" syncable="YES"/>
         <relationship name="topicRef" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Topic" inverseName="questionRef" inverseEntity="Topic" syncable="YES"/>
     </entity>
@@ -126,6 +148,7 @@
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="resourceRef" inverseEntity="Catalog" syncable="YES"/>
         <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Explanation" inverseName="resourceRef" inverseEntity="Explanation" syncable="YES"/>
         <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="resourceRef" inverseEntity="Question" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="resourceRef" inverseEntity="Tag" syncable="YES"/>
     </entity>
     <entity name="Section" representedClassName="Section" syncable="YES">
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -133,7 +156,9 @@
         <attribute name="sectionItemCounter" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="aboutRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="About" inverseName="sectionRef" inverseEntity="About" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="sectionRef" inverseEntity="Catalog" syncable="YES"/>
         <relationship name="explanationRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Explanation" inverseName="sectionRef" inverseEntity="Explanation" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="sectionRef" inverseEntity="Question" syncable="YES"/>
         <relationship name="sectionMediaRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionMedia" inverseName="sectionRef" inverseEntity="SectionMedia" syncable="YES"/>
         <relationship name="sectionTextRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SectionText" inverseName="sectionRef" inverseEntity="SectionText" syncable="YES"/>
     </entity>
@@ -148,6 +173,14 @@
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sectionRef" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Section" inverseName="sectionTextRef" inverseEntity="Section" syncable="YES"/>
+    </entity>
+    <entity name="Tag" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Explanation" inverseName="tagRef" inverseEntity="Explanation" syncable="YES"/>
+        <relationship name="mediaRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Media" inverseName="tagRef" inverseEntity="Media" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Question" inverseName="tagRef" inverseEntity="Question" syncable="YES"/>
+        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="tagRef" inverseEntity="Resource" syncable="YES"/>
     </entity>
     <entity name="Thumbnail" representedClassName="Thumbnail" syncable="YES">
         <attribute name="catalogID" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
@@ -189,5 +222,7 @@
         <element name="SectionText" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Thumbnail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Topic" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MediaImageMap" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

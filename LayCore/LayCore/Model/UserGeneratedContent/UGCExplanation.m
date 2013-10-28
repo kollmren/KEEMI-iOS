@@ -20,5 +20,6 @@
 @dynamic catalogRef;
 @dynamic resourceRef;
 @dynamic noteRef;
+@dynamic explanationTextMarkerRef;
 
 @end

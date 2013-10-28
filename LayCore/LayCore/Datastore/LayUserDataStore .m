@@ -154,6 +154,10 @@ static Class g_classObj = nil;
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"UGCNote"
                                                          inManagedObjectContext:self->managedObjectContext];
             break;
+        case UGC_OBJECT_MEDIA:
+            domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"UGCMedia"
+                                                         inManagedObjectContext:self->managedObjectContext];
+            break;
         default:
             MWLogError(g_classObj, @"!!!! Identifier:%d has no mapping !!!!", identifier);
             ;            break;

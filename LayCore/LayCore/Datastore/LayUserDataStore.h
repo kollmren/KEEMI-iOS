@@ -13,7 +13,8 @@ typedef enum LayUserModelObject_ {
     UGC_OBJECT_QUESTION,
     UGC_OBJECT_EXPLANATION,
     UGC_OBJECT_RESOURCE,
-    UGC_OBJECT_NOTE
+    UGC_OBJECT_NOTE,
+    UGC_OBJECT_MEDIA
 } LayUserModelObject;
 
 

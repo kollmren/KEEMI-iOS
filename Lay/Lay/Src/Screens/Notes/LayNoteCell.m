@@ -15,8 +15,9 @@
 #import "LayMiniIconBar.h"
 #import "LayCatalogManager.h"
 #import "LayVcQuestion.h"
-#import "LayVcExplanation.h"
 
+#import "LayVcExplanation.h"
+#import "UGCMedia.h"
 #import "UGCNote+Utilities.h"
 
 #import "MWLogging.h"
@@ -91,7 +92,7 @@ NSString* const noteCellIdentifier = @"CellResource";
         UIFont *fontTitle = [styleGuide getFont:NormalPreferredFont];
         const CGFloat heightText = [LayFrame heightForText:note.text withFont:fontTitle maxLines:MAX_NUMBER_LINES_TEXT andCellWidth:g_cellWidth];
         cellHeight += heightText + g_VERTICAL_SPACE;
-    } else if(note.image) {
+    } else if(note.mediaRef) {
         cellHeight += g_HEIGHT_OF_THUMBNAIL_VIEW + g_VERTICAL_SPACE;
     }
     
@@ -214,7 +215,8 @@ NSString* const noteCellIdentifier = @"CellResource";
         self->textLabel.text = note.text;
         [self->textLabel sizeToFit];
     } else {
-        [self showAsThumbnail:note.thumbnail];
+        UGCMedia *uMedia = note.mediaRef;
+        [self showAsThumbnail:uMedia.thumbnail];
     }
     
     [self layoutCell];
@@ -222,7 +224,7 @@ NSString* const noteCellIdentifier = @"CellResource";
 
 -(void)showAsThumbnail:(NSData*)imageData {
     self->imageView.hidden = NO;
-    UIImage *image = [UIImage imageWithData:note.thumbnail];
+    UIImage *image = [UIImage imageWithData:note.mediaRef.thumbnail];
     self->imageView.image = image;
 }
 

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class UGCCatalog, UGCExplanation, UGCQuestion;
+@class UGCCatalog, UGCExplanation, UGCQuestion, UGCMedia;
 
 @interface UGCNote : NSManagedObject
 
@@ -20,6 +20,11 @@
 @property (nonatomic, retain) NSSet *questionRef;
 @property (nonatomic, retain) UGCCatalog *catalogRef;
 @property (nonatomic, retain) NSSet *explanationRef;
+@property (nonatomic, retain) NSString * createdFrom;
+@property (nonatomic, retain) NSString * hashString;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) UGCMedia *mediaRef;
+
 @end
 
 @interface UGCNote (CoreDataGeneratedAccessors)

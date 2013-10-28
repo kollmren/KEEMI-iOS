@@ -203,7 +203,7 @@ static BOOL showUtilitiesToggle = YES;
     LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
     statusProgressBar_.backgroundColor = [style getColor:ButtonBorderColor];
     statusProgressBar_.textAlignment = NSTextAlignmentCenter;
-    statusProgressBar_.textColor = [UIColor whiteColor];
+    statusProgressBar_.textColor = [UIColor darkGrayColor];
 }
 
 -(void)updateStatusProgressBarAmount:(NSUInteger)wholeNumberOfQuestions_ :(NSUInteger)currentQuestionNumber_ {

@@ -17,7 +17,8 @@
 
 @dynamic correct;
 @dynamic number;
-@dynamic sessionData;
+@dynamic name;
+@dynamic sessionString;
 @dynamic setByUser;
 @dynamic text;
 @dynamic sessionNumber;

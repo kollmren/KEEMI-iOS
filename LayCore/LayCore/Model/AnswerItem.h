@@ -15,7 +15,8 @@
 
 @property (nonatomic, retain) NSNumber * correct;
 @property (nonatomic, retain) NSNumber * number;
-@property (nonatomic, retain) NSNumber * sessionData;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * sessionString;
 @property (nonatomic, retain) NSNumber * setByUser;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSNumber * sessionNumber;

@@ -133,7 +133,6 @@ numberOfSkippedQuestions, neededTime;
         answer.correctAnsweredByUser = [NSNumber numberWithBool:NO];
         for (AnswerItem *item in [answer answerItemListOrderedByNumber]) {
             item.setByUser =  [NSNumber numberWithBool:NO];
-            item.sessionData = [NSNumber numberWithUnsignedInteger:0];
             item.sessionNumber = [NSNumber numberWithUnsignedInteger:0];
         }
     }

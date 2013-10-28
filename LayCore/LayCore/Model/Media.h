@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class AnswerItem, AnswerMedia, Catalog, Publisher, SectionMedia, Topic, Thumbnail;
+@class AnswerItem, AnswerMedia, Catalog, Publisher, SectionMedia, Topic, Thumbnail, MediaImageMap;
 
 @interface Media : NSManagedObject
 
@@ -27,6 +27,7 @@
 @property (nonatomic, retain) Catalog *catalogRef;
 @property (nonatomic, retain) SectionMedia *sectionMediaRef;
 @property (nonatomic, retain) Publisher *publisherRef;
+@property (nonatomic, retain) NSSet *mediaImageMapRef;
 @property (nonatomic, retain) NSSet *topicRef;
 @property (nonatomic, retain) Thumbnail *thumbnailRef;
 @property (nonatomic, retain) NSNumber * isLargeMedia;
@@ -49,5 +50,10 @@
 - (void)removeTopicRefObject:(Topic *)value;
 - (void)addTopicRef:(NSSet *)values;
 - (void)removeTopicRef:(NSSet *)values;
+
+- (void)addMediaImageMapRefObject:(MediaImageMap *)value;
+- (void)removeMediaImageMapRefObject:(MediaImageMap *)value;
+- (void)addMediaImageMapRef:(NSSet *)values;
+- (void)removeMediaImageMapRef:(NSSet *)values;
 
 @end

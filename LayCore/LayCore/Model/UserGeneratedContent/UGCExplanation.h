@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class UGCCatalog, UGCNote, UGCResource;
+@class UGCCatalog, UGCNote, UGCResource, UGCExplanationTextMarker;
 
 @interface UGCExplanation : NSManagedObject
 
@@ -19,7 +19,10 @@
 @property (nonatomic, retain) UGCCatalog *catalogRef;
 @property (nonatomic, retain) NSSet *resourceRef;
 @property (nonatomic, retain) NSSet *noteRef;
+@property (nonatomic, retain) NSSet *explanationTextMarkerRef;
+
 @end
+
 
 @interface UGCExplanation (CoreDataGeneratedAccessors)
 
@@ -32,5 +35,10 @@
 - (void)removeNoteRefObject:(UGCNote *)value;
 - (void)addNoteRef:(NSSet *)values;
 - (void)removeNoteRef:(NSSet *)values;
+
+- (void)addExplanationTextMarkerRefObject:(UGCExplanationTextMarker *)value;
+- (void)removeExplanationTextMarkerRefObject:(UGCExplanationTextMarker *)value;
+- (void)addExplanationTextMarkerRef:(NSSet *)values;
+- (void)removeExplanationTextMarkerRef:(NSSet *)values;
 
 @end

@@ -12,7 +12,6 @@
 #import "LayAnswerViewChoice.h"
 #import "LayAnswerViewSingleChoice.h"
 #import "LayAnswerViewChoiceLargeMedia.h"
-#import "LayAnswerViewAssign.h"
 #import "LayAnswerViewCard.h"
 #import "LayAnswerViewWordResponse.h"
 // Datastore cfg
@@ -103,12 +102,6 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
     
     registered = [LayAnswerViewManagerImpl registerAnswerView:
                   [LayAnswerViewChoiceLargeMedia class] forTypeOfAnswer:ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA];
-    if(!registered) {
-        registrationComplete = NO;
-    }
-    
-    registered = [LayAnswerViewManagerImpl registerAnswerView:
-                  [LayAnswerViewAssign class] forTypeOfAnswer:ANSWER_TYPE_ASSIGN];
     if(!registered) {
         registrationComplete = NO;
     }

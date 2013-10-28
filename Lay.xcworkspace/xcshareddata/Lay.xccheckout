@@ -5,27 +5,31 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>0CFD346C-75AC-4D1B-8D25-E8795FEEDD83</string>
+	<string>1CC3EDD3-4B1F-4961-AED4-2F90A153FDE2</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Lay</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4A98A579-28C2-4400-9E9E-E62504CBE95A</key>
 		<string>https://bitbucket.org/kolle/iphone.git</string>
+		<key>AF21D37B-0476-4BB2-9E17-481A375D77B4</key>
+		<string>https://bitbucket.org/keemimobile/ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Lay.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4A98A579-28C2-4400-9E9E-E62504CBE95A</key>
+		<string>../../lay/iphone</string>
+		<key>AF21D37B-0476-4BB2-9E17-481A375D77B4</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://bitbucket.org/kolle/iphone.git</string>
+	<string>https://bitbucket.org/keemimobile/ios.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>4A98A579-28C2-4400-9E9E-E62504CBE95A</string>
+	<string>AF21D37B-0476-4BB2-9E17-481A375D77B4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>4A98A579-28C2-4400-9E9E-E62504CBE95A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iphone</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AF21D37B-0476-4BB2-9E17-481A375D77B4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KEEMI</string>
 		</dict>
 	</array>
 </dict>

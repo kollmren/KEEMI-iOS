@@ -17,7 +17,6 @@
 @property (nonatomic, retain) NSNumber * favourite;
 @property (nonatomic, retain) NSNumber * checked;
 @property (nonatomic, retain) NSString * hint;
-@property (nonatomic, retain) NSString * introduction;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSString * question;

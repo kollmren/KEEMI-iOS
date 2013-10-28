@@ -103,6 +103,9 @@
 		A7433211173EB4530036E7A1 /* LayCatalogValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7433210173EB4530036E7A1 /* LayCatalogValidator.m */; };
 		A7471DC816569FBC000A8467 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77C7D44165412110041382B /* CoreData.framework */; };
 		A7474F6D17BBBD0C00B334CD /* UGCNote+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7474F6C17BBBD0C00B334CD /* UGCNote+Utilities.m */; };
+		A74CAB52181EB16000466192 /* MediaImageMap.m in Sources */ = {isa = PBXBuildFile; fileRef = A74CAB51181EB16000466192 /* MediaImageMap.m */; };
+		A74CAB55181EBDC800466192 /* UGCMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A74CAB54181EBDC800466192 /* UGCMedia.m */; };
+		A74CAB58181EBDE700466192 /* UGCExplanationTextMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = A74CAB57181EBDE700466192 /* UGCExplanationTextMarker.m */; };
 		A754CCA41778493A00CFB7DC /* Topic.m in Sources */ = {isa = PBXBuildFile; fileRef = A754CCA31778493A00CFB7DC /* Topic.m */; };
 		A7577AD4174A5D4100E941F7 /* LayPair.m in Sources */ = {isa = PBXBuildFile; fileRef = A7577AD3174A5D4100E941F7 /* LayPair.m */; };
 		A7602FF317731E0E00BFC440 /* Topic+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A712A2111771D4D2004D6FA6 /* Topic+Utilities.m */; };
@@ -350,6 +353,12 @@
 		A7433210173EB4530036E7A1 /* LayCatalogValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogValidator.m; path = LayCore/Import/LayCatalogValidator.m; sourceTree = "<group>"; };
 		A7474F6B17BBBD0C00B334CD /* UGCNote+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UGCNote+Utilities.h"; path = "LayCore/Model/UserGeneratedContent/UGCNote+Utilities.h"; sourceTree = "<group>"; };
 		A7474F6C17BBBD0C00B334CD /* UGCNote+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCNote+Utilities.m"; path = "LayCore/Model/UserGeneratedContent/UGCNote+Utilities.m"; sourceTree = "<group>"; };
+		A74CAB50181EB16000466192 /* MediaImageMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaImageMap.h; path = LayCore/Model/MediaImageMap.h; sourceTree = "<group>"; };
+		A74CAB51181EB16000466192 /* MediaImageMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MediaImageMap.m; path = LayCore/Model/MediaImageMap.m; sourceTree = "<group>"; };
+		A74CAB53181EBDC700466192 /* UGCMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UGCMedia.h; path = LayCore/Model/UserGeneratedContent/UGCMedia.h; sourceTree = "<group>"; };
+		A74CAB54181EBDC800466192 /* UGCMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UGCMedia.m; path = LayCore/Model/UserGeneratedContent/UGCMedia.m; sourceTree = "<group>"; };
+		A74CAB56181EBDE700466192 /* UGCExplanationTextMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UGCExplanationTextMarker.h; path = LayCore/Model/UserGeneratedContent/UGCExplanationTextMarker.h; sourceTree = "<group>"; };
+		A74CAB57181EBDE700466192 /* UGCExplanationTextMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UGCExplanationTextMarker.m; path = LayCore/Model/UserGeneratedContent/UGCExplanationTextMarker.m; sourceTree = "<group>"; };
 		A754CCA21778493A00CFB7DC /* Topic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Topic.h; path = LayCore/Model/Topic.h; sourceTree = "<group>"; };
 		A754CCA31778493A00CFB7DC /* Topic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Topic.m; path = LayCore/Model/Topic.m; sourceTree = "<group>"; };
 		A7577AD2174A5D4100E941F7 /* LayPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayPair.h; path = LayCore/Utilities/LayPair.h; sourceTree = "<group>"; };
@@ -555,6 +564,14 @@
 		A73E618B1779A9D800AB3EB6 /* UserGeneratedContent */ = {
 			isa = PBXGroup;
 			children = (
+				A736F20B17993F09005AAF70 /* UGCExplanation.h */,
+				A736F20C17993F09005AAF70 /* UGCExplanation.m */,
+				A736F20817993F09005AAF70 /* UGCQuestion.h */,
+				A736F20917993F09005AAF70 /* UGCQuestion.m */,
+				A74CAB56181EBDE700466192 /* UGCExplanationTextMarker.h */,
+				A74CAB57181EBDE700466192 /* UGCExplanationTextMarker.m */,
+				A74CAB53181EBDC700466192 /* UGCMedia.h */,
+				A74CAB54181EBDC800466192 /* UGCMedia.m */,
 				A73663FE17BB91CB00668F6E /* UGCCatalog.h */,
 				A73663FF17BB91CB00668F6E /* UGCCatalog.m */,
 				A73663FB17BB91CB00668F6E /* UGCQuestion.h */,
@@ -575,12 +592,8 @@
 				A73F43A1178196E800A821D1 /* UGCCase5.m */,
 				A73F438917817CC200A821D1 /* UGCQuestion+Utilities.h */,
 				A73F438A17817CC200A821D1 /* UGCQuestion+Utilities.m */,
-				A73E61A71779AD6100AB3EB6 /* LayUserDataStoreConfiguration.h */,
-				A73E61A81779AD6100AB3EB6 /* LayUserDataStoreConfiguration.m */,
 				A73E61A41779AC3500AB3EB6 /* UGCCatalog+Utilities.h */,
 				A73E61A51779AC3500AB3EB6 /* UGCCatalog+Utilities.m */,
-				A73E61A11779AAB100AB3EB6 /* LayUserDataStore .m */,
-				A73E61A21779AAB100AB3EB6 /* LayUserDataStore.h */,
 				A73E61981779AA0B00AB3EB6 /* UGCCase2.h */,
 				A73E61991779AA0B00AB3EB6 /* UGCCase2.m */,
 				A73E61951779AA0B00AB3EB6 /* UGCCase1.h */,
@@ -611,6 +624,8 @@
 		A74557131762481A005D792B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A74CAB50181EB16000466192 /* MediaImageMap.h */,
+				A74CAB51181EB16000466192 /* MediaImageMap.m */,
 				A732D0DD17D7335E009BAE41 /* Thumbnail.h */,
 				A732D0DE17D7335E009BAE41 /* Thumbnail.m */,
 				A71A815417BE518400486BE4 /* Media.h */,
@@ -631,10 +646,6 @@
 				A71A812817BE407E00486BE4 /* Section+Utilities.m */,
 				A71A810317BE3D5100486BE4 /* Explanation.h */,
 				A71A810417BE3D5100486BE4 /* Explanation.m */,
-				A736F20B17993F09005AAF70 /* UGCExplanation.h */,
-				A736F20C17993F09005AAF70 /* UGCExplanation.m */,
-				A736F20817993F09005AAF70 /* UGCQuestion.h */,
-				A736F20917993F09005AAF70 /* UGCQuestion.m */,
 				A71AA3A617C2640100B6D921 /* About.h */,
 				A71AA3A717C2640100B6D921 /* About.m */,
 				A71B81651796EF0400512EAA /* Catalog.h */,
@@ -682,6 +693,10 @@
 		A7455714176248BB005D792B /* AllOther */ = {
 			isa = PBXGroup;
 			children = (
+				A73E61A71779AD6100AB3EB6 /* LayUserDataStoreConfiguration.h */,
+				A73E61A81779AD6100AB3EB6 /* LayUserDataStoreConfiguration.m */,
+				A73E61A11779AAB100AB3EB6 /* LayUserDataStore .m */,
+				A73E61A21779AAB100AB3EB6 /* LayUserDataStore.h */,
 				A73C34D717D5E00100545068 /* LayImageUtilities.h */,
 				A73C34D817D5E00100545068 /* LayImageUtilities.m */,
 				A72E118617CDEA0B00E0EB8E /* LayImportProgressDelegate.h */,
@@ -1002,6 +1017,7 @@
 				A7433211173EB4530036E7A1 /* LayCatalogValidator.m in Sources */,
 				A7577AD4174A5D4100E941F7 /* LayPair.m in Sources */,
 				A71D3302174D04D20091922F /* LayDataModel.xcdatamodeld in Sources */,
+				A74CAB55181EBDC800466192 /* UGCMedia.m in Sources */,
 				A73D51BF17648C1A006631E1 /* LayAppNotifications.m in Sources */,
 				A73D52251764ADAC006631E1 /* Explanation+Utilities.m in Sources */,
 				A73D580217685D5E000A72AA /* AnswerMedia.m in Sources */,
@@ -1025,6 +1041,7 @@
 				A73F43A2178196E800A821D1 /* UGCCase5.m in Sources */,
 				A73F43A5178196E800A821D1 /* UGCCase4.m in Sources */,
 				A73F43A8178196E800A821D1 /* UGCBox.m in Sources */,
+				A74CAB52181EB16000466192 /* MediaImageMap.m in Sources */,
 				A71399211785A74B00B294FE /* LayConstants.m in Sources */,
 				A7F0E1D61786095300B344EF /* Answer.m in Sources */,
 				A727CFD91786A5420097D721 /* Answer.m in Sources */,
@@ -1036,6 +1053,7 @@
 				A71B81701796F9DD00512EAA /* LayResourceType.m in Sources */,
 				A736F20A17993F09005AAF70 /* UGCQuestion.m in Sources */,
 				A736F20D17993F09005AAF70 /* UGCExplanation.m in Sources */,
+				A74CAB58181EBDE700466192 /* UGCExplanationTextMarker.m in Sources */,
 				A736F22217995312005AAF70 /* UGCExplanation+Utilities.m in Sources */,
 				A733D88B17B4CF8300BDEDCD /* UGCResource.m in Sources */,
 				A71D7C9817B51FA000A45B65 /* UGCResource+Utilities.m in Sources */,
