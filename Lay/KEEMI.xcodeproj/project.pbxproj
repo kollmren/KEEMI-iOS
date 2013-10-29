@@ -120,7 +120,6 @@
 		A79BD72A17424C2E00CB8A39 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A79BD72917424C2E00CB8A39 /* libc++.dylib */; };
 		A79EFF0B17734E5F003BD38C /* LayVcCatalogTopics.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EFF0A17734E5F003BD38C /* LayVcCatalogTopics.m */; };
 		A79EFF0F17735AA1003BD38C /* Topic+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EFF0E17735AA1003BD38C /* Topic+Utilities.m */; };
-		A7ADCC831672709B00A5F0B8 /* LayStore.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A7ADCC821672709B00A5F0B8 /* LayStore.sqlite */; };
 		A7ADCC84167271D600A5F0B8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A711669F16594818006FF27E /* CoreData.framework */; };
 		A7D51FE216EF466C00E1D241 /* LayConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D51FE116EF466C00E1D241 /* LayConfigurationManager.m */; };
 		A7DDAA301733E8C300894790 /* LayMinimizeAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DDAA2F1733E8C300894790 /* LayMinimizeAnimator.m */; };
@@ -340,7 +339,6 @@
 		A79EFF0A17734E5F003BD38C /* LayVcCatalogTopics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcCatalogTopics.m; path = CatalogTopics/LayVcCatalogTopics.m; sourceTree = "<group>"; };
 		A79EFF0C17735AA1003BD38C /* Explanation+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Explanation+Utilities.h"; path = "../LayCore/LayCore/Model/Explanation+Utilities.h"; sourceTree = "<group>"; };
 		A79EFF0E17735AA1003BD38C /* Topic+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Topic+Utilities.m"; path = "../LayCore/LayCore/Model/Topic+Utilities.m"; sourceTree = "<group>"; };
-		A7ADCC821672709B00A5F0B8 /* LayStore.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = LayStore.sqlite; sourceTree = SOURCE_ROOT; };
 		A7C2F663171579F0006A6824 /* LayVcNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcNavigation.h; sourceTree = "<group>"; };
 		A7C2F664171579F0006A6824 /* LayVcNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcNavigationBar.h; sourceTree = "<group>"; };
 		A7C2F665171579F0006A6824 /* LayVcNavigationBarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcNavigationBarDelegate.h; sourceTree = "<group>"; };
@@ -821,7 +819,6 @@
 		A7F995F51653FB9A00C74386 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A7ADCC821672709B00A5F0B8 /* LayStore.sqlite */,
 				A7D5CD6D167C7B0200FCC1D2 /* Lay.entitlements */,
 				A75B472B163EA7F20062C3C5 /* LayAppDelegate.h */,
 				A75B472C163EA7F20062C3C5 /* LayAppDelegate.m */,
@@ -908,7 +905,6 @@
 			files = (
 				A704529516B2A6B60033313C /* LayDataModel.xcdatamodeld in Resources */,
 				A75B4727163EA7F20062C3C5 /* InfoPlist.strings in Resources */,
-				A7ADCC831672709B00A5F0B8 /* LayStore.sqlite in Resources */,
 				A77AE12C1700433E00C119AB /* LayVcCatalogList.xib in Resources */,
 				A77AE12E1700433E00C119AB /* LayVcCatalogListHeader.xib in Resources */,
 				A77AE1301700433E00C119AB /* LayMyCatalogListItem.xib in Resources */,

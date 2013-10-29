@@ -72,9 +72,7 @@ static Class g_classObj = nil;
     self = [self initWithNibName:nil bundle:nil];
     if(self) {
         self->catalogParam = catalog_;
-        NSArray *catalogNoteList = [catalog_ noteList];
-        self->noteList = [NSMutableArray arrayWithCapacity:[catalogNoteList count]];
-        [self->noteList addObjectsFromArray:catalogNoteList];
+        [self initNoteList];
     }
     return self;
 }
@@ -83,10 +81,7 @@ static Class g_classObj = nil;
     self = [self initWithNibName:nil bundle:nil];
     if(self) {
         self->explanationParam = explanation;
-        self->catalogParam = explanation.catalogRef;
-        NSArray *explanationNoteList = [explanation noteList];
-        self->noteList = [NSMutableArray arrayWithCapacity:[explanationNoteList count]];
-        [self->noteList addObjectsFromArray:explanationNoteList];
+        [self initNoteList];
     }
     return self;
 }
@@ -95,12 +90,27 @@ static Class g_classObj = nil;
     self = [self initWithNibName:nil bundle:nil];
     if(self) {
         self->questionParam = question;
-        self->catalogParam = question.catalogRef;
-        NSArray *questionNoteList = [question noteList];
-        self->noteList = [NSMutableArray arrayWithCapacity:[questionNoteList count]];
-        [self->noteList addObjectsFromArray:questionNoteList];
+        [self initNoteList];
     }
     return self;
+}
+
+-(void)initNoteList {
+    if(self->questionParam) {
+        self->catalogParam = self->questionParam.catalogRef;
+        NSArray *questionNoteList = [self->questionParam noteList];
+        self->noteList = [NSMutableArray arrayWithCapacity:[questionNoteList count]];
+        [self->noteList addObjectsFromArray:questionNoteList];
+    } else if(self->explanationParam) {
+        self->catalogParam = self->explanationParam.catalogRef;
+        NSArray *explanationNoteList = [self->explanationParam noteList];
+        self->noteList = [NSMutableArray arrayWithCapacity:[explanationNoteList count]];
+        [self->noteList addObjectsFromArray:explanationNoteList];
+    } else {
+        NSArray *catalogNoteList = [self->catalogParam  noteList];
+        self->noteList = [NSMutableArray arrayWithCapacity:[catalogNoteList count]];
+        [self->noteList addObjectsFromArray:catalogNoteList];
+    }
 }
 
 
@@ -158,12 +168,15 @@ static Class g_classObj = nil;
     [self setupAddButtons];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     if(catalogManager.pendingCatalogToImport) {
         UINavigationController *navController = self.navigationController;
         [navController popToRootViewControllerAnimated:NO];
     }
+    
+    [self initNoteList];
+    
     NSIndexPath *pathToSelectedRow = [self.tableView indexPathForSelectedRow];
     [self.tableView deselectRowAtIndexPath:pathToSelectedRow animated:NO];
     [self.tableView reloadData];
@@ -213,11 +226,53 @@ static Class g_classObj = nil;
         }
         title.text = text;
         [title sizeToFit];
-        const CGFloat newHeaderHeight = vSpace + title.frame.size.height + 2*vSpace;
+        CGFloat newHeaderHeight = vSpace + title.frame.size.height + 2*vSpace;
+        if(self->questionParam) {
+            UIView *questionTitleContainer = [self questionView:self->questionParam withWidth:width];
+            if(questionTitleContainer) {
+                [LayFrame setYPos:vSpace toView:questionTitleContainer];
+                const CGFloat yPosTitle = vSpace + questionTitleContainer.frame.size.height + vSpace;
+                [LayFrame setYPos:yPosTitle toView:title];
+                [header addSubview:questionTitleContainer];
+                newHeaderHeight += questionTitleContainer.frame.size.height + vSpace;
+            }
+            
+        }
+        
         [LayFrame setHeightWith:newHeaderHeight toView:header animated:NO];
         [header addSubview:title];
         self.tableView.tableHeaderView = header;
     }
+}
+
+static const NSUInteger TAG_QUESTION_TITLE = 105;
+-(UIView*)questionView:(Question*)question withWidth:(CGFloat)width {
+    UIView *titleContainer = nil;
+    if(question.title) {
+        LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+        UIFont *smallFont = [styleGuide getFont:TitlePreferredFont];
+        UIColor *textColor = [styleGuide getColor:TextColor];
+        const CGFloat indent = 10.0f;
+        CGFloat horizontalBorderOfView = [styleGuide getHorizontalScreenSpace];
+        const CGFloat titleContainerWidth = width -  2*horizontalBorderOfView;
+        const CGRect titleContainerFrame = CGRectMake(horizontalBorderOfView, 0.0f, titleContainerWidth, 0.0f);
+        titleContainer = [[UIView alloc]initWithFrame:titleContainerFrame];
+        titleContainer.tag = TAG_QUESTION_TITLE;
+        //
+        const CGFloat titleWith = titleContainerWidth - 2 * horizontalBorderOfView - 2 * indent;
+        UILabel *title = [[UILabel alloc]initWithFrame:CGRectMake(indent, indent, titleWith, 0.0f)];
+        title.textColor = textColor;
+        title.backgroundColor = [UIColor clearColor];
+        title.font = smallFont;
+        title.text = [NSString stringWithFormat:@"%@", question.title];
+        title.numberOfLines = [styleGuide numberOfLines];
+        [title sizeToFit];
+        const CGFloat heightTitleContainer = title.frame.size.height + 2 * indent;
+        [LayFrame setHeightWith:heightTitleContainer toView:titleContainer animated:NO];
+        [titleContainer addSubview:title];
+        [styleGuide makeRoundedBorder:titleContainer withBackgroundColor:GrayTransparentBackground andBorderColor:ClearColor];
+    }
+    return titleContainer;
 }
 
 -(void)setupAddButtons {

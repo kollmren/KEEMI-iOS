@@ -65,7 +65,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     [self->navBarViewController showButtonsInNavigationBar];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     UIFont *appTitleFont = [styleGuide getFont:AppTitleFont];
-    UIColor *appNameColor = [styleGuide getColor:ButtonSelectedColor];
+    UIColor *appNameColor = [styleGuide getColor:TextColor];
     [self->navBarViewController showTitle:@"KEEMI" atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
     //
     NSString *sectionMyCatalogsTitle = NSLocalizedString(@"MyCatalogs", nil);

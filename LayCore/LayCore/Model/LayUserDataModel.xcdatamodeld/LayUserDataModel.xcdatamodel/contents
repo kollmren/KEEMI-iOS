@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="UGCAnswerItem" syncable="YES">
+        <attribute name="assignedToItem" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="assignedToNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="setByUser" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UGCQuestion" inverseName="answerItemRef" inverseEntity="UGCQuestion" syncable="YES"/>
+    </entity>
     <entity name="UGCBox" representedClassName="UGCBox" syncable="YES">
         <attribute name="numberOfQuestions" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="case1Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase1" inverseName="boxRef" inverseEntity="UGCCase1" syncable="YES"/>
         <relationship name="case2Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase2" inverseName="boxRef" inverseEntity="UGCCase2" syncable="YES"/>
         <relationship name="case3Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase3" inverseName="boxRef" inverseEntity="UGCCase3" syncable="YES"/>
-        <relationship name="case4Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase4" inverseName="boxRef" inverseEntity="UGCCase4" syncable="YES"/>
-        <relationship name="case5Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase5" inverseName="boxRef" inverseEntity="UGCCase5" syncable="YES"/>
+        <relationship name="case4Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase4" inverseName="boxRef" inverseEntity="UGCCase4" syncable="YES"/>
+        <relationship name="case5Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase5" inverseName="boxRef" inverseEntity="UGCCase5" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="boxRef" inverseEntity="UGCCatalog" syncable="YES"/>
     </entity>
     <entity name="UGCCase1" representedClassName="UGCCase1" syncable="YES">
@@ -30,24 +38,45 @@
         <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCQuestion" inverseName="case5Ref" inverseEntity="UGCQuestion" syncable="YES"/>
     </entity>
     <entity name="UGCCatalog" representedClassName="UGCCatalog" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdFrom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastExport" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="nameOfPublisher" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numberOfQuestions" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="boxRef" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCBox" inverseName="catalogRef" inverseEntity="UGCBox" syncable="YES"/>
         <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCExplanation" inverseName="catalogRef" inverseEntity="UGCExplanation" syncable="YES"/>
-        <relationship name="noteRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCNote" inverseName="catalogRef" inverseEntity="UGCNote" syncable="YES"/>
+        <relationship name="explanationSessionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCExplanationSession" inverseName="catalogRef" inverseEntity="UGCExplanationSession" syncable="YES"/>
+        <relationship name="explanationTextMarkerRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCExplanationTextMarker" inverseName="catalogRef" inverseEntity="UGCExplanationTextMarker" syncable="YES"/>
+        <relationship name="noteRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCNote" inverseName="catalogRef" inverseEntity="UGCNote" syncable="YES"/>
+        <relationship name="questionSessionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCQuestionSession" inverseName="catalogRef" inverseEntity="UGCQuestionSession" syncable="YES"/>
         <relationship name="questionsRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCQuestion" inverseName="catalogRef" inverseEntity="UGCQuestion" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCResource" inverseName="catalogRef" inverseEntity="UGCResource" syncable="YES"/>
         <relationship name="statisticRef" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCStatistic" inverseName="catalogRef" inverseEntity="UGCStatistic" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCTag" inverseName="catalogRef" inverseEntity="UGCTag" syncable="YES"/>
     </entity>
     <entity name="UGCExplanation" representedClassName="UGCExplanation" syncable="YES">
         <attribute name="favourite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfVisits" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="spendTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="explanationRef" inverseEntity="UGCCatalog" syncable="YES"/>
+        <relationship name="explanationSessionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCExplanationSession" inverseName="explanationRef" inverseEntity="UGCExplanationSession" syncable="YES"/>
         <relationship name="explanationTextMarkerRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCExplanationTextMarker" inverseName="explanationRef" inverseEntity="UGCExplanationTextMarker" syncable="YES"/>
         <relationship name="noteRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCNote" inverseName="explanationRef" inverseEntity="UGCNote" syncable="YES"/>
-        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCResource" inverseName="explanationRef" inverseEntity="UGCResource" syncable="YES"/>
+        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCResource" inverseName="explanationRef" inverseEntity="UGCResource" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCTag" inverseName="explanationRef" inverseEntity="UGCTag" syncable="YES"/>
+    </entity>
+    <entity name="UGCExplanationSession" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startedFrom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="explanationSessionRef" inverseEntity="UGCCatalog" syncable="YES"/>
+        <relationship name="explanationRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCExplanation" inverseName="explanationSessionRef" inverseEntity="UGCExplanation" syncable="YES"/>
     </entity>
     <entity name="UGCExplanationTextMarker" representedClassName="UGCExplanationTextMarker" syncable="YES">
         <attribute name="colorRGB" optional="YES" attributeType="String" syncable="YES"/>
@@ -56,6 +85,7 @@
         <attribute name="markStart" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="explanationTextMarkerRef" inverseEntity="UGCCatalog" syncable="YES"/>
         <relationship name="explanationRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCExplanation" inverseName="explanationTextMarkerRef" inverseEntity="UGCExplanation" syncable="YES"/>
     </entity>
     <entity name="UGCMedia" representedClassName="UGCMedia" syncable="YES">
@@ -64,49 +94,87 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="noteRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCNote" inverseName="mediaRef" inverseEntity="UGCNote" syncable="YES"/>
+        <relationship name="noteRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UGCNote" inverseName="mediaRef" inverseEntity="UGCNote" syncable="YES"/>
     </entity>
     <entity name="UGCNote" representedClassName="UGCNote" syncable="YES">
+        <attribute name="catalogNote" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="createdFrom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hashString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="noteRef" inverseEntity="UGCCatalog" syncable="YES"/>
-        <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCExplanation" inverseName="noteRef" inverseEntity="UGCExplanation" syncable="YES"/>
+        <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCExplanation" inverseName="noteRef" inverseEntity="UGCExplanation" syncable="YES"/>
         <relationship name="mediaRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="UGCMedia" inverseName="noteRef" inverseEntity="UGCMedia" syncable="YES"/>
-        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCQuestion" inverseName="noteRef" inverseEntity="UGCQuestion" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCQuestion" inverseName="noteRef" inverseEntity="UGCQuestion" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCTag" inverseName="noteRef" inverseEntity="UGCTag" syncable="YES"/>
     </entity>
     <entity name="UGCQuestion" representedClassName="UGCQuestion" syncable="YES">
+        <attribute name="correctAnswered" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="favourite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="numberOfVisits" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="question" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="case1Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase1" inverseName="questionRef" inverseEntity="UGCCase1" syncable="YES"/>
-        <relationship name="case2Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase2" inverseName="questionRef" inverseEntity="UGCCase2" syncable="YES"/>
-        <relationship name="case3Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase3" inverseName="questionRef" inverseEntity="UGCCase3" syncable="YES"/>
-        <relationship name="case4Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase4" inverseName="questionRef" inverseEntity="UGCCase4" syncable="YES"/>
-        <relationship name="case5Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCase5" inverseName="questionRef" inverseEntity="UGCCase5" syncable="YES"/>
+        <attribute name="spendTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="answerItemRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCAnswerItem" inverseName="questionRef" inverseEntity="UGCAnswerItem" syncable="YES"/>
+        <relationship name="case1Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase1" inverseName="questionRef" inverseEntity="UGCCase1" syncable="YES"/>
+        <relationship name="case2Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase2" inverseName="questionRef" inverseEntity="UGCCase2" syncable="YES"/>
+        <relationship name="case3Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase3" inverseName="questionRef" inverseEntity="UGCCase3" syncable="YES"/>
+        <relationship name="case4Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase4" inverseName="questionRef" inverseEntity="UGCCase4" syncable="YES"/>
+        <relationship name="case5Ref" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="UGCCase5" inverseName="questionRef" inverseEntity="UGCCase5" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="questionsRef" inverseEntity="UGCCatalog" syncable="YES"/>
         <relationship name="noteRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCNote" inverseName="questionRef" inverseEntity="UGCNote" syncable="YES"/>
-        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UGCResource" inverseName="questionRef" inverseEntity="UGCResource" syncable="YES"/>
+        <relationship name="questionSessionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCQuestionSession" inverseName="questionRef" inverseEntity="UGCQuestionSession" syncable="YES"/>
+        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCResource" inverseName="questionRef" inverseEntity="UGCResource" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCTag" inverseName="questionRef" inverseEntity="UGCTag" syncable="YES"/>
+    </entity>
+    <entity name="UGCQuestionSession" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startedFrom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="questionSessionRef" inverseEntity="UGCCatalog" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCQuestion" inverseName="questionSessionRef" inverseEntity="UGCQuestion" syncable="YES"/>
     </entity>
     <entity name="UGCResource" representedClassName="UGCResource" syncable="YES">
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdFrom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hashString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isbn" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="resourceRef" inverseEntity="UGCCatalog" syncable="YES"/>
         <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCExplanation" inverseName="resourceRef" inverseEntity="UGCExplanation" syncable="YES"/>
         <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCQuestion" inverseName="resourceRef" inverseEntity="UGCQuestion" syncable="YES"/>
+        <relationship name="tagRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCTag" inverseName="resourceRef" inverseEntity="UGCTag" syncable="YES"/>
     </entity>
     <entity name="UGCStatistic" representedClassName="UGCStatistic" syncable="YES">
         <attribute name="correct" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastVisit" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="numberOfAnsweredQuestions" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="numberOfVisits" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="spendTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="wrong" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="statisticRef" inverseEntity="UGCCatalog" syncable="YES"/>
     </entity>
+    <entity name="UGCTag" syncable="YES">
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="createdfrom" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UGCCatalog" inverseName="tagRef" inverseEntity="UGCCatalog" syncable="YES"/>
+        <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCExplanation" inverseName="tagRef" inverseEntity="UGCExplanation" syncable="YES"/>
+        <relationship name="noteRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCNote" inverseName="tagRef" inverseEntity="UGCNote" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCQuestion" inverseName="tagRef" inverseEntity="UGCQuestion" syncable="YES"/>
+        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UGCResource" inverseName="tagRef" inverseEntity="UGCResource" syncable="YES"/>
+    </entity>
     <elements>
+        <element name="UGCAnswerItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCBox" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCCase1" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCCase2" positionX="0" positionY="0" width="0" height="0"/>
@@ -115,11 +183,14 @@
         <element name="UGCCase5" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCCatalog" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCExplanation" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UGCNote" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UGCQuestion" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UGCResource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="UGCStatistic" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCExplanationTextMarker" positionX="0" positionY="0" width="0" height="0"/>
         <element name="UGCMedia" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCNote" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCQuestion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCQuestionSession" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCResource" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCStatistic" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCTag" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="UGCExplanationSession" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

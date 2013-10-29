@@ -122,6 +122,7 @@ static Class _classObj = nil;
                 } else {
                     // Create thumbnails
                     MWLogInfo(_classObj,@"Create thumbnails for catalog.");
+                    [NSThread sleepForTimeInterval:1.5];
                     if(stateDelegate) {
                         [stateDelegate startingNextProgressPartWithIdentifier:LayCatalogImportProgressPartIdentifierCreatingThumbnails];
                     }
