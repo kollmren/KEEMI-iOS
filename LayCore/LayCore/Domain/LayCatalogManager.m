@@ -63,7 +63,7 @@ static Class g_classObj = nil;
             NSError *error = nil;
             BOOL removedAllFiles = [fileMngr removeItemAtURL:inboxDirUrl error:&error];
             if(!removedAllFiles && error) {
-                MWLogError(g_classObj, @"Could not remove directory:%@! Details:%@,%d", [inboxDirUrl path], [error domain], [error code]);
+                MWLogWarning(g_classObj, @"Could not remove directory:%@! Details:%@,%d", [inboxDirUrl path], [error domain], [error code]);
             } else {
                 MWLogInfo(g_classObj, @"Removed the %@ directory!", nameOfInboxDir);
             }

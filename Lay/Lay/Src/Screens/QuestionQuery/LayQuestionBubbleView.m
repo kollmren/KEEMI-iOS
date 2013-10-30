@@ -79,6 +79,7 @@ static const CGFloat g_horizontalBorder = 8.0f;
 
 -(void) setupMinimizeArea {
     minimizeArea = [[UIView alloc] init];
+    minimizeArea.alpha = 0.7f;
     [self addSubview:minimizeArea];
     
     maximizeButton = [LayIconButton buttonWithId:LAY_BUTTON_QUESTION];

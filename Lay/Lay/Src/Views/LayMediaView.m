@@ -163,6 +163,7 @@ static const CGFloat HSPACE_LABEL = 4.0f;
     webView.delegate = self;
     if(mediaData_.format == LAY_FORMAT_HTML) {
         [webView loadData:mediaData_.data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:nil];
+        //[webView stringByEvaluatingJavaScriptFromString:@"document.body.style.zoom = 3.0;"];
     } else {
         MWLogError([LayMediaView class], @"Todo:Unknown media type for webview!");
     }

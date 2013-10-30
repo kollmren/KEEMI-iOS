@@ -7,6 +7,7 @@
     </entity>
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="correctAnsweredByUser" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="numberOfVisibleChoices" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sessionAnswer" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
         <attribute name="shuffleAnswers" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="style" optional="YES" attributeType="String" syncable="YES"/>
@@ -155,6 +156,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="question" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="answerRef" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Answer" inverseName="questionRef" inverseEntity="Answer" syncable="YES"/>
@@ -271,18 +273,18 @@
         <element name="Explanation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Media" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MediaImageMap" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="News" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Publisher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SearchStopWordList" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SearchWord" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SearchWordRelation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Section" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SectionMedia" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SectionText" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Thumbnail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Topic" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="News" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SearchWord" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SearchStopWordList" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SearchWordRelation" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

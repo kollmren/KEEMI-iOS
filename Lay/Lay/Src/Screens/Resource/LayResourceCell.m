@@ -75,7 +75,7 @@ NSString* const resourceCellIdentifier = @"CellResource";
 @synthesize resource, canOpenLinkedQuestionsOrExplanations;
 
 +(void)initialize {
-    CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     g_cellWidth = screenWidth;
     g_HEIGHT_LINK_LABEL = [styleGuide getFont:SmallFont].lineHeight;

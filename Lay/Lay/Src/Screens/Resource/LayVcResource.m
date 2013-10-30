@@ -91,6 +91,7 @@ static Class g_classObj = nil;
         self->explanationParam = explanation;
         self->catalogParam = explanation.catalogRef;
         [self separateResourceList:[explanation resourceList]];
+        [self setNeedsStatusBarAppearanceUpdate];
     }
     return self;
 }
@@ -101,6 +102,7 @@ static Class g_classObj = nil;
         self->questionParam = question;
         self->catalogParam = question.catalogRef;
         [self separateResourceList:[question resourceList]];
+        [self setNeedsStatusBarAppearanceUpdate];
     }
     return self;
 }
@@ -112,6 +114,14 @@ static Class g_classObj = nil;
         [self registerEvents];
     }
     return self;
+}
+
+-(BOOL)prefersStatusBarHidden {
+    BOOL prefersStatusBarHidden = NO;
+    if(self->questionParam || self->explanationParam) {
+        prefersStatusBarHidden = YES;
+    }
+    return prefersStatusBarHidden;
 }
 
 -(void)loadView {
@@ -274,7 +284,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 }
 
 -(void)setupAddButtons {
-    CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     NSString *buttonTitle = NSLocalizedString(@"WebAddLinkButtonTitle", nil);
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     UIImage *plusIcon = [LayImage imageWithId:LAY_IMAGE_ADD];

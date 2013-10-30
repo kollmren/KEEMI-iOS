@@ -92,7 +92,7 @@ NSString* const abstractCellIdentifier = @"CellAbstract";
 @synthesize question;
 
 +(void)initialize {
-    CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
     g_cellWidth = screenWidth - 2*hSpace;

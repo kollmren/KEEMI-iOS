@@ -60,6 +60,7 @@ static const CGFloat DEFAULT_SPACE = 5.0f;
 
 -(void) setupMinimizeArea {
     minimizeArea = [[UIView alloc] init];
+    minimizeArea.alpha = 0.7f;
     self->answerChoicesButton = [LayIconButton buttonWithId:LAY_BUTTON_LIST];
     [self->answerChoicesButton addTarget:self action:@selector(maximize) forControlEvents:UIControlEventTouchUpInside];
     [[LayStyleGuide instanceOf:nil] makeRoundedBorder:self->answerChoicesButton withBackgroundColor:WhiteTransparentBackground];

@@ -240,7 +240,7 @@ static LayStyleGuide *singleton = nil;
 }
 
 -(CGFloat)screenwidth {
-    const CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    const CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     return screenWidth;
 }
 

@@ -30,7 +30,7 @@ static NSInteger TAG_LABEL =102;
 - (id)initWithTitle:(NSString*)title_ andBorderColor:(LayStyleGuideColor)borderColor_
 {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    const CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    const CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     const CGRect frame = CGRectMake(0.0f, 0.0f, screenWidth, [styleGuide heightOfSection]);
     self = [super initWithFrame:frame];
     if (self) {

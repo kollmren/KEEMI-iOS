@@ -137,7 +137,7 @@ delegate;
     if(title_) {
         title = title_;
         titlePosition = position;
-        CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
         if(position == TITLE_CENTER) {
             NSTextAlignment textAlignment = NSTextAlignmentCenter;
             UILabel *label =
@@ -175,7 +175,7 @@ delegate;
         CGFloat xPos = 0.0;
         CGFloat titleWidth = 90.0f;
         if(position == TITLE_CENTER) {
-            CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+            CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
             titleWidth = 200.0f;
             xPos = screenWidth/2 - titleWidth/2;
         }

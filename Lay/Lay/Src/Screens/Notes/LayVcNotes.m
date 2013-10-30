@@ -81,6 +81,7 @@ static Class g_classObj = nil;
     self = [self initWithNibName:nil bundle:nil];
     if(self) {
         self->explanationParam = explanation;
+        [self setNeedsStatusBarAppearanceUpdate];
         [self initNoteList];
     }
     return self;
@@ -90,6 +91,7 @@ static Class g_classObj = nil;
     self = [self initWithNibName:nil bundle:nil];
     if(self) {
         self->questionParam = question;
+        [self setNeedsStatusBarAppearanceUpdate];
         [self initNoteList];
     }
     return self;
@@ -120,6 +122,14 @@ static Class g_classObj = nil;
         [self registerEvents];
     }
     return self;
+}
+
+-(BOOL)prefersStatusBarHidden {
+    BOOL prefersStatusBarHidden = NO;
+    if(self->questionParam || self->explanationParam) {
+        prefersStatusBarHidden = YES;
+    }
+    return prefersStatusBarHidden;
 }
 
 -(void)loadView {
@@ -276,7 +286,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 }
 
 -(void)setupAddButtons {
-    CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     const CGFloat buttonWidth = screenWidth / 2.0f;
     NSString *buttonTitle = NSLocalizedString(@"NotesAddTextNote", nil);
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
@@ -868,7 +878,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     origImageSize.width = origImageSize.width  / 2.0f;
     origImageSize.height = origImageSize.height  / 2.0f;
     
-    CGFloat screenWidth = [[UIApplication sharedApplication] statusBarFrame].size.width;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     CGFloat textAndImageViewWidth = screenWidth - 2*[styleGuide getHorizontalScreenSpace];
     // The rectangle of the thumbnail
