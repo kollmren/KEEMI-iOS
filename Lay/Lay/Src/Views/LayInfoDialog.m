@@ -198,7 +198,9 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     [LayFrame setHeightWith:0.0f toView:self->infoView animated:NO];
     const CGPoint infoViewCenter = CGPointMake(self->infoView.frame.origin.x, self->externalMainView.frame.size.height/2);
     [LayFrame setPos:infoViewCenter toView:self->infoView];
-    [self setTitle:title_ andShowIcon:NO];
+    if(title_) {
+        [self setTitle:title_ andShowIcon:NO];
+    }
     
     UIView *closeButton = [self->infoView viewWithTag:TAG_CLOSE_BUTTON];
     if(closeButton) {
@@ -221,9 +223,12 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     const CGFloat heightWebPage = self->externalMainView.frame.size.height;
     const CGFloat widthWebPage = self->externalMainView.frame.size.width;
     const CGRect webPageFrame = CGRectMake(0.0f, xPosWebPage, widthWebPage, heightWebPage);
+    CGFloat yPosWebView = vSpace;
     self->webPage = [[UIView alloc]initWithFrame:webPageFrame];
-    [self->webPage addSubview:self->titleContainer];
-    const CGFloat yPosWebView = self->titleContainer.frame.origin.y + self->titleContainer.frame.size.height + vSpace;
+    if(title_) {
+        [self->webPage addSubview:self->titleContainer];
+        yPosWebView += self->titleContainer.frame.origin.y + self->titleContainer.frame.size.height;
+    }
     const CGFloat heightWebView = heightWebPage - yPosWebView - vSpace;
     const CGRect webViewFrame = CGRectMake(0.0f, yPosWebView, widthWebPage, heightWebView);
     UIWebView *webView = [[UIWebView alloc]initWithFrame:webViewFrame];

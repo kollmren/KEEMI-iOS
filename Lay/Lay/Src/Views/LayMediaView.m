@@ -406,9 +406,6 @@ static const CGFloat HSPACE_LABEL = 4.0f;
 -(void)showWebViewContentFullScreen {
     LayInfoDialog *infoDlg = [[LayInfoDialog alloc]initWithWindow:self.window];
     NSString *title = self->mediaData.label;
-    if(!title) {
-        title = self->mediaData.name;
-    }
     [infoDlg showResource:title link:self->mediaData.data];
 }
 

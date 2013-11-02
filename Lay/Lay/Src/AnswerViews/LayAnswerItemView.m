@@ -466,7 +466,7 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
 //
 -(void)tapped:(LayAnswerButton*)answerButton_ wasSelected:(BOOL)wasSelected {
     
-    if(self->questionType == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA) {
+    if(!self->evaluated && self->questionType == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA) {
         for(LayAnswerButton *answerButton in [self->answerButtonList subviews]) {
             if(answerButton_ != answerButton ) {
                 [answerButton unmark];
