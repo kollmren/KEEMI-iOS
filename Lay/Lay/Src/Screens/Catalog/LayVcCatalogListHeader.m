@@ -180,7 +180,8 @@ static const CGFloat V_SPACE = 15.0f;
         if(![self->menu hasEntryWithIdentifier:MENU_FAVOURITES]) {
             NSString *entryText = NSLocalizedString(@"CatalogFavourites", nil);
             UIImage *favouritesIcon = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
-            [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES nextTo:MENU_STATISTIC animated:YES];
+            [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES nextTo:MENU_STATISTIC animated:NO];
+            [menu showEntryWithIdentifier:MENU_FAVOURITES];
         }
     } else {
         [menu removeEntry:MENU_FAVOURITES];

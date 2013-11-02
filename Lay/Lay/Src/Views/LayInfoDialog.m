@@ -99,6 +99,7 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     const CGFloat withOfSubViews = widthOfInfoView - 2*hIndent;
     const CGRect titleContainerRect = CGRectMake(hIndent, yPosTitle, withOfSubViews, 0.0f);
     self->titleContainer = [[UIView alloc]initWithFrame:titleContainerRect];
+    self->titleContainer.alpha = 0.8f;
     self->titleContainer.tag = TAG_TITLE_CONTAINER;
     self->titleContainer.backgroundColor = [styleGuide getColor:WhiteTransparentBackground];
     icon = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, ICON_SIZE.width, ICON_SIZE.height)];

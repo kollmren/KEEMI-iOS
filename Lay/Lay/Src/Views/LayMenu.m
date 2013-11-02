@@ -224,6 +224,17 @@ imageSizeRatio, menuDelegate, frame, entriesInteractive;
     }
 }
 
+-(void)showEntryWithIdentifier:(NSInteger)identifier {
+    UIView *entry = [self->scrollView viewWithTag:identifier];
+    if(entry) {
+        const CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+        const CGFloat entryXDimension = entry.frame.origin.x + entry.frame.size.width;
+        if(entryXDimension > screenWidth) {
+            [self->scrollView scrollRectToVisible:entry.frame animated:YES];
+        }
+    }
+}
+
 -(void)setEntryHeight:(CGFloat)entryHeight_ {
     entryHeight = entryHeight_;
     CGFloat menuHeight = self.frame.size.height;
