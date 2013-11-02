@@ -32,6 +32,7 @@
 #import "LayVcExplanation.h"
 #import "LayVcCatalogTopics.h"
 #import "LayVcNavigation.h"
+#import "LayUserDefaults.h"
 
 #import "Topic+Utilities.h"
 
@@ -150,6 +151,15 @@ static Class g_classObj = nil;
     }
     
     [self->sectionMenu setWindow:self.tableView.window];
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    BOOL didUserShowCatalogMenu = [appSettings objectForKey:(NSString*)didUserShowCatalogMenuKey]==nil?NO:YES;
+    if(!didUserShowCatalogMenu) {
+        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self->vcHeader.menu selector:@selector(touch) userInfo:nil repeats:NO];
+    }
+    [standardUserDefaults setInteger:didUserShowCatalogMenu forKey:(NSString*)didUserShowCatalogMenuKey];
+    [standardUserDefaults synchronize];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

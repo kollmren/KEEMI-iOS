@@ -214,6 +214,16 @@ imageSizeRatio, menuDelegate, frame, entriesInteractive;
     [self->scrollView collapseSubMenuEntries:NO];
 }
 
+-(void)touch {
+    const CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    const CGFloat menuWidth = self->scrollView.contentSize.width;
+    if(menuWidth > screenWidth) {
+        const CGFloat moveWidth = 80.0f;
+        const CGRect rectToShow = CGRectMake(screenWidth, 0.0f, moveWidth, 10.0f);
+        [self->scrollView scrollRectToVisible:rectToShow animated:YES];
+    }
+}
+
 -(void)setEntryHeight:(CGFloat)entryHeight_ {
     entryHeight = entryHeight_;
     CGFloat menuHeight = self.frame.size.height;

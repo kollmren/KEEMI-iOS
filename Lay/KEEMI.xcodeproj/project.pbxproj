@@ -20,6 +20,7 @@
 		A711D73C176B3B83007A2815 /* LayExplanationSessionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A711D736176B3B83007A2815 /* LayExplanationSessionView.m */; };
 		A711D73D176B3B83007A2815 /* LayVcExplanation.m in Sources */ = {isa = PBXBuildFile; fileRef = A711D73B176B3B83007A2815 /* LayVcExplanation.m */; };
 		A71367AF174FFA6D006AA428 /* LayMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A71367AD174FFA6D006AA428 /* LayMenu.m */; };
+		A71568E1182543CE00A3BF8D /* LayUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A71568E0182543CE00A3BF8D /* LayUserDefaults.m */; };
 		A71D7C9A17B5207B00A45B65 /* UGCResource+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71D7C9917B5207B00A45B65 /* UGCResource+Utilities.m */; };
 		A71EC6E6177B391600F47782 /* LayUserDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71EC6E4177B391600F47782 /* LayUserDataModel.xcdatamodeld */; };
 		A71EC6E8177B3AD300F47782 /* UGCCatalog+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71EC6E7177B3AD300F47782 /* UGCCatalog+Utilities.m */; };
@@ -157,6 +158,8 @@
 		A71367AC174FFA6D006AA428 /* LayMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMenu.h; sourceTree = "<group>"; };
 		A71367AD174FFA6D006AA428 /* LayMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayMenu.m; sourceTree = "<group>"; };
 		A71367AE174FFA6D006AA428 /* LayMenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMenuDelegate.h; sourceTree = "<group>"; };
+		A71568DF182543CE00A3BF8D /* LayUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayUserDefaults.h; sourceTree = "<group>"; };
+		A71568E0182543CE00A3BF8D /* LayUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayUserDefaults.m; sourceTree = "<group>"; };
 		A71D7C9917B5207B00A45B65 /* UGCResource+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCResource+Utilities.m"; path = "../LayCore/LayCore/Model/UserGeneratedContent/UGCResource+Utilities.m"; sourceTree = "<group>"; };
 		A71D7C9B17B5266A00A45B65 /* LayButtonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayButtonDelegate.h; sourceTree = "<group>"; };
 		A71EC6E5177B391600F47782 /* LayUserDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LayUserDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -826,6 +829,8 @@
 				A722E74316BF1BB200C17401 /* LayAppConfiguration.m */,
 				A7D51FE016EF466C00E1D241 /* LayConfigurationManager.h */,
 				A7D51FE116EF466C00E1D241 /* LayConfigurationManager.m */,
+				A71568DF182543CE00A3BF8D /* LayUserDefaults.h */,
+				A71568E0182543CE00A3BF8D /* LayUserDefaults.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -951,6 +956,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A704529116B2A4810033313C /* Catalog+Utilities.m in Sources */,
+				A71568E1182543CE00A3BF8D /* LayUserDefaults.m in Sources */,
 				A75B4729163EA7F20062C3C5 /* main.m in Sources */,
 				A75B472D163EA7F20062C3C5 /* LayAppDelegate.m in Sources */,
 				A722E74416BF1BB200C17401 /* LayAppConfiguration.m in Sources */,

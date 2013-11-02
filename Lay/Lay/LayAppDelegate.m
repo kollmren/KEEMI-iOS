@@ -18,6 +18,7 @@
 #import "LayAppNotifications.h"
 #import "LayCatalogManager.h"
 #import "LayStyleGuide.h"
+#include "LayUserDefaults.h"
 
 #import "MWLogging.h"
 
@@ -26,11 +27,6 @@
 
 static Class _classObj = nil;
 static NSURL* currentCatalogToImport;
-
-static const NSString* const startedAndTerminatedFineKey = @"startedAndTerminatedFineKey";
-static const NSInteger startedAppFine = 1;
-static const NSInteger terminatedAppFine = 2;
-static const NSInteger startedAppWithError = 3;
 
 +(void) initialize {
     _classObj = [LayAppDelegate class];

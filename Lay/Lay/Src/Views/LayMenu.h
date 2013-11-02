@@ -54,6 +54,8 @@ typedef enum LayMenuOrientation_ {
 -(void) addSubEntryWithImage:(UIImage*)image :(NSString*) label identifier:(NSInteger)identifier subIdentifier:(NSInteger)subIdentifier;
 
 -(void) collapseSubMenuEntries;
+
+-(void)touch;
 //
 // protocol LayVBoxView
 //
