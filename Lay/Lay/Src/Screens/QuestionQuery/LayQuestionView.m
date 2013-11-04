@@ -216,7 +216,7 @@ toolbar, nextButton, previousButton, checkButton;
     NSArray* buttonItems = [self navigationButtons];
     [toolbar_ setItems:buttonItems animated:YES];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    toolbar_.barTintColor = [styleGuide getColor:ButtonBorderColor];
+    toolbar_.barTintColor = [styleGuide getColor:ToolBarBackground];
     toolbar_.translucent = YES;
 }
 

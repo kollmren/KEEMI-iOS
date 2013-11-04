@@ -16,3 +16,5 @@ const NSInteger startedAppWithError = 3;
 //
 const NSString* const didUserShowCatalogMenuKey = @"didUserShowCatalogMenuKey";
 const NSInteger didUserShowCatalogMenu = 1;
+
+const NSString* const userDidBuyProVersion = @"userDidBuyProVersion";

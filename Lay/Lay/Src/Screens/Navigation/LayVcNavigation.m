@@ -24,7 +24,7 @@
 	// Do any additional setup after loading the view.
     UINavigationBar *navBar = self.navigationBar;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    navBar.barTintColor = [styleGuide getColor:ButtonBorderColor];
+    navBar.barTintColor = [styleGuide getColor:ToolBarBackground];
     //navBar.translucent = YES;
 }
 

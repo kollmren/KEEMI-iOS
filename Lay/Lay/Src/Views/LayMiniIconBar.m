@@ -11,7 +11,7 @@
 #import "LayFrame.h"
 
 static const CGFloat g_disabledMiniIconsAlphaValue = 0.2f;
-static const CGFloat g_enabledMiniIconsAlphaValue = 1.0f;
+static const CGFloat g_enabledMiniIconsAlphaValue = 0.9f;
 
 @implementation LayMiniIconBar
 

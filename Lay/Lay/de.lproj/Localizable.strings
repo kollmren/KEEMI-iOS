@@ -87,7 +87,7 @@
 "CatalogNumberOfQuestionsLabel" = "Fragen: %u";
 "CatalogNumberOfExplanationsLabel" = "Erklärungen: %u";
 "CatalogTitleOfDefaultTopic" = "Fragen";
-"CatalogNoCatalogsStored" = "Keine Kataloge gespeichert!";
+"CatalogNoCatalogsStored" = "Keine Kataloge gespeichert";
 /* Credits */
 "CatalogCreditsTitle" = "Impressum";
 /* Catalog Favourites */
@@ -140,10 +140,17 @@
 "InfoSupport" = "Support";
 "InfoAppVersionTitle" = "App-Version";
 "InfoSupportFeedback" = "Kontaktiere uns";
-"InfoSupportFaq" = "FAQ";
+"InfoHelpFaq" = "FAQ";
+"InfoBuy" = "KEEMI Professional";
+"InfoBuyProVersion" = "KEEMI Pro kaufen";
+"InfoBuyButton" = "Für %@ kaufen";
+"InfoBuyCanMakeNoPayments" = "Du bist nicht berechtigt Einkäufe durchzuführen!";
+"InfoBuyRestore" = "KEEMI Pro Kauf wiederherstellen";
+"InfoBuyProVersionSuccessfully" = "Die Features der KEEMI-Pro Version wurden freigeschaltet.";
+"InfoBuyProVersionFailed" = "Der Kauf der KEEMI-Pro Version konnte nicht abgeschlossen werden!.";
+"InfoHelpSampleCatalogs" = "Fragenkataloge (Beispiele)";
 "InfoSupportBugReport" = "Einen Fehler melden";
 "InfoFeedbackSubject" = "KEEMI Feedback";
-"InfoContentSizeCategoryDidChange" = "Die Einstellungen zur Textgröße wurden geändert. Um die Änderungen anzuwenden navigiere bitte zur Katalogübersicht:\"Meine%@Kataloge\"";
 "InfoBugReportSubject" = "KEEMI Fehlerbericht";
 /* Mail */
 "MailNotConfiguredText" = "Du hast noch kein Standard E-Mail Account angelegt!";

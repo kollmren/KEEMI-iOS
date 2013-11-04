@@ -13,6 +13,7 @@
 #import "LayCatalogManager.h"
 #import "LayImage.h"
 #import "LayMediaView.h"
+#import "LayUserDefaults.h"
 
 #import "Catalog+Utilities.h"
 #import "Media+Utilities.h"
@@ -160,8 +161,14 @@ static const CGFloat V_SPACE = 15.0f;
         [menu addEntryWithImage:resourcesIcon:entryText identifier:MENU_RESOURCE ];
     }
     
-    entryText = NSLocalizedString(@"CatalogNotes", nil);
-    [menu addEntryWithImage:notesIcon:entryText identifier:MENU_NOTES];
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    BOOL userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
+    if(userBoughtProVersion) {
+        entryText = NSLocalizedString(@"CatalogNotes", nil);
+        [menu addEntryWithImage:notesIcon:entryText identifier:MENU_NOTES];
+    }
     
     if(catalog.source && [catalog.source length] > 0) {
         entryText = NSLocalizedString(@"CatalogShare", nil);

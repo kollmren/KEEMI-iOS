@@ -18,7 +18,8 @@
 #import "LayAppNotifications.h"
 #import "LayCatalogManager.h"
 #import "LayStyleGuide.h"
-#include "LayUserDefaults.h"
+#import "LayUserDefaults.h"
+#import "LayInAppPurchaseManager.h"
 
 #import "MWLogging.h"
 
@@ -52,8 +53,6 @@ static NSURL* currentCatalogToImport;
     [nc addObserver:self selector:@selector(importCatalog) name:(NSString*)LAY_NOTIFICATION_DO_IMPORT_CATALOG object:nil];
     [nc addObserver:self selector:@selector(applicationWillTerminate) name:(NSString*)LAY_NOTIFICATION_IGNORE_IMPORT_CATALOG__ANOTHER_IS_STILL_IN_PROGRESS object:nil];
     [nc addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:(NSString*)UIContentSizeCategoryDidChangeNotification object:nil];
-    
-    
     
     // Setup window
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -97,6 +96,15 @@ static NSURL* currentCatalogToImport;
                                            cancelButtonTitle:@"OK"
                                            otherButtonTitles:nil];
         [av show];
+    }
+    
+    //
+    //
+    if(!paymentObserverAlreadyRegistered) {
+        MWLogInfo(_classObj, @"Register observer for payment transactions.");
+        LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:inAppPurchaseMngr];
+        paymentObserverAlreadyRegistered = YES;
     }
 
     return YES;

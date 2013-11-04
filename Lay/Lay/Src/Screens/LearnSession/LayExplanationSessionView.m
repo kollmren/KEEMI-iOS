@@ -116,7 +116,7 @@ static BOOL showUtilitiesToggle = YES;
     const CGRect toolbarRect = CGRectMake(0.0f, yPosToolbar, widthOfView, g_heightOfToolbar);
     self->toolbar = [[UIToolbar alloc]initWithFrame:toolbarRect];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    self->toolbar.barTintColor = [styleGuide getColor:ButtonBorderColor];
+    self->toolbar.barTintColor = [styleGuide getColor:ToolBarBackground];
     self->toolbar.translucent = YES;
     [self setupToolbar:toolbar];
     [self addSubview:toolbar];

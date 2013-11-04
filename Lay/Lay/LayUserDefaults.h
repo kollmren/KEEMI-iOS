@@ -15,3 +15,5 @@ extern const NSInteger startedAppWithError;
 //
 const NSString* const didUserShowCatalogMenuKey;
 extern const NSInteger didUserShowCatalogMenu;
+//
+const NSString* const userDidBuyProVersion;

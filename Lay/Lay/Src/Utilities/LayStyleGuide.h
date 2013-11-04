@@ -17,6 +17,7 @@ typedef enum {
     GrayTransparentBackground,
     BlackBackground,
     ButtonBorderColor,
+    ToolBarBackground,
     ButtonSelectedColor,
     ButtonSelectedBackgroundColor,
     InfoBackgroundColor,

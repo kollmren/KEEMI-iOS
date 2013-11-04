@@ -37,6 +37,7 @@ static LayStyleGuide *singleton = nil;
     singleton->colors = [[NSMutableDictionary alloc] init];
     [singleton->colors setValue:[UIColor colorWithRed:0.91 green:0.48 blue:0.18 alpha:1.0] forKey:[[NSNumber numberWithInt:AdditionalInfoColor] stringValue]];
     [singleton->colors setValue:[UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:0.9] forKey:[[NSNumber numberWithInt:ButtonBorderColor] stringValue]];
+    [singleton->colors setValue:[UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.0] forKey:[[NSNumber numberWithInt:ToolBarBackground] stringValue]];
     [singleton->colors setValue:[UIColor colorWithRed:0.0 green:0.48 blue:0.71 alpha:1.0] forKey:[[NSNumber numberWithInt:ButtonSelectedColor] stringValue]];
     [singleton->colors setValue:[UIColor colorWithRed:0.0 green:0.48 blue:0.71 alpha:0.2] forKey:[[NSNumber numberWithInt:ButtonSelectedBackgroundColor] stringValue]];
     
