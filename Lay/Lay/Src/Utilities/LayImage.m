@@ -34,6 +34,9 @@ NSString *const LayIconResourcePath = @"Icons/";
         case LAY_IMAGE_FAVOURITES_MINI:
             image = [LayImage imageNamed:@"726-star_mini.png"];
             break;
+        case LAY_IMAGE_USER_MINI:
+            image = [LayImage imageNamed:@"769-male_mini.png"];
+            break;
         case LAY_IMAGE_NOTES:
             image = [LayImage imageNamed:@"830-pencil.png"];
             break;

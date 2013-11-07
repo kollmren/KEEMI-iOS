@@ -36,6 +36,8 @@
 
 @property (nonatomic) UIButton *checkButton;
 
+@property (nonatomic) UIButton *utilitiesButton;
+
 -(void)showMiniIconsForQuestion;
 
 -(void)viewWillAppear;

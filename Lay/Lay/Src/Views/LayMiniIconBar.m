@@ -67,7 +67,7 @@ static const CGFloat g_enabledMiniIconsAlphaValue = 0.9f;
 -(void)setShowUserIcon:(BOOL)showUserIcon_ {
     showUserIcon = showUserIcon_;
     if(showUserIcon) {
-        UIImage *userMini = [LayImage imageWithId:LAY_IMAGE_USER];
+        UIImage *userMini = [LayImage imageWithId:LAY_IMAGE_USER_MINI];
         userMini = [UIImage imageWithCGImage:userMini.CGImage scale:2.0f orientation:userMini.imageOrientation];
         UIImageView *userImgView = [[UIImageView alloc]initWithImage:userMini];
         userImgView.tag = MINI_USER;

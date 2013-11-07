@@ -9,6 +9,7 @@
         <attribute name="correctAnsweredByUser" optional="YES" transient="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="numberOfVisibleChoices" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="sessionAnswer" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sessionGivenByUser" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="shuffleAnswers" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="style" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="answerItemRef" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="AnswerItem" inverseName="answerRef" inverseEntity="AnswerItem" syncable="YES"/>

@@ -29,18 +29,21 @@
 -(void)syncStateOfQuestions:(NSArray*)listOfChangedQuestions {
     LayUserDataStore *store = [LayUserDataStore store];
     for (Question *question in listOfChangedQuestions) {
-        UGCQuestion *uq = [self questionByName:question.name];
-        if(!uq) {
-            uq = [store insertObject:UGC_OBJECT_QUESTION];
+        BOOL questionsWasAnsweredByUser = [question.answerRef.sessionGivenByUser boolValue];
+        if(questionsWasAnsweredByUser) {
+            UGCQuestion *uq = [self questionByName:question.name];
+            if(!uq) {
+                uq = [store insertObject:UGC_OBJECT_QUESTION];
+            }
+            uq.name = question.name;
+            uq.question = question.question;
+            uq.favourite = question.favourite;
+            [self addQuestionsRefObject:uq];
+            [self orderQuestion:uq dependingOn:question.answerRef];
+            UGCBoxCaseId boxCaseId = [uq boxCaseId];
+            // !!update some user generated properties in the main-store
+            [question setCaseNumberPrimitive:boxCaseId];
         }
-        uq.name = question.name;
-        uq.question = question.question;
-        uq.favourite = question.favourite;
-        [self addQuestionsRefObject:uq];
-        [self orderQuestion:uq dependingOn:question.answerRef];
-        UGCBoxCaseId boxCaseId = [uq boxCaseId];
-        // !!update some user generated properties in the main-store
-        [question setCaseNumberPrimitive:boxCaseId];
     }
     
     [self updateNumbersOfWrongAndCorrectAnsweredQuestions:listOfChangedQuestions];

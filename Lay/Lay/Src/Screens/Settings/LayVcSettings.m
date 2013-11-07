@@ -206,7 +206,8 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
             NSArray *productIdList = [NSArray arrayWithObjects:productIdProVersion, nil];
             [inAppPurchaseMngr validateProductIdentifiers:productIdList];
         } else if( row == SECTION_BUY_RESTORE_IDX ) {
-            
+            LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
+            [inAppPurchaseMngr restoreTransaction];
         }
     }
 

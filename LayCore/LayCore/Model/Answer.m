@@ -23,5 +23,6 @@
 @dynamic explanationRef;
 @dynamic questionRef;
 @dynamic sessionAnswer;
+@dynamic sessionGivenByUser;
 
 @end

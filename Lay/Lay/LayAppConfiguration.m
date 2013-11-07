@@ -233,9 +233,11 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
                 MWLogError([LayAppConfiguration class], @"Could not remove log-backup:%@", [error description]);
             }
         }
-        BOOL copied = [fileMngr copyItemAtURL:urlToLogFile toURL:urlToBackupedLogFile error:&error];
-        if(!copied || error) {
-            MWLogError([LayAppConfiguration class], @"Could not backup log-file:%@", [error description]);
+        if([fileMngr fileExistsAtPath:[urlToLogFile path]]) {
+            BOOL copied = [fileMngr copyItemAtURL:urlToLogFile toURL:urlToBackupedLogFile error:&error];
+            if(!copied || error) {
+                MWLogError([LayAppConfiguration class], @"Could not backup log-file:%@", [error description]);
+            }
         }
     }
 }

@@ -21,6 +21,7 @@
 		A711D73D176B3B83007A2815 /* LayVcExplanation.m in Sources */ = {isa = PBXBuildFile; fileRef = A711D73B176B3B83007A2815 /* LayVcExplanation.m */; };
 		A71367AF174FFA6D006AA428 /* LayMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = A71367AD174FFA6D006AA428 /* LayMenu.m */; };
 		A71568E1182543CE00A3BF8D /* LayUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A71568E0182543CE00A3BF8D /* LayUserDefaults.m */; };
+		A719897C182BC84F003D258A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A719897B182BC84F003D258A /* StoreKit.framework */; };
 		A71D7C9A17B5207B00A45B65 /* UGCResource+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71D7C9917B5207B00A45B65 /* UGCResource+Utilities.m */; };
 		A71EC6E6177B391600F47782 /* LayUserDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71EC6E4177B391600F47782 /* LayUserDataModel.xcdatamodeld */; };
 		A71EC6E8177B3AD300F47782 /* UGCCatalog+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71EC6E7177B3AD300F47782 /* UGCCatalog+Utilities.m */; };
@@ -56,7 +57,6 @@
 		A7460848177C3F14000B1139 /* LayStatusProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A7460847177C3F14000B1139 /* LayStatusProgressBar.m */; };
 		A7474F6F17BBBD3800B334CD /* UGCNote+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7474F6E17BBBD3800B334CD /* UGCNote+Utilities.m */; };
 		A74CA16717B3A4A3005DC343 /* LayVcCredits.m in Sources */ = {isa = PBXBuildFile; fileRef = A74CA16617B3A4A3005DC343 /* LayVcCredits.m */; };
-		A74DF0EA1827B99F00B599B5 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A74DF0E91827B99F00B599B5 /* StoreKit.framework */; };
 		A74DF0ED1827BB5E00B599B5 /* LayInAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A74DF0EC1827BB5E00B599B5 /* LayInAppPurchaseManager.m */; };
 		A7500742175F5D8E007AD407 /* LayHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7500741175F5D8E007AD407 /* LayHintView.m */; };
 		A7507C8916C84DB7007ACB78 /* Media+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7507C8816C84DB7007ACB78 /* Media+Utilities.m */; };
@@ -162,6 +162,7 @@
 		A71367AE174FFA6D006AA428 /* LayMenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMenuDelegate.h; sourceTree = "<group>"; };
 		A71568DF182543CE00A3BF8D /* LayUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayUserDefaults.h; sourceTree = "<group>"; };
 		A71568E0182543CE00A3BF8D /* LayUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayUserDefaults.m; sourceTree = "<group>"; };
+		A719897B182BC84F003D258A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A71D7C9917B5207B00A45B65 /* UGCResource+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCResource+Utilities.m"; path = "../LayCore/LayCore/Model/UserGeneratedContent/UGCResource+Utilities.m"; sourceTree = "<group>"; };
 		A71D7C9B17B5266A00A45B65 /* LayButtonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayButtonDelegate.h; sourceTree = "<group>"; };
 		A71EC6E5177B391600F47782 /* LayUserDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LayUserDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -225,7 +226,6 @@
 		A7474F6E17BBBD3800B334CD /* UGCNote+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCNote+Utilities.m"; path = "../LayCore/LayCore/Model/UserGeneratedContent/UGCNote+Utilities.m"; sourceTree = "<group>"; };
 		A74CA16517B3A4A3005DC343 /* LayVcCredits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcCredits.h; path = Credits/LayVcCredits.h; sourceTree = "<group>"; };
 		A74CA16617B3A4A3005DC343 /* LayVcCredits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcCredits.m; path = Credits/LayVcCredits.m; sourceTree = "<group>"; };
-		A74DF0E91827B99F00B599B5 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A74DF0EB1827BB5E00B599B5 /* LayInAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayInAppPurchaseManager.h; sourceTree = "<group>"; };
 		A74DF0EC1827BB5E00B599B5 /* LayInAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayInAppPurchaseManager.m; sourceTree = "<group>"; };
 		A750073E175F37CC007AD407 /* LayMyCatalogListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMyCatalogListItem.h; sourceTree = "<group>"; };
@@ -362,7 +362,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A74DF0EA1827B99F00B599B5 /* StoreKit.framework in Frameworks */,
 				A75FA33E1744D3ED00AAC8EE /* MessageUI.framework in Frameworks */,
 				A79BD72A17424C2E00CB8A39 /* libc++.dylib in Frameworks */,
 				A79BD72817424C0800CB8A39 /* libz.1.2.5.dylib in Frameworks */,
@@ -370,6 +369,7 @@
 				A7ADCC84167271D600A5F0B8 /* CoreData.framework in Frameworks */,
 				A7110C8F164AA7C400BC4943 /* libLayCore.a in Frameworks */,
 				A75B471D163EA7F20062C3C5 /* UIKit.framework in Frameworks */,
+				A719897C182BC84F003D258A /* StoreKit.framework in Frameworks */,
 				A75B471F163EA7F20062C3C5 /* Foundation.framework in Frameworks */,
 				A75B4721163EA7F20062C3C5 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -539,7 +539,7 @@
 		A75B471B163EA7F20062C3C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A74DF0E91827B99F00B599B5 /* StoreKit.framework */,
+				A719897B182BC84F003D258A /* StoreKit.framework */,
 				A75FA33D1744D3ED00AAC8EE /* MessageUI.framework */,
 				A79BD72917424C2E00CB8A39 /* libc++.dylib */,
 				A79BD72717424C0700CB8A39 /* libz.1.2.5.dylib */,
@@ -892,6 +892,16 @@
 				CLASSPREFIX = Lay;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Rene;
+				TargetAttributes = {
+					A75B4717163EA7F20062C3C5 = {
+						DevelopmentTeam = 69EAC9A6X7;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = A75B4712163EA7F20062C3C5 /* Build configuration list for PBXProject "KEEMI" */;
 			compatibilityVersion = "Xcode 3.2";

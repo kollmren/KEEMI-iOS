@@ -21,6 +21,7 @@
 #import "LayUserDataStore.h"
 #import "LayCatalogManager.h"
 #import "LayAppNotifications.h"
+#import "LayUserDefaults.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -60,6 +61,7 @@ static const NSInteger SECTION_BOOK = 2;
     LayButton *addBookResource;
     BOOL titleTextFieldDefaultValueSwitch;
     BOOL linkTextFieldDefaultValueSwitch;
+    BOOL userBoughtProVersion;
 }
 
 @end
@@ -167,6 +169,10 @@ static Class g_classObj = nil;
     [self setupTableHeader];
     [self setupSectionViews];
     [self setupAddButtons];
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -412,24 +418,28 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *footerView = nil;
-    if(SECTION_WEB==section) {
-        footerView = self->addWebResource;
-    } else if(SECTION_FILE==section) {
-        footerView = self->addFileResource;
-    } else if(SECTION_BOOK==section) {
-        footerView = self->addBookResource;
+    if(self->userBoughtProVersion) {
+        if(SECTION_WEB==section) {
+            footerView = self->addWebResource;
+        } else if(SECTION_FILE==section) {
+            footerView = self->addFileResource;
+        } else if(SECTION_BOOK==section) {
+            footerView = self->addBookResource;
+        }
     }
     return footerView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     CGFloat height = 0;
-    if(SECTION_WEB==section) {
-        height = self->addWebResource.frame.size.height;
-    } else if(SECTION_FILE==section) {
-        height = self->addFileResource.frame.size.height;
-    } else if(SECTION_BOOK==section) {
-        height = self->addBookResource.frame.size.height;
+    if(self->userBoughtProVersion) {
+        if(SECTION_WEB==section) {
+            height = self->addWebResource.frame.size.height;
+        } else if(SECTION_FILE==section) {
+            height = self->addFileResource.frame.size.height;
+        } else if(SECTION_BOOK==section) {
+            height = self->addBookResource.frame.size.height;
+        }
     }
     return height;
 }
@@ -442,11 +452,11 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     CGFloat headerHeight = 0.0f;
-    if(SECTION_WEB==section) {
+    if(SECTION_WEB==section && (self->userBoughtProVersion || [self->resourceListWeb count] > 0) ) {
         headerHeight = self->sectionViewWeb.frame.size.height;
-    } else if(SECTION_FILE==section) {
+    } else if(SECTION_FILE==section && (self->userBoughtProVersion || [self->resourceListFile count] > 0) ) {
         headerHeight = self->sectionViewFile.frame.size.height;
-    } else if(SECTION_BOOK==section) {
+    } else if(SECTION_BOOK==section && (self->userBoughtProVersion || [self->resourceListBook count] > 0) ) {
         headerHeight = self->sectionViewBook.frame.size.height;
     }
     return headerHeight;
@@ -454,12 +464,12 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *sectionView = nil;
-    if(SECTION_WEB==section) {
+    if(SECTION_WEB==section && (self->userBoughtProVersion || [self->resourceListWeb count] > 0) ) {
         sectionView = self->sectionViewWeb;
-    } else if(SECTION_FILE==section) {
+    } else if(SECTION_FILE==section && (self->userBoughtProVersion || [self->resourceListFile count] > 0) ) {
         sectionView = self->sectionViewFile;
-    } else if(SECTION_BOOK==section) {
-        sectionView = self->sectionViewBook;
+    } else if(SECTION_BOOK==section && (self->userBoughtProVersion || [self->resourceListBook count] > 0) ) {
+       sectionView = self->sectionViewBook;
     }
     return sectionView;
 }

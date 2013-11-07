@@ -131,6 +131,7 @@ numberOfSkippedQuestions, neededTime;
         Answer *answer = question.answerRef;
         answer.sessionAnswer = nil;
         answer.correctAnsweredByUser = [NSNumber numberWithBool:NO];
+        answer.sessionGivenByUser = [NSNumber numberWithBool:NO];
         for (AnswerItem *item in [answer answerItemListOrderedByNumber]) {
             item.setByUser =  [NSNumber numberWithBool:NO];
             item.sessionNumber = [NSNumber numberWithUnsignedInteger:0];

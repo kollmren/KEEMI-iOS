@@ -13,10 +13,13 @@ extern const NSString *productIdProVersion;
 @interface LayInAppPurchaseManager : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver> {
     @private
     NSArray* products;
+    SKProductsRequest *currentProductsRequest;
 }
 
 +(LayInAppPurchaseManager*) instance;
 
 -(void)validateProductIdentifiers:(NSArray *)productIdentifiers;
+
+-(void) restoreTransaction;
 
 @end

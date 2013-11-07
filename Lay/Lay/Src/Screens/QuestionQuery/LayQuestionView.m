@@ -25,6 +25,7 @@
 #import "LayVcResource.h"
 #import "LayVcNotes.h"
 #import "LayVcNavigation.h"
+#import "LayUserDefaults.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -71,6 +72,8 @@
     LayVcResource *vcResource;
     LayVcNotes *vcNotes;
     
+    BOOL userBoughtProVersion;
+    
     BOOL IN_LARGE_SCREEN_MODE;
 }
 @end
@@ -86,7 +89,7 @@ static const CGFloat g_heightOfToolbar = 44.0f;
 static BOOL showUtilitiesToggle = YES;
 
 @synthesize questionDelegate, questionDatasource, answerViewManager,
-toolbar, nextButton, previousButton, checkButton;
+toolbar, nextButton, previousButton, checkButton, utilitiesButton;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -121,6 +124,9 @@ toolbar, nextButton, previousButton, checkButton;
 -(void)viewWillAppear {
     self->vcResource = nil;
     self->vcNotes = nil;
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
     if(!showUtilitiesToggle) {
         [self showUtilities];
     }
@@ -237,9 +243,9 @@ toolbar, nextButton, previousButton, checkButton;
     [cancelButton addTarget:self action:@selector(closeQuestionView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancelButton];
     
-    UIButton *utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
+    self.utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
     [utilitiesButton addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButton];
+    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.utilitiesButton];
     
     UIBarButtonItem *stretchButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     
@@ -252,46 +258,52 @@ toolbar, nextButton, previousButton, checkButton;
 
 -(NSArray*)utilitiesButtons {
     NSMutableArray *buttonItemList = [NSMutableArray arrayWithCapacity:5];
-    UIButton *utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
-    [utilitiesButton addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButton];
+    UIButton *utilitiesButtonInUtilityMode = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
+    [utilitiesButtonInUtilityMode addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButtonInUtilityMode];
     UIBarButtonItem *stretchButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttonItemList addObject:utilitiesButtonItem];
     [buttonItemList addObject:stretchButtonItem];
     
-    UIButton *favouriteButton = [LayIconButton buttonWithId:LAY_BUTTON_FAVOURITES];
-    UIImage *favouriteSelected = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
-    [favouriteButton addTarget:self action:@selector(markQuestionAsFavourite:) forControlEvents:UIControlEventTouchUpInside];
-    [favouriteButton setImage:favouriteSelected forState:UIControlStateSelected];
-    if([self->currentQuestion isFavourite]) {
-        favouriteButton.selected = YES;
-    } else {
-        favouriteButton.selected = NO;
+    if(self->userBoughtProVersion) {
+        UIButton *favouriteButton = [LayIconButton buttonWithId:LAY_BUTTON_FAVOURITES];
+        UIImage *favouriteSelected = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
+        [favouriteButton addTarget:self action:@selector(markQuestionAsFavourite:) forControlEvents:UIControlEventTouchUpInside];
+        [favouriteButton setImage:favouriteSelected forState:UIControlStateSelected];
+        if([self->currentQuestion isFavourite]) {
+            favouriteButton.selected = YES;
+        } else {
+            favouriteButton.selected = NO;
+        }
+        UIBarButtonItem *favouriteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:favouriteButton];
+        [buttonItemList addObject:favouriteButtonItem];
     }
-    UIBarButtonItem *favouriteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:favouriteButton];
-    [buttonItemList addObject:favouriteButtonItem];
     
-    UIButton *resourceButton = [LayIconButton buttonWithId:LAY_BUTTON_RESOURCES];
-    UIImage *resourceSelected = [LayImage imageWithId:LAY_IMAGE_RESOURCES_SELECTED];
-    [resourceButton addTarget:self action:@selector(showResources) forControlEvents:UIControlEventTouchUpInside];
-    [resourceButton setImage:resourceSelected forState:UIControlStateSelected];
-    if([self->currentQuestion hasLinkedResources]) {
-        resourceButton.selected = YES;
-    } else {
-        resourceButton.selected = NO;
+    if(self->userBoughtProVersion || [self->currentQuestion hasLinkedResources]) {
+        UIButton *resourceButton = [LayIconButton buttonWithId:LAY_BUTTON_RESOURCES];
+        UIImage *resourceSelected = [LayImage imageWithId:LAY_IMAGE_RESOURCES_SELECTED];
+        [resourceButton addTarget:self action:@selector(showResources) forControlEvents:UIControlEventTouchUpInside];
+        [resourceButton setImage:resourceSelected forState:UIControlStateSelected];
+        if([self->currentQuestion hasLinkedResources]) {
+            resourceButton.selected = YES;
+        } else {
+            resourceButton.selected = NO;
+        }
+        UIBarButtonItem *resourceButtonItem  = [[UIBarButtonItem alloc]initWithCustomView:resourceButton];
+        [buttonItemList addObject:resourceButtonItem];
     }
-    UIBarButtonItem *resourceButtonItem  = [[UIBarButtonItem alloc]initWithCustomView:resourceButton];
-    [buttonItemList addObject:resourceButtonItem];
     
-    UIButton *noteButton = nil;
-    if([self->currentQuestion hasLinkedNotes]) {
-        noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES_SELECTED];
-    } else {
-        noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES];
+    if(self->userBoughtProVersion) {
+        UIButton *noteButton = nil;
+        if([self->currentQuestion hasLinkedNotes]) {
+            noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES_SELECTED];
+        } else {
+            noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES];
+        }
+        [noteButton addTarget:self action:@selector(showNotes) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *noteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:noteButton];
+        [buttonItemList addObject:noteButtonItem];
     }
-    [noteButton addTarget:self action:@selector(showNotes) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *noteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:noteButton];
-    [buttonItemList addObject:noteButtonItem];
     
     return buttonItemList;
 }
@@ -421,13 +433,10 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     BOOL doEvaluate = NO;
     if([self->currentQuestion isChecked]==NO) {
         BOOL userSetAnswer = [self->currentAnswerView userSetAnswer];
-        if(userSetAnswer || force) {
-            LayConfigurationManager* cfgMngr = [LayConfigurationManager instance];
-            QuerySessionModes configuredQuerySessionMode = cfgMngr.querySessionMode;
-            if(configuredQuerySessionMode==QUERY_SESSION_TRAINING_MODE) {
-                doEvaluate = YES;
-            }
-            //
+        self->currentQuestion.answerRef.sessionGivenByUser = [NSNumber numberWithBool:userSetAnswer];
+        
+        if(!force && userSetAnswer) {
+            // Only if the user does set a answer and doesn not cecked / evaluated the question!
             BOOL result = [self->currentAnswerView isUserAnswerCorrect];
             self->currentQuestion.answerRef.correctAnsweredByUser = [NSNumber numberWithBool:result];
             if(userSetAnswer) {
@@ -436,9 +445,12 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
                 } else {
                     self->numberIncorrectAnswerdQuestions++;
                 }
-                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
             }
         }
+        
+        
+        [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
+        
     }
     
     if(doEvaluate) {
@@ -511,6 +523,12 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     
     if(![self stopForwardNavigation] && ![self stopBackwardsNavigation]) {
         self.checkButton.hidden = NO;
+    }
+    
+    NSArray *utilities = [self utilitiesButtons];
+    if([utilities count] == 2/*the utility button and the stretch button in the utility-toolbar-mode*/) {
+        self.utilitiesButton.enabled = NO;
+        self.utilitiesButton.hidden = YES;
     }
 }
 

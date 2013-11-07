@@ -319,7 +319,7 @@ imageSizeRatio, menuDelegate, frame, entriesInteractive;
 
         self.showAnimated = NO;
         self.mediaView = [[LayMediaView alloc]initWithFrame:frame andMediaData:mediaData];
-        self.mediaView.alpha = 0.9f;
+        //self.mediaView.alpha = 0.9f;
         self.mediaView.fitToContent = YES;
         [self addSubview:self.mediaView];
         [self addLabel];

@@ -158,7 +158,7 @@ static Class _classObj = nil;
     if([target respondsToSelector:callback]) {
         BOOL unregistered = [self unregisterPath:pathToElement];
         if(unregistered) {
-            MWLogWarning(_classObj, @"Registering the same path twice is not allowed(Path:%@)!", pathToElement);
+            MWLogInfo(_classObj, @"Unregistered path:%@!", pathToElement);
         }
         MWLogDebug(_classObj, @"Register path:%@", pathToElement);
         regPath = [LayRegisteredPath withPath:pathToElement object:target andAction:callback];

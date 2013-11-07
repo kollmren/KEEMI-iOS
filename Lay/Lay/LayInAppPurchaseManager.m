@@ -11,7 +11,7 @@
 
 #import "MWLogging.h"
 
-const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
+const NSString *productIdProVersion = @"com.paasq.keemi.keemiproversion";
 
 @implementation LayInAppPurchaseManager
 
@@ -27,11 +27,25 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
 }
 
 -(void)validateProductIdentifiers:(NSArray *)productIdentifiers {
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc]
+    self->currentProductsRequest = [[SKProductsRequest alloc]
                                           initWithProductIdentifiers:[NSSet setWithArray:productIdentifiers]];
-    productsRequest.delegate = self;
+    self->currentProductsRequest.delegate = self;
     MWLogInfo([LayInAppPurchaseManager class], @"Starting product request...");
-    [productsRequest start];
+    [self->currentProductsRequest start];
+}
+
+-(void) restoreTransaction {
+    SKPaymentQueue *defaultQueue = [SKPaymentQueue defaultQueue];
+    MWLogInfo([LayInAppPurchaseManager class], @"Restore transaction...");
+    [defaultQueue restoreCompletedTransactions];
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    MWLogError([LayInAppPurchaseManager class], @"Product request failed:%@, Debug:%@", [error description], [error debugDescription] );
+}
+
+- (void)requestDidFinish:(SKRequest *)request {
+    MWLogDebug([LayInAppPurchaseManager class], @"Product request finished.");
 }
 
 // SKProductsRequestDelegate protocol method
@@ -41,6 +55,7 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
     for (NSString *invalidIdentifier in response.invalidProductIdentifiers) {
         MWLogWarning([LayInAppPurchaseManager class], @"Found invalid product identifier:%@", invalidIdentifier);
     }
+    self->currentProductsRequest = nil;
     [self displayStoreUI]; // Custom method
 }
 
@@ -61,16 +76,19 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
                 break;
         }
     }
-    
+}
+
+-(void)finishTransaction {
     SKPaymentQueue *defaultQueue = [SKPaymentQueue defaultQueue];
-    for (SKPaymentTransaction *transaction in transactions) {
+    NSArray *pendingTransactions = defaultQueue.transactions;
+    for (SKPaymentTransaction *transaction in pendingTransactions) {
         MWLogInfo([LayInAppPurchaseManager class], @"Finish transaction:%@ from:%@.", transaction.transactionIdentifier, [transaction.transactionDate description]);
         [defaultQueue finishTransaction:transaction];
     }
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    MWLogInfo([LayInAppPurchaseManager class], @"User failed buying Pro-Version. Details:%@", [error description]);
+    MWLogError([LayInAppPurchaseManager class], @"User failed buying Pro-Version. Details:%@", [error description]);
     NSString *message = NSLocalizedString(@"InfoBuyProVersionFailed", nil);
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
                                                  message:message
@@ -82,15 +100,6 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
 
 - (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
     MWLogInfo([LayInAppPurchaseManager class], @"User restored bought Pro-Version!");
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setBool:YES forKey:(NSString*)userDidBuyProVersion];
-    NSString *message = NSLocalizedString(@"InfoBuyProVersionSuccessfully", nil);
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
-                                                 message:message
-                                                delegate:self
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-    [av show];
 }
 
 -(void)completeTransaction:(SKPaymentTransaction*)transaction {
@@ -107,11 +116,12 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
                                        cancelButtonTitle:@"OK"
                                        otherButtonTitles:nil];
     [av show];
+    [self finishTransaction];
     
 }
 
 -(void)failedTransaction:(SKPaymentTransaction*)transaction {
-    MWLogInfo([LayInAppPurchaseManager class], @"User failed buying Pro-Version.");
+    MWLogError([LayInAppPurchaseManager class], @"User failed buying Pro-Version. Details:%@", [transaction.error debugDescription]);
     NSString *message = NSLocalizedString(@"InfoBuyProVersionFailed", nil);
     UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
                                                  message:message
@@ -119,21 +129,27 @@ const NSString *productIdProVersion = @"com.paasq.keemi.pro_version";
                                        cancelButtonTitle:@"OK"
                                        otherButtonTitles:nil];
     [av show];
-
+    [self finishTransaction];
 }
 
 -(void)restoreTransaction:(SKPaymentTransaction*)transaction {
     MWLogInfo([LayInAppPurchaseManager class], @"User restored bought Pro-Version.");
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    [standardUserDefaults setBool:YES forKey:(NSString*)userDidBuyProVersion];
-    NSString *message = NSLocalizedString(@"InfoBuyProVersionSuccessfully", nil);
-    UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
-                                                 message:message
-                                                delegate:self
-                                       cancelButtonTitle:@"OK"
-                                       otherButtonTitles:nil];
-    [av show];
-
+    if(transaction.originalTransaction) {
+        MWLogInfo([LayInAppPurchaseManager class], @"User has already bought the Pro-Version.");
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        [standardUserDefaults setBool:YES forKey:(NSString*)userDidBuyProVersion];
+        NSString *message = NSLocalizedString(@"InfoBuyProVersionSuccessfully", nil);
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
+                                                     message:message
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+        [av show];
+    } else {
+         MWLogWarning([LayInAppPurchaseManager class], @"User has not bought the Pro-Version yet.");
+    }
+    
+    [self finishTransaction];
 }
 
 -(void)displayStoreUI {

@@ -145,7 +145,7 @@
 "InfoBuyProVersion" = "Buy KEEMI Pro";
 "InfoBuyRestore" = "Restore KEEMI Pro purchase";
 "InfoBuyProVersionSuccessfully" = "The features of the KEEMI-Pro Version are activated.";
-"InfoBuyProVersionFailed" = "The payment of the KEEMI-Pro Version could not be completed!.";
+"InfoBuyProVersionFailed" = "The payment of the KEEMI-Pro Version could not be completed!";
 "InfoBuyButton" = "Buy for %@";
 "InfoBuyCanMakeNoPayments" = "You are not authorized to make payments!";
 "InfoHelpSampleCatalogs" = "Question-Catalogs (Samples)";
