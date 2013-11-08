@@ -506,9 +506,12 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
     CGFloat pageWidth = self->answerButtonList.frame.size.width;
     self->indexOfCurrentAnswerItem = floor((self->answerButtonList.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     [self updateTitle];
-    LayAnswerButton* answerButton = (LayAnswerButton*)[[self->answerButtonList subviews]objectAtIndex:self->indexOfCurrentAnswerItem];
-    if(answerButton) {
-        [self showStateIndicatorsForButton:answerButton];
+    NSArray *answerButtonViewList = [self->answerButtonList subviews];
+    if(self->indexOfCurrentAnswerItem  < [answerButtonViewList count]) {
+        LayAnswerButton* answerButton = (LayAnswerButton*)[answerButtonViewList objectAtIndex:self->indexOfCurrentAnswerItem];
+        if(answerButton) {
+            [self showStateIndicatorsForButton:answerButton];
+        }
     }
 }
 

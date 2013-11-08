@@ -106,6 +106,10 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
         self.backgroundColor = [styleGuide getColor:BackgroundColor];
         [self initQuestionView];
         [self registerEvents];
+        //
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+        self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
     }
     return self;
 }
@@ -124,9 +128,6 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
 -(void)viewWillAppear {
     self->vcResource = nil;
     self->vcNotes = nil;
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
-    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
     if(!showUtilitiesToggle) {
         [self showUtilities];
     }
@@ -434,9 +435,13 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     if([self->currentQuestion isChecked]==NO) {
         BOOL userSetAnswer = [self->currentAnswerView userSetAnswer];
         self->currentQuestion.answerRef.sessionGivenByUser = [NSNumber numberWithBool:userSetAnswer];
-        
-        if(!force && userSetAnswer) {
-            // Only if the user does set a answer and doesn not cecked / evaluated the question!
+        if(userSetAnswer || force) {
+            LayConfigurationManager* cfgMngr = [LayConfigurationManager instance];
+            QuerySessionModes configuredQuerySessionMode = cfgMngr.querySessionMode;
+            if(configuredQuerySessionMode==QUERY_SESSION_TRAINING_MODE) {
+                doEvaluate = YES;
+            }
+            //
             BOOL result = [self->currentAnswerView isUserAnswerCorrect];
             self->currentQuestion.answerRef.correctAnsweredByUser = [NSNumber numberWithBool:result];
             if(userSetAnswer) {
@@ -445,12 +450,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
                 } else {
                     self->numberIncorrectAnswerdQuestions++;
                 }
+                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
             }
         }
-        
-        
-        [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
-        
     }
     
     if(doEvaluate) {
@@ -464,6 +466,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
             parentViewToPresentHint = self->questionAnswerViewArea;
         }
         LayHintView *hintView = [[LayHintView alloc]initWithWidth:width view:parentViewToPresentHint target:nil andAction:nil];
+        hintView.duration = 1.0f;
         if(userSetAnswer && correctAnswer) {
             NSString *message = NSLocalizedString(@"QuestionSessionAnswerCorrect", nil);
             [hintView showHint:message withBorderColor:AnswerCorrect];
@@ -472,11 +475,11 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
             [hintView showHint:message withBorderColor:AnswerWrong];
         }
         
-        NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
-        [[NSNotificationCenter defaultCenter] postNotification:note];
-        
         [self->currentAnswerView showSolution];
         [self->currentQuestion setIsChecked:YES];
+        
+        NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
+        [[NSNotificationCenter defaultCenter] postNotification:note];
     }
     return doEvaluate;
 }
@@ -529,6 +532,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     if([utilities count] == 2/*the utility button and the stretch button in the utility-toolbar-mode*/) {
         self.utilitiesButton.enabled = NO;
         self.utilitiesButton.hidden = YES;
+    } else {
+        self.utilitiesButton.enabled = YES;
+        self.utilitiesButton.hidden = NO;
     }
 }
 

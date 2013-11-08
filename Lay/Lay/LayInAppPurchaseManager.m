@@ -42,6 +42,13 @@ const NSString *productIdProVersion = @"com.paasq.keemi.keemiproversion";
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     MWLogError([LayInAppPurchaseManager class], @"Product request failed:%@, Debug:%@", [error description], [error debugDescription] );
+    NSString *message = NSLocalizedString(@"InfoBuyProVersionNoConnection", nil);
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:nil
+                                                 message:message
+                                                delegate:self
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+    [av show];
 }
 
 - (void)requestDidFinish:(SKRequest *)request {

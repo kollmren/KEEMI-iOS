@@ -11,6 +11,7 @@
 #import "LayStyleGuide.h"
 #import "LayAppNotifications.h"
 #import "LayAppConfiguration.h"
+#import "LayUserDefaults.h"
 #import "LayInAppPurchaseManager.h"
 
 #import "MWLogging.h"
@@ -32,6 +33,7 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
 @interface LayVcSettings () {
     LayVcNavigationBar *navBarViewController;
     NSArray* sectionTitleList;
+    BOOL userBoughtProVersion;
 }
     
 @end
@@ -79,6 +81,10 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self setupNavigation];
+    //
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -131,6 +137,8 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
         NSString *title = NSLocalizedString(@"InfoAppVersionTitle", nil);
         cell.textLabel.text = title;
         cell.detailTextLabel.text = appVersion;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.enabled = NO;
     } else if(section == SECTION_HELP_IDX) {
         if(row == SECTION_HELP_SAMPLE_CATALOGS_IDX) {
             cell.textLabel.text = NSLocalizedString(@"InfoHelpSampleCatalogs", nil);
@@ -148,6 +156,11 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
             cell.textLabel.text = NSLocalizedString(@"InfoBuyProVersion", nil);
         } else if( row == SECTION_BUY_RESTORE_IDX) {
             cell.textLabel.text = NSLocalizedString(@"InfoBuyRestore", nil);
+        }
+        
+        if(self->userBoughtProVersion) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.enabled = NO;
         }
     }
     
@@ -201,13 +214,15 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
             [self sendMessage:subject recipient:recipient andText:nil file1:contentOfBackupLog file2:contentOfLog];
         }
     } else if(section == SECTION_BUY_IDX) {
-        if(row == SECTION_BUY_PRO_VERSION_IDX) {
-            LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
-            NSArray *productIdList = [NSArray arrayWithObjects:productIdProVersion, nil];
-            [inAppPurchaseMngr validateProductIdentifiers:productIdList];
-        } else if( row == SECTION_BUY_RESTORE_IDX ) {
-            LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
-            [inAppPurchaseMngr restoreTransaction];
+        if(!self->userBoughtProVersion) {
+            if(row == SECTION_BUY_PRO_VERSION_IDX) {
+                LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
+                NSArray *productIdList = [NSArray arrayWithObjects:productIdProVersion, nil];
+                [inAppPurchaseMngr validateProductIdentifiers:productIdList];
+            } else if( row == SECTION_BUY_RESTORE_IDX ) {
+                LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
+                [inAppPurchaseMngr restoreTransaction];
+            }
         }
     }
 

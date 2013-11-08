@@ -1,11 +1,13 @@
 
 // We need all the log functions visible so we set this to DEBUG
+
 #ifdef MW_COMPILE_TIME_LOG_LEVEL
 #undef MW_COMPILE_TIME_LOG_LEVEL
 #define MW_COMPILE_TIME_LOG_LEVEL ASL_LEVEL_DEBUG
 #endif
 
 #define MW_COMPILE_TIME_LOG_LEVEL ASL_LEVEL_DEBUG
+ 
 
 #import <objc/runtime.h>
 #import "MWLogging.h"

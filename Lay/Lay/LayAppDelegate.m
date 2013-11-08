@@ -51,7 +51,7 @@ static NSURL* currentCatalogToImport;
     // Register events
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(importCatalog) name:(NSString*)LAY_NOTIFICATION_DO_IMPORT_CATALOG object:nil];
-    [nc addObserver:self selector:@selector(applicationWillTerminate) name:(NSString*)LAY_NOTIFICATION_IGNORE_IMPORT_CATALOG__ANOTHER_IS_STILL_IN_PROGRESS object:nil];
+    [nc addObserver:self selector:@selector(deleteIgnoredCatalogFromInbox) name:(NSString*)LAY_NOTIFICATION_IGNORE_IMPORT_CATALOG__ANOTHER_IS_STILL_IN_PROGRESS object:nil];
     [nc addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:(NSString*)UIContentSizeCategoryDidChangeNotification object:nil];
     
     // Setup window

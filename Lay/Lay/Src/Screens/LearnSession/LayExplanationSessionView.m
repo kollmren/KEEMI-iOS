@@ -25,6 +25,7 @@
 #import "LayVcNotes.h"
 #import "LayVcNavigation.h"
 #import "LayExplanationView.h"
+#import "LayUserDefaults.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -45,9 +46,11 @@ static BOOL showUtilitiesToggle = YES;
     UIScrollView *explanationView;
     UIButton *previousButton;
     UIButton *nextButton;
+    UIButton *utilitiesButton;
     LayVcQuestion *vcQuestion;
     LayVcResource *vcResource;
     LayVcNotes *vcNotes;
+    BOOL userBoughtProVersion;
 }
 @end
 
@@ -84,6 +87,9 @@ static BOOL showUtilitiesToggle = YES;
 }
 
 -(void)viewCanAppear {
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
     [self showNextExplanation];
 }
 
@@ -144,7 +150,7 @@ static BOOL showUtilitiesToggle = YES;
     [cancelButton addTarget:self action:@selector(closeExplanationView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc]initWithCustomView:cancelButton];
     
-    UIButton *utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
+    self->utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
     [utilitiesButton addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButton];
     
@@ -157,9 +163,9 @@ static BOOL showUtilitiesToggle = YES;
 
 -(NSArray*)utilitiesButtons {
     NSMutableArray *buttonItemList = [NSMutableArray arrayWithCapacity:5];
-    UIButton *utilitiesButton = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
-    [utilitiesButton addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButton];
+    UIButton *utilitiesButtonUtilityMode = [LayIconButton buttonWithId:LAY_BUTTON_TOOLS];
+    [utilitiesButtonUtilityMode addTarget:self action:@selector(showUtilities) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *utilitiesButtonItem = [[UIBarButtonItem alloc]initWithCustomView:utilitiesButtonUtilityMode];
     UIBarButtonItem *stretchButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     [buttonItemList addObject:utilitiesButtonItem];
     [buttonItemList addObject:stretchButtonItem];
@@ -179,22 +185,24 @@ static BOOL showUtilitiesToggle = YES;
     UIButton *resourceButton = nil;
     if([self->currentExplanation hasLinkedResources]) {
         resourceButton = [LayIconButton buttonWithId:LAY_BUTTON_RESOURCES_SELECTED];
-    } else {
+    } else if(self->userBoughtProVersion) {
         resourceButton = [LayIconButton buttonWithId:LAY_BUTTON_RESOURCES];
     }
     [resourceButton addTarget:self action:@selector(showResources) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *resourceButtonItem  = [[UIBarButtonItem alloc]initWithCustomView:resourceButton];
     [buttonItemList addObject:resourceButtonItem];
     
-    UIButton *noteButton = nil;
-    if([self->currentExplanation hasLinkedNotes]) {
-        noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES_SELECTED];
-    } else {
-        noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES];
+    if(self->userBoughtProVersion) {
+        UIButton *noteButton = nil;
+        if([self->currentExplanation hasLinkedNotes]) {
+            noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES_SELECTED];
+        } else {
+            noteButton = [LayIconButton buttonWithId:LAY_BUTTON_NOTES];
+        }
+        [noteButton addTarget:self action:@selector(showNotes) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *noteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:noteButton];
+        [buttonItemList addObject:noteButtonItem];
     }
-    [noteButton addTarget:self action:@selector(showNotes) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *noteButtonItem = [[UIBarButtonItem alloc]initWithCustomView:noteButton];
-    [buttonItemList addObject:noteButtonItem];
 
     return buttonItemList;
 }
@@ -293,6 +301,15 @@ static BOOL showUtilitiesToggle = YES;
     } else {
         self->previousButton.enabled = YES;
         self->previousButton.hidden = NO;
+    }
+    
+    NSArray *utilityButtons = [self utilitiesButtons];
+    if([utilityButtons count] == 2 /*utility ans stretch button only */) {
+        self->utilitiesButton.enabled = NO;
+        self->utilitiesButton.hidden = YES;
+    } else {
+        self->utilitiesButton.enabled = YES;
+        self->utilitiesButton.hidden = NO;
     }
 }
 

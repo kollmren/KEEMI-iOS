@@ -30,6 +30,9 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
     self = [super initWithNibName:nil bundle:nil];
     if(self) {
         self->appearsFirstTime = YES;
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
+        self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
     }
     return self;
 }
@@ -156,16 +159,12 @@ static const CGFloat V_SPACE = 15.0f;
         [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES ];
     }
 
-    if([catalog hasResources]) {
+    if([catalog hasResources] || self->userBoughtProVersion) {
         NSString *entryText = NSLocalizedString(@"CatalogResources", nil);
         [menu addEntryWithImage:resourcesIcon:entryText identifier:MENU_RESOURCE ];
     }
     
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
-    BOOL userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
-    if(userBoughtProVersion) {
+    if(self->userBoughtProVersion) {
         entryText = NSLocalizedString(@"CatalogNotes", nil);
         [menu addEntryWithImage:notesIcon:entryText identifier:MENU_NOTES];
     }

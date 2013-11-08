@@ -198,7 +198,7 @@ static Class g_classObj = nil;
         NSError *err = nil;
         successful = [self->managedObjectContext save:&err];
         if (!successful) {
-            MWLogError(g_classObj, @"Error saving: %@", [err localizedDescription]);
+            MWLogError(g_classObj, @"Error saving: %@ , Details:%@", [err localizedDescription], [err userInfo]);
         }
 
     }

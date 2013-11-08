@@ -26,6 +26,7 @@ typedef enum MenuEntryIdentifiers_ {
 @interface LayVcCatalogListHeader : UIViewController {
     @private
     BOOL appearsFirstTime;
+    BOOL userBoughtProVersion;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *catalogTitle;

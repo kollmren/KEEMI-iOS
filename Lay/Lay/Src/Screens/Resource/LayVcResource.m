@@ -966,15 +966,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         }
         uResource = [uStore insertObject:UGC_OBJECT_RESOURCE];
         uResource.title = title;
-        LayResourceTypeIdentifier resourceType = [uResource resourceType];
-        if(resourceType == RESOURCE_TYPE_BOOK) {
-            uResource.text = link;
-        } else {
-            uResource.link = link;
-        }
-
         uResource.catalogRef = uCatalog;
         uResource.type = [NSNumber numberWithUnsignedInteger:resourceTypeId_];
+        
         if(self->explanationParam) {
             UGCExplanation *uExplanation = [uCatalog explanationByName:self->explanationParam.name];
             if(!uExplanation) {
@@ -994,6 +988,13 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
             }
             [uQuestion addResourceRefObject:uResource];
         }
+        
+        if(resourceTypeId_ == RESOURCE_TYPE_BOOK) {
+            uResource.text = link;
+        } else {
+            uResource.link = link;
+        }
+        
     } else {
         MWLogError([LayVcResource class], @"A catalog context is required!");
     }

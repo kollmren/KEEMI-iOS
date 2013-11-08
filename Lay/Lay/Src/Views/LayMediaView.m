@@ -97,6 +97,7 @@ static const CGFloat HSPACE_LABEL = 4.0f;
         [LayFrame setSizeWith:self->label.frame.size toView:self->labelButton];
         [self->labelButton addSubview:self->label];
         [self addSubview:self->labelButton];
+        [self adjustLabelFrame];
     } else if(!showLabel_) {
         if(self->labelButton) {
             [self->labelButton removeFromSuperview];
@@ -119,7 +120,11 @@ static const CGFloat HSPACE_LABEL = 4.0f;
         [self->label  sizeToFit];
         const CGSize hintLabelSize = self->label.frame.size;
         const CGFloat heightOfHint = hintLabelSize.height + 2*HSPACE_LABEL;
-        [LayFrame setSizeWith:CGSizeMake(labelWidth, heightOfHint) toView:self->label];
+        if(hintLabelSize.width > labelWidth) {
+            [LayFrame setSizeWith:CGSizeMake(labelWidth, heightOfHint) toView:self->label];
+        } else {
+            [LayFrame setHeightWith:heightOfHint toView:self->label animated:NO];
+        }
         CGFloat yPos = 0.0f;
         CGFloat xPos = 0.0f;
         if(self.zoomable) {
@@ -247,7 +252,6 @@ static const CGFloat HSPACE_LABEL = 4.0f;
             //webView.delegate = self;
         }
     }
-    [self adjustLabelFrame];
     [self addAdditionalButton];
 }
 
@@ -355,7 +359,6 @@ static const CGFloat HSPACE_LABEL = 4.0f;
     // show the label only when there is one and the view is currently visible
     if(shouldShowLabel) {
         self.showLabel = YES;
-        [self adjustLabelFrame];
     } else {
         self.showLabel = NO;
     }

@@ -106,7 +106,7 @@
 "ResourceInvalidLinkMessage" = "invalid link";
 "ResourceTitleDefault" = " Title";
 "ResourceLinkDefault" = " Link (Example: http://www.abc.com/path)";
-"ResourceBookDefaulf" = " Example: page 39 and 76";
+"ResourceBookDefault" = " Example: page 39 and 76";
 "ResourceBookLinkValue" = "Book";
 "ResourceOpenQuestionsTitle" = "Questions";
 "ResourceOpenExplanationsTitle" = "Explanations";
@@ -146,6 +146,7 @@
 "InfoBuyRestore" = "Restore KEEMI Pro purchase";
 "InfoBuyProVersionSuccessfully" = "The features of the KEEMI-Pro Version are activated.";
 "InfoBuyProVersionFailed" = "The payment of the KEEMI-Pro Version could not be completed!";
+"InfoBuyProVersionNoConnection" = "Cannot connect to iTunes Store!";
 "InfoBuyButton" = "Buy for %@";
 "InfoBuyCanMakeNoPayments" = "You are not authorized to make payments!";
 "InfoHelpSampleCatalogs" = "Question-Catalogs (Samples)";

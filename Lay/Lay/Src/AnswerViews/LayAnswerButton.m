@@ -137,7 +137,7 @@ static const NSInteger TAG_MEDIA = 101;
         const CGRect mediaFrame = CGRectMake(hIndent, vIndent, buttonFrameSize.width - 2*hIndent, buttonFrameSize.height-2*vIndent);
         LayMediaData* mediaData = [self.answerItem mediaData];
         LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:mediaFrame andMediaData:mediaData];
-
+        //mediaView.fitLabelToFitContent = YES;
         mediaView.fitToContent = YES;
         [mediaView layoutMediaView];
         mediaView.tag = TAG_MEDIA;
@@ -288,16 +288,17 @@ static const NSInteger TAG_MEDIA = 101;
 -(void)adjustLayerTo:(CGRect)frame_ {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     CGSize iconButtonSize = [styleGuide iconButtonSize];
-    CGFloat iconHeight = iconButtonSize.width;
-    CGFloat iconWidth = iconButtonSize.height;
+    CGFloat iconHeight = iconButtonSize.width / 2.0;
+    CGFloat iconWidth = iconButtonSize.height / 2.0f;
     const CGSize buttonSize = frame_.size;
     const CGFloat indent = 6.0f;
+    const CGFloat yIndent = 2.0f;
     if(!self->evaluated) {
         if(self.buttonStyle == StyleColumnLeft) {
-            self->markedIconLayer.frame = CGRectMake(indent, -(iconHeight/2.0f), iconWidth, iconHeight);
+            self->markedIconLayer.frame = CGRectMake(indent, yIndent, iconWidth, iconHeight);
         } else {
             const CGFloat xPos = buttonSize.width - indent - iconWidth;
-            self->markedIconLayer.frame = CGRectMake(xPos, -(iconHeight/2.0f), iconWidth, iconHeight);
+            self->markedIconLayer.frame = CGRectMake(xPos, yIndent, iconWidth, iconHeight);
         }
         
     }
@@ -331,6 +332,7 @@ static const NSInteger TAG_MEDIA = 101;
     CGFloat iconWidth = iconButtonSize.height;
      BOOL correct = [self.answerItem.correct boolValue];
     self->markedIconLayer.anchorPoint = CGPointMake(0.0f, 0.0f);
+    self->markedIconLayer.bounds = CGRectMake(self->markedIconLayer.position.x, self->markedIconLayer.position.y, iconWidth, iconHeight);
     if([self->answerItem hasExplanation] && self.showInfoIconIfEvaluated) {
         if(infoIcon == nil) {
             self->infoIcon = [LayInfoIconView icon];

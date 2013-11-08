@@ -400,7 +400,7 @@
 
 -(BOOL)hasResources {
     BOOL hasResources = NO;
-    if(self.resourceRef) {
+    if([self.resourceRef count] > 0) {
         hasResources = YES;
     }
     return hasResources;
