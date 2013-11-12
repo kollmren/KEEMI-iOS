@@ -303,7 +303,7 @@ imageSizeRatio, ribbonDelegate, frame, pageMode, entriesInteractive, animateTap;
     if(self.orientation == HORIZONTAL) {
         [self layoutEntriesHorizontal];
     } else {
-        MWLogInfo([LayImageRibbon class], @"!!TODO: Ribbon does not support VERTICAL orientation yes!");
+        MWLogDebug([LayImageRibbon class], @"!!TODO: Ribbon does not support VERTICAL orientation yes!");
     }
 }
 

@@ -836,9 +836,11 @@ return readOk;
         }
     }
     
-    const NSUInteger expectedNumberOfQuestionsWithTypeWordResponse = 1;
+    const NSUInteger expectedNumberOfQuestionsWithTypeWordResponse = 3;
     if(expectedNumberOfQuestionsWithTypeWordResponse == numberOfQuestionsWithTypeWordResponse) {
         catalogIsAsExpected = YES;
+    } else {
+        MWLogError(_classObj, @"Number:%d of expected:%d questions with type:wordResponse does not match!",expectedNumberOfQuestionsWithTypeWordResponse, numberOfQuestionsWithTypeWordResponse);
     }
     
     return catalogIsAsExpected;

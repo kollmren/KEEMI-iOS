@@ -79,7 +79,7 @@ static Class g_classObj = nil;
     [fileInfo setDetail:catalog.publisherEmail forKey:@"emailPublisher"];
     Author *author = catalog.authorRef;
     [fileInfo setDetail:author.name forKey:@"author"];
-    [fileInfo setDetail:author.email forKey:@"emailAuthor"];
+    [fileInfo setDetail:author.emailAuthor forKey:@"emailAuthor"];
     NSString *numberOfQuestions = [NSString stringWithFormat:@"%u", [catalog numberOfQuestions]];
     [fileInfo setDetail:numberOfQuestions forKey:@"numberOfQuestions"];
     NSString *numberOfExplanations = [NSString stringWithFormat:@"%u", [catalog numberOfExplanations]];

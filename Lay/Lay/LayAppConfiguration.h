@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern const NSString* const NAME_OF_LOG_FILE;
+//extern const NSString* const NAME_OF_LOG_FILE;
 
 @interface LayAppConfiguration : NSObject
 

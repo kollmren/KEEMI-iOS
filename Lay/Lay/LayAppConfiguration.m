@@ -22,8 +22,8 @@
 #import "LayError.h"
 #import "MWLogging.h"
 
-const NSString* const NAME_OF_LOG_FILE = @"KeemiLog.log";
-const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
+//const NSString* const NAME_OF_LOG_FILE = @"KeemiLog.log";
+//const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
 
 @implementation LayAppConfiguration
 
@@ -125,7 +125,7 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
 + (BOOL)configureDatastore
 {
     BOOL databaseSetup = NO;
-    MWLogInfo([LayAppConfiguration class], @"Configure Datastore ...");
+    MWLogDebug([LayAppConfiguration class], @"Configure Datastore ...");
     NSString* STORE_FILE_NAME = @"KeemiMainStore.sqlite";
     NSFileManager *fileMngr = [NSFileManager defaultManager];
     NSArray *dirList = [fileMngr URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
@@ -139,7 +139,7 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
     if(databaseSetup) {
         NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *documentDirUrl = [dirList objectAtIndex:0];
-        MWLogInfo([LayAppConfiguration class], @"Configure User-Datastore ...");
+        MWLogDebug([LayAppConfiguration class], @"Configure User-Datastore ...");
         NSString* USER_STORE_FILE_NAME = @"KeemiUserStore.sqlite";
         NSURL *urlToStoreFileInDocumentDir = [documentDirUrl URLByAppendingPathComponent:USER_STORE_FILE_NAME];
         databaseSetup = [self configureUserDataStoreAtURL:urlToStoreFileInDocumentDir];
@@ -166,14 +166,14 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
     }
     
     if(nil==error){
-        MWLogInfo([LayAppConfiguration class], @"Copy file from:%@ to %@.", urlToStoreFileInBundle, urlToStoreFileInCachesDir );
+        MWLogDebug([LayAppConfiguration class], @"Copy file from:%@ to %@.", urlToStoreFileInBundle, urlToStoreFileInCachesDir );
         storeFileExistsAtTheRightPlace = [fileMngr copyItemAtURL:urlToStoreFileInBundle toURL:urlToStoreFileInCachesDir error:&error];
     }
     
     if(!storeFileExistsAtTheRightPlace) {
         MWLogError([LayAppConfiguration class], @"%@", [error description]);
     } else {
-        MWLogInfo([LayAppConfiguration class], @"Copied file successfully.");
+        MWLogDebug([LayAppConfiguration class], @"Copied file successfully.");
     }
     
     return storeFileExistsAtTheRightPlace;
@@ -243,7 +243,7 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
 }
 
 +(NSURL*)urlToLogFile {
-    NSString *nameOfLogFile = (NSString*)NAME_OF_LOG_FILE;
+    NSString *nameOfLogFile = @"KeemiLog.log";
     NSFileManager *fileMngr = [NSFileManager defaultManager];
     NSArray *dirList = [fileMngr URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
     NSURL *cachesDirUrl = [dirList objectAtIndex:0];
@@ -255,7 +255,7 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
 }
 
 +(NSURL*)urlToBackedupLogFile {
-    NSString *nameOfLogFile = (NSString*)NAME_OF_LOG_FILE_BACKUP;
+    NSString *nameOfLogFile = @"KeemiLogBackuped.log";
     NSFileManager *fileMngr = [NSFileManager defaultManager];
     NSArray *dirList = [fileMngr URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
     NSURL *cachesDirUrl = [dirList objectAtIndex:0];
@@ -268,7 +268,7 @@ const NSString* const NAME_OF_LOG_FILE_BACKUP = @"KeemiLogBackuped.log";
 
 +(NSData*) contentOfLogFile {
     NSData* contentOfLogFile = nil;
-    NSString *nameOfLogFile = (NSString*)NAME_OF_LOG_FILE;
+    NSString *nameOfLogFile = @"KeemiLog.log";
     NSFileManager *fileMngr = [NSFileManager defaultManager];
     NSArray *dirList = [fileMngr URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
     NSURL *cachesDirUrl = [dirList objectAtIndex:0];

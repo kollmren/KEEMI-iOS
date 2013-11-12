@@ -33,7 +33,7 @@ static Class g_classObj = nil;
         return NO;
     }
     
-    MWLogInfo(g_classObj, @"Configure datastore with:%@, %@", urlToDataStoreFile, urlToDataStoreModel);
+    MWLogDebug(g_classObj, @"Configure datastore with:%@, %@", urlToDataStoreFile, urlToDataStoreModel);
     if(urlToDataStoreFile == nil || urlToDataStoreModel == nil) {
         NSString *message =  @"Invalid arguments! At least one parameter is nil!";
         MWLogError(g_classObj, message);

@@ -61,7 +61,7 @@
     NSManagedObjectContext* context = self.managedObjectContext;
     Author *author = [LayDataStoreUtilities insertDomainObject: LayAuthor :context];
     author.name = name_;
-    author.email = email;
+    author.emailAuthor = email;
     self.authorRef = author;
 }
 
@@ -74,7 +74,7 @@
 }
 
 -(NSString*)publisherEmail {
-    return self.publisherRef.email;
+    return self.publisherRef.emailPublisher;
 }
 
 -(void)setPublisher:(NSString *)publisherName {
@@ -92,12 +92,12 @@
 
 -(void)setPublisherEmail:(NSString*)email {
     if(self.publisherRef) {
-        self.publisherRef.email = email;
+        self.publisherRef.emailPublisher = email;
     }
 }
 
 -(UIImage*)publisherLogo {
-    Media* media = self.publisherRef.logo;
+    Media* media = self.publisherRef.logoPublisher;
     NSData* data = media.data;
     UIImage *logoImage_ = [UIImage imageWithData:data];
     return logoImage_;
@@ -113,7 +113,7 @@
         logoRef.name = @"logo";
         NSURL* catalogIDAsUrl = [[self objectID] URIRepresentation];
         logoRef.catalogID = [catalogIDAsUrl path];
-        self.publisherRef.logo = logoRef;
+        self.publisherRef.logoPublisher = logoRef;
     }
 }
 

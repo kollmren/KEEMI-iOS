@@ -51,48 +51,41 @@ static Class g_classObj = nil;
 
 +(void)cleanupInboxAndTmpDir {
     NSString *nameOfInboxDir = @"Inbox";
-    MWLogInfo(g_classObj, @"Some cleanups! Try to remove the %@ directory!", nameOfInboxDir);
+    MWLogDebug(g_classObj, @"Some cleanups! Try to remove the the files in directory:%@!", nameOfInboxDir);
     NSFileManager* fileMngr = [NSFileManager defaultManager];
     NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
     NSURL *documentDirUrl = [dirList objectAtIndex:0];
     // TODO: get the name of the Inbox directory programmatically !
     NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
-    BOOL isDirectory = NO;
-    if([fileMngr fileExistsAtPath:[inboxDirUrl path] isDirectory:&isDirectory]) {
-        if(isDirectory) {
-            NSError *error = nil;
-            BOOL removedAllFiles = [fileMngr removeItemAtURL:inboxDirUrl error:&error];
-            if(!removedAllFiles && error) {
-                MWLogWarning(g_classObj, @"Could not remove directory:%@! Details:%@,%d", [inboxDirUrl path], [error domain], [error code]);
-            } else {
-                MWLogInfo(g_classObj, @"Removed the %@ directory!", nameOfInboxDir);
-            }
-        }
-    }
-    
+    NSString *inboxDirPath = [inboxDirUrl path];
+    [LayCatalogManager removeAllFilesInDirectory:inboxDirPath];
     [LayCatalogManager cleanupTmpDir];
    }
 
 +(void)cleanupTmpDir {
+    NSString *pathToTmpDir = NSTemporaryDirectory();
+    [LayCatalogManager removeAllFilesInDirectory:pathToTmpDir];
+}
+
++(void)removeAllFilesInDirectory:(NSString*)pathToDirectory {
     NSFileManager* fileMngr = [NSFileManager defaultManager];
     BOOL isDirectory = NO;
-    NSString *pathToTmpDir = NSTemporaryDirectory();
-    MWLogInfo(g_classObj, @"Some cleanups! Try to remove all items the %@ directory!", pathToTmpDir);
-    if([fileMngr fileExistsAtPath:pathToTmpDir isDirectory:&isDirectory]) {
+    MWLogDebug(g_classObj, @"Try to remove all items the %@ directory!", pathToDirectory);
+    if([fileMngr fileExistsAtPath:pathToDirectory isDirectory:&isDirectory]) {
         if(isDirectory) {
             NSError *error = nil;
-            NSArray *tmpDirContents = [fileMngr contentsOfDirectoryAtPath:pathToTmpDir error:&error];
+            NSArray *tmpDirContents = [fileMngr contentsOfDirectoryAtPath:pathToDirectory error:&error];
             if(!tmpDirContents) {
-                MWLogError(g_classObj, @"Could not remove items in:%@! Details:%@,%d", pathToTmpDir, [error domain], [error code]);
+                MWLogError(g_classObj, @"Could not remove items in:%@! Details:%@,%d", pathToDirectory, [error domain], [error code]);
             } else {
                 //remove files or whole directories
                 for (NSString *item in tmpDirContents) {
-                    NSString *pathToItem = [pathToTmpDir stringByAppendingPathComponent:item];
+                    NSString *pathToItem = [pathToDirectory stringByAppendingPathComponent:item];
                     BOOL removedItem = [fileMngr removeItemAtPath:pathToItem error:&error];
                     if(!removedItem && error) {
                         MWLogError(g_classObj, @"Could not remove item:%@! Details:%@,%d", pathToItem, [error domain], [error code]);
                     } else {
-                        MWLogInfo(g_classObj, @"Removed the %@ item!", pathToItem);
+                        MWLogDebug(g_classObj, @"Removed the %@ item!", pathToItem);
                     }
                 }
             }

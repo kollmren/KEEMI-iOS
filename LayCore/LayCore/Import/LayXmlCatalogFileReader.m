@@ -121,7 +121,7 @@ static Class _classObj = nil;
         if(!unzipped){
             MWLogError(_classObj, @"Could not unizp file:%@ to:", [catalogFileZipped path], targetUnzipDirectory);
         } else {
-            MWLogInfo(_classObj, @"Successfully unzipped file:%@ to:%@", [catalogFileZipped path], targetUnzipDirectory);
+            MWLogDebug(_classObj, @"Successfully unzipped file:%@ to:%@", [catalogFileZipped path], targetUnzipDirectory);
         }
         [za UnzipCloseFile];
     }
@@ -356,6 +356,11 @@ static Class _classObj = nil;
     if(parserError && self->readError) {
         [self mergeErrors:parserError and:self->readError];
     }
+    
+    if(parserError && !self->readError) {
+        self->readError = [LayError withIdentifier:LayImportCatalogParsingError andMessage:@"XML parse error!"];
+    }
+    
     if(readCatalog) {
         // the xml syntax can be fine but not the validation of the catalog
         if(self->readError) {
@@ -489,7 +494,7 @@ static Class _classObj = nil;
         self->importStepCounter = 0;
         self->importCatalog = catalog;
         
-        MWLogInfo(_classObj, @"Add info-data to catalog!");
+        MWLogDebug(_classObj, @"Add info-data to catalog!");
         catalog.title = self->catalogInfo.catalogTitle;
         [catalog setAuthorInfo:[self->catalogInfo detailForKey:@"author"] andEmail:[self->catalogInfo detailForKey:@"emailAuthor"]];
         [catalog setPublisher:[self->catalogInfo detailForKey:@"publisher"]];

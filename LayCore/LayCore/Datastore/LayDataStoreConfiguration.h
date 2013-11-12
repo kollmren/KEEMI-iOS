@@ -23,4 +23,6 @@
 
 +(BOOL)isValid;
 
++(void)cleanupDataStore;
+
 @end

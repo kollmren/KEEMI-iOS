@@ -519,7 +519,7 @@ static Class g_classObj = nil;
 -(void)shareCatalog {
     if ([MFMailComposeViewController canSendMail])
 	{
-        MWLogInfo([[LayVcCatalogList class] class], @"Try to send message by mail.");
+        MWLogDebug([[LayVcCatalogList class] class], @"Try to send message by mail.");
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
         NSString *subject = NSLocalizedString(@"CatalogShareByMailSubject",nil);

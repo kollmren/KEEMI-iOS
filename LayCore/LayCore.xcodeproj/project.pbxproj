@@ -133,7 +133,6 @@
 		A7D4B2EB1739045700C73681 /* LayXmlNodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D4B2EA1739045700C73681 /* LayXmlNodeTests.m */; };
 		A7D4B2F117390DE200C73681 /* LayXmlPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D4B2F017390DE200C73681 /* LayXmlPath.m */; };
 		A7E1ACFD17841AA900366B18 /* UGCQuestion+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F438A17817CC200A821D1 /* UGCQuestion+Utilities.m */; };
-		A7F0E1D61786095300B344EF /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0E1D51786095300B344EF /* Answer.m */; };
 		A7F0E1D717860C7800B344EF /* AnswerItem+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A74113BF16EA186F00626DCF /* AnswerItem+Utilities.m */; };
 		A7F3505F165BAEC10002262B /* LayCatalogDataFileReaderDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F3505E165BAEC10002262B /* LayCatalogDataFileReaderDummy.m */; };
 		A7F35062165BB8A60002262B /* LayCoreTestConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F35061165BB8A60002262B /* LayCoreTestConfig.m */; };
@@ -411,8 +410,6 @@
 		A7D4B2EA1739045700C73681 /* LayXmlNodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayXmlNodeTests.m; sourceTree = "<group>"; };
 		A7D4B2EF17390DE200C73681 /* LayXmlPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayXmlPath.h; path = LayCore/Utilities/LayXmlPath.h; sourceTree = "<group>"; };
 		A7D4B2F017390DE200C73681 /* LayXmlPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayXmlPath.m; path = LayCore/Utilities/LayXmlPath.m; sourceTree = "<group>"; };
-		A7F0E1D41786095300B344EF /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
-		A7F0E1D51786095300B344EF /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
 		A7F3505D165BAEC10002262B /* LayCatalogDataFileReaderDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogDataFileReaderDummy.h; path = LayCoreTests/LayCatalogDataFileReaderDummy.h; sourceTree = "<group>"; };
 		A7F3505E165BAEC10002262B /* LayCatalogDataFileReaderDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogDataFileReaderDummy.m; path = LayCoreTests/LayCatalogDataFileReaderDummy.m; sourceTree = "<group>"; };
 		A7F35060165BB8A60002262B /* LayCoreTestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayCoreTestConfig.h; sourceTree = "<group>"; };
@@ -658,8 +655,6 @@
 				A779B857178D670500D6E24B /* AnswerItem.m */,
 				A727CFD71786A5420097D721 /* Answer.h */,
 				A727CFD81786A5420097D721 /* Answer.m */,
-				A7F0E1D41786095300B344EF /* Answer.h */,
-				A7F0E1D51786095300B344EF /* Answer.m */,
 				A754CCA21778493A00CFB7DC /* Topic.h */,
 				A754CCA31778493A00CFB7DC /* Topic.m */,
 				A73D583317685D87000A72AA /* Publisher.h */,
@@ -974,7 +969,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/6.1/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/6.1/Documents/TestData\ncp -r /Users/rene/Programming/lay/iphone/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/6.1/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents/TestData\ncp -r /Users/rene/Programming/KEEMI/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1043,7 +1038,6 @@
 				A73F43A8178196E800A821D1 /* UGCBox.m in Sources */,
 				A74CAB52181EB16000466192 /* MediaImageMap.m in Sources */,
 				A71399211785A74B00B294FE /* LayConstants.m in Sources */,
-				A7F0E1D61786095300B344EF /* Answer.m in Sources */,
 				A727CFD91786A5420097D721 /* Answer.m in Sources */,
 				A779B858178D670500D6E24B /* AnswerItem.m in Sources */,
 				A71B815B1796EF0400512EAA /* Question.m in Sources */,

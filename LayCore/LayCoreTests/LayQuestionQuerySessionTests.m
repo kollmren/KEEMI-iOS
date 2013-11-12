@@ -110,6 +110,7 @@ static Class _classObj = nil;
         }
     }
     answer.correctAnsweredByUser = [NSNumber numberWithBool:YES];
+    answer.sessionGivenByUser = [NSNumber numberWithBool:YES];
     
     [querySession finish];
     
@@ -136,6 +137,7 @@ static Class _classObj = nil;
         }
     }
     answer.correctAnsweredByUser = [NSNumber numberWithBool:YES];
+    answer.sessionGivenByUser = [NSNumber numberWithBool:YES];
     
     [querySession finish];
     uCatalog = [uStore findCatalogByTitle:catalog.title andPublisher:[catalog publisher]];

@@ -1,8 +1,8 @@
 //
 //  AnswerItem.m
-//  LayCore
+//  KEEMI
 //
-//  Created by Rene Kollmorgen on 10.07.13.
+//  Created by Rene Kollmorgen on 10.11.13.
 //  Copyright (c) 2013 Rene. All rights reserved.
 //
 
@@ -15,13 +15,15 @@
 
 @implementation AnswerItem
 
+@dynamic assignedToItem;
+@dynamic assignedToNumber;
 @dynamic correct;
-@dynamic number;
 @dynamic name;
+@dynamic number;
+@dynamic sessionNumber;
 @dynamic sessionString;
 @dynamic setByUser;
 @dynamic text;
-@dynamic sessionNumber;
 @dynamic answerMediaRef;
 @dynamic answerRef;
 @dynamic explanationRef;

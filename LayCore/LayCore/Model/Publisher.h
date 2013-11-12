@@ -17,8 +17,8 @@
 @property (nonatomic, retain) NSString * descr;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *catalogRef;
-@property (nonatomic, retain) Media *logo;
-@property (nonatomic, retain) NSString * email;
+@property (nonatomic, retain) Media *logoPublisher;
+@property (nonatomic, retain) NSString * emailPublisher;
 
 @end
 

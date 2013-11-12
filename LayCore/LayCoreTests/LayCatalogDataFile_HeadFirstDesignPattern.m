@@ -38,17 +38,17 @@ static NSString* g_titleTemplate;
     NSString *title = [[NSString alloc]initWithFormat:g_titleTemplate, numberOfCatalog];
     catalog.title = title;
     catalog.catalogDescription = @"A detailed description ....";
-    [catalog setAuthorInfo:@"Oswald Kolle"];
+    [catalog setAuthorInfo:@"Oswald Kolle" andEmail:@"author@country.org"];
     [catalog setPublisher:@"Oreilly"];
     for (int i=1; i <= self->numberOfQuestions; ++i) {
         Question *question = [catalog questionInstance];
         [question setQuestionType:ANSWER_TYPE_MULTIPLE_CHOICE];
         [question setQuestionNumber:i];
         question.question = [NSString stringWithFormat:@"This is question number %d",i];
-        if(i%2) {
+        /*if(i%2) {
             NSString *intro = [NSString stringWithFormat:@"This is an introduction! The number of the intro is %d. An intro can be long!",i];
             question.introduction = intro;
-        }
+        }*/
         if(i==1) {
             [self addAnswersToQuestionOne:question];
         } else if(i==2) {

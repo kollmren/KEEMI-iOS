@@ -108,6 +108,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;
+            answerButton.showCorrectnessIconIfEvaluated = NO;
         }
         answerButton.answerButtonDelegate = self;
         [self addSubview:answerButton];
@@ -135,6 +136,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;
+            answerButton.showCorrectnessIconIfEvaluated = NO;
         }
         if([answerItem.setByUser boolValue]) [answerButton mark];
         answerButton.answerButtonDelegate = self;

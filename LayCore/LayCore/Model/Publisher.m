@@ -16,7 +16,7 @@
 @dynamic descr;
 @dynamic name;
 @dynamic catalogRef;
-@dynamic logo;
-@dynamic email;
+@dynamic logoPublisher;
+@dynamic emailPublisher;
 
 @end

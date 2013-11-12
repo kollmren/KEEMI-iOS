@@ -31,6 +31,17 @@ static NSURL* currentCatalogToImport;
 
 +(void) initialize {
     _classObj = [LayAppDelegate class];
+    
+    NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
+    [defs removeObjectForKey:@"AppleLanguages"];
+    NSArray *pl = [NSLocale preferredLanguages];
+    NSString *language = [pl objectAtIndex:0];
+    if(language && ![language isEqualToString:@"de"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"en", @"de", nil] forKey:@"AppleLanguages"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObjects:@"de", @"en", nil] forKey:@"AppleLanguages"];;
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -230,7 +241,7 @@ void myExceptionHandler(NSException *exception)
 -(void)sendMessage:(NSString*)subject recipient:(NSString*)recipient andText:(NSString*)text {
 	if ([MFMailComposeViewController canSendMail])
 	{
-        MWLogInfo(_classObj, @"Try to send message by mail.");
+        MWLogDebug(_classObj, @"Try to send message by mail.");
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         picker.mailComposeDelegate = self;
         [picker setSubject:subject];

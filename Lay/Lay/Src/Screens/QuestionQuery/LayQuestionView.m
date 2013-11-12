@@ -331,11 +331,11 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     if(self->currentAnswerView) {
         [self->currentAnswerView setDelegate:self];
         if(answerTypeIdentifier==ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA || answerTypeIdentifier==ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA) {
-            MWLogInfo([LayQuestionView class], @"Show question in large area.");
+            MWLogDebug([LayQuestionView class], @"Show question in large area.");
             // answer-views of type MAP are always presented in large-screen-mode
             [self showQuestionAndAnswerInLargeScreen:question : self->currentAnswerView : YES];
         } else {
-            MWLogInfo([LayQuestionView class], @"Show question in standard area.");
+            MWLogDebug([LayQuestionView class], @"Show question in standard area.");
             [self showQuestionAndAnswerInStandardScreen:question : self->currentAnswerView :YES];
         }
         if([question isChecked]) {
@@ -675,7 +675,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 -(void)closeQuestionView {
     [self evaluateCurrentQuestion:NO];
     if(self.questionDelegate) {
-        MWLogInfo([LayQuestionView class], @"Finish question-session.");
+        MWLogDebug([LayQuestionView class], @"Finish question-session.");
         [self.questionDelegate cancel];
     } else {
         MWLogWarning([LayQuestionView class], @"Delegate is nil!");

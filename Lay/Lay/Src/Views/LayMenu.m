@@ -253,7 +253,7 @@ imageSizeRatio, menuDelegate, frame, entriesInteractive;
     if(self.orientation == HORIZONTAL) {
         [self layoutEntriesHorizontal];
     } else {
-        MWLogInfo([LayMenu class], @"!!TODO: Menu does not support VERTICAL orientation yes!");
+        MWLogDebug([LayMenu class], @"!!TODO: Menu does not support VERTICAL orientation yes!");
     }
 }
 

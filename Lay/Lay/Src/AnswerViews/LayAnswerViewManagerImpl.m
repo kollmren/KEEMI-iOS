@@ -79,7 +79,7 @@ static const NSInteger g_DEFAULT_NUMBER_OF_REGISTERED_VIEWS = 10;
         regObj.class = answerView;
         [answerViewManager->registeredAnswerViewList addObject:regObj];
         registered = YES;
-        MWLogInfo([LayAnswerViewManagerImpl class], @"Registered AnswerView-Class with name:%s!",nameOfClassToRegister);
+        MWLogDebug([LayAnswerViewManagerImpl class], @"Registered AnswerView-Class with name:%s!",nameOfClassToRegister);
     }
     
     return registered;

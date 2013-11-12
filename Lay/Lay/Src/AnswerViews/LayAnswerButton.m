@@ -316,6 +316,12 @@ static const NSInteger TAG_MEDIA = 101;
 -(void)showCorrectness {
     self->evaluated = YES;
     [self adjustBorder];
+ //   if(self.showCorrectnessIconIfEvaluated || self.showInfoIconIfEvaluated || self.showMarkIndicator ) {
+        [self adjustIconsForStateEvaluated];
+  //  }
+}
+
+-(void)adjustIconsForStateEvaluated {
     // position icons
     CGRect buttonFrame = self.frame;
     const CGFloat buttonWidth = buttonFrame.size.width;
@@ -330,9 +336,10 @@ static const NSInteger TAG_MEDIA = 101;
     CGSize iconButtonSize = [styleGuide iconButtonSize];
     CGFloat iconHeight = iconButtonSize.width;
     CGFloat iconWidth = iconButtonSize.height;
-     BOOL correct = [self.answerItem.correct boolValue];
+    BOOL correct = [self.answerItem.correct boolValue];
     self->markedIconLayer.anchorPoint = CGPointMake(0.0f, 0.0f);
     self->markedIconLayer.bounds = CGRectMake(self->markedIconLayer.position.x, self->markedIconLayer.position.y, iconWidth, iconHeight);
+    BOOL answerButtonSizeChanged = NO;
     if([self->answerItem hasExplanation] && self.showInfoIconIfEvaluated) {
         if(infoIcon == nil) {
             self->infoIcon = [LayInfoIconView icon];
@@ -362,6 +369,7 @@ static const NSInteger TAG_MEDIA = 101;
         const CGFloat newHeight = yPosIcon + iconHeight + SPACE;;
         if(newHeight > buttonFrame.size.height) {
             buttonFrame.size.height = yPosIcon + iconHeight + SPACE;
+            answerButtonSizeChanged = YES;
         }
     } else if([self->answerItem.setByUser boolValue] && self.showMarkIndicator) {
         // center the mark icon
@@ -376,8 +384,9 @@ static const NSInteger TAG_MEDIA = 101;
         const CGFloat newHeight = yPosIcon + iconHeight + SPACE;;
         if(newHeight > buttonFrame.size.height) {
             buttonFrame.size.height = yPosIcon + iconHeight + SPACE;
+            answerButtonSizeChanged = YES;
         }
-    } else {
+    } else if(correct && self.showCorrectnessIconIfEvaluated){
         CGFloat xPosIcon = (buttonWidth - iconWidth) / 2;
         self->correctIconLayer.frame = CGRectMake(xPosIcon, yPosIcon, iconWidth, iconHeight);
         self->incorrectIconLayer.frame = CGRectMake(xPosIcon, yPosIcon, iconWidth, iconHeight);
@@ -385,10 +394,11 @@ static const NSInteger TAG_MEDIA = 101;
         const CGFloat newHeight = yPosIcon + iconHeight + SPACE;;
         if(newHeight > buttonFrame.size.height) {
             buttonFrame.size.height = yPosIcon + iconHeight + SPACE;
+            answerButtonSizeChanged = YES;
         }
     }
     
-    if([self->answerItem hasExplanation] || [self->answerItem.setByUser boolValue] || correct) {
+    if(answerButtonSizeChanged) {
         self.frame = buttonFrame;
         [self adjustLayerTo:buttonFrame];
         if(self.answerButtonDelegate) {

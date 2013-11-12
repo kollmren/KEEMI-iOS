@@ -143,7 +143,7 @@ static Class g_classObj = nil;
 
 -(void)dealloc {
     MWLogDebug([LayVcNotes class], @"dealloc");
-    MWLogInfo([LayVcNotes class], @"Save added or updated notes.");
+    MWLogDebug([LayVcNotes class], @"Save added or updated notes.");
     [self saveUpdatedNotes];
     //
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -840,7 +840,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         uNote = [uStore insertObject:UGC_OBJECT_NOTE];
         uNote.text = text;
         if(image) {
-            MWLogInfo([LayVcNotes class], @"Add note with image!");
+            MWLogDebug([LayVcNotes class], @"Add note with image!");
             UGCMedia *uMedia = [uStore insertObject:UGC_OBJECT_MEDIA];
             uMedia.data = UIImageJPEGRepresentation(image,1.0f);
             uMedia.thumbnail = [self thumbnailDataFromImage:image];
@@ -888,7 +888,7 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     float ratio = MIN(newRect.size.width / origImageSize.width,
                       newRect.size.height / origImageSize.height);
     
-    MWLogInfo([LayVcNotes class], @"Create thumbnail from image:(w:%f, h:%f) to:(w:%f, h:%f, r:%f)", origImageSize.width, origImageSize.height, textAndImageViewWidth, g_HEIGHT_OF_THUMBNAIL_VIEW, ratio);
+    MWLogDebug([LayVcNotes class], @"Create thumbnail from image:(w:%f, h:%f) to:(w:%f, h:%f, r:%f)", origImageSize.width, origImageSize.height, textAndImageViewWidth, g_HEIGHT_OF_THUMBNAIL_VIEW, ratio);
     
     // Create a transparent bitmap context with a scaling factor
     // equal to that of the screen

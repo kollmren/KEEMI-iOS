@@ -43,7 +43,7 @@ catalogTitle, catalogDescription, catalogInstrcution, cover, coverMediaFormat, c
             detail.value = value;
         }
     } else {
-        MWLogWarning([LayCatalogFileInfo class], @"Ignore value setting for key:%@, value is empty!", key );
+        MWLogDebug([LayCatalogFileInfo class], @"Ignore value setting for key:%@, value is empty!", key );
     }
 }
 

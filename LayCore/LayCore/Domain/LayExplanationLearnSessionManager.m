@@ -32,7 +32,7 @@
     id<LayExplanationDatasource> datasource = nil;
     if(order==EXPLANATION_ORDERED_BY_NUMBER) {
         datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:considerTopicSelection];
-        MWLogInfo([LayExplanationLearnSessionManager class], @"Use ordered session to learn.");
+        MWLogDebug([LayExplanationLearnSessionManager class], @"Use ordered session to learn.");
     } 
     
     LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc] initWithDatasource:datasource];

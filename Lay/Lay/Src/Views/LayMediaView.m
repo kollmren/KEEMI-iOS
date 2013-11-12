@@ -335,7 +335,7 @@ static const CGFloat HSPACE_LABEL = 4.0f;
 }
 
 -(void)unregisterEvents {
-    MWLogInfo([LayMediaView class], @"Unregister events");
+    MWLogDebug([LayMediaView class], @"Unregister events");
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
 }

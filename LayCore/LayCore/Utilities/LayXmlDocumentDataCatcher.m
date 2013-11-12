@@ -158,7 +158,7 @@ static Class _classObj = nil;
     if([target respondsToSelector:callback]) {
         BOOL unregistered = [self unregisterPath:pathToElement];
         if(unregistered) {
-            MWLogInfo(_classObj, @"Unregistered path:%@!", pathToElement);
+            MWLogDebug(_classObj, @"Unregistered path:%@!", pathToElement);
         }
         MWLogDebug(_classObj, @"Register path:%@", pathToElement);
         regPath = [LayRegisteredPath withPath:pathToElement object:target andAction:callback];

@@ -433,7 +433,7 @@ static BOOL showUtilitiesToggle = YES;
 
 -(void)closeExplanationView {
     if(self.explanationViewDelegate) {
-        MWLogInfo([LayExplanationSessionView class], @"Finish learn-session.");
+        MWLogDebug([LayExplanationSessionView class], @"Finish learn-session.");
         [self.explanationViewDelegate cancel];
     } else {
         MWLogWarning([LayExplanationSessionView class], @"Delegate is nil!");

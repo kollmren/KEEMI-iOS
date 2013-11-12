@@ -74,6 +74,29 @@ static Class g_classObj = nil;
     return g_isvalid;
 }
 
++(void)cleanupDataStore {
+    MWLogDebug(g_classObj, @"Cleanup store!");
+    NSManagedObjectModel *managedObjectModel = [[NSManagedObjectModel alloc]initWithContentsOfURL:g_urlToDataStoreModel];
+    if(nil == managedObjectModel) {
+        MWLogError(g_classObj, @"(cleanup)Cant instantiate NSManagedObjectModel with model file:%@!", g_urlToDataStoreModel );
+    } else {
+        NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: managedObjectModel];
+        if(nil != persistentStoreCoordinator) {
+            NSDictionary *storeOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSSQLiteManualVacuumOption, nil];
+            NSError *error = nil;
+            NSPersistentStore *store =
+            [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:g_urlToDataStoreFile options:storeOptions error:&error];
+            if (nil == store) {
+                MWLogError(g_classObj, @"(cleanup)Could not add persistent store! Error is:%@", [error description]);
+            } else {
+                MWLogDebug(g_classObj, @"Cleaned up store successfully!");
+            }
+        } else {
+            MWLogError(g_classObj, @"(cleanup)Cant instantiate NSPersistentStoreCoordinator!");
+        }
+    }
+}
+
 //
 // Private
 //

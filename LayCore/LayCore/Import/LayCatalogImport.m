@@ -11,6 +11,7 @@
 #import "LayImportDataStore.h"
 #import "LayMainDataStore.h"
 #import "LayDataStoreUtilities.h"
+#import "LayDataStoreConfiguration.h"
 #import "LayUserDataStore.h"
 #import "LayError.h"
 #import "Catalog+Utilities.h"
@@ -60,6 +61,8 @@ static Class _classObj = nil;
 }
 
 -(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate {
+     [LayDataStoreConfiguration cleanupDataStore];
+    //
     LayCatalogImportReport *report = [[LayCatalogImportReport alloc]init];
     LayImportDataStore *datastore = [LayImportDataStore store];
     if(nil == datastore) {
@@ -69,7 +72,7 @@ static Class _classObj = nil;
     }
     LayCatalogFileInfo *fileMetaInfo = [self->dataFileReader metaInfo];
     NSURL* fileUrl = fileMetaInfo.url;
-    MWLogInfo(_classObj, @"Import catalog from file:%@", fileUrl );
+    MWLogDebug(_classObj, @"Import catalog from file:%@", fileUrl );
     Catalog *importedCatalog = nil;
     if([fileMetaInfo isAnUpdate]) {
         [report setType:UPDATE];
@@ -121,7 +124,7 @@ static Class _classObj = nil;
                     [self deleteTemporarySavedCatalog:importCatalog];
                 } else {
                     // Create thumbnails
-                    MWLogInfo(_classObj,@"Create thumbnails for catalog.");
+                    MWLogDebug(_classObj,@"Create thumbnails for catalog.");
                     [NSThread sleepForTimeInterval:1.5];
                     if(stateDelegate) {
                         [stateDelegate startingNextProgressPartWithIdentifier:LayCatalogImportProgressPartIdentifierCreatingThumbnails];
@@ -130,7 +133,7 @@ static Class _classObj = nil;
                     if(numberOfCreatedThumbnails > 0) {
                         imported = [importStore saveChanges];
                         if(imported) {
-                             MWLogInfo(_classObj, @"Saved created thumbnails!", titleOfCatalog);
+                             MWLogDebug(_classObj, @"Saved created thumbnails!", titleOfCatalog);
                         } else {
                             [self deleteTemporarySavedCatalog:importCatalog];
                             MWLogError(_classObj, @"Could not save created thumbnails!", titleOfCatalog);
@@ -188,7 +191,7 @@ static Class _classObj = nil;
     LayUserDataStore *uStore = [LayUserDataStore store];
     UGCCatalog *uCatalog = [uStore findCatalogByTitle:titleOfCatalog andPublisher:nameOfPublisher];
     if(uCatalog) {
-        MWLogInfo(_classObj, @"Sync user-data for catalog with title:%@", titleOfCatalog);
+        MWLogDebug(_classObj, @"Sync user-data for catalog with title:%@", titleOfCatalog);
         [uCatalog syncUserQuestionState:[catalog questionListSortedByNumber]];
     }
 }

@@ -15,7 +15,7 @@
 @dynamic name;
 @dynamic catalogRef;
 @dynamic descr;
-@dynamic email;
+@dynamic emailAuthor;
 @dynamic website;
 
 @end

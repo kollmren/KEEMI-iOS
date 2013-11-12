@@ -32,10 +32,10 @@
     id<LayQuestionDatasource> datasource = nil;
     if(questionOrder==QUESTION_ORDER_RANDOM_LEITNER) {
         datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:considerTopicSelection];
-        MWLogInfo([LayQuestionQuerySessionManager class], @"Use random-leitner for session.");
+        MWLogDebug([LayQuestionQuerySessionManager class], @"Use random-leitner for session.");
     } else if(questionOrder==QUESTION_ORDER_BY_NUMBER) {
          datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
-        MWLogInfo([LayQuestionQuerySessionManager class], @"Use order by number for session.");
+        MWLogDebug([LayQuestionQuerySessionManager class], @"Use order by number for session.");
     }
     
     LayQuestionQuerySession *session = [[LayQuestionQuerySession alloc] initWithDatasource:datasource];

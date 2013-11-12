@@ -62,7 +62,7 @@ static const CGFloat SPACE = 5.0f;
 
 -(void)setMedia:(Answer*)answer_ {
     NSArray *answerMediaList = [answer_ mediaList];
-     MWLogInfo([LayAnswerViewChoiceLargeMedia class], @"Catch one media marked as large from media-list(question:%@)!", answer_.questionRef.name);
+     MWLogDebug([LayAnswerViewChoiceLargeMedia class], @"Catch one media marked as large from media-list(question:%@)!", answer_.questionRef.name);
     Media* largeMedia = nil;
     for (Media* media in answerMediaList) {
         if([media isLargeMedia]) {
