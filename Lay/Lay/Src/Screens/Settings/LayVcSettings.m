@@ -194,7 +194,7 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
                 MWLogError([LayVcSettings class], @"Could not open link to:%@", catalogLink);
             }
         } else if( row == SECTION_HELP_FAQ_IDX ) {
-            NSString *faqLink = [NSString stringWithFormat:@"http://www.keemimobile.com/%@/faq", language];
+            NSString *faqLink = [NSString stringWithFormat:@"http://www.keemimobile.com/%@/features", language];
             NSURL *link = [NSURL URLWithString:faqLink];
             MWLogInfo([LayVcSettings class], @"Try to open link:%@", faqLink);
             if (![[UIApplication sharedApplication] openURL:link]) {
