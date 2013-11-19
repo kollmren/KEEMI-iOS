@@ -83,6 +83,10 @@ static LayStyleGuide *singleton = nil;
     [singleton->fonts setValue:font  forKey:[[NSNumber numberWithInt:LabelFont] stringValue]];
     font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     [singleton->fonts setValue:font  forKey:[[NSNumber numberWithInt:SectionFont] stringValue]];
+    UIFontDescriptor *bodyFontDesciptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+    UIFontDescriptor *boldBodyFontDescriptor = [bodyFontDesciptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    font = [UIFont fontWithDescriptor:boldBodyFontDescriptor size:0.0];
+    [singleton->fonts setValue:font  forKey:[[NSNumber numberWithInt:QuestionFont] stringValue]];
 }
 
 -(void)updatePreferredFonts {
@@ -111,6 +115,13 @@ static LayStyleGuide *singleton = nil;
     [singleton->fonts removeObjectForKey:key];
     font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption2];
     [singleton->fonts setValue:font forKey:[[NSNumber numberWithInt:SmallPreferredFont] stringValue]];
+    //
+    key = [NSNumber numberWithInt:QuestionFont];
+    [singleton->fonts removeObjectForKey:key];
+    UIFontDescriptor *bodyFontDesciptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleBody];
+    UIFontDescriptor *boldBodyFontDescriptor = [bodyFontDesciptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    font = [UIFont fontWithDescriptor:boldBodyFontDescriptor size:0.0];
+    [singleton->fonts setValue:font  forKey:[[NSNumber numberWithInt:QuestionFont] stringValue]];
 }
 
 -(void)loadBorderWidths {

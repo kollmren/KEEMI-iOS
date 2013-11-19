@@ -401,8 +401,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     }
     NSString *questionText = question.question;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    self->questionLabel.font = [styleGuide getFont:NormalPreferredFont];
+    self->questionLabel.font = [styleGuide getFont:QuestionFont];
     self->questionLabel.text = questionText;
+    self->questionLabel.textColor = [UIColor darkGrayColor];
     [self->questionLabel sizeToFit]; // This must be called to set the height of the label
     CGSize neededAnswerViewSize = [answerView showAnswer:question.answerRef andSize:self->answerViewArea.frame.size userCanSetAnswer:userCanSetAnswer];
     [self adjustSizeOfAnswerViewArea:neededAnswerViewSize];

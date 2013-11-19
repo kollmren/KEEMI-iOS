@@ -45,7 +45,8 @@ typedef enum {
     TitlePreferredFont,
     HeaderPreferredFont,
     SubHeaderPreferredFont,
-    SmallPreferredFont
+    SmallPreferredFont,
+    QuestionFont
 } LayStyleGuideFont;
 
 typedef enum {

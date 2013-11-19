@@ -62,7 +62,7 @@ static const CGFloat g_horizontalBorder = 8.0f;
     questionLabel.backgroundColor = [UIColor clearColor];
     questionLabel.textAlignment = NSTextAlignmentLeft;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    questionLabel.font = [styleGuide getFont:NormalPreferredFont];
+    questionLabel.font = [styleGuide getFont:QuestionFont];
     questionLabel.numberOfLines = [styleGuide numberOfLines];
     questionLabel.textColor = [styleGuide getColor:TextColor];
     [questionArea addSubview:questionLabel];
@@ -154,8 +154,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 1004;
     }
     [LayFrame setYPos:yPosQuestion toView:self->questionLabel];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    questionLabel.font = [styleGuide getFont:NormalPreferredFont];
+    questionLabel.font = [styleGuide getFont:QuestionFont];
     questionLabel.text = self.question.question;
+    questionLabel.textColor = [UIColor darkGrayColor];
     [questionLabel sizeToFit];
     CGFloat labelWithBorderHeight = self->questionLabel.frame.size.height + 2 * g_verticalBorder;
     
