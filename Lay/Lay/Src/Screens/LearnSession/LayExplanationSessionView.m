@@ -74,6 +74,7 @@ static BOOL showUtilitiesToggle = YES;
 -(void)registerEvents {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(handlePreferredFontSizeChanges) name:(NSString*)LAY_NOTIFICATION_PREFERRED_FONT_SIZE_CHANGED object:nil];
+    [nc addObserver:self selector:@selector(handleWantToImportCatalogNotification) name:(NSString*)LAY_NOTIFICATION_WANT_TO_IMPORT_CATALOG object:nil];
 }
 
 -(void)dealloc {
@@ -188,9 +189,11 @@ static BOOL showUtilitiesToggle = YES;
     } else if(self->userBoughtProVersion) {
         resourceButton = [LayIconButton buttonWithId:LAY_BUTTON_RESOURCES];
     }
-    [resourceButton addTarget:self action:@selector(showResources) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *resourceButtonItem  = [[UIBarButtonItem alloc]initWithCustomView:resourceButton];
-    [buttonItemList addObject:resourceButtonItem];
+    if(resourceButton) {
+        [resourceButton addTarget:self action:@selector(showResources) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *resourceButtonItem  = [[UIBarButtonItem alloc]initWithCustomView:resourceButton];
+        [buttonItemList addObject:resourceButtonItem];
+    }
     
     if(self->userBoughtProVersion) {
         UIButton *noteButton = nil;
@@ -442,6 +445,10 @@ static BOOL showUtilitiesToggle = YES;
 
 -(void)handlePreferredFontSizeChanges {
     [self showExplanation:self->currentExplanation];
+}
+
+-(void)handleWantToImportCatalogNotification {
+    [self closeExplanationView];
 }
 
 @end
