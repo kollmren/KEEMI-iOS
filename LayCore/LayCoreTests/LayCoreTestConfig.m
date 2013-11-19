@@ -118,6 +118,7 @@ static Class _classObj = nil;
         [g_testDataFiles setObject:@"/catalogWithNoQuestion/CatalogWithNoQuestion.xml" forKey:[NSNumber numberWithInt:TestDataPathCatalogWithNoQuestion]];
         [g_testDataFiles setObject:@"/einbürgerungstest/einbürgerungtest.xml" forKey:[NSNumber numberWithInt:TestDataPathCatalogEinbuerungstest]];
         [g_testDataFiles setObject:@"/catalogPossibleQuestionTypesGallery/CatalogPossibleQuestionTypesGallery.xml" forKey:[NSNumber numberWithInt:TestDataPathCatalogGallery]];
+        [g_testDataFiles setObject:@"/catalogWithBase64Image/KeemiSampleQuestionCatalog.xml" forKey:[NSNumber numberWithInt:TestDataPathCatalogBase64Image]];
     }
 }
 

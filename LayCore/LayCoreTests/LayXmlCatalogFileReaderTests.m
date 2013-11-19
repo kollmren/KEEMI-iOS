@@ -272,6 +272,17 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     [importStore clearStore];
 }
 
+-(void)testCatalogWithBase64EncodedImage {
+    NSURL *pathToCatalog = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogBase64Image];
+    LayXmlCatalogFileReader *xmlCatalogReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:pathToCatalog];
+    STAssertNotNil(xmlCatalogReader, nil);
+    LayImportDataStore *importStore = [LayImportDataStore store];
+    Catalog *catalog = [importStore catalogToImportInstance];
+    LayError *error = nil;
+    BOOL read = [xmlCatalogReader readCatalog:catalog : &error ];
+    STAssertFalse(read, nil);
+}
+
 -(BOOL) checkReadCatalogCitizenshiptest:(Catalog*)catalog {
     BOOL readOk = YES;
     Catalog *citizenChipCatalog = catalog;

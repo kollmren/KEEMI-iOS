@@ -26,7 +26,8 @@ typedef enum LayCoreTestDataPath_ {
     TestDataPathCatalogOneQuestionCatalog,
     TestDataPathCatalogWithNoQuestion,
     TestDataPathCatalogEinbuerungstest,
-    TestDataPathCatalogGallery
+    TestDataPathCatalogGallery,
+    TestDataPathCatalogBase64Image
 } LayCoreTestDataPath;
 
 @class LayMainDataStore;

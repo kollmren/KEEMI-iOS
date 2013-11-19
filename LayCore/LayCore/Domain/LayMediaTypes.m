@@ -50,13 +50,16 @@ static Class _classObj = nil;
 
 +(LayMediaFormat) formatByExtension:(NSString*)type {
     LayMediaFormat mediaFormat = LAY_FORMAT_UNDEFINED;
-    const char* extension = [type UTF8String];
-    for(size_t knownTypeIdx=0; knownTypeIdx < sizeof(knownMediaTypes)/sizeof(KnownMediaTypeItem); ++knownTypeIdx) {
-        KnownMediaTypeItem knownMediaType = knownMediaTypes[knownTypeIdx];
-        int compare = strcasecmp( extension, knownMediaType.extension );
-        if(0==compare) {
-            mediaFormat = knownMediaType.format;
+    if(type && [type length] > 0) {
+        const char* extension = [type UTF8String];
+        for(size_t knownTypeIdx=0; knownTypeIdx < sizeof(knownMediaTypes)/sizeof(KnownMediaTypeItem); ++knownTypeIdx) {
+            KnownMediaTypeItem knownMediaType = knownMediaTypes[knownTypeIdx];
+            int compare = strcasecmp( extension, knownMediaType.extension );
+            if(0==compare) {
+                mediaFormat = knownMediaType.format;
+            }
         }
+
     }
     return mediaFormat;
 }

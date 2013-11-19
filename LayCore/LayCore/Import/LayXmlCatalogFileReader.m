@@ -1012,11 +1012,14 @@ static Class _classObj = nil;
         NSString *mediaShowLabel = [mediaNode valueOfAttribute:mediaAttrShowLabel];
         NSString *mediaLargeFlag = [mediaNode valueOfAttribute:(NSString*)LAY_XML_ATTRIBUTE_LARGE_MEDIA];
         if(mediaType) {
-            if(mediaRef) {
+            if(mediaRef && [mediaRef length] > 0) {
                 nodeData = [self mediaNodeDataBy:mediaRef andType:mediaType];
                 nodeData.label = mediaLabel;
                 nodeData.showLabel = mediaShowLabel;
                 nodeData.large = mediaLargeFlag;
+            } else {
+                NSString *message = [NSString stringWithFormat:@"Value for mediaRef is empty!"];
+                [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
             }
         } else {
             NSString *message = [NSString stringWithFormat:@"Attribute:%@ of element:%@ is required!", mediaAttrType, nameMediaNode];
