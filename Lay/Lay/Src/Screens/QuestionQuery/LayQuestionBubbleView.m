@@ -8,7 +8,9 @@
 
 #import "LayQuestionBubbleView.h"
 #import "LayIconButton.h"
+#import "LayButton.h"
 #import "LayFrame.h"
+#import "LayInfoDialog.h"
 
 #import "LayMinimizeAnimator.h"
 #import "Question+Utilities.h"
@@ -91,16 +93,23 @@ static const CGFloat g_horizontalBorder = 8.0f;
 }
 
 static const NSUInteger TAG_QUESTION_TITLE = 1004;
--(CGFloat)addQuestonTitle:(Question*)question_ {
+static const NSUInteger TAG_QUESTION_INTRO = 1005;
+-(CGFloat)addQuestonTitleAndIntro:(Question*)question_ {
     UIView *view = [self viewWithTag:TAG_QUESTION_TITLE];
     if(view) {
         [view removeFromSuperview];
         view = nil;
     }
     
+    view = [self viewWithTag:TAG_QUESTION_INTRO];
+    if(view) {
+        [view removeFromSuperview];
+        view = nil;
+    }
+    
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     CGFloat bottomPositionOfTitle = 0.0f;
     if(question_.title) {
-        LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
         UIFont *smallFont = [styleGuide getFont:TitlePreferredFont];
         UIColor *textColor = [styleGuide getColor:TextColor];
         const CGFloat indent = 10.0f;
@@ -125,7 +134,32 @@ static const NSUInteger TAG_QUESTION_TITLE = 1004;
         bottomPositionOfTitle = heightTitleContainer + titleContainer.frame.origin.y + g_verticalBorder;
         [questionArea insertSubview:titleContainer belowSubview:self->questionLabel];
     }
+    
+    LayIntroduction *intro = [question_ introduction];
+    if(intro) {
+        const CGFloat introWidth = self.frame.size.width;
+        const CGRect introFrame = CGRectMake(0.0f, 0.0f, introWidth, 0.0f);
+        UIFont *introFont = [styleGuide getFont:NormalPreferredFont];
+        UIColor *clearColor = [styleGuide getColor:ClearColor];
+        NSString *introText = NSLocalizedString(@"QuestionIntroTitle", nil);
+        LayButton *introButton = [[LayButton alloc]initWithFrame:introFrame label:introText font:introFont andColor:clearColor];
+        introButton.tag = TAG_QUESTION_INTRO;
+        [introButton fitToContent];
+        [introButton addTarget:self action:@selector(showIntroduction) forControlEvents:UIControlEventTouchUpInside];
+        [LayFrame setYPos:bottomPositionOfTitle toView:introButton];
+        [questionArea insertSubview:introButton belowSubview:self->questionLabel];
+        bottomPositionOfTitle += introButton.frame.size.height + g_verticalBorder;
+    }
+    
     return bottomPositionOfTitle;
+}
+
+-(void)showIntroduction {
+    LayIntroduction *intro = [self.question introduction];
+    if(intro) {
+        LayInfoDialog *infoDialog = [[LayInfoDialog alloc]initWithWindow:self.window];
+        [infoDialog showIntroduction:intro];
+    }
 }
 
 -(void) maximizeQuestion {
@@ -147,9 +181,9 @@ static const NSUInteger TAG_QUESTION_TITLE = 1004;
     [self->questionArea scrollRectToVisible:CGRectMake(0.0f, 0.0f, 10.0f, 10.0f) animated:NO];
     
     self->questionLabel.frame = self->initialQuestionLabelRect;
-    CGFloat bottomPositionOfTitle = [self addQuestonTitle:question_];
+    CGFloat bottomPositionOfTitle = [self addQuestonTitleAndIntro:question_];
     CGFloat yPosQuestion = g_verticalBorder;
-    if(question_.title) {
+    if( bottomPositionOfTitle > 0.0f ) {
         yPosQuestion = bottomPositionOfTitle +  g_verticalBorder;
     }
     [LayFrame setYPos:yPosQuestion toView:self->questionLabel];

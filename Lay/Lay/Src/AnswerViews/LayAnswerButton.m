@@ -354,7 +354,7 @@ static const NSInteger TAG_MEDIA = 101;
             xPosIcon += iconWidth + SPACE;
             self->correctIconLayer.frame = CGRectMake(xPosIcon, yPosIcon, iconWidth, iconHeight);
             self->incorrectIconLayer.frame = CGRectMake(xPosIcon, yPosIcon, iconWidth, iconHeight);
-        } else if(correct) {
+        } else if(correct && self.showCorrectnessIconIfEvaluated) {
             CGFloat xPosIcon = (buttonWidth - 2 * iconWidth - SPACE) / 2;
             self->infoIcon.frame = CGRectMake(xPosIcon, yPosIcon, iconWidth, iconHeight);
             xPosIcon += iconWidth + SPACE;

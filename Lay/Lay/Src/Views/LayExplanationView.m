@@ -10,6 +10,7 @@
 #import "LaySectionView.h"
 #import "LayFrame.h"
 #import "LayStyleGuide.h"
+#import "LayIntroduction.h"
 
 #import "Explanation+Utilities.h"
 #import "Section+Utilities.h"
@@ -22,12 +23,29 @@ static const CGFloat V_SPACE_TITLE = 15.0f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupView:explanation];
+        [self setupViewWithExplanation:explanation];
     }
     return self;
 }
 
--(void)setupView:(Explanation*)explanation {
+-(id)initWithFrame:(CGRect)frame andIntroduction:(LayIntroduction *)introduction
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupViewWithIntroduction:introduction];
+    }
+    return self;
+}
+
+-(void)setupViewWithExplanation:(Explanation*)explanation {
+    [self setupViewWith:explanation.title andSectionList:[explanation sectionList]];
+}
+
+-(void)setupViewWithIntroduction:(LayIntroduction*)introduction {
+    [self setupViewWith:introduction.title andSectionList:introduction.sectionList];
+}
+
+-(void)setupViewWith:(NSString*)title_ andSectionList:(NSArray*)sectionList {
     const CGFloat vIndent = 15.0f;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGRect titleFrame = CGRectMake(0.0f, 0.0f, self.frame.size.width, 0.0f);
@@ -35,14 +53,13 @@ static const CGFloat V_SPACE_TITLE = 15.0f;
     title .numberOfLines = [styleGuide numberOfLines];
     title.backgroundColor = [UIColor clearColor];
     title.font = [styleGuide getFont:HeaderPreferredFont];
-    title.text = explanation.title;
+    title.text = title_;
     title.textAlignment = NSTextAlignmentLeft;
     [title sizeToFit];
     [self addSubview:title];
     // add content
     CGFloat currentYPos = title.frame.origin.y + title.frame.size.height + vIndent;
     const CGRect sectionViewRect = CGRectMake(0.0f, currentYPos, self.frame.size.width, 0.0f);
-    NSArray *sectionList = [explanation sectionList];
     LaySectionView *sectionView = [[LaySectionView alloc]initWithFrame:sectionViewRect andSectionList:sectionList];
     [self addSubview:sectionView];
     currentYPos += sectionView.frame.size.height;

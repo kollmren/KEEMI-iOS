@@ -15,6 +15,7 @@
 #import "LayAppNotifications.h"
 #import "LayIconButton.h"
 #import "LayExplanationView.h"
+#import "LayIntroduction.h"
 
 #import "Explanation+Utilities.h"
 #import "Resource+Utilities.h"
@@ -153,7 +154,7 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     return [self showInfo:info withTitle:title_ andIcon:image mediaList:nil caller:caller_ selector:selector_];
 }
 
--(UIView*) showShortExplanation:(Explanation*)explanation {
+-(UIView*) showExplanationOrIntro:(NSObject*)explanationOrIntro {
     icon.image = [images objectForKey:@"INFO"];
     scrollView.contentOffset = CGPointMake(0.0f, 0.0f);
     [LayFrame setHeightWith:0.0f toView:self->infoView animated:NO];
@@ -170,7 +171,16 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     const CGFloat vSpace = 10.0f;
     CGFloat yPos = vSpace;
     const CGRect explanationViewRect = CGRectMake(hIndent, yPos, widthOfInfoItemText, 0.0f);
-    LayExplanationView *explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andExplanation:explanation];
+    LayExplanationView *explanationView = nil;
+    if([explanationOrIntro isKindOfClass:[Explanation class]]) {
+        Explanation *explanation = (Explanation*)explanationOrIntro;
+        explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andExplanation:explanation];
+    } else if( [explanationOrIntro isKindOfClass:[LayIntroduction class]] ) {
+        LayIntroduction *introduction = (LayIntroduction*)explanationOrIntro;
+        explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andIntroduction:introduction];
+    } else {
+        MWLogError( [LayInfoDialog class], @"Invalid type of object! Method:showExplanationOrIntro ");
+    }
     yPos += explanationView.frame.size.height;
     [scrollView addSubview:explanationView];
     
@@ -191,6 +201,14 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
 
     [self open];
     return infoView;
+}
+
+-(UIView*) showIntroduction:(LayIntroduction*)introduction {
+    return [self showExplanationOrIntro:introduction];
+}
+
+-(UIView*) showShortExplanation:(Explanation *)explanation {
+    return [self showExplanationOrIntro:explanation];
 }
 
 -(UIView*) showResource:(NSString*)title_ link:(NSObject*)resource {

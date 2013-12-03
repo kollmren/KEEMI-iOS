@@ -75,6 +75,53 @@
       </answer>
     </question>
     <question type="singleChoice" name="javaQuestion" topic="java">
+    <introduction>
+        <section>
+          <title>This is the title of the first section of question2</title>
+          <text>This is the first paragraph of the first section ...</text>
+          <text>This is the second paragraph of the first section ...</text>
+          <mediaList>
+            <media type="image" ref="image144x77.png"/>
+            <media type="html" ref="java1.html"/>
+            <media type="image" ref="image144x77.png"/>
+          </mediaList>
+          <text>This is the third paragraph of the first section ...</text>
+          <text>This is the fourth paragraph of the first section ...</text>
+        </section>
+        <section>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+        <section>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+        <section>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+        <section>
+          <mediaList>
+            <media type="image" ref="image144x77.png"/>
+            <media type="html" ref="java1.html"/>
+            <media type="image" ref="image144x77.png"/>
+          </mediaList>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+      </introduction>
       <title>Java SE 7 Programmer I - Sample Questions</title>
       <text>What is the result? (only one answer is correct, this answer has a html-media marked as large)</text>
       <answer shuffleAnswers="NO">
@@ -105,6 +152,27 @@
       </resourceList>
     </question>
     <question type="flashcard" name="question3">
+    <introduction>
+        <section>
+          <title>This is the title of the first section of question3</title>
+          <text>This is the first paragraph of the first section ...</text>
+          <text>This is the second paragraph of the first section ...</text>
+          <mediaList>
+            <media type="image" ref="image144x77.png"/>
+            <media type="html" ref="java1.html"/>
+            <media type="image" ref="image144x77.png"/>
+          </mediaList>
+          <text>This is the third paragraph of the first section ...</text>
+          <text>This is the fourth paragraph of the first section ...</text>
+        </section>
+        <section>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+      </introduction>
       <title>Der Titel der Frage</title>
       <text>Dies ist eine Karteikarte. Es gibt keine vorgegebenen Antworten.</text>
       <answer>

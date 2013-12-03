@@ -129,6 +129,7 @@
 "QuestionSessionCardUserWasRight" = "I was right";
 "QuestionSessionCheckAnswer" = "Check";
 "QuestionSessionDeleteText" = "Clear the input";
+"QuestionIntroTitle" = "Introduction";
 /* Error messages */
 "ErrorCatalogToOpenDoesnNotExist" = "Undefined location of catalog! Can not open catalog!";
 "ErrorCouldNotConfigureApp" = "The configuration of the application failed!";

@@ -129,6 +129,7 @@
 "QuestionSessionCardUserWasRight" = "Hab es gewusst";
 "QuestionSessionCheckAnswer" = "Prüfen";
 "QuestionSessionDeleteText" = "Lösche die Eingabe";
+"QuestionIntroTitle" = "Einleitung";
 /* Error messages */
 "ErrorCatalogToOpenDoesnNotExist" = "Die zu öffnende Datei existiert nicht. Der Katalog kann nicht importiert werden";
 "ErrorCouldNotConfigureApp" = "Bei der Konfiguration der Anwendung traten Fehler auf!";

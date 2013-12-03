@@ -26,6 +26,8 @@
 #import "LayVcNotes.h"
 #import "LayVcNavigation.h"
 #import "LayUserDefaults.h"
+#import "LayIntroduction.h"
+#import "LayButton.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -41,6 +43,12 @@
 @end
 
 @interface TitleLabel : UIView<LayVBoxView>
+@property (nonatomic) CGFloat spaceAbove;
+@property (nonatomic) BOOL keepWidth;
+@property (nonatomic) CGFloat border;
+@end
+
+@interface IntroButton : LayButton<LayVBoxView>
 @property (nonatomic) CGFloat spaceAbove;
 @property (nonatomic) BOOL keepWidth;
 @property (nonatomic) CGFloat border;
@@ -83,6 +91,7 @@
 
 static const CGFloat g_fontSizeOfQuestionText = 18.0f;
 static const CGFloat v_space = 15.0f;
+static const CGFloat v_space_intro = 5.0f;
 static const CGFloat g_heightOfStatusProgressBar = 20.0f;
 static CGFloat g_heightOfStatusBar;
 static const CGFloat g_heightOfToolbar = 44.0f;
@@ -354,14 +363,21 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
 }
 
 static const NSUInteger TAG_QUESTION_TITLE = 105;
--(BOOL)addQuestionTitle:(Question*)question {
-    BOOL titleAdded = NO;
+static const NSUInteger TAG_QUESTION_INTRO = 106;
+-(void)addQuestionTitleAndIntro:(Question*)question {
     UIView *titleView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_TITLE];
     if(titleView) {
         [titleView removeFromSuperview];
     }
+    
+    UIView *introView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_INTRO];
+    if(introView) {
+        [introView removeFromSuperview];
+    }
+    
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    
     if(question.title) {
-        LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
         UIFont *smallFont = [styleGuide getFont:TitlePreferredFont];
         UIColor *textColor = [styleGuide getColor:TextColor];
         const CGFloat indent = 10.0f;
@@ -385,20 +401,43 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         [titleContainer addSubview:title];
         [styleGuide makeRoundedBorder:titleContainer withBackgroundColor:GrayTransparentBackground andBorderColor:ClearColor];
         [self->questionAnswerViewArea insertSubview:titleContainer belowSubview:self->questionLabel];
-        titleAdded = YES;
     }
-    return titleAdded;
+    
+    LayIntroduction *intro = [question introduction];
+    if(intro) {
+        const CGFloat introWidth = self.frame.size.width;
+        const CGRect introFrame = CGRectMake(0.0f, 0.0f, introWidth, 0.0f);
+        UIFont *introFont = [styleGuide getFont:NormalPreferredFont];
+        UIColor *clearColor = [styleGuide getColor:ClearColor];
+        NSString *introText = NSLocalizedString(@"QuestionIntroTitle", nil);
+        IntroButton *introButton = [[IntroButton alloc]initWithFrame:introFrame label:introText font:introFont andColor:clearColor];
+        introButton.tag = TAG_QUESTION_INTRO;
+        [introButton fitToContent];
+        [introButton addTarget:self action:@selector(showIntroduction) forControlEvents:UIControlEventTouchUpInside];
+        introButton.spaceAbove = v_space_intro;
+        introButton.border = self->horizontalBorderOfView;
+        [self->questionAnswerViewArea insertSubview:introButton belowSubview:self->questionLabel];
+    }
+}
+
+-(void)showIntroduction {
+    LayIntroduction *intro = [self->currentQuestion introduction];
+    if(intro) {
+        LayInfoDialog *infoDialog = [[LayInfoDialog alloc]initWithWindow:self.window];
+        [infoDialog showIntroduction:intro];
+    }
 }
 
 -(void)showQuestionAndAnswerInStandardScreen:(Question*)question :(NSObject<LayAnswerView>*)answerView :(BOOL)userCanSetAnswer {
     [self showMiniIconsForQuestion];
     [self setupAnswerViewStandardScreen];
-    BOOL titleAdded = [self addQuestionTitle:question];
-    if(titleAdded) {
-        self->questionLabel.spaceAbove = v_space;
-    } else {
-        self->questionLabel.spaceAbove = v_space;
+    [self addQuestionTitleAndIntro:question];
+    self->questionLabel.spaceAbove = v_space;
+    UIView *introView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_INTRO];
+    if(introView) {
+        self->questionLabel.spaceAbove = v_space_intro;
     }
+
     NSString *questionText = question.question;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     self->questionLabel.font = [styleGuide getFont:QuestionFont];
@@ -720,6 +759,10 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 @end
 
 @implementation AnswerView
+@synthesize spaceAbove, keepWidth, border;
+@end
+
+@implementation IntroButton
 @synthesize spaceAbove, keepWidth, border;
 @end
 

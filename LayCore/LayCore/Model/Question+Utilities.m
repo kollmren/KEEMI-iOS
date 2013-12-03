@@ -52,7 +52,8 @@
                                 ascending:YES];
         [sortedList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
         
-        intro = [[LayIntroduction alloc]initWithTitle:self.title andSectionList:sortedList];
+        NSString *title = NSLocalizedString(@"QuestionIntroTitle", nil);
+        intro = [[LayIntroduction alloc]initWithTitle:title andSectionList:sortedList];
     }
     
     return intro;
