@@ -96,7 +96,7 @@
     <explanationList>
         <explanation name="deutscheWappen">
             <title>Wappen der Bundesrepublik Deutschland</title>
-            <shortly>
+            <section>
                 <text>Das Christusmonogramm ΧΡ, auch Chi-Rho oder Konstantinisches Kreuz genannt, früher auch Christogramm, ist nach dem Kreuz und dem Fisch das am häufigsten verwendete Symbol für Jesus Christus. Besonders in der Spätantike war es weit verbreitet. Es wird seit dem 2. Jahrhundert n. Chr. von Christen verwendet, um ihren Glauben an Jesus Christus darzustellen und um sich untereinander zu erkennen.</text>
                 <mediaList>
                     <media type="image" ref="deutschlandWappen01.png"/>
@@ -104,20 +104,20 @@
                     <media type="image" ref="deutschlandWappen03.png"/>
                     <media type="image" ref="deutschlandWappen04.png"/>
                 </mediaList>
-            </shortly>
+            </section>
         </explanation>
         <explanation name="berlinerWappen">
             <title>Wappen von Berlin</title>
-            <shortly>
+            <section>
                 <text>1 Das Wappen des Landes und der Stadt Berlin zeigen den Berliner Bären.</text>
                 <text>2 Der Bär war nicht von Anbeginn das Symbol der Stadt.</text>
                 <text>3 Über mehrere Jahrhunderte teilte sich der Bär die Siegel- und Wappenbilder mit dem brandenburgischen und preußischen Adler.</text>
                 <text>4 Warum sich die Berliner für den Bären als Wappentier entschieden, lässt sich aufgrund fehlender Unterlagen nicht eindeutig klären.</text>
-            </shortly>
+            </section>
         </explanation>
         <explanation name="bundeskanzler" topic="bundeskanzler">
             <title>Ehemalige Bundeskanzler</title>
-            <shortly>
+            <section>
                 <mediaList>
                     <media type="image" ref="Konrad_Adenauer.jpg"/>
                     <media type="image" ref="Ludwig_Erhard.jpg"/>
@@ -130,7 +130,7 @@
                     <media type="image" ref="Schmidt.jpg"/>
                     <media type="image" ref="Kiesinger.jpg"/>
                 </mediaList>
-            </shortly>
+            </section>
         </explanation>
     </explanationList>
     <mediaList>

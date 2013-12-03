@@ -12,7 +12,9 @@
 #import "AnswerItem+Utilities.h"
 #import "Media+Utilities.h"
 #import "AnswerMedia.h"
+#import "SectionQuestion.h"
 #import "Thumbnail.h"
+#import "LayIntroduction.h"
 #import "LayDataStoreUtilities.h"
 
 #import "LayUserDataStore.h"
@@ -29,6 +31,31 @@
     Answer *answer = [LayDataStoreUtilities insertDomainObject: LayAnswer :context];
     answer.questionRef = self;
     return answer;
+}
+
+-(SectionQuestion*)sectionQuestionInstance {
+    NSManagedObjectContext* context = self.managedObjectContext;
+    SectionQuestion *sectionQuestion = [LayDataStoreUtilities insertDomainObject: LaySectionQuestion :context];
+    [self addSectionRefObject:sectionQuestion];
+    return sectionQuestion;
+}
+
+-(LayIntroduction*)introduction {
+    LayIntroduction *intro = nil;
+    if( [self.sectionRef count] > 0 ) {
+        NSMutableArray* sortedList = [[NSMutableArray alloc]initWithCapacity:[self.sectionRef count]];
+        for (SectionQuestion* sq in self.sectionRef) {
+            [sortedList addObject:sq.sectionRef];
+        }
+        NSSortDescriptor *sd = [NSSortDescriptor
+                                sortDescriptorWithKey:@"number"
+                                ascending:YES];
+        [sortedList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
+        
+        intro = [[LayIntroduction alloc]initWithTitle:self.title andSectionList:sortedList];
+    }
+    
+    return intro;
 }
 
 -(void)setAnswer:(Answer*)answer {

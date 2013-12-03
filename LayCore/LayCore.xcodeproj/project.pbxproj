@@ -52,6 +52,8 @@
 		A736F22217995312005AAF70 /* UGCExplanation+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A736F22117995312005AAF70 /* UGCExplanation+Utilities.m */; };
 		A739A027176B00AB001626B6 /* LayOrderedExplanationDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71133A51769FF2E00E8DEEE /* LayOrderedExplanationDatasourceTests.m */; };
 		A739A02A176B0762001626B6 /* LayCoreTestCatalogInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A739A029176B0762001626B6 /* LayCoreTestCatalogInfoManager.m */; };
+		A73A08E7184DD4C300350D4B /* SectionQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = A73A08E6184DD4C300350D4B /* SectionQuestion.m */; };
+		A73A08EA184DE7EF00350D4B /* LayIntroduction.m in Sources */ = {isa = PBXBuildFile; fileRef = A73A08E9184DE7EF00350D4B /* LayIntroduction.m */; };
 		A73B2043173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A73B2040173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m */; };
 		A73B2044173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A73B2042173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.m */; };
 		A73C34D917D5E00100545068 /* LayImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A73C34D817D5E00100545068 /* LayImageUtilities.m */; };
@@ -247,6 +249,10 @@
 		A736F22117995312005AAF70 /* UGCExplanation+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCExplanation+Utilities.m"; path = "LayCore/Model/UserGeneratedContent/UGCExplanation+Utilities.m"; sourceTree = "<group>"; };
 		A739A028176B0762001626B6 /* LayCoreTestCatalogInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayCoreTestCatalogInfoManager.h; sourceTree = "<group>"; };
 		A739A029176B0762001626B6 /* LayCoreTestCatalogInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayCoreTestCatalogInfoManager.m; sourceTree = "<group>"; };
+		A73A08E5184DD4C300350D4B /* SectionQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionQuestion.h; path = LayCore/Model/SectionQuestion.h; sourceTree = "<group>"; };
+		A73A08E6184DD4C300350D4B /* SectionQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionQuestion.m; path = LayCore/Model/SectionQuestion.m; sourceTree = "<group>"; };
+		A73A08E8184DE7EF00350D4B /* LayIntroduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayIntroduction.h; path = LayCore/Model/LayIntroduction.h; sourceTree = "<group>"; };
+		A73A08E9184DE7EF00350D4B /* LayIntroduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayIntroduction.m; path = LayCore/Model/LayIntroduction.m; sourceTree = "<group>"; };
 		A73B203F173A768C002D06D1 /* LayXmlCatalogFileReaderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayXmlCatalogFileReaderTests.h; sourceTree = "<group>"; };
 		A73B2040173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayXmlCatalogFileReaderTests.m; sourceTree = "<group>"; };
 		A73B2041173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayXmlDocumentDataCatcherTests.h; sourceTree = "<group>"; };
@@ -621,6 +627,8 @@
 		A74557131762481A005D792B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A73A08E5184DD4C300350D4B /* SectionQuestion.h */,
+				A73A08E6184DD4C300350D4B /* SectionQuestion.m */,
 				A74CAB50181EB16000466192 /* MediaImageMap.h */,
 				A74CAB51181EB16000466192 /* MediaImageMap.m */,
 				A732D0DD17D7335E009BAE41 /* Thumbnail.h */,
@@ -681,6 +689,8 @@
 				A71B816C1796EFF300512EAA /* Resource+Utilities.m */,
 				A71AA3A917C2652200B6D921 /* About+Utilities.h */,
 				A71AA3AA17C2652200B6D921 /* About+Utilities.m */,
+				A73A08E8184DE7EF00350D4B /* LayIntroduction.h */,
+				A73A08E9184DE7EF00350D4B /* LayIntroduction.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -969,7 +979,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents/TestData\ncp -r /Users/rene/Programming/KEEMI/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents/TestData\ncp -r /Users/rene/Programming/KEEMI/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -995,6 +1005,7 @@
 				A74113FA16EA189100626DCF /* LayCatalogImport.m in Sources */,
 				A74113FC16EA189100626DCF /* LayCatalogImportReport.m in Sources */,
 				A74113FE16EA189100626DCF /* LayImportDataStore.m in Sources */,
+				A73A08E7184DD4C300350D4B /* SectionQuestion.m in Sources */,
 				A74113D616EA186F00626DCF /* Answer+Utilities.m in Sources */,
 				A74113DA16EA186F00626DCF /* AnswerItem+Utilities.m in Sources */,
 				A74113E216EA186F00626DCF /* Catalog+Utilities.m in Sources */,
@@ -1064,6 +1075,7 @@
 				A71AA3AB17C2652200B6D921 /* About+Utilities.m in Sources */,
 				A73C34D917D5E00100545068 /* LayImageUtilities.m in Sources */,
 				A7C8E70417D6799D006CC112 /* AnswerMedia+Utilities.m in Sources */,
+				A73A08EA184DE7EF00350D4B /* LayIntroduction.m in Sources */,
 				A732D0D617D71B6B009BAE41 /* Thumbnail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

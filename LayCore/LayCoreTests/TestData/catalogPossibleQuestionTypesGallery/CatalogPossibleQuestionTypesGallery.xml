@@ -34,6 +34,27 @@
   </info>
   <questionList>
     <question type="singleChoice" name="question1">
+      <introduction>
+        <section>
+          <title>This is the title of the first section</title>
+          <text>This is the first paragraph of the first section ...</text>
+          <text>This is the second paragraph of the first section ...</text>
+          <mediaList>
+            <media type="image" ref="image144x77.png"/>
+            <media type="html" ref="java1.html"/>
+            <media type="image" ref="image144x77.png"/>
+          </mediaList>
+          <text>This is the third paragraph of the first section ...</text>
+          <text>This is the fourth paragraph of the first section ...</text>
+        </section>
+        <section>
+          <title>This is the title of the second section</title>
+          <text>This is the first paragraph of the second section ...</text>
+          <text>This is the second paragraph of the second section ...</text>
+          <text>This is the third paragraph of the second section ...</text>
+          <text>This is the fourth paragraph of the second section ...</text>
+        </section>
+      </introduction>
       <text>Dies ist eine Frage. Eine Frage kann sehr kurz oder auch sehr lang sein. Wie lang eine Frage ist bestimmt der Autor. Nur eine Antwort ist richtig!</text>
       <answer>
         <answerItem correct="no">
@@ -406,11 +427,11 @@
         </answerItem>
         <answerItem correct="no">
           <media type="image" ref="ButtonImage.png"/>
-           <text>(großes Bild)....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
+          <text>(großes Bild)....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
         </answerItem>
       </answer>
     </question>
-     <question type="singleChoice" name="question17">
+    <question type="singleChoice" name="question17">
       <text>Frage17</text>
       <answer style="column">
         <mediaList>
@@ -438,7 +459,7 @@
         </answerItem>
       </answer>
     </question>
-     <question type="singleChoice" name="question18">
+    <question type="singleChoice" name="question18">
       <text>Frage18 Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial ...</text>
       <answer style="row">
         <answerItem correct="no">
@@ -464,7 +485,7 @@
     <question type="singleChoice" name="question19">
       <text>Frage19 Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial ...</text>
       <answer style="row">
-       <mediaList>
+        <mediaList>
           <media type="image" ref="image1280x640.png"/>
           <media type="image" ref="image2_144x144.png"/>
         </mediaList>
@@ -488,7 +509,7 @@
         </answerItem>
       </answer>
     </question>
-     <question type="singleChoice" name="question20">
+    <question type="singleChoice" name="question20">
       <text>Frage20 Frage mit HTML als Media(mitViewPort)</text>
       <answer>
         <mediaList>
@@ -505,11 +526,11 @@
         </answerItem>
         <answerItem correct="no">
           <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe. Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
-           <media type="image" ref="image144x144.png"/>
+          <media type="image" ref="image144x144.png"/>
         </answerItem>
         <answerItem correct="no">
           <text>Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
-           <media type="image" ref="image3_144x144.png"/>
+          <media type="image" ref="image3_144x144.png"/>
         </answerItem>
         <answerItem correct="no">
           <media type="html" ref="htmlWithCenteredParagraph.html"/>
@@ -519,7 +540,7 @@
         </answerItem>
       </answer>
     </question>
-     <question type="singleChoice" name="question21">
+    <question type="singleChoice" name="question21">
       <text>Frage21 Frage mit HTML als Media(ohne viewport)</text>
       <answer>
         <mediaList>
@@ -548,7 +569,7 @@
       </answer>
     </question>
     <!-- 22 -->
-     <question type="singleChoice" name="question22">
+    <question type="singleChoice" name="question22">
       <text>Frage22 Frage mit HTML als Media(mit viewport)</text>
       <answer>
         <mediaList>
@@ -577,7 +598,7 @@
       </answer>
     </question>
     <!-- 23 -->
-     <question type="singleChoice" name="question23">
+    <question type="singleChoice" name="question23">
       <text>Frage23 Frage mit HTML als Media(ohne viewport)</text>
       <answer>
         <mediaList>
@@ -607,69 +628,69 @@
       </answer>
     </question>
     <question type="wordResponse" name="question24">
-    	<text>Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
-    	<answer>
-    		<answerItem correct="yes">
-    			<text>1. Konrad Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>2. Konrad Hermann Joseph Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    		<!-- text is trimmed -->
-    			<text>  Conrad Hermann Joseph Adenauer  </text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>3. Konrad Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>4. Konrad Hermann Joseph Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    		<!-- text is trimmed -->
-    			<text>  5. Conrad Hermann Joseph Adenauer  </text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>6. Konrad Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>7. Konrad Hermann Joseph Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    		<!-- text is trimmed -->
-    			<text>  8. Conrad Hermann Joseph Adenauer  </text>
-    		</answerItem>
-    	</answer>
+      <text>Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
+      <answer>
+        <answerItem correct="yes">
+          <text>1. Konrad Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>2. Konrad Hermann Joseph Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <!-- text is trimmed -->
+          <text>  Conrad Hermann Joseph Adenauer  </text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>3. Konrad Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>4. Konrad Hermann Joseph Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <!-- text is trimmed -->
+          <text>  5. Conrad Hermann Joseph Adenauer  </text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>6. Konrad Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>7. Konrad Hermann Joseph Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <!-- text is trimmed -->
+          <text>  8. Conrad Hermann Joseph Adenauer  </text>
+        </answerItem>
+      </answer>
     </question>
     <!--  25 -->
     <question type="wordResponse" name="question25">
-    	<text>Wie 24 mit Bilder für Antwort. Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
-    	<answer>
-    	 <mediaList>
+      <text>Wie 24 mit Bilder für Antwort. Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
+      <answer>
+        <mediaList>
           <media type="html" ref="htmlWithCssFormatedDivs.html"/>
           <media type="html" ref="htmlWithCssFormatedDivs.html"/>
           <media type="html" ref="htmlWithCssFormatedDivs.html"/>
         </mediaList>
-    		<answerItem correct="yes" explanation="explanation1">
-    			<text>1. Konrad Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    			<text>2. Konrad Hermann Joseph Adenauer</text>
-    		</answerItem>
-    		<answerItem correct="yes">
-    		<!-- text is trimmed -->
-    			<text>  3. Conrad Hermann Joseph Adenauer  </text>
-    		</answerItem>
-    	</answer>
+        <answerItem correct="yes" explanation="explanation1">
+          <text>1. Konrad Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>2. Konrad Hermann Joseph Adenauer</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <!-- text is trimmed -->
+          <text>  3. Conrad Hermann Joseph Adenauer  </text>
+        </answerItem>
+      </answer>
     </question>
-        <!--  26 -->
+    <!--  26 -->
     <question type="wordResponse" name="question26">
-    	<text>Hauptstadt von Deutschland ...</text>
-    	<answer>
-    		<answerItem correct="yes">
-    			<text>Berlin</text>
-    		</answerItem>
-    	</answer>
+      <text>Hauptstadt von Deutschland ...</text>
+      <answer>
+        <answerItem correct="yes">
+          <text>Berlin</text>
+        </answerItem>
+      </answer>
     </question>
   </questionList>
   <mediaList>
@@ -687,39 +708,40 @@
     </resource>
   </resourceList>
   <topicList>
-  <topic name="java">
-  	<title>Java Programming</title>
-  </topic>
+    <topic name="java">
+      <title>Java Programming</title>
+    </topic>
   </topicList>
   <explanationList>
-  	<explanation name="explanation1">
-  	<title>Title of the explanation1</title>
-  	<section>
-  		<title>Title of section1</title>
-  		<text>1 Some text as explanation ...</text>
-  		<text>2 Some text as explanation ...</text>
-  		<text>3 Some text as explanation ...</text>
-  		<mediaList>
-  			 <media type="html" ref="java1.html" large="yes"/>
-  		</mediaList>
-  	</section>
-  	<section>
-  		<title>Title of section2</title>
-  		<text>1 Some text as explanation ...</text>
-  		<text>2 Some text as explanation ...</text>
-  		<text>3 Some text as explanation ...</text>
-  	</section>
-  	</explanation>
-  	<explanation name="javaInit">
-  		<title></title>
-  		<section>
-  			<text>A static initialization block is a normal block of code enclosed in braces, { }, and preceded by the static keyword(figure 1)</text>
-  			<text> A class can have any number of static initialization blocks, and they can appear anywhere in the class body. The runtime system guarantees that static initialization blocks are called in the order that they appear in the source code. There is an alternative to static blocks — you can write a private static method as figure2 shows.</text><text>The advantage of private static methods is that they can be reused later if you need to reinitialize the class variable.</text>
-  			<mediaList>
-  				<media ref="staticInit01.html" type="html"/>
-  				<media ref="staticInit02.html" type="html"/>
-  			</mediaList>
-  		</section>
-  	</explanation>
+    <explanation name="explanation1">
+      <title>Title of the explanation1</title>
+      <section>
+        <title>Title of section1</title>
+        <text>1 Some text as explanation ...</text>
+        <text>2 Some text as explanation ...</text>
+        <text>3 Some text as explanation ...</text>
+        <mediaList>
+          <media type="html" ref="java1.html" large="yes"/>
+        </mediaList>
+      </section>
+      <section>
+        <title>Title of section2</title>
+        <text>1 Some text as explanation ...</text>
+        <text>2 Some text as explanation ...</text>
+        <text>3 Some text as explanation ...</text>
+      </section>
+    </explanation>
+    <explanation name="javaInit">
+      <title/>
+      <section>
+        <text>A static initialization block is a normal block of code enclosed in braces, { }, and preceded by the static keyword(figure 1)</text>
+        <text> A class can have any number of static initialization blocks, and they can appear anywhere in the class body. The runtime system guarantees that static initialization blocks are called in the order that they appear in the source code. There is an alternative to static blocks — you can write a private static method as figure2 shows.</text>
+        <text>The advantage of private static methods is that they can be reused later if you need to reinitialize the class variable.</text>
+        <mediaList>
+          <media ref="staticInit01.html" type="html"/>
+          <media ref="staticInit02.html" type="html"/>
+        </mediaList>
+      </section>
+    </explanation>
   </explanationList>
 </catalog>

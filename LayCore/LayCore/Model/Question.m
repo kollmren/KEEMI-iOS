@@ -29,5 +29,6 @@
 @dynamic topicRef;
 @dynamic resourceRef;
 @dynamic thumbnailRef;
+@dynamic sectionRef;
 
 @end

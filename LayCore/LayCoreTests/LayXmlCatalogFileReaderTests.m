@@ -15,6 +15,7 @@
 #import "LayCatalogImportReport.h"
 #import "LayError.h"
 #import "LayConstants.h"
+#import "LayIntroduction.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -842,16 +843,50 @@ return readOk;
     BOOL catalogIsAsExpected = NO;
     NSUInteger numberOfQuestionsWithTypeWordResponse = 0;
     for (Question *question in [catalog questionListSortedByNumber]) {
+        if( [question.name isEqualToString:@"question1"] ) {
+            LayIntroduction *intro = [question introduction];
+            if(intro) {
+                const NSUInteger expectedNumberOfSections = 2;
+                NSArray *sectionList = intro.sectionList;
+                if( [sectionList count] == expectedNumberOfSections ) {
+                    const NSUInteger expectedNumberOfItemsInSectionOne = 3;
+                    Section *sectionOne = [sectionList objectAtIndex:0];
+                    NSArray *sectionGroup = [sectionOne sectionGroupList];
+                    if([sectionGroup count] == expectedNumberOfItemsInSectionOne) {
+                        catalogIsAsExpected = YES;
+                    } else {
+                        MWLogError(_classObj, @"Intro number of items does not match:%d, %d!",expectedNumberOfItemsInSectionOne, [sectionGroup count] );
+                    }
+                    
+                    const NSUInteger expectedNumberOfItemsInSectionTwo = 1;
+                    Section *sectionTwo = [sectionList objectAtIndex:1];
+                    sectionGroup = [sectionTwo sectionGroupList];
+                    if([sectionGroup count] == expectedNumberOfItemsInSectionOne) {
+                        catalogIsAsExpected = YES;
+                    } else {
+                        MWLogError(_classObj, @"Intro number of items in section2 does not match:%d, %d!",expectedNumberOfItemsInSectionTwo, [sectionGroup count] );
+                    }
+                } else {
+                    MWLogError(_classObj, @"Expected number of sections is:%d not: %d!",expectedNumberOfSections, [sectionList count] );
+                }
+                
+            } else {
+                 MWLogError(_classObj, @"Intro expected for question:%@!",question.name);
+            }
+        }
+        
         if([question questionType] == ANSWER_TYPE_WORD_RESPONSE) {
             ++numberOfQuestionsWithTypeWordResponse;
         }
     }
     
-    const NSUInteger expectedNumberOfQuestionsWithTypeWordResponse = 3;
-    if(expectedNumberOfQuestionsWithTypeWordResponse == numberOfQuestionsWithTypeWordResponse) {
-        catalogIsAsExpected = YES;
-    } else {
-        MWLogError(_classObj, @"Number:%d of expected:%d questions with type:wordResponse does not match!",expectedNumberOfQuestionsWithTypeWordResponse, numberOfQuestionsWithTypeWordResponse);
+    if(catalogIsAsExpected) {
+        const NSUInteger expectedNumberOfQuestionsWithTypeWordResponse = 3;
+        if(expectedNumberOfQuestionsWithTypeWordResponse == numberOfQuestionsWithTypeWordResponse) {
+            catalogIsAsExpected = YES;
+        } else {
+            MWLogError(_classObj, @"Number:%d of expected:%d questions with type:wordResponse does not match!",expectedNumberOfQuestionsWithTypeWordResponse, numberOfQuestionsWithTypeWordResponse);
+        }
     }
     
     return catalogIsAsExpected;

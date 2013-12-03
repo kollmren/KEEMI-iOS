@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Answer, Catalog, Resource, Topic, Thumbnail;
+@class Answer, Catalog, Resource, Topic, Thumbnail, SectionQuestion;
 
 @interface Question : NSManagedObject
 
@@ -27,6 +27,7 @@
 @property (nonatomic, retain) Topic *topicRef;
 @property (nonatomic, retain) NSSet *resourceRef;
 @property (nonatomic, retain) NSSet *thumbnailRef;
+@property (nonatomic, retain) NSSet *sectionRef;
 @end
 
 @interface Question (CoreDataGeneratedAccessors)
@@ -41,4 +42,10 @@
 - (void)addThumbnailRef:(NSSet *)values;
 - (void)removeThumbnailRef:(NSSet *)values;
 
+- (void)addSectionRefObject:(SectionQuestion *)value;
+- (void)removeSectionRefObject:(SectionQuestion *)value;
+- (void)addSectionRef:(NSSet *)values;
+- (void)removeSectionRef:(NSSet *)values;
+
 @end
+

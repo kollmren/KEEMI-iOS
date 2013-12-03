@@ -9,12 +9,15 @@
 #import "Question.h"
 #import "LayAnswerType.h"
 
-@class Topic;
+@class Topic, SectionQuestion, LayIntroduction;
+
 @interface Question (Utilities)
 
 -(Answer*)answerInstance;
-
 -(void)setAnswer:(Answer*)answer;
+
+-(SectionQuestion*)sectionQuestionInstance;
+-(LayIntroduction*)introduction;
 
 -(NSNumber*)questionNumber;
 -(void)setQuestionNumber:(NSUInteger)number;

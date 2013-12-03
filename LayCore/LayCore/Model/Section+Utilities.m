@@ -19,20 +19,20 @@
     NSMutableArray *sectionItemList = [NSMutableArray arrayWithCapacity:10];
     
     // Get the textItems arranged to the groupnumber
-    NSMutableArray *testListItemsOrderedByGroupNumber = [NSMutableArray arrayWithCapacity:[self.sectionTextRef count]];
+    NSMutableArray *textListItemsOrderedByGroupNumber = [NSMutableArray arrayWithCapacity:[self.sectionTextRef count]];
     for (SectionText *sectionText in self.sectionTextRef) {
-        [testListItemsOrderedByGroupNumber addObject:sectionText];
+        [textListItemsOrderedByGroupNumber addObject:sectionText];
     }
     NSSortDescriptor *groupNumberSd = [NSSortDescriptor
                             sortDescriptorWithKey:@"groupNumber"
                             ascending:YES];
-    [testListItemsOrderedByGroupNumber sortUsingDescriptors:[NSArray arrayWithObject:groupNumberSd]];
+    [textListItemsOrderedByGroupNumber sortUsingDescriptors:[NSArray arrayWithObject:groupNumberSd]];
     
-    // Group text per grpunumber
+    // Group text per groupnumber
     NSUInteger groupNumber = 0;
     LaySectionTextList *textList = nil;
     NSMutableArray *groupedTextList = [NSMutableArray arrayWithCapacity:10];
-    for (SectionText *sectionText in testListItemsOrderedByGroupNumber) {
+    for (SectionText *sectionText in textListItemsOrderedByGroupNumber) {
         NSUInteger currentGroupNumber = [sectionText.groupNumber unsignedIntegerValue];
         if(groupNumber != currentGroupNumber) {
             if(textList) {

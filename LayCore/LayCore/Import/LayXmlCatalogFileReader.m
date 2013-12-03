@@ -28,6 +28,7 @@
 #import "Resource+Utilities.h"
 #import "Section+Utilities.h"
 #import "About+Utilities.h"
+#import "SectionQuestion.h"
 
 #import "MWLogging.h"
 
@@ -45,6 +46,7 @@ const NSString* const LAY_XML_TAG_LINK = @"link";
 const NSString* const LAY_XML_TAG_WEBSITE = @"website";
 const NSString* const LAY_XML_TAG_EMAIL = @"email";
 const NSString* const LAY_XML_TAG_SOURCE = @"source";
+const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
 
 const NSString* const LAY_XML_ATTRIBUTE_LARGE_MEDIA = @"large";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
@@ -817,6 +819,8 @@ static Class _classObj = nil;
             //optional elements
             [self addLinkedResourceListFrom:questionNode to:question];
             
+            [self addIntroToQuestion:questionNode to:question];
+            
             [self->importCatalog addQuestion:question];
         }
     } else {
@@ -1215,6 +1219,7 @@ static Class _classObj = nil;
             }
         } else {
             [self->importCatalog.managedObjectContext deleteObject:section];
+            section = nil;
             NSString *message = [NSString stringWithFormat:@"A section must have at least one text oder mediaList child element!"];
             [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
         }
@@ -1420,6 +1425,33 @@ static Class _classObj = nil;
     
     resource.number = [NSNumber numberWithUnsignedInteger:++self->resourceCounter];
 }
+
+// add introduction
+-(void) addIntroToQuestion:(LayXmlNode*)questionNode to:(Question*)question {
+    LayXmlNode *introNode = [questionNode nodeByName:(NSString*)LAY_XML_TAG_INTRODUCTION];
+    if(introNode) {
+        MWLogDebug(_classObj, @"Process introduction for question:%@", question.name);
+        NSArray *sectionNodeList = [introNode childNodeListByName:(NSString*)LAY_XML_TAG_SECTION];
+        if([sectionNodeList count] > 0) {
+            NSUInteger currentSectionNumber = 0;
+            for (LayXmlNode* sectionNode in sectionNodeList) {
+                Section *section = [self sectionFromNode:sectionNode];
+                if(section) {
+                    SectionQuestion *sectionQuestion = [question sectionQuestionInstance];
+                    sectionQuestion.sectionRef = section;
+                    sectionQuestion.questionRef = question;
+                    section.number = [NSNumber numberWithUnsignedInteger:++currentSectionNumber];;
+                } else {
+                    MWLogError(_classObj, @"Processing introduction for question:%@ failed!", question.name);
+                }
+            }
+        } else {
+            NSString* message = [NSString stringWithFormat:@"Element:%@ must contain at least one child named:%@", LAY_XML_TAG_INTRODUCTION, LAY_XML_TAG_SECTION];
+            [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
+        }
+    }
+}
+
 
 // add linked resource
 -(void) addLinkedResourceListFrom:(LayXmlNode*)xmlNode to:(NSManagedObject*)managedObject {

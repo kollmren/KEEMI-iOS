@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="About" representedClassName="About" syncable="YES">
         <attribute name="sectionCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="catalogRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="aboutRef" inverseEntity="Catalog" syncable="YES"/>
@@ -255,7 +255,7 @@
         <relationship name="mediaRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Media" inverseName="sectionMediaRef" inverseEntity="Media" syncable="YES"/>
         <relationship name="sectionRef" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="sectionMediaRef" inverseEntity="Section" syncable="YES"/>
     </entity>
-    <entity name="SectionQuestion" syncable="YES">
+    <entity name="SectionQuestion" representedClassName="SectionQuestion" syncable="YES">
         <attribute name="groupNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>

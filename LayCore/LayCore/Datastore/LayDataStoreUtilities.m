@@ -76,6 +76,11 @@ static Class g_classObj = nil;
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"SectionMedia"
                                                          inManagedObjectContext:managedObjectContext];
             break;
+        case LaySectionQuestion:
+            domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"SectionQuestion"
+                                                         inManagedObjectContext:managedObjectContext];
+            break;
+
         case LayTopic:
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"Topic"
                                                          inManagedObjectContext:managedObjectContext];
