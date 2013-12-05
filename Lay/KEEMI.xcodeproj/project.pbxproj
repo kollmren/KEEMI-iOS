@@ -119,6 +119,7 @@
 		A7920F2B1701BE3D00B71E62 /* LayAnswerItemViewMinimized.m in Sources */ = {isa = PBXBuildFile; fileRef = A7920F2A1701BE3D00B71E62 /* LayAnswerItemViewMinimized.m */; };
 		A7955CC4181151DF003CDD0A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7955CC3181151DF003CDD0A /* Images.xcassets */; };
 		A797EA5E181E9ED50007606F /* Explanation+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A797EA5D181E9ED50007606F /* Explanation+Utilities.m */; };
+		A798AD8918509A4F00AD0836 /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A798AD8818509A4F00AD0836 /* Introduction+Utilities.m */; };
 		A79BD72817424C0800CB8A39 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A79BD72717424C0700CB8A39 /* libz.1.2.5.dylib */; };
 		A79BD72A17424C2E00CB8A39 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A79BD72917424C2E00CB8A39 /* libc++.dylib */; };
 		A79EFF0B17734E5F003BD38C /* LayVcCatalogTopics.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EFF0A17734E5F003BD38C /* LayVcCatalogTopics.m */; };
@@ -341,6 +342,7 @@
 		A79459DD170312D500884D56 /* LayVcCatalogListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcCatalogListHeader.h; sourceTree = "<group>"; };
 		A7955CC3181151DF003CDD0A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = KEEMI/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		A797EA5D181E9ED50007606F /* Explanation+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Explanation+Utilities.m"; path = "../LayCore/LayCore/Model/Explanation+Utilities.m"; sourceTree = "<group>"; };
+		A798AD8818509A4F00AD0836 /* Introduction+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Introduction+Utilities.m"; path = "../LayCore/LayCore/Model/Introduction+Utilities.m"; sourceTree = "<group>"; };
 		A79BD72717424C0700CB8A39 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		A79BD72917424C2E00CB8A39 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		A79EFF0917734E5F003BD38C /* LayVcCatalogTopics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcCatalogTopics.h; path = CatalogTopics/LayVcCatalogTopics.h; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 		A707365C165A2740005BB556 /* FromLayCore */ = {
 			isa = PBXGroup;
 			children = (
+				A798AD8818509A4F00AD0836 /* Introduction+Utilities.m */,
 				A797EA5D181E9ED50007606F /* Explanation+Utilities.m */,
 				A73A745117CB41B1004A91C7 /* About+Utilities.m */,
 				A72AABAD17C22BAD001C56A4 /* Section+Utilities.m */,
@@ -1026,6 +1029,7 @@
 				A7577AD1174A3F3000E941F7 /* LayDetailsTable.m in Sources */,
 				A71367AF174FFA6D006AA428 /* LayMenu.m in Sources */,
 				A7500742175F5D8E007AD407 /* LayHintView.m in Sources */,
+				A798AD8918509A4F00AD0836 /* Introduction+Utilities.m in Sources */,
 				A711D73C176B3B83007A2815 /* LayExplanationSessionView.m in Sources */,
 				A711D73D176B3B83007A2815 /* LayVcExplanation.m in Sources */,
 				A79EFF0B17734E5F003BD38C /* LayVcCatalogTopics.m in Sources */,

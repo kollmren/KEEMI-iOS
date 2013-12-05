@@ -11,7 +11,7 @@
 #import "LayImageRibbonDelegate.h"
 
 @class Explanation;
-@class Resource, LayIntroduction;
+@class Resource, Introduction;
 @interface LayInfoDialog : UIView<LayImageRibbonDelegate, UIWebViewDelegate>
 
 -(id) initWithWindow:(UIWindow*)mainView_;
@@ -21,7 +21,7 @@
 -(UIView*) showInfo:(NSArray*)info withTitle:(NSString*)title_ andMediaList:(NSArray*)mediaList;
 
 -(UIView*) showShortExplanation:(Explanation*)explanation;
--(UIView*) showIntroduction:(LayIntroduction*)introduction;
+-(UIView*) showIntroduction:(Introduction*)introduction;
 
 -(UIView*) showStatistic:(NSArray*)info withTitle:(NSString*)title_ caller:(id)caller_ selector:(SEL)selector_;
 

@@ -760,6 +760,50 @@
         </answerItem>
       </answer>
     </question>
+        <question name="borderCanada" type="flashcard">
+      <text>Name four states that border Canada?</text>
+      <answer style="column" explanation="borderCanada">
+        <answerItem correct="yes">
+          <text>Maine</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>New Hampshire</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Vermont</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>New York</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Pennsylvania</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Ohio</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Michigan</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Minnesota</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>North Dakota</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Montana</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Idaho</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Washington</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Alaska</text>
+        </answerItem>
+      </answer>
+    </question>
   </questionList>
   <mediaList>
     <media type="image" ref="image1280x640.png" large="yes"/>
@@ -809,6 +853,14 @@
           <media ref="staticInit01.html" type="html"/>
           <media ref="staticInit02.html" type="html"/>
         </mediaList>
+      </section>
+    </explanation>
+     <explanation name="borderCanada">
+      <title>The northern border of the United States</title>
+      <section>
+        <text>The northern border of the United States stretches more than 5,000 miles from Maine in the East to Alaska in the West. There are 13 states on the border with Canada:</text>
+        <question name="borderCanada"/> 
+        <text>The Treaty of Paris of 1783 established the official boundary between Canada and the United States after the Revolutionary War. Since that time, there have been land disputes, but they have been resolved through treaties. The International Boundary Commission, which is headed by two commissioners, one American and one Canadian, is responsible for maintaining the boundary.</text>
       </section>
     </explanation>
   </explanationList>

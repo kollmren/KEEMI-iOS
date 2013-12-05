@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Answer, Catalog, Resource, Topic, Thumbnail, SectionQuestion;
+@class Answer, Catalog, Resource, Topic, Thumbnail, SectionQuestion, Introduction;
 
 @interface Question : NSManagedObject
 
@@ -28,6 +28,7 @@
 @property (nonatomic, retain) NSSet *resourceRef;
 @property (nonatomic, retain) NSSet *thumbnailRef;
 @property (nonatomic, retain) NSSet *sectionRef;
+@property (nonatomic, retain) Introduction *introRef;
 @end
 
 @interface Question (CoreDataGeneratedAccessors)

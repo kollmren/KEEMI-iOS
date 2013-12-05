@@ -15,7 +15,7 @@
 #import "LayAppNotifications.h"
 #import "LayIconButton.h"
 #import "LayExplanationView.h"
-#import "LayIntroduction.h"
+#import "Introduction+Utilities.h"
 
 #import "Explanation+Utilities.h"
 #import "Resource+Utilities.h"
@@ -175,8 +175,8 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     if([explanationOrIntro isKindOfClass:[Explanation class]]) {
         Explanation *explanation = (Explanation*)explanationOrIntro;
         explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andExplanation:explanation];
-    } else if( [explanationOrIntro isKindOfClass:[LayIntroduction class]] ) {
-        LayIntroduction *introduction = (LayIntroduction*)explanationOrIntro;
+    } else if( [explanationOrIntro isKindOfClass:[Introduction class]] ) {
+        Introduction *introduction = (Introduction*)explanationOrIntro;
         explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andIntroduction:introduction];
     } else {
         MWLogError( [LayInfoDialog class], @"Invalid type of object! Method:showExplanationOrIntro ");
@@ -203,7 +203,7 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     return infoView;
 }
 
--(UIView*) showIntroduction:(LayIntroduction*)introduction {
+-(UIView*) showIntroduction:(Introduction*)introduction {
     return [self showExplanationOrIntro:introduction];
 }
 

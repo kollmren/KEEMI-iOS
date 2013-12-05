@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class Explanation, LayIntroduction;
+@class Explanation, Introduction;
 @interface LayExplanationView : UIView
 
 -(id)initWithFrame:(CGRect)frame andExplanation:(Explanation*)explanation;
 
--(id)initWithFrame:(CGRect)frame andIntroduction:(LayIntroduction*)introduction;
+-(id)initWithFrame:(CGRect)frame andIntroduction:(Introduction*)introduction;
 
 @end

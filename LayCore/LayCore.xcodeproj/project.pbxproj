@@ -41,6 +41,9 @@
 		A71BBC7D173923D700DF6358 /* LayXmlPathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71BBC7C173923D700DF6358 /* LayXmlPathTests.m */; };
 		A71D3302174D04D20091922F /* LayDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A71D3300174D04D20091922F /* LayDataModel.xcdatamodeld */; };
 		A71D7C9817B51FA000A45B65 /* UGCResource+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71D7C9717B51FA000A45B65 /* UGCResource+Utilities.m */; };
+		A723997C18508934001DE4CC /* Introduction.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997B18508934001DE4CC /* Introduction.m */; };
+		A723997F18509395001DE4CC /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997E18509395001DE4CC /* Introduction+Utilities.m */; };
+		A7239980185093F4001DE4CC /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997E18509395001DE4CC /* Introduction+Utilities.m */; };
 		A727CFD91786A5420097D721 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = A727CFD81786A5420097D721 /* Answer.m */; };
 		A72D0B7516BFD78E000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = A72D0B7316BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m */; };
 		A732D0D617D71B6B009BAE41 /* Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = A732D0D517D71B6B009BAE41 /* Thumbnail.m */; };
@@ -53,7 +56,6 @@
 		A739A027176B00AB001626B6 /* LayOrderedExplanationDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71133A51769FF2E00E8DEEE /* LayOrderedExplanationDatasourceTests.m */; };
 		A739A02A176B0762001626B6 /* LayCoreTestCatalogInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A739A029176B0762001626B6 /* LayCoreTestCatalogInfoManager.m */; };
 		A73A08E7184DD4C300350D4B /* SectionQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = A73A08E6184DD4C300350D4B /* SectionQuestion.m */; };
-		A73A08EA184DE7EF00350D4B /* LayIntroduction.m in Sources */ = {isa = PBXBuildFile; fileRef = A73A08E9184DE7EF00350D4B /* LayIntroduction.m */; };
 		A73B2043173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A73B2040173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m */; };
 		A73B2044173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A73B2042173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.m */; };
 		A73C34D917D5E00100545068 /* LayImageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A73C34D817D5E00100545068 /* LayImageUtilities.m */; };
@@ -219,6 +221,10 @@
 		A71D3301174D04D20091922F /* LayDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LayDataModel.xcdatamodel; sourceTree = "<group>"; };
 		A71D7C9617B51FA000A45B65 /* UGCResource+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UGCResource+Utilities.h"; path = "LayCore/Model/UserGeneratedContent/UGCResource+Utilities.h"; sourceTree = "<group>"; };
 		A71D7C9717B51FA000A45B65 /* UGCResource+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCResource+Utilities.m"; path = "LayCore/Model/UserGeneratedContent/UGCResource+Utilities.m"; sourceTree = "<group>"; };
+		A723997A18508934001DE4CC /* Introduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Introduction.h; path = LayCore/Model/Introduction.h; sourceTree = "<group>"; };
+		A723997B18508934001DE4CC /* Introduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Introduction.m; path = LayCore/Model/Introduction.m; sourceTree = "<group>"; };
+		A723997D18509395001DE4CC /* Introduction+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Introduction+Utilities.h"; path = "LayCore/Model/Introduction+Utilities.h"; sourceTree = "<group>"; };
+		A723997E18509395001DE4CC /* Introduction+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Introduction+Utilities.m"; path = "LayCore/Model/Introduction+Utilities.m"; sourceTree = "<group>"; };
 		A727CFD71786A5420097D721 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Answer.h; path = LayCore/Model/Answer.h; sourceTree = "<group>"; };
 		A727CFD81786A5420097D721 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Answer.m; path = LayCore/Model/Answer.m; sourceTree = "<group>"; };
 		A72D0B7216BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogDataFile_HeadFirstDesignPattern.h; path = LayCoreTests/LayCatalogDataFile_HeadFirstDesignPattern.h; sourceTree = "<group>"; };
@@ -251,8 +257,6 @@
 		A739A029176B0762001626B6 /* LayCoreTestCatalogInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayCoreTestCatalogInfoManager.m; sourceTree = "<group>"; };
 		A73A08E5184DD4C300350D4B /* SectionQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionQuestion.h; path = LayCore/Model/SectionQuestion.h; sourceTree = "<group>"; };
 		A73A08E6184DD4C300350D4B /* SectionQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionQuestion.m; path = LayCore/Model/SectionQuestion.m; sourceTree = "<group>"; };
-		A73A08E8184DE7EF00350D4B /* LayIntroduction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayIntroduction.h; path = LayCore/Model/LayIntroduction.h; sourceTree = "<group>"; };
-		A73A08E9184DE7EF00350D4B /* LayIntroduction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayIntroduction.m; path = LayCore/Model/LayIntroduction.m; sourceTree = "<group>"; };
 		A73B203F173A768C002D06D1 /* LayXmlCatalogFileReaderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayXmlCatalogFileReaderTests.h; sourceTree = "<group>"; };
 		A73B2040173A768C002D06D1 /* LayXmlCatalogFileReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayXmlCatalogFileReaderTests.m; sourceTree = "<group>"; };
 		A73B2041173A768C002D06D1 /* LayXmlDocumentDataCatcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayXmlDocumentDataCatcherTests.h; sourceTree = "<group>"; };
@@ -627,6 +631,8 @@
 		A74557131762481A005D792B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A723997A18508934001DE4CC /* Introduction.h */,
+				A723997B18508934001DE4CC /* Introduction.m */,
 				A73A08E5184DD4C300350D4B /* SectionQuestion.h */,
 				A73A08E6184DD4C300350D4B /* SectionQuestion.m */,
 				A74CAB50181EB16000466192 /* MediaImageMap.h */,
@@ -689,8 +695,8 @@
 				A71B816C1796EFF300512EAA /* Resource+Utilities.m */,
 				A71AA3A917C2652200B6D921 /* About+Utilities.h */,
 				A71AA3AA17C2652200B6D921 /* About+Utilities.m */,
-				A73A08E8184DE7EF00350D4B /* LayIntroduction.h */,
-				A73A08E9184DE7EF00350D4B /* LayIntroduction.m */,
+				A723997D18509395001DE4CC /* Introduction+Utilities.h */,
+				A723997E18509395001DE4CC /* Introduction+Utilities.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1037,8 +1043,10 @@
 				A754CCA41778493A00CFB7DC /* Topic.m in Sources */,
 				A73E618A1779A15F00AB3EB6 /* LayUserDataModel.xcdatamodeld in Sources */,
 				A73E618E1779AA0A00AB3EB6 /* UGCCase3.m in Sources */,
+				A723997C18508934001DE4CC /* Introduction.m in Sources */,
 				A73E61941779AA0A00AB3EB6 /* UGCStatistic.m in Sources */,
 				A73E61971779AA0B00AB3EB6 /* UGCCase1.m in Sources */,
+				A723997F18509395001DE4CC /* Introduction+Utilities.m in Sources */,
 				A73E619A1779AA0B00AB3EB6 /* UGCCase2.m in Sources */,
 				A73E61A31779AAB100AB3EB6 /* LayUserDataStore .m in Sources */,
 				A73E61A61779AC3500AB3EB6 /* UGCCatalog+Utilities.m in Sources */,
@@ -1075,7 +1083,6 @@
 				A71AA3AB17C2652200B6D921 /* About+Utilities.m in Sources */,
 				A73C34D917D5E00100545068 /* LayImageUtilities.m in Sources */,
 				A7C8E70417D6799D006CC112 /* AnswerMedia+Utilities.m in Sources */,
-				A73A08EA184DE7EF00350D4B /* LayIntroduction.m in Sources */,
 				A732D0D617D71B6B009BAE41 /* Thumbnail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1084,6 +1091,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7239980185093F4001DE4CC /* Introduction+Utilities.m in Sources */,
 				A71AA3AC17C26BB300B6D921 /* About+Utilities.m in Sources */,
 				A71A815717BE6EA700486BE4 /* Section+Utilities.m in Sources */,
 				A71B81711796FD4D00512EAA /* Resource+Utilities.m in Sources */,

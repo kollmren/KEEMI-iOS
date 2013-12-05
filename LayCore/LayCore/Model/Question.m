@@ -30,5 +30,6 @@
 @dynamic resourceRef;
 @dynamic thumbnailRef;
 @dynamic sectionRef;
+@dynamic introRef;
 
 @end

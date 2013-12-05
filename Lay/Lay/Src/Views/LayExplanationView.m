@@ -10,8 +10,8 @@
 #import "LaySectionView.h"
 #import "LayFrame.h"
 #import "LayStyleGuide.h"
-#import "LayIntroduction.h"
 
+#import "Introduction+Utilities.h"
 #import "Explanation+Utilities.h"
 #import "Section+Utilities.h"
 
@@ -28,7 +28,7 @@ static const CGFloat V_SPACE_TITLE = 15.0f;
     return self;
 }
 
--(id)initWithFrame:(CGRect)frame andIntroduction:(LayIntroduction *)introduction
+-(id)initWithFrame:(CGRect)frame andIntroduction:(Introduction *)introduction
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -41,8 +41,9 @@ static const CGFloat V_SPACE_TITLE = 15.0f;
     [self setupViewWith:explanation.title andSectionList:[explanation sectionList]];
 }
 
--(void)setupViewWithIntroduction:(LayIntroduction*)introduction {
-    [self setupViewWith:introduction.title andSectionList:introduction.sectionList];
+-(void)setupViewWithIntroduction:(Introduction*)introduction {
+    NSArray *orderedSectionList = [introduction orderedSectionList];
+    [self setupViewWith:introduction.title andSectionList:orderedSectionList];
 }
 
 -(void)setupViewWith:(NSString*)title_ andSectionList:(NSArray*)sectionList {

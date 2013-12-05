@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407757823.217934"
+            timestampString = "407932479.520412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "817"
-            endingLineNumber = "817"
+            startingLineNumber = "818"
+            endingLineNumber = "818"
             landmarkName = "-catchQuestionData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407757823.217934"
+            timestampString = "407932479.520412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1431"
-            endingLineNumber = "1431"
+            startingLineNumber = "1432"
+            endingLineNumber = "1432"
             landmarkName = "-addIntroToQuestion:to:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LayCore/LayCoreTests/LayXmlCatalogFileReaderTests.m"
+            timestampString = "407932479.520412"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "897"
+            endingLineNumber = "897"
+            landmarkName = "-checkReadCatalogGalleryQuestionWithNameBorderCanada:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

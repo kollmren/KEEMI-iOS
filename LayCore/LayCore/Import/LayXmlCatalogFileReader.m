@@ -29,6 +29,7 @@
 #import "Section+Utilities.h"
 #import "About+Utilities.h"
 #import "SectionQuestion.h"
+#import "Introduction.h"
 
 #import "MWLogging.h"
 
@@ -1434,13 +1435,13 @@ static Class _classObj = nil;
         NSArray *sectionNodeList = [introNode childNodeListByName:(NSString*)LAY_XML_TAG_SECTION];
         if([sectionNodeList count] > 0) {
             NSUInteger currentSectionNumber = 0;
+            Introduction *intro = nil;
             for (LayXmlNode* sectionNode in sectionNodeList) {
                 Section *section = [self sectionFromNode:sectionNode];
                 if(section) {
-                    SectionQuestion *sectionQuestion = [question sectionQuestionInstance];
-                    sectionQuestion.sectionRef = section;
-                    sectionQuestion.questionRef = question;
-                    section.number = [NSNumber numberWithUnsignedInteger:++currentSectionNumber];;
+                    section.number = [NSNumber numberWithUnsignedInteger:++currentSectionNumber];
+                    if(!intro) intro = [question introductionInstance];
+                    [intro addSectionRefObject:section];
                 } else {
                     MWLogError(_classObj, @"Processing introduction for question:%@ failed!", question.name);
                 }

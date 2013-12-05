@@ -20,6 +20,7 @@ enum LayModelObject_ {
     LaySectionText,
     LaySectionMedia,
     LaySectionQuestion,
+    LayIntroduction,
     LayTopic,
     LayResource,
     LayAbout,

@@ -15,7 +15,7 @@
 #import "LayCatalogImportReport.h"
 #import "LayError.h"
 #import "LayConstants.h"
-#import "LayIntroduction.h"
+#import "Introduction+Utilities.h"
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
@@ -844,10 +844,10 @@ return readOk;
     NSUInteger numberOfQuestionsWithTypeWordResponse = 0;
     for (Question *question in [catalog questionListSortedByNumber]) {
         if( [question.name isEqualToString:@"question1"] ) {
-            LayIntroduction *intro = [question introduction];
+            Introduction *intro = question.introRef;
             if(intro) {
                 const NSUInteger expectedNumberOfSections = 2;
-                NSArray *sectionList = intro.sectionList;
+                NSArray *sectionList = [intro orderedSectionList];
                 if( [sectionList count] == expectedNumberOfSections ) {
                     const NSUInteger expectedNumberOfItemsInSectionOne = 3;
                     Section *sectionOne = [sectionList objectAtIndex:0];
@@ -890,6 +890,21 @@ return readOk;
     }
     
     return catalogIsAsExpected;
+}
+
+-(void)checkReadCatalogGalleryQuestionWithNameBorderCanada:(Question*)question {
+    NSString *nameOfQuestionToCheck = @"borderCanada";
+    if([question.name isEqualToString:nameOfQuestionToCheck]) {
+        Answer *answer = question.answerRef;
+        if( [answer hasExplanation]) {
+            Explanation *explanation = answer.explanationRef;
+        } else {
+            MWLogError(_classObj, @"Expect an explanation for question:%@", nameOfQuestionToCheck);
+        }
+    } else {
+        MWLogError(_classObj, @"Expect a question with name:%@ not:%@", nameOfQuestionToCheck, question.name);
+    }
+   
 }
 
 @end

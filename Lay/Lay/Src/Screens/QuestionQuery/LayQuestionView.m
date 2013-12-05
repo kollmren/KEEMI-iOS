@@ -26,7 +26,7 @@
 #import "LayVcNotes.h"
 #import "LayVcNavigation.h"
 #import "LayUserDefaults.h"
-#import "LayIntroduction.h"
+#import "Introduction+Utilities.h"
 #import "LayButton.h"
 
 #import "Catalog+Utilities.h"
@@ -403,7 +403,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
         [self->questionAnswerViewArea insertSubview:titleContainer belowSubview:self->questionLabel];
     }
     
-    LayIntroduction *intro = [question introduction];
+    Introduction *intro = question.introRef;
     if(intro) {
         const CGFloat introWidth = self.frame.size.width;
         const CGRect introFrame = CGRectMake(0.0f, 0.0f, introWidth, 0.0f);
@@ -421,7 +421,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
 }
 
 -(void)showIntroduction {
-    LayIntroduction *intro = [self->currentQuestion introduction];
+    Introduction *intro = self->currentQuestion.introRef;
     if(intro) {
         LayInfoDialog *infoDialog = [[LayInfoDialog alloc]initWithWindow:self.window];
         [infoDialog showIntroduction:intro];

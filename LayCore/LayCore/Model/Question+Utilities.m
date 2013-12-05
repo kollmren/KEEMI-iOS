@@ -12,9 +12,8 @@
 #import "AnswerItem+Utilities.h"
 #import "Media+Utilities.h"
 #import "AnswerMedia.h"
-#import "SectionQuestion.h"
+#import "Introduction.h"
 #import "Thumbnail.h"
-#import "LayIntroduction.h"
 #import "LayDataStoreUtilities.h"
 
 #import "LayUserDataStore.h"
@@ -33,29 +32,11 @@
     return answer;
 }
 
--(SectionQuestion*)sectionQuestionInstance {
+-(Introduction*)introductionInstance {
     NSManagedObjectContext* context = self.managedObjectContext;
-    SectionQuestion *sectionQuestion = [LayDataStoreUtilities insertDomainObject: LaySectionQuestion :context];
-    [self addSectionRefObject:sectionQuestion];
-    return sectionQuestion;
-}
-
--(LayIntroduction*)introduction {
-    LayIntroduction *intro = nil;
-    if( [self.sectionRef count] > 0 ) {
-        NSMutableArray* sortedList = [[NSMutableArray alloc]initWithCapacity:[self.sectionRef count]];
-        for (SectionQuestion* sq in self.sectionRef) {
-            [sortedList addObject:sq.sectionRef];
-        }
-        NSSortDescriptor *sd = [NSSortDescriptor
-                                sortDescriptorWithKey:@"number"
-                                ascending:YES];
-        [sortedList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
-        
-        NSString *title = NSLocalizedString(@"QuestionIntroTitle", nil);
-        intro = [[LayIntroduction alloc]initWithTitle:title andSectionList:sortedList];
-    }
-    
+    Introduction *intro = [LayDataStoreUtilities insertDomainObject: LayIntroduction :context];
+    intro.title = NSLocalizedString(@"QuestionIntroTitle", nil);
+    self.introRef = intro;
     return intro;
 }
 

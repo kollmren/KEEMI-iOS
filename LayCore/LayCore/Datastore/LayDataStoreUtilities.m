@@ -80,7 +80,10 @@ static Class g_classObj = nil;
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"SectionQuestion"
                                                          inManagedObjectContext:managedObjectContext];
             break;
-
+        case LayIntroduction:
+            domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"Introduction"
+                                                         inManagedObjectContext:managedObjectContext];
+            break;
         case LayTopic:
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"Topic"
                                                          inManagedObjectContext:managedObjectContext];
