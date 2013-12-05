@@ -760,7 +760,7 @@
         </answerItem>
       </answer>
     </question>
-        <question name="borderCanada" type="flashcard">
+    <question name="borderCanada" type="flashcard">
       <text>Name four states that border Canada?</text>
       <answer style="column" explanation="borderCanada">
         <answerItem correct="yes">

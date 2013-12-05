@@ -7,8 +7,10 @@
 //
 
 #import "Section.h"
+
 #import "SectionText.h"
 #import "SectionMedia.h"
+#import "SectionQuestion.h"
 
 @interface LaySectionMediaList : NSObject
 @property (nonatomic) NSArray* mediaList;
@@ -28,6 +30,8 @@
 -(SectionText*)sectionTextInstance;
 
 -(SectionMedia*)sectionMediaInstance;
+
+-(SectionQuestion*)sectionQuestionInstance;
 
 -(NSNumber*)newGroupNumber;
 

@@ -37,6 +37,7 @@
 
 const NSString* const LAY_CATALOG_PACKAGE_EXTENSTION=@".keemi";
 // name if element and attributes
+const NSString* const LAY_XML_TAG_QUESTION=@"question";
 const NSString* const LAY_XML_TAG_MEDIALIST=@"mediaList";
 const NSString* const LAY_XML_TAG_MEDIA=@"media";
 const NSString* const LAY_XML_TAG_SECTION=@"section";
@@ -49,6 +50,7 @@ const NSString* const LAY_XML_TAG_EMAIL = @"email";
 const NSString* const LAY_XML_TAG_SOURCE = @"source";
 const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
 
+const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";
 const NSString* const LAY_XML_ATTRIBUTE_LARGE_MEDIA = @"large";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
 
@@ -583,7 +585,7 @@ static Class _classObj = nil;
     }
     NSString* nameInfoNode = @"info";
     NSString* nameTitleNode = (NSString*)LAY_XML_TAG_TITLE;
-    NSString* nameNameNode = @"name";
+    NSString* nameNameNode = (NSString*)LAY_XML_ATTRIBUTE_NAME;
     NSString* nameAuthorNode = @"author";
     NSString* namePublisherNode = @"publisher";
     NSString* nameCoverNode = @"cover";
@@ -748,7 +750,7 @@ static Class _classObj = nil;
         return;
     }
     
-    NSString* nameQuestionNode = @"question";
+    NSString* nameQuestionNode = (NSString*)LAY_XML_TAG_QUESTION;
     NSString* nameTitleNode = (NSString*)LAY_XML_TAG_TITLE;
     NSString* questionNodeAttrType = @"type";
     NSString* questionNodeAttrName = @"name";
@@ -1185,6 +1187,8 @@ static Class _classObj = nil;
     NSString* nameOfSectionNode = (NSString*)LAY_XML_TAG_SECTION;
     NSString* nameOfSectionTitleNode = (NSString*)LAY_XML_TAG_TITLE;
     NSString* nameOfSectionTextNode = (NSString*)LAY_XML_TAG_TEXT;
+    NSString* nameOfQuestionNode = (NSString*)LAY_XML_TAG_QUESTION;
+    NSString* nameAttName = (NSString*)LAY_XML_ATTRIBUTE_NAME;
     if([sectionNode.name isEqualToString:nameOfSectionNode]) {
         section = [self->importCatalog sectionInstance];
         BOOL textOrMediaNodesAdded = NO;
@@ -1208,6 +1212,19 @@ static Class _classObj = nil;
                         textOrMediaNodesAdded = YES;
                     }
                     sectionGroupToggle = YES;
+                } else if( [sectionChildNode.name isEqualToString:nameOfQuestionNode] ) {
+                    NSString *nameOfQuestion = [sectionChildNode valueOfAttribute:nameAttName];
+                    if(![self->importCatalog containsQuestionWithName:nameOfQuestion]){
+                        NSString* message = [NSString stringWithFormat:@"Question with name:%@ is not defined! Ignore question in section!", nameOfQuestion];
+                        [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
+                    } else {
+                        currentGroupNumber = [section newGroupNumber];
+                        SectionQuestion *sq = [section sectionQuestionInstance];
+                        sq.groupNumber = currentGroupNumber;
+                        Question *question = [self->importCatalog questionByName:nameOfQuestion];
+                        sq.questionRef = question;
+                        sectionGroupToggle = YES;
+                    }
                 }
             }
         }

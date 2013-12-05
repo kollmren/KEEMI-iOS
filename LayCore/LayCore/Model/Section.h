@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Explanation, SectionMedia, SectionText, About;
+@class Explanation, SectionMedia, SectionText, About, SectionQuestion;
 
 @interface Section : NSManagedObject
 
@@ -21,6 +21,8 @@
 @property (nonatomic, retain) NSNumber * sectionItemCounter;
 @property (nonatomic, retain) NSNumber * sectionGroupCounter;
 @property (nonatomic, retain) About *aboutRef;
+@property (nonatomic, retain) SectionQuestion *sectionQuestionRef;
+
 
 @end
 

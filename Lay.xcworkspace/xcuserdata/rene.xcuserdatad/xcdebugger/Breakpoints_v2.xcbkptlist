@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407932479.520412"
+            timestampString = "407938745.137925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
             landmarkName = "-catchQuestionData:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407932479.520412"
+            timestampString = "407942042.728816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1432"
-            endingLineNumber = "1432"
+            startingLineNumber = "1449"
+            endingLineNumber = "1449"
             landmarkName = "-addIntroToQuestion:to:"
             landmarkType = "5">
          </BreakpointContent>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LayCore/LayCoreTests/LayXmlCatalogFileReaderTests.m"
-            timestampString = "407932479.520412"
+            filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
+            timestampString = "407938745.137925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
-            landmarkName = "-checkReadCatalogGalleryQuestionWithNameBorderCanada:"
+            startingLineNumber = "1220"
+            endingLineNumber = "1220"
+            landmarkName = "-sectionFromNode:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

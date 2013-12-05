@@ -8,9 +8,6 @@
 
 #import "Section+Utilities.h"
 
-#import "SectionText.h"
-#import "SectionMedia.h"
-
 #import "LayDataStoreUtilities.h"
 
 @implementation Section (Utilities)
@@ -52,6 +49,7 @@
         }
         [groupedTextList addObject:sectionText];
     }
+    // order the last added textItemGroup
     if(textList) {
         NSSortDescriptor *sd = [NSSortDescriptor
                                 sortDescriptorWithKey:@"number"
@@ -71,6 +69,11 @@
         if(mediaList) {
             [sectionItemList addObject:mediaList];
         }
+    }
+    
+    // Question
+    if(self.sectionQuestionRef) {
+        [sectionItemList addObject:self.sectionQuestionRef];
     }
     
     NSSortDescriptor *sd = [NSSortDescriptor
@@ -102,6 +105,17 @@
     sectionMedia.number = updatedNumberOfSectionItems;
     self.sectionItemCounter = updatedNumberOfSectionItems;
     return sectionMedia;
+}
+
+-(SectionQuestion*)sectionQuestionInstance {
+    NSManagedObjectContext* context = self.managedObjectContext;
+    SectionQuestion *sectionQuestion = [LayDataStoreUtilities insertDomainObject: LaySectionQuestion :context];
+    NSUInteger numberOfSectionItems = [self.sectionItemCounter unsignedIntegerValue];
+    sectionQuestion.sectionRef = self;
+    NSNumber *updatedNumberOfSectionItems = [NSNumber numberWithUnsignedInteger:++numberOfSectionItems];
+    sectionQuestion.number = updatedNumberOfSectionItems;
+    self.sectionItemCounter = updatedNumberOfSectionItems;
+    return sectionQuestion;
 }
 
 -(NSNumber*)newGroupNumber {

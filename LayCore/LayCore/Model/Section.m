@@ -22,5 +22,6 @@
 @dynamic sectionItemCounter;
 @dynamic sectionGroupCounter;
 @dynamic aboutRef;
+@dynamic sectionQuestionRef;
 
 @end

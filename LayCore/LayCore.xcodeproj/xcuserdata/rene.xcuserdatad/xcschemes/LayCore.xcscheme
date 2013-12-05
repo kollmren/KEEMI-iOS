@@ -39,48 +39,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "MWLoggingTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlPathTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlNodeTests">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests">
-               </Test>
-               <Test
-                  Identifier = "LayQuestionQuerySessionTests">
-               </Test>
-               <Test
-                  Identifier = "LayOrderedQuestionDatasourceTests">
-               </Test>
-               <Test
-                  Identifier = "LayOrderedExplanationDatasourceTests">
-               </Test>
-               <Test
-                  Identifier = "LayExplanationLearnSessionTests">
-               </Test>
-               <Test
-                  Identifier = "LayDataStoreTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogUtilitiesTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogManagerTests">
-               </Test>
-               <Test
-                  Identifier = "LayAnswerStyleTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogImportTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlDocumentDataCatcherTests">
-               </Test>
-               <Test
                   Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogOneQuestion">
                </Test>
                <Test

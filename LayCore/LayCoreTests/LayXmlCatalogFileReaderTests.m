@@ -28,6 +28,7 @@
 #import "Section+Utilities.h"
 #import "About+Utilities.h"
 #import "AnswerMedia.h"
+#import "SectionQuestion.h"
 
 #import "MWLogging.h"
 
@@ -840,6 +841,7 @@ return readOk;
 }
 
 -(BOOL)checkReadCatalogGallery:(Catalog*)catalog {
+    NSString *nameOfQuestionToCheck = @"borderCanada";
     BOOL catalogIsAsExpected = NO;
     NSUInteger numberOfQuestionsWithTypeWordResponse = 0;
     for (Question *question in [catalog questionListSortedByNumber]) {
@@ -856,15 +858,17 @@ return readOk;
                         catalogIsAsExpected = YES;
                     } else {
                         MWLogError(_classObj, @"Intro number of items does not match:%d, %d!",expectedNumberOfItemsInSectionOne, [sectionGroup count] );
+                        catalogIsAsExpected = NO;
                     }
                     
                     const NSUInteger expectedNumberOfItemsInSectionTwo = 1;
                     Section *sectionTwo = [sectionList objectAtIndex:1];
                     sectionGroup = [sectionTwo sectionGroupList];
-                    if([sectionGroup count] == expectedNumberOfItemsInSectionOne) {
+                    if([sectionGroup count] == expectedNumberOfItemsInSectionTwo) {
                         catalogIsAsExpected = YES;
                     } else {
                         MWLogError(_classObj, @"Intro number of items in section2 does not match:%d, %d!",expectedNumberOfItemsInSectionTwo, [sectionGroup count] );
+                        catalogIsAsExpected = NO;
                     }
                 } else {
                     MWLogError(_classObj, @"Expected number of sections is:%d not: %d!",expectedNumberOfSections, [sectionList count] );
@@ -875,10 +879,16 @@ return readOk;
             }
         }
         
+        if ( [question.name isEqualToString:nameOfQuestionToCheck] ) {
+            catalogIsAsExpected = [self checkReadCatalogGalleryQuestionWithNameBorderCanada:question];
+        }
+        
         if([question questionType] == ANSWER_TYPE_WORD_RESPONSE) {
             ++numberOfQuestionsWithTypeWordResponse;
         }
     }
+    
+  
     
     if(catalogIsAsExpected) {
         const NSUInteger expectedNumberOfQuestionsWithTypeWordResponse = 3;
@@ -892,19 +902,43 @@ return readOk;
     return catalogIsAsExpected;
 }
 
--(void)checkReadCatalogGalleryQuestionWithNameBorderCanada:(Question*)question {
+-(BOOL)checkReadCatalogGalleryQuestionWithNameBorderCanada:(Question*)question {
+    BOOL questionIsAsExpected = NO;
     NSString *nameOfQuestionToCheck = @"borderCanada";
     if([question.name isEqualToString:nameOfQuestionToCheck]) {
         Answer *answer = question.answerRef;
         if( [answer hasExplanation]) {
             Explanation *explanation = answer.explanationRef;
+            NSArray *sectionList = [explanation sectionList];
+            if([sectionList count] == 1) {
+                Section *section = [sectionList objectAtIndex:0];
+                NSArray *sectionGroupList = [section sectionGroupList];
+                const NSInteger expectedNumberOfGroupsInSection = 3;
+                if([sectionGroupList count] == expectedNumberOfGroupsInSection) {
+                    NSObject *sectionQuestion = [sectionGroupList objectAtIndex:1];
+                    if( [sectionQuestion isKindOfClass:[SectionQuestion class]] ) {
+                        Question *q = ((SectionQuestion*)sectionQuestion).questionRef;
+                        if([q.name isEqualToString:nameOfQuestionToCheck]) {
+                            questionIsAsExpected = YES;
+                        } else {
+                             MWLogError(_classObj, @"%Expected question:%@ as ref not:%@", nameOfQuestionToCheck, q.name);
+                        }
+                    } else {
+                         MWLogError(_classObj, @"SectionQuestion expected in explanation:%@", explanation.name);
+                    }
+                } else {
+                    MWLogError(_classObj, @"%d groups expected in explanation:%@", expectedNumberOfGroupsInSection, explanation.name);
+                }
+            } else {
+                MWLogError(_classObj, @"One section expected for explanation:%@", explanation.name);
+            }
         } else {
             MWLogError(_classObj, @"Expect an explanation for question:%@", nameOfQuestionToCheck);
         }
     } else {
         MWLogError(_classObj, @"Expect a question with name:%@ not:%@", nameOfQuestionToCheck, question.name);
     }
-   
+    return questionIsAsExpected;
 }
 
 @end
