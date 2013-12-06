@@ -39,43 +39,46 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogOneQuestion">
+                  Identifier = "MWLoggingTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogWithMissingResources">
+                  Identifier = "LayXmlPathTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogWithNoQuestion">
+                  Identifier = "LayXmlNodeTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCitizenshiptest">
+                  Identifier = "LayXmlDocumentDataCatcherTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCitizenshiptest1">
+                  Identifier = "LayRandomLeitnerDatasourceTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadNotWellFormedXmlCatalog">
+                  Identifier = "LayQuestionQuerySessionTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogEinbuerungstest">
+                  Identifier = "LayOrderedQuestionDatasourceTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testMetaInfo">
+                  Identifier = "LayExplanationLearnSessionTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithZippedFile">
+                  Identifier = "LayOrderedExplanationDatasourceTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithXmlFileNotExistingFile">
+                  Identifier = "LayDataStoreTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithXmlFile">
+                  Identifier = "LayCatalogUtilitiesTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testImportInvalidCatalog">
+                  Identifier = "LayCatalogManagerTests">
                </Test>
                <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testCatalogWithBase64EncodedImage">
+                  Identifier = "LayCatalogImportTests">
+               </Test>
+               <Test
+                  Identifier = "LayAnswerStyleTests">
                </Test>
             </SkippedTests>
          </TestableReference>

@@ -36,7 +36,7 @@
 
 @implementation LayAnswerViewChoice
 
-@synthesize mode, showMarkIndicatorInButtons, showMediaList, showAnswerItemsOrdered;
+@synthesize mode, showMarkIndicatorInButtons, showMediaList, showAnswerItemsOrdered, showAnswerItemsRespectingLearnState;
 
 static const CGFloat VERTICAL_SPACE = 0.0f;
 static const CGFloat BORDER_MEDIA_BUTTON = 10.0f;
@@ -83,21 +83,26 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     [self->imageRibbon removeAllEntries];
 }
 
--(void)addButtonsForAnswer:(Answer*)answer_ {
+-(void)addButtonsForAnswer:(Answer*)answer_ enableButton:(BOOL)enable {
     LayAnswerStyleType answerStyle = [answer styleType];
     if(answerStyle == StyleColumn) {
-        [self addButtonsForAnswerItemsColumnSytle:answer_];
+        [self addButtonsForAnswerItemsColumnSytle:answer_ enableButton:enable];
     } else {
-        [self addButtonsForAnswerItemsRowStyle:answer_];
+        [self addButtonsForAnswerItemsRowStyle:answer_ enableButton:enable];
     }
 }
 
 -(NSArray*)answerItemListFromAnswer:(Answer*)answer_ {
-    NSArray *answerItemList = [answer_ answerItemListSessionOrderPreserved];
+    NSArray *answerItemList = nil;
+    if(self.showAnswerItemsRespectingLearnState) {
+        answerItemList = [answer_ answerItemRespectingLearnState];
+    } else {
+        answerItemList = [answer_ answerItemListSessionOrderPreserved];
+    }
     return answerItemList;
 }
 
--(void)addButtonsForAnswerItemsRowStyle:(Answer*)answer_ {
+-(void)addButtonsForAnswerItemsRowStyle:(Answer*)answer_ enableButton:(BOOL)enable {
     NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
     for (AnswerItem* answerItem in answerItemList) {
         LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
@@ -106,6 +111,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         // button gets whole row
         const CGRect buttonRect = CGRectMake(hSpace, 0.0f, widthOfButton, [style maxHeightOfAnswerButton]);
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
+        answerButton.enabled = enable;
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;
             answerButton.showCorrectnessIconIfEvaluated = NO;
@@ -116,7 +122,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     }
 }
 
--(void)addButtonsForAnswerItemsColumnSytle:(Answer*)answer_ {
+-(void)addButtonsForAnswerItemsColumnSytle:(Answer*)answer_ enableButton:(BOOL)enable {
     LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = 0.0f;//[style getHorizontalScreenSpace];
     CGFloat widthOfButton = self.frame.size.width - 2 * hSpace;
@@ -134,6 +140,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
     for (AnswerItem* answerItem in answerItemList) {
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
+        answerButton.enabled = enable;
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;
             answerButton.showCorrectnessIconIfEvaluated = NO;
@@ -292,7 +299,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
 
 -(BOOL) hasUserSelectedAButton {
     BOOL selectedAnButton = NO;
-    NSArray *answerItemList = [self->answer answerItemListOrderedByNumber];
+    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
     for (AnswerItem* item in answerItemList) {
         if([item.setByUser boolValue]) {
             selectedAnButton = YES;
@@ -432,7 +439,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     self->answer = answer_;
     self.frame = CGRectMake(0.0, 0.0, viewSize.width, viewSize.height);
     [self showAnswerMedia:answer_];
-    [self addButtonsForAnswer:answer_];
+    [self addButtonsForAnswer:answer_ enableButton:userCanSetAnswer];
     [self layoutView:VERTICAL_SPACE];
     return self.frame.size;
 }
@@ -465,7 +472,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
 
 -(BOOL)isUserAnswerCorrect {
     BOOL corretAnswer = YES;
-    NSArray *answerItemList = [self->answer answerItemListOrderedByNumber];
+    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
     for (AnswerItem* answerItem in answerItemList) {
         if((![answerItem.setByUser boolValue] && [self answerItemCorrect:answerItem]) ||
            ([answerItem.setByUser boolValue] && ![self answerItemCorrect:answerItem])) {

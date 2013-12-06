@@ -18,22 +18,24 @@
 
 @implementation Answer (Utilities)
 
--(NSArray*)answerItemListRandom {
-    NSMutableArray *answerItemList = [NSMutableArray arrayWithCapacity:[self.answerItemRef count]];
-    [answerItemList setArray:[self.answerItemRef allObjects]];
-    for (NSUInteger x = 0; x < [answerItemList count]; x++) {
-        NSUInteger randInt = (random() % ([answerItemList count] - x)) + x;
-        [answerItemList exchangeObjectAtIndex:x withObjectAtIndex:randInt];
+-(NSArray*)answerItemRespectingLearnState {
+    NSArray* itemList = nil;
+    if( [self.shuffleAnswers boolValue] ) {
+        NSMutableArray *itemsOrderedByLEarnState = [[NSMutableArray alloc]initWithCapacity:[self.answerItemRef count]];
+        for (AnswerItem *item in self.answerItemRef) {
+            [itemsOrderedByLEarnState addObject:item];
+        }
+        itemList = itemsOrderedByLEarnState;
+    } else {
+        itemList = [self answerItemListOrderedByNumber];
     }
-    return answerItemList;
+    return itemList;
 }
 
 -(NSArray*)answerItemListSessionOrderPreserved {
-    static const NSUInteger invalidSessionNumberForItem = 0;
     NSMutableArray* sortedList = [[NSMutableArray alloc]initWithCapacity:[self.answerItemRef count]];
-    AnswerItem* answerItem = [self.answerItemRef anyObject];
-    NSUInteger sessionNumberPrimitiv = [answerItem.sessionNumber unsignedIntegerValue];
-    if(sessionNumberPrimitiv == invalidSessionNumberForItem) {
+    BOOL itemListIsSessionPreserved = [self answerItemListIsPreserved];
+    if( !itemListIsSessionPreserved ) {
         NSArray *itemList = nil;
         BOOL shuffleAnswers = [self.shuffleAnswers boolValue];
         if(shuffleAnswers) {
@@ -48,13 +50,49 @@
             ++sessionNumber;
         }
     } else {
-       [sortedList setArray:[self.answerItemRef allObjects]];
+        NSMutableArray* itemsUsedInSession = [[NSMutableArray alloc]initWithCapacity:[self.answerItemRef count]];
+        for (AnswerItem *item in self.answerItemRef) {
+            NSInteger sessionNumber = [[item sessionNumber]integerValue];
+            if(sessionNumber != 0 ) {
+                [itemsUsedInSession addObject:item];
+            }
+        }
+       [sortedList setArray:itemsUsedInSession];
     }
+    
     NSSortDescriptor *sd = [NSSortDescriptor
                             sortDescriptorWithKey:@"sessionNumber"
                             ascending:YES];
     [sortedList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
+    
+    NSInteger numberOfVisiibleCorrectItems = [self.numberOfVisibleChoices integerValue];
+    if(numberOfVisiibleCorrectItems > 0 ) {
+        [self adjustAnswerItemList:sortedList toNumberOfVisibleCorrectItems:numberOfVisiibleCorrectItems];
+    }
+    
     return sortedList;
+}
+
+-(NSArray*)answerItemListRandom {
+    NSMutableArray *answerItemList = [NSMutableArray arrayWithCapacity:[self.answerItemRef count]];
+    [answerItemList setArray:[self.answerItemRef allObjects]];
+    for (NSUInteger x = 0; x < [answerItemList count]; x++) {
+        NSUInteger randInt = (random() % ([answerItemList count] - x)) + x;
+        [answerItemList exchangeObjectAtIndex:x withObjectAtIndex:randInt];
+    }
+    return answerItemList;
+}
+
+-(BOOL)answerItemListIsPreserved {
+    BOOL preserved = NO;
+    for (AnswerItem *item in self.answerItemRef) {
+        NSUInteger sessionNumberPrimitiv = [item.sessionNumber unsignedIntegerValue];
+        if(sessionNumberPrimitiv != 0) {
+            preserved = YES;
+            break;
+        }
+    }
+    return preserved;
 }
 
 -(NSArray*)answerItemListOrderedByNumber {
@@ -67,6 +105,43 @@
                             ascending:YES];
     [sortedList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
     return sortedList;
+}
+
+-(void)adjustAnswerItemList:(NSMutableArray*)answerItemList toNumberOfVisibleCorrectItems:(NSInteger)numberOfVisibleCorrectItems {
+    if(numberOfVisibleCorrectItems <= 0) return;
+    
+    NSMutableArray *indexesOfCorrectItems = [NSMutableArray arrayWithCapacity:[answerItemList count]];
+    NSInteger index = 0;
+    for (AnswerItem *item in answerItemList) {
+        if([item.correct boolValue]) {
+            [indexesOfCorrectItems addObject:[NSNumber numberWithInteger:index]];
+        }
+        ++index;
+    }
+    
+    NSUInteger numberOfCorrectItems = [indexesOfCorrectItems count];
+    if( numberOfVisibleCorrectItems < numberOfCorrectItems ) {
+        const NSUInteger numberOfAnswerItemsToRemove = numberOfCorrectItems - numberOfVisibleCorrectItems;
+        for (NSUInteger x = 0; x < numberOfCorrectItems; x++) {
+            NSUInteger randInt = (random() % (numberOfCorrectItems - x)) + x;
+            [indexesOfCorrectItems exchangeObjectAtIndex:x withObjectAtIndex:randInt];
+        }
+        
+        NSMutableIndexSet *indexesToRemove = [NSMutableIndexSet indexSet];
+        for (NSInteger itemToRemoveIdx = 0; itemToRemoveIdx < numberOfAnswerItemsToRemove; ++itemToRemoveIdx) {
+            NSNumber *indexObj = [indexesOfCorrectItems objectAtIndex:itemToRemoveIdx];
+            NSInteger indexOfItem = [indexObj integerValue];
+            // reset the session number for the item
+            AnswerItem *item = [answerItemList objectAtIndex:indexOfItem];
+            item.sessionNumber = [NSNumber numberWithInteger:0];
+            [indexesToRemove addIndex:indexOfItem];
+        }
+        
+        [answerItemList removeObjectsAtIndexes:indexesToRemove];
+    
+    } else {
+        MWLogError([Answer class], @"Number of correct items to show is greater as the number of correct items available!");
+    }
 }
 
 -(AnswerItem*)answerItemInstance {

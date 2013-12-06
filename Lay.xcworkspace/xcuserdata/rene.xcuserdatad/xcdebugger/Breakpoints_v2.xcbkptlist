@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407938745.137925"
+            filePath = "Lay/Lay/Src/AnswerViews/LayAnswerButton.m"
+            timestampString = "408015411.6036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "820"
-            endingLineNumber = "820"
-            landmarkName = "-catchQuestionData:"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "-adjustBorder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407942042.728816"
+            filePath = "Lay/Lay/Src/AnswerViews/LayAnswerButton.m"
+            timestampString = "408015412.615144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1449"
-            endingLineNumber = "1449"
-            landmarkName = "-addIntroToQuestion:to:"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "-adjustBorder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LayCore/LayCore/Import/LayXmlCatalogFileReader.m"
-            timestampString = "407938745.137925"
+            filePath = "Lay/Lay/Src/AnswerViews/LayAnswerButton.m"
+            timestampString = "408015422.590374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1220"
-            endingLineNumber = "1220"
-            landmarkName = "-sectionFromNode:"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-adjustBorderEvaluated"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Lay/Lay/Src/AnswerViews/LayAnswerButton.m"
+            timestampString = "408015425.007994"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "-adjustBorderEvaluated"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

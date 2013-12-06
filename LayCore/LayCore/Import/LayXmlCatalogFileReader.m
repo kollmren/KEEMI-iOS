@@ -838,6 +838,7 @@ static Class _classObj = nil;
 // Answer-Data
 -(void)addAnswerNodeData:(LayXmlNode*)answerNode toQuestion:(Question*)question {
     NSString* nameAnswerNode = @"answer";
+    NSString* attrShowMaxItem = @"numberOfVisibleCorrectItems";
     NSString* nameMediaListNode = (NSString*)LAY_XML_TAG_MEDIALIST;
     Answer *answer = nil;
     if([answerNode.name isEqualToString:nameAnswerNode]) {
@@ -854,6 +855,17 @@ static Class _classObj = nil;
         }
         // explanation - otional element
         [self addExplanationFrom:answerNode to:answer];
+        
+        // optional attributes
+        NSString *numberOfVisibleItemsString = [answerNode valueOfAttribute:attrShowMaxItem];
+        if(numberOfVisibleItemsString) {
+            NSInteger numberOfVisibleItems = [numberOfVisibleItemsString integerValue];
+            if(numberOfVisibleItems > 0) {
+                answer.numberOfVisibleChoices = [NSNumber numberWithInteger:numberOfVisibleItems];
+            } else {
+                MWLogWarning(_classObj, @"Ignore setting for:%@! Can not convert value:%@ to integer!", attrShowMaxItem, numberOfVisibleItemsString );
+            }
+        }
         
     } else {
         NSString* message = [NSString stringWithFormat:@"A child-element:%@ is required for a question!", nameAnswerNode];
@@ -1214,16 +1226,23 @@ static Class _classObj = nil;
                     sectionGroupToggle = YES;
                 } else if( [sectionChildNode.name isEqualToString:nameOfQuestionNode] ) {
                     NSString *nameOfQuestion = [sectionChildNode valueOfAttribute:nameAttName];
-                    if(![self->importCatalog containsQuestionWithName:nameOfQuestion]){
-                        NSString* message = [NSString stringWithFormat:@"Question with name:%@ is not defined! Ignore question in section!", nameOfQuestion];
-                        [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
+                    if(nameOfQuestion) {
+                        if(![self->importCatalog containsQuestionWithName:nameOfQuestion]){
+                            NSString* message = [NSString stringWithFormat:@"Question with name:%@ is not defined! Ignore question in section!", nameOfQuestion];
+                            [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
+                        } else if(!section.sectionQuestionRef) {
+                            currentGroupNumber = [section newGroupNumber];
+                            SectionQuestion *sq = [section sectionQuestionInstance];
+                            sq.groupNumber = currentGroupNumber;
+                            Question *question = [self->importCatalog questionByName:nameOfQuestion];
+                            sq.questionRef = question;
+                            sectionGroupToggle = YES;
+                        } else {
+                            MWLogWarning(_classObj, @"A section can contain only one question reference! Ignore question:%@!", nameOfQuestion);
+                        }
                     } else {
-                        currentGroupNumber = [section newGroupNumber];
-                        SectionQuestion *sq = [section sectionQuestionInstance];
-                        sq.groupNumber = currentGroupNumber;
-                        Question *question = [self->importCatalog questionByName:nameOfQuestion];
-                        sq.questionRef = question;
-                        sectionGroupToggle = YES;
+                        NSString* message = [NSString stringWithFormat:@"Attribute:%@ required for element:%@!", nameAttName, nameOfQuestionNode];
+                        [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
                     }
                 }
             }

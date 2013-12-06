@@ -41,9 +41,7 @@ typedef enum LayAnswerStyleTypes_ {
 @class Explanation;
 @interface Answer (Utilities)
 
--(NSArray*)answerItemListRandom;
-
--(NSArray*)answerItemListOrderedByNumber;
+-(NSArray*)answerItemRespectingLearnState;
 
 -(NSArray*)answerItemListSessionOrderPreserved;
 

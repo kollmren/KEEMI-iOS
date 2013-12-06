@@ -11,8 +11,12 @@
 #import "LayStyleGuide.h"
 #import "LayMediaData.h"
 #import "LayFrame.h"
+#import "LayAnswerViewChoice.h"
 
 #import "Section+Utilities.h"
+#import "Question+Utilities.h"
+#import "Answer+Utilities.h"
+#import "AnswerItem+Utilities.h"
 #import "Media+Utilities.h"
 
 static const NSInteger TAG_SECTION_TITLE = 1001;
@@ -66,6 +70,8 @@ static const NSInteger TAG_SECTION_ITEM_MEDIA_LIST = 1004;
             [self addSectionTextList:(LaySectionTextList*)sectionGroup];
         } else if([sectionGroup isKindOfClass:[LaySectionMediaList class]]) {
             [self addSectionMediaList:(LaySectionMediaList*)sectionGroup];
+        } else if( [sectionGroup isKindOfClass:[SectionQuestion class]] ) {
+            [self addAnswerItemList:(SectionQuestion*)sectionGroup];
         }
     }
 }
@@ -107,6 +113,23 @@ static const NSInteger TAG_SECTION_ITEM_MEDIA_LIST = 1004;
         [imageRibbon fitHeightOfRibbonToEntryContent];
         [self addSubview:imageRibbon];
     }
+}
+
+-(void)addAnswerItemList:(SectionQuestion*)sectionQuestion {
+    // Want to see the blue mark color
+    Answer* answer = sectionQuestion.questionRef.answerRef;
+    for (AnswerItem *answerItem in answer.answerItemRef) {
+        answerItem.setByUser = [NSNumber numberWithBool:YES];
+    }
+    
+    LayAnswerViewChoice *choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
+    choiceView.showMediaList = NO;
+    choiceView.showAnswerItemsRespectingLearnState = YES;
+    [choiceView showMarkIndicator:NO];
+    CGSize sizeForChoiceView = CGSizeMake(self.frame.size.width, 0.0f);
+    [choiceView showAnswer:answer andSize:sizeForChoiceView userCanSetAnswer:NO];
+    //[choiceView showSolution];
+    [self addSubview:choiceView];
 }
 
 -(void)layoutView {

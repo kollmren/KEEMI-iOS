@@ -107,7 +107,7 @@ static const CGFloat SPACE = 5.0f;
 
 -(BOOL)isUserAnswerCorrect {
     BOOL corretAnswer = YES;
-    NSArray *answerItemList = [self->answer answerItemListOrderedByNumber];
+    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
     for (AnswerItem* answerItem in answerItemList) {
         if((![answerItem.setByUser boolValue] && [answerItem.correct boolValue]) ||
            ([answerItem.setByUser boolValue] && ![answerItem.correct boolValue])) {
@@ -123,7 +123,7 @@ static const CGFloat SPACE = 5.0f;
 
 -(BOOL)userSetAnswer {
     BOOL userSetAnAnswer = NO;
-    NSArray *answerItemList = [self->answer answerItemListOrderedByNumber];
+    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
     for (AnswerItem* answerItem in answerItemList) {
         if([answerItem.setByUser boolValue]) {
             userSetAnAnswer = YES;

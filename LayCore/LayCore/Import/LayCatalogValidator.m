@@ -39,12 +39,11 @@ static Class _classObj = nil;
     BOOL valid = YES;
     Question *question = answer.questionRef;
     NSInteger numberOfCorrectAnswers = 0;
-    NSArray* answerItemList = [answer answerItemListOrderedByNumber];
-    if([answerItemList count]==0) {
+    if(answer.answerItemRef && [answer.answerItemRef count]==0) {
         MWLogError(_classObj, @"At least one answerItem must be set! Question:%@", question.name);
         valid = NO;
     } else {
-        for (AnswerItem* answerItem in answerItemList) {
+        for (AnswerItem* answerItem in answer.answerItemRef) {
             if([answerItem.correct boolValue]) {
                 numberOfCorrectAnswers++;
             }

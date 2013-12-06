@@ -132,7 +132,7 @@ numberOfSkippedQuestions, neededTime;
         answer.sessionAnswer = nil;
         answer.correctAnsweredByUser = [NSNumber numberWithBool:NO];
         answer.sessionGivenByUser = [NSNumber numberWithBool:NO];
-        for (AnswerItem *item in [answer answerItemListOrderedByNumber]) {
+        for (AnswerItem *item in [answer answerItemListSessionOrderPreserved]) {
             item.setByUser =  [NSNumber numberWithBool:NO];
             item.sessionNumber = [NSNumber numberWithUnsignedInteger:0];
         }

@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * sessionAnswer;
 @property (nonatomic, retain) NSNumber * shuffleAnswers;
 @property (nonatomic, retain) NSNumber * sessionGivenByUser;
+@property (nonatomic, retain) NSNumber * numberOfVisibleChoices;
 @property (nonatomic, retain) NSSet *answerItemRef;
 @property (nonatomic, retain) NSSet *answerMediaRef;
 @property (nonatomic, retain) Explanation *explanationRef;

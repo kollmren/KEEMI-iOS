@@ -24,5 +24,6 @@
 @dynamic questionRef;
 @dynamic sessionAnswer;
 @dynamic sessionGivenByUser;
+@dynamic numberOfVisibleChoices;
 
 @end

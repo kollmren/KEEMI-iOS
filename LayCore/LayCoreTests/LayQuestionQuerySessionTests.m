@@ -101,10 +101,10 @@ static Class _classObj = nil;
     NSString *expectedQuestionName = @"wappenBundeslandBerlin";
     STAssertEqualObjects(question.name, expectedQuestionName, nil);
     Answer *answer = question.answerRef;
-    NSArray *answerItemSet = [answer answerItemListOrderedByNumber];
+    NSArray *answerItemSet = [answer answerItemListSessionOrderPreserved];
     const NSUInteger expectedNumberOfAnswerItems = 4;
     STAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems, nil);
-    for (AnswerItem* item in [answer answerItemListOrderedByNumber]) { // answer correctly
+    for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) { // answer correctly
         if([item.correct boolValue]) {
             item.setByUser = [NSNumber numberWithBool:YES];
         }
@@ -129,9 +129,9 @@ static Class _classObj = nil;
     question = [querySession nextQuestion];
     STAssertEqualObjects(question.name, expectedQuestionName, nil);
     answer = question.answerRef;
-    answerItemSet = [answer answerItemListOrderedByNumber];
+    answerItemSet = [answer answerItemListSessionOrderPreserved];
     STAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems, nil);
-    for (AnswerItem* item in [answer answerItemListOrderedByNumber]) { // answer correctly
+    for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) { // answer correctly
         if([item.correct boolValue]) {
             item.setByUser = [NSNumber numberWithBool:YES];
         }
@@ -180,7 +180,7 @@ static Class _classObj = nil;
     [question markQuestionAsFavourite];
     [question setIsChecked:YES];
     Answer* answer = question.answerRef;
-    NSArray* possibleAnswers = [answer answerItemListOrderedByNumber];
+    NSArray* possibleAnswers = [answer answerItemListSessionOrderPreserved];
     NSUInteger itemCounter = 0;
     for (AnswerItem *item in possibleAnswers) {
         if(itemCounter==1) {
@@ -202,7 +202,7 @@ static Class _classObj = nil;
     id<LayQuestionDatasource> questionDatasource = self->session;
     Question* question = [questionDatasource nextQuestion];
     Answer* answer = question.answerRef;
-    NSArray* possibleAnswers = [answer answerItemListOrderedByNumber];
+    NSArray* possibleAnswers = [answer answerItemListSessionOrderPreserved];
     NSUInteger itemCounter = 0;
     for (AnswerItem *item in possibleAnswers) {
         if(itemCounter==0) {

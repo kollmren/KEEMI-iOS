@@ -375,7 +375,7 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
                 }
                 
                 Explanation *theOnlyExplanationForAnAnswerItem = nil;
-                for (AnswerItem* item in [answer answerItemListOrderedByNumber]) {
+                for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) {
                     if([item hasExplanation]) {
                         theOnlyExplanationForAnAnswerItem = [item explanation];
                     }
@@ -475,7 +475,7 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
                 
                 Explanation *theOnlyExplanationForAnAnswerItem = nil;
                 BOOL hasMedia = NO;
-                for (AnswerItem* item in [answer answerItemListOrderedByNumber]) {
+                for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) {
                     if([item hasExplanation]) {
                         theOnlyExplanationForAnAnswerItem = [item explanation];
                     }
@@ -518,7 +518,7 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
                 
                 Explanation *theOnlyExplanationForAnAnswerItem = nil;
                 BOOL hasMedia = NO;
-                for (AnswerItem* item in [answer answerItemListOrderedByNumber]) {
+                for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) {
                     if([item hasExplanation]) {
                         theOnlyExplanationForAnAnswerItem = [item explanation];
                     }
@@ -921,7 +921,7 @@ return readOk;
                         if([q.name isEqualToString:nameOfQuestionToCheck]) {
                             questionIsAsExpected = YES;
                         } else {
-                             MWLogError(_classObj, @"%Expected question:%@ as ref not:%@", nameOfQuestionToCheck, q.name);
+                             MWLogError(_classObj, @"Expected question:%@ as ref not:%@", nameOfQuestionToCheck, q.name);
                         }
                     } else {
                          MWLogError(_classObj, @"SectionQuestion expected in explanation:%@", explanation.name);
