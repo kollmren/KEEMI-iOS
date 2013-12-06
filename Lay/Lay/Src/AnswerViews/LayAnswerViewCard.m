@@ -111,7 +111,7 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
         [self->answerContainer removeFromSuperview];
         self->answerContainer = nil;
     }
-    [self markAsAnsweredByUser];
+    //[self markAsAnsweredByUser];
     const CGFloat vSpace = 10.0f;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
@@ -122,8 +122,7 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     self->choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
     self->choiceView.showMediaList = NO;
     [self->choiceView showMarkIndicator:NO];
-    [self->choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:NO];
-    [self->choiceView showSolution];
+    [self->choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
     //
     NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
     [[NSNotificationCenter defaultCenter] postNotification:note];
@@ -220,8 +219,6 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
 
 -(void) userWasRight {
     self->userSetAnswer = YES;
-    self->correctAnsweredByUser = YES;
-    
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
     const CGFloat vSpace = 15.0f;
@@ -286,18 +283,19 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
 }
 
 -(void)showSolution {
-    if(!self->userSetAnswer) {
+    //if( [self->choiceView userSetAnswer] ) {
         self->wasRightButton.hidden = YES;
-        [self showAnswer];
-    }
+        //[self showAnswer];
+        [self->choiceView showSolution];
+    //}
 }
 
 -(BOOL)userSetAnswer {
-    return self->userSetAnswer;
+    return [self->choiceView userSetAnswer];
 }
 
 -(BOOL)isUserAnswerCorrect {
-    return self->correctAnsweredByUser;
+    return [self->choiceView isUserAnswerCorrect];
 }
 
 -(void)setDelegate:(id<LayAnswerViewDelegate>)delegate {
