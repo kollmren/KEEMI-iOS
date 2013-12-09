@@ -42,7 +42,7 @@
 @implementation LayAnswerButton
 
 @synthesize answerItem, width, height, XPos, YPos, showBorder,
-showInfoIconIfEvaluated, showCorrectnessIconIfEvaluated, showMarkIndicator, buttonStyle, showIfHighlighted;
+showInfoIconIfEvaluated, showCorrectnessIconIfEvaluated, showMarkIndicator, buttonStyle, showIfHighlighted, showAsMarked;
 
 - (id)initWithFrame:(CGRect)frame and:(AnswerItem*)answerItem_
 {
@@ -214,6 +214,16 @@ static const NSInteger TAG_MEDIA = 101;
         [self->markedIconLayer setHidden:NO];
     } else {
         [self->markedIconLayer setHidden:YES];
+    }
+}
+
+-(void)setShowAsMarked:(BOOL)showAsMarked_ {
+    showAsMarked = showAsMarked_;
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    if(showAsMarked) {
+        self->selectedLayer.backgroundColor = [styleGuide getColor:ButtonSelectedColor].CGColor;
+    } else {
+        self->selectedLayer.backgroundColor = [styleGuide getColor:ClearColor].CGColor;
     }
 }
 

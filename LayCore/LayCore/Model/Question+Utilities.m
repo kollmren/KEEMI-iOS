@@ -100,6 +100,25 @@
 
 -(void)setIsChecked:(BOOL)checked {
     self.checked = [NSNumber numberWithBool:checked];
+    for ( AnswerItem* item in [self.answerRef answerItemListSessionOrderPreserved] ) {
+        if([item.setByUser boolValue]) {
+            if([item.correct boolValue]) {
+                NSInteger knownCounter = [item.sessionKnownByUser integerValue];
+                knownCounter++;
+                item.sessionKnownByUser = [NSNumber numberWithInteger:knownCounter];
+            } else {
+                NSInteger unknownCounter = [item.sessionUnknownByUser integerValue];
+                unknownCounter++;
+                item.sessionUnknownByUser = [NSNumber numberWithInteger:unknownCounter];
+            }
+        } else {
+            if([item.correct boolValue]) {
+                NSInteger unknownCounter = [item.sessionUnknownByUser integerValue];
+                unknownCounter++;
+                item.sessionUnknownByUser = [NSNumber numberWithInteger:unknownCounter];
+            }
+        }
+    }
 }
 
 -(void)setTopic:(Topic*)topic {

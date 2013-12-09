@@ -41,6 +41,8 @@ typedef enum LayButtonStyle_ {
 
 @property (nonatomic) BOOL showMarkIndicator;
 
+@property (nonatomic) BOOL showAsMarked;
+
 @property (nonatomic) LayButtonStyle buttonStyle;
 
 - (id)initWithFrame:(CGRect)frame and:(AnswerItem*)answerItem;

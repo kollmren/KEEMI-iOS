@@ -75,6 +75,7 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     
     NSString *wasRightLabel =NSLocalizedString(@"QuestionSessionCardUserWasRight", nil);
     self->wasRightButton = [[LayButton alloc]initWithFrame:buttonFrame label:wasRightLabel font:[styleGuide getFont:NormalPreferredFont] andColor:[styleGuide getColor:ClearColor]];
+    self->wasRightButton.enabled = NO;
     self->wasRightButton.tag = TAG_WAS_RIGHT_BUTTON;
     [self->wasRightButton fitToContent];
     [self->wasRightButton addTarget:self action:@selector(userWasRight) forControlEvents:UIControlEventTouchUpInside];
@@ -105,55 +106,56 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     }
 }
 
--(void)showAnswer {
-    if(self->answerContainer) {
-        self->choiceView = nil;
-        [self->answerContainer removeFromSuperview];
-        self->answerContainer = nil;
-    }
-    //[self markAsAnsweredByUser];
-    const CGFloat vSpace = 10.0f;
-    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
-    const CGFloat width = self.frame.size.width;
+
+-(void)setupChoiceView {
     const CGSize viewSize = self.frame.size;
-    const CGFloat vSpaceContainerShowAnswerButton = vSpace;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
     self->choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
     self->choiceView.showMediaList = NO;
-    [self->choiceView showMarkIndicator:NO];
+    [self->choiceView showMarkIndicator:YES];
     [self->choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
-    //
-    NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
-    [[NSNotificationCenter defaultCenter] postNotification:note];
-    //
-    CGFloat yPosContainer = 0.0f;
-    if(self->imageRibbon) {
-        yPosContainer = self->imageRibbon.frame.size.height + self->imageRibbon.frame.origin.y + vSpace;
+}
+
+static const CGFloat vSpace = 5.0f;
+-(void)showAnswer {
+    if(!self->answerContainer) {
+        const CGFloat width = self.frame.size.width;
+        CGFloat yPosContainer = 0.0f;
+        if(self->imageRibbon) {
+            yPosContainer = self->imageRibbon.frame.size.height + self->imageRibbon.frame.origin.y + vSpace;
+        }
+        const CGRect answerConatinerInitFrame = CGRectMake(0.0f, yPosContainer, width, 0.0f);
+        self->answerContainer = [[UIView alloc]initWithFrame:answerConatinerInitFrame];
+        self->answerContainer.clipsToBounds = YES;
+        [self->answerContainer addSubview:choiceView];
+        if(!self->correctAnsweredByUser) {
+            [self->answerContainer addSubview:self->wasRightButton];
+        }
+        
+        [self addSubview:self->answerContainer];
     }
-    const CGRect answerConatinerInitFrame = CGRectMake(0.0f, yPosContainer, width, 0.0f);
-    self->answerContainer = [[UIView alloc]initWithFrame:answerConatinerInitFrame];
-    self->answerContainer.clipsToBounds = YES;
-    [self->answerContainer addSubview:choiceView];
-    if(!self->correctAnsweredByUser) {
-        [self->answerContainer addSubview:self->wasRightButton];
-    }
-    [self addSubview:self->answerContainer];
+    
+    [self showAnswerAnimated];
+}
+
+-(void)showAnswerAnimated {
     
     self->showAnswerButton.label = NSLocalizedString(@"QuestionSessionCardHideAnswer", nil);
     [self->showAnswerButton fitToContent];
+    [self->showAnswerButton removeTarget:self action:@selector(showAnswer) forControlEvents:UIControlEventTouchUpInside];
+    [self->showAnswerButton addTarget:self action:@selector(hideAnswer) forControlEvents:UIControlEventTouchUpInside];
     
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
+    const CGFloat yPosContainer = self->answerContainer.frame.origin.y;
+    const CGFloat width = self.frame.size.width;
     const CGFloat newHeightContainer = [self layoutView:self->answerContainer withSpace:vSpace];
-    const CGSize newViewSize = CGSizeMake(width, newHeightContainer + vSpaceContainerShowAnswerButton + self->showAnswerButton.frame.size.height + yPosContainer);
+    const CGSize newViewSize = CGSizeMake(width, newHeightContainer + vSpace + self->showAnswerButton.frame.size.height + yPosContainer);
     [LayFrame setHeightWith:newViewSize.height toView:self animated:NO];
     if(self.answerViewDelegate) {
         [self.answerViewDelegate resizedToSize:newViewSize];
     }
-    //[LayFrame setHeightWith:newHeightAnswerContainer toView:self->answerContainer animated:NO];
-    const CGFloat newYPosButton = yPosContainer + newHeightContainer + vSpaceContainerShowAnswerButton
-                        + self->showAnswerButton.frame.size.height/2.0f;
-    [self->showAnswerButton removeTarget:self action:@selector(showAnswer) forControlEvents:UIControlEventTouchUpInside];
-    [self->showAnswerButton addTarget:self action:@selector(hideAnswer) forControlEvents:UIControlEventTouchUpInside];
+    const CGFloat newYPosButton = yPosContainer + newHeightContainer + vSpace + self->showAnswerButton.frame.size.height/2.0f;
     const CGPoint newPosButton = CGPointMake(hSpace+(self->showAnswerButton.frame.size.width/2.0f), newYPosButton);
     
     CALayer *answerContainerLayer = self->answerContainer.layer;
@@ -166,6 +168,7 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     } completion:^(BOOL finished) {
         
     }];
+
 }
 
 -(CGFloat)layoutView:(UIView*)view withSpace:(CGFloat)space {
@@ -207,13 +210,6 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     
     if(self.answerViewDelegate) {
         [self.answerViewDelegate scrollToTop];
-    }
-}
-
--(void)markAsAnsweredByUser {
-    self->userSetAnswer = YES;
-    for (AnswerItem *answerItem in [self->answer answerItemListSessionOrderPreserved]) {
-        answerItem.setByUser = [NSNumber numberWithBool:YES];
     }
 }
 
@@ -272,6 +268,7 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     self->answer = answer_;
     self->userSetAnswer = NO;
     [LayFrame setSizeWith:viewSize toView:self];
+    [self setupChoiceView];
     [self showAnswerMedia:answer_];
     [self addShowAnswerButton];
     const CGFloat vSpace = 10.0f;
@@ -283,11 +280,9 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
 }
 
 -(void)showSolution {
-    //if( [self->choiceView userSetAnswer] ) {
-        self->wasRightButton.hidden = YES;
-        //[self showAnswer];
-        [self->choiceView showSolution];
-    //}
+    self->wasRightButton.hidden = YES;
+    [self->choiceView showSolution];
+    [self showAnswer];
 }
 
 -(BOOL)userSetAnswer {

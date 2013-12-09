@@ -116,17 +116,12 @@ static const NSInteger TAG_SECTION_ITEM_MEDIA_LIST = 1004;
 }
 
 -(void)addAnswerItemList:(SectionQuestion*)sectionQuestion {
-    // Want to see the blue mark color
-    Answer* answer = sectionQuestion.questionRef.answerRef;
-    for (AnswerItem *answerItem in answer.answerItemRef) {
-        answerItem.setByUser = [NSNumber numberWithBool:YES];
-    }
-    
     LayAnswerViewChoice *choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
     choiceView.showMediaList = NO;
     choiceView.showAnswerItemsRespectingLearnState = YES;
     [choiceView showMarkIndicator:NO];
     CGSize sizeForChoiceView = CGSizeMake(self.frame.size.width, 0.0f);
+    Answer* answer = sectionQuestion.questionRef.answerRef;
     [choiceView showAnswer:answer andSize:sizeForChoiceView userCanSetAnswer:NO];
     //[choiceView showSolution];
     [self addSubview:choiceView];

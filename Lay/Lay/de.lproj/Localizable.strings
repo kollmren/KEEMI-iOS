@@ -126,7 +126,7 @@
 "QuestionSessionTopicNumberSelectedExplanations" = "Anzahl ausgewählter Erklärungen";
 "QuestionSessionCardShowAnswer" = "Zeige die Antwort";
 "QuestionSessionCardHideAnswer" = "Antwort ausblenden";
-"QuestionSessionCardUserWasRight" = "Hab es gewusst";
+"QuestionSessionCardUserWasRight" = "Markiere alle Angaben die du wusstest!";
 "QuestionSessionCheckAnswer" = "Prüfen";
 "QuestionSessionDeleteText" = "Lösche die Eingabe";
 "QuestionIntroTitle" = "Einleitung";

@@ -761,8 +761,14 @@
       </answer>
     </question>
     <question name="borderCanada" type="flashcard">
-      <text>Name four states that border Canada?</text>
-      <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="4">
+      <text>Name four states that border Canada (shuffleAnswers=yes, numberOfVisibleCorrectItems=4)?</text>
+      <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="4" shuffleAnswers="yes">
+       <mediaList>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+          <media type="image" ref="RibbonImage.png"/>
+        </mediaList>
         <answerItem correct="yes">
           <text>Maine</text>
         </answerItem>
@@ -805,45 +811,45 @@
       </answer>
     </question>
         <question name="borderCanada2" type="flashcard">
-      <text>Name one states that border Canada?</text>
-      <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="1">
+      <text>Name one states that border Canada? (shuffleAnswers=YES, numberOfVisibleCorrectItems=1)</text>
+      <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="1" shuffleAnswers="yes">
         <answerItem correct="yes">
           <text>Maine</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>New Hampshire</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Vermont</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>New York</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Pennsylvania</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Ohio</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Michigan</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Minnesota</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>North Dakota</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Montana</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Idaho</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Washington</text>
         </answerItem>
-        <answerItem correct="yes">
+        <answerItem correct="no">
           <text>Alaska</text>
         </answerItem>
       </answer>
@@ -992,7 +998,11 @@
       <section>
         <text>The northern border of the United States stretches more than 5,000 miles from Maine in the East to Alaska in the West. There are 13 states on the border with Canada:</text>
         <question name="borderCanada"/>
-        <question name="question25"/> 
+        <text>The Treaty of Paris of 1783 established the official boundary between Canada and the United States after the Revolutionary War. Since that time, there have been land disputes, but they have been resolved through treaties. The International Boundary Commission, which is headed by two commissioners, one American and one Canadian, is responsible for maintaining the boundary.</text>
+      </section>
+      <section>
+        <text>The northern border of the United States stretches more than 5,000 miles from Maine in the East to Alaska in the West. There are 13 states on the border with Canada:</text>
+        <question name="borderCanada2"/>
         <text>The Treaty of Paris of 1783 established the official boundary between Canada and the United States after the Revolutionary War. Since that time, there have been land disputes, but they have been resolved through treaties. The International Boundary Commission, which is headed by two commissioners, one American and one Canadian, is responsible for maintaining the boundary.</text>
       </section>
     </explanation>

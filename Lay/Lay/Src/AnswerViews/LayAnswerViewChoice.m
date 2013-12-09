@@ -111,6 +111,9 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         // button gets whole row
         const CGRect buttonRect = CGRectMake(hSpace, 0.0f, widthOfButton, [style maxHeightOfAnswerButton]);
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
+        if( self.showAnswerItemsRespectingLearnState ) {
+            answerButton.showAsMarked = YES;
+        }
         answerButton.enabled = enable;
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;
@@ -140,6 +143,9 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
     for (AnswerItem* answerItem in answerItemList) {
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
+        if( self.showAnswerItemsRespectingLearnState ) {
+            answerButton.showAsMarked = YES;
+        }
         answerButton.enabled = enable;
         if(!self.showMarkIndicatorInButtons ) {
             answerButton.showMarkIndicator = NO;

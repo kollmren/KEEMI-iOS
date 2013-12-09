@@ -22,6 +22,9 @@
 @dynamic number;
 @dynamic sessionNumber;
 @dynamic sessionString;
+@dynamic sessionKnownByUser;
+@dynamic sessionUnknownByUser;
+@dynamic sessionItemScore;
 @dynamic setByUser;
 @dynamic text;
 @dynamic answerMediaRef;

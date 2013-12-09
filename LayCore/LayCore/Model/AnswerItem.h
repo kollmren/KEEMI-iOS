@@ -20,6 +20,9 @@
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSNumber * sessionNumber;
 @property (nonatomic, retain) NSString * sessionString;
+@property (nonatomic, retain) NSNumber * sessionKnownByUser;
+@property (nonatomic, retain) NSNumber * sessionUnknownByUser;
+@property (nonatomic, retain) NSNumber * sessionItemScore;
 @property (nonatomic, retain) NSNumber * setByUser;
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) AnswerMedia *answerMediaRef;

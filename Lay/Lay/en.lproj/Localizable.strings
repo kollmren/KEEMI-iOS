@@ -126,7 +126,7 @@
 "QuestionSessionTopicNumberSelectedExplanations" = "Number of selected explanations";
 "QuestionSessionCardShowAnswer" = "Show answer";
 "QuestionSessionCardHideAnswer" = "Hide answer";
-"QuestionSessionCardUserWasRight" = "I was right";
+"QuestionSessionCardUserWasRight" = "Select all items you did know!";
 "QuestionSessionCheckAnswer" = "Check";
 "QuestionSessionDeleteText" = "Clear the input";
 "QuestionIntroTitle" = "Introduction";

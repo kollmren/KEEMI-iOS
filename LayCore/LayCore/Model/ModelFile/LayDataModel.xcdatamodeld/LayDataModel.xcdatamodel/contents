@@ -24,6 +24,7 @@
         <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sessionItemScore" optional="YES" transient="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sessionKnownByUser" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="sessionNumber" optional="YES" transient="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sessionString" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
@@ -313,6 +314,7 @@
         <element name="Author" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Catalog" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Explanation" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Introduction" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Media" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MediaImageMap" positionX="0" positionY="0" width="0" height="0"/>
         <element name="News" positionX="0" positionY="0" width="0" height="0"/>
@@ -323,13 +325,12 @@
         <element name="SearchWord" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SearchWordRelation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Section" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SectionItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SectionMedia" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SectionQuestion" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SectionText" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Thumbnail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Topic" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Introduction" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SectionItem" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
