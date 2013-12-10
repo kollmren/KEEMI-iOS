@@ -15,6 +15,7 @@
 @private
     Catalog* catalog;
     Question* firstQuestionInGroup;
+    Question* currentQuestion;
     NSArray* questionList;
     NSUInteger index;
     BOOL firstQuestionPassed;
@@ -22,7 +23,6 @@
     NSMutableDictionary* groupedQuestionMap;
     NSInteger groupedQuestionIndex;
     NSArray* currentGroupedQuestionList;
-    BOOL cancelGroupMode;
 }
 
 @property (nonatomic,readonly) BOOL considerTopicSelection;

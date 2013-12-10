@@ -55,9 +55,8 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         question = [self nextRandomQuestion];
     } else {
         MWLogDebug([LayRandomLeitnerDatasource class], @"Get(next) question within group:%@.", self->currentQuestionGroupName);
-        BOOL breakPath = NO;
-        question = [self nextGroupedQuestion:&breakPath];
-        if(breakPath) {
+        question = [self nextGroupedQuestion];
+        if( !question ) {
             MWLogDebug([LayRandomLeitnerDatasource class], @"Break path for question:%@ in group:%@.", question.name, question.groupName );
             Question* nextQuestionFromRandomList = [self nextRandomQuestion];
             if( ![nextQuestionFromRandomList.groupName isEqualToString:self->currentQuestionGroupName] ) {
@@ -80,26 +79,23 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         self->firstQuestionInGroup = question;
         self->currentGroupedQuestionList = nil;
         self->groupedQuestionIndex = initIdxValueForGroupedQuestions;
-        self->cancelGroupMode = NO;
     }
     
+    self->currentQuestion = question;
     return question;
 }
 
 -(Question*) previousQuestion {
     Question *question = nil;
-    if( !self->currentQuestionGroupName || self->cancelGroupMode  ) {
+    if( !self->currentQuestionGroupName || self->currentQuestion == self->firstQuestionInGroup ) {
         question = [self previousRandomQuestion];
-        self->cancelGroupMode = NO;
         self->currentQuestionGroupName = nil;
     } else {
         MWLogDebug([LayRandomLeitnerDatasource class], @"Get(prev) question within group:%@.", self->currentQuestionGroupName);
-        BOOL breakPath = NO;
-        question = [self previousGroupedQuestion:&breakPath];
-        if(breakPath) {
+        question = [self previousGroupedQuestion];
+        if( !question ) {
             MWLogDebug([LayRandomLeitnerDatasource class], @"Break(prev) path for question:%@ in group:%@.", question.name, question.groupName );
             question = self->firstQuestionInGroup;
-            self->cancelGroupMode = YES;
             MWLogDebug([LayRandomLeitnerDatasource class], @"Switch(prev) to first question:%@ in group:%@ from randomlist!", question.name, question.groupName );
         } else {
              MWLogDebug([LayRandomLeitnerDatasource class], @"Got(prev) question:%@ within group:%@.", question.name, self->currentQuestionGroupName);
@@ -111,9 +107,11 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         MWLogDebug([LayRandomLeitnerDatasource class], @"First(prev) question within group:%@.", question.groupName );
         self->currentQuestionGroupName = [NSString stringWithString:question.groupName];
         self->groupedQuestionIndex = initIdxValueForGroupedQuestions;
+        self->firstQuestionInGroup = question;
         self->currentGroupedQuestionList = nil;
     }
     
+    self->currentQuestion = question;
     return question;
 }
 
@@ -146,20 +144,20 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
 
 }
 
--(Question*) nextGroupedQuestion:(BOOL*)breakPath {
+-(Question*) nextGroupedQuestion {
     self->groupedQuestionIndex++;
-    Question *question = [self groupedQuestionWithIndex:self->groupedQuestionIndex and:breakPath];
+    Question *question = [self groupedQuestionWithIndex:self->groupedQuestionIndex];
     return question;
 }
 
--(Question*) previousGroupedQuestion:(BOOL*)breakPath {
+-(Question*) previousGroupedQuestion {
     Question *question = nil;
     self->groupedQuestionIndex--;
-    question = [self groupedQuestionWithIndex:self->groupedQuestionIndex and:breakPath];
+    question = [self groupedQuestionWithIndex:self->groupedQuestionIndex];
     return question;
 }
 
--(Question*) groupedQuestionWithIndex:(NSInteger)questionIndex and:(BOOL*)breakPath {
+-(Question*) groupedQuestionWithIndex:(NSInteger)questionIndex {
     Question *question = nil;
     if( self->groupedQuestionMap ) {
         if( !self->currentGroupedQuestionList ) {
@@ -168,15 +166,12 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         
         if( self->currentGroupedQuestionList ) {
             const NSInteger numberOfQuestionsInGroup = [self->currentGroupedQuestionList count];
-            if( questionIndex >= numberOfQuestionsInGroup ) {
-                questionIndex = numberOfQuestionsInGroup - 1;
-                *breakPath = YES;
-            } else if( questionIndex < 0 ) {
-                questionIndex = 0;
-                *breakPath = YES;
+            if( questionIndex >= 0 && questionIndex < numberOfQuestionsInGroup ) {
+                question = [self->currentGroupedQuestionList objectAtIndex:questionIndex];
+                MWLogDebug([LayRandomLeitnerDatasource class], @"Got question:%@ with index:%d from group:%@", question.name, questionIndex, self->currentQuestionGroupName );
+            } else {
+                MWLogWarning([LayRandomLeitnerDatasource class], @"Index:%d out of range!", questionIndex);
             }
-            question = [self->currentGroupedQuestionList objectAtIndex:questionIndex];
-            MWLogDebug([LayRandomLeitnerDatasource class], @"Got question:%@ with index:%d from group:%@", question.name, questionIndex, self->currentQuestionGroupName );
         } else {
             MWLogError([LayRandomLeitnerDatasource class], @"Did not find a cached list with questions for group:%@!", self->currentQuestionGroupName);
             self->currentQuestionGroupName = nil;
