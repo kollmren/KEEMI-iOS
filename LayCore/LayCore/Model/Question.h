@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * question;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * type;
+@property (nonatomic, retain) NSString * groupName;
 @property (nonatomic, retain) Answer *answerRef;
 @property (nonatomic, retain) Catalog *catalogRef;
 @property (nonatomic, retain) Topic *topicRef;

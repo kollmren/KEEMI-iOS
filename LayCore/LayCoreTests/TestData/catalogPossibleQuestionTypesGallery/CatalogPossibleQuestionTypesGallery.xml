@@ -33,7 +33,7 @@
     <version>2.0</version>
   </info>
   <questionList>
-    <question type="singleChoice" name="question1">
+    <question type="singleChoice" name="question1" topic="java" groupName="java">
       <introduction>
         <section>
           <title>This is the title of the first section</title>
@@ -55,7 +55,7 @@
           <text>This is the fourth paragraph of the second section ...</text>
         </section>
       </introduction>
-      <text>Dies ist eine Frage. Eine Frage kann sehr kurz oder auch sehr lang sein. Wie lang eine Frage ist bestimmt der Autor. Nur eine Antwort ist richtig!</text>
+      <text>(1, group=java )Dies ist eine Frage. Eine Frage kann sehr kurz oder auch sehr lang sein. Wie lang eine Frage ist bestimmt der Autor. Nur eine Antwort ist richtig!</text>
       <answer>
         <answerItem correct="no">
           <text>Antwort A</text>
@@ -74,7 +74,7 @@
         </answerItem>
       </answer>
     </question>
-    <question type="singleChoice" name="javaQuestion" topic="java">
+    <question type="singleChoice" name="javaQuestion" topic="java" groupName="java">
     <introduction>
         <section>
           <title>This is the title of the first section of question2</title>
@@ -123,7 +123,7 @@
         </section>
       </introduction>
       <title>Java SE 7 Programmer I - Sample Questions</title>
-      <text>What is the result? (only one answer is correct, this answer has a html-media marked as large)</text>
+      <text>(2, group=java ) What is the result? (only one answer is correct, this answer has a html-media marked as large)</text>
       <answer shuffleAnswers="NO">
         <mediaList>
           <media type="html" ref="java1.html"/>
@@ -151,7 +151,7 @@
         <resource name="resJavaQuestion"/>
       </resourceList>
     </question>
-    <question type="flashcard" name="question3">
+    <question type="flashcard" name="question3" topic="java" groupName="java">
     <introduction>
         <section>
           <title>This is the title of the first section of question3</title>
@@ -174,7 +174,7 @@
         </section>
       </introduction>
       <title>Der Titel der Frage</title>
-      <text>Dies ist eine Karteikarte. Es gibt keine vorgegebenen Antworten.</text>
+      <text>(3, group=java )Dies ist eine Karteikarte. Es gibt keine vorgegebenen Antworten.</text>
       <answer>
         <answerItem correct="no">
           <text>1. Antwort A</text>
@@ -193,8 +193,8 @@
         </answerItem>
       </answer>
     </question>
-    <question type="flashcard" name="question4">
-      <text>Dies ist eine Karteikarte. Für die Antworten sind Bilder hinterlegt. </text>
+    <question type="flashcard" name="question4" groupName="groupWithOneQuestion">
+      <text>(4, group=groupWithOneQuestion) Dies ist eine Karteikarte. Für die Antworten sind Bilder hinterlegt. </text>
       <answer style="column">
         <answerItem correct="yes">
           <media type="image" ref="image144x77.png"/>
@@ -213,9 +213,9 @@
         </answerItem>
       </answer>
     </question>
-    <question type="multipleChoice" name="question5">
+    <question type="multipleChoice" topic="java" name="question5" groupName="java2">
       <title>Der Titel der Frage. Dieser Titel ist ein bisschen länger als ein Titel sein sollte. Die max. Länge an Zeichen eines Titels ist nicht festgelegt. Ein Titel sollte jedoch nicht zu lang sein.</title>
-      <text>Dies ist eine Multiple-Choice Frage, mehrere Antworten können richtig sein.</text>
+      <text>(5, group=java2)Dies ist eine Multiple-Choice Frage, mehrere Antworten können richtig sein.</text>
       <answer style="row">
         <answerItem correct="yes">
           <media type="image" ref="image3_144x144.png"/>
@@ -234,8 +234,8 @@
         </answerItem>
       </answer>
     </question>
-    <question type="multipleChoice" name="question6">
-      <text>Dies ist Frage6. Jede Frage hat eine eindeutige Nummer. (Mehrere Antwortern sind korrekt!)</text>
+    <question type="multipleChoice" topic="java" name="question6" groupName="java2">
+      <text>(6, group=java2)Dies ist Frage6. Jede Frage hat eine eindeutige Nummer. (Mehrere Antwortern sind korrekt!)</text>
       <answer>
         <mediaList>
           <media type="html" ref="aHtmlWithATitle.html"/>
@@ -305,7 +305,7 @@
       </answer>
     </question>
     <question type="multipleChoice" name="question9">
-      <text>Dies ist Frage 9. Frage 9 hat auch ein Medium markiert als large. Weiterhin werden für die Antwort Bilder und Text genutzt.</text>
+      <text>(9)Dies ist Frage 9. Frage 9 hat auch ein Medium markiert als large. Weiterhin werden für die Antwort Bilder und Text genutzt.</text>
       <answer shuffleAnswers="NO">
         <mediaList>
           <media type="image" ref="image3_144x144.png"/>
@@ -696,7 +696,7 @@
       </answer>
     </question>
     <question type="wordResponse" name="question24">
-      <text>Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
+      <text>(24)Der Name des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ..., Der Names des ersten deutschen Bundeskanzlers ist ...</text>
       <answer>
         <answerItem correct="yes">
           <text>1. Konrad Adenauer</text>
@@ -760,7 +760,7 @@
         </answerItem>
       </answer>
     </question>
-    <question name="borderCanada" type="flashcard">
+    <question name="borderCanada" type="flashcard" groupName="borderCanada">
       <text>Name four states that border Canada (shuffleAnswers=yes, numberOfVisibleCorrectItems=4)?</text>
       <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="4" shuffleAnswers="yes">
        <mediaList>
@@ -810,7 +810,7 @@
         </answerItem>
       </answer>
     </question>
-        <question name="borderCanada2" type="flashcard">
+        <question name="borderCanada2" type="flashcard" groupName="borderCanada">
       <text>Name one states that border Canada? (shuffleAnswers=YES, numberOfVisibleCorrectItems=1)</text>
       <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="1" shuffleAnswers="yes">
         <answerItem correct="yes">
@@ -854,7 +854,7 @@
         </answerItem>
       </answer>
     </question>
-    <question name="borderCanada3" type="flashcard">
+    <question name="borderCanada3" type="flashcard" groupName="borderCanada">
       <text>Name 12 states that border Canada?</text>
       <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="12">
         <answerItem correct="yes">
@@ -898,7 +898,7 @@
         </answerItem>
       </answer>
     </question>
-    <question name="borderCanada4" type="multipleChoice">
+    <question name="borderCanada4" type="multipleChoice" groupName="borderCanada">
       <text>Which states does border Canada?</text>
       <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="6">
         <answerItem correct="yes">

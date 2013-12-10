@@ -18,7 +18,7 @@
 
 @implementation LayStatusProgressBar
 
-@synthesize numberCurrent, numberCurrentCorrectAnswers, numberCurrentIncorrectAnswers, numberTotal;
+@synthesize numberCurrent, numberCurrentCorrectAnswers, numberCurrentIncorrectAnswers, numberTotal, counterGroupedQuestion;
 
 -(id)initWithFrame:(CGRect)frame numberTotal:(NSUInteger)total andNumberCurrent:(NSUInteger)current {
     self = [super initWithFrame:frame];
@@ -54,8 +54,16 @@
 
 -(void)setNumberCurrent:(NSUInteger)numberCurrent_ {
     numberCurrent = numberCurrent_;
-    static NSString *textFormat = @"%u / %u";
-    NSString *text = [NSString stringWithFormat:textFormat,self.numberCurrent,self.numberTotal ];
+    NSString *textFormat = nil;
+    NSString *text = nil;
+    if(self.counterGroupedQuestion > 0) {
+        textFormat = @"%u ( %u ) / %u";
+        text = [NSString stringWithFormat:textFormat,self.numberCurrent, self.counterGroupedQuestion ,self.numberTotal ];
+    } else {
+        textFormat = @"%u / %u";
+        text = [NSString stringWithFormat:textFormat,self.numberCurrent,self.numberTotal ];
+    }
+    
     self->label.text = text;
 }
 

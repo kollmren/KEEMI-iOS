@@ -8,7 +8,7 @@
 
 #import "LayXmlPath.h"
 
-//#define MW_COMPILE_TIME_LOG_LEVEL ASL_LEVEL_INFO
+#define MW_COMPILE_TIME_LOG_LEVEL ASL_LEVEL_INFO
 
 #import "MWLogging.h"
 

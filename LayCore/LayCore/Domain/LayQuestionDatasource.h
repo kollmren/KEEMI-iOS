@@ -24,4 +24,6 @@
 
 -(NSUInteger) currentQuestionCounterValue;
 
+-(NSUInteger) currentQuestionGroupCounterValue;
+
 @end

@@ -12,6 +12,8 @@
 #import "LayXmlNode.h"
 #import "LayError.h"
 
+#define MW_COMPILE_TIME_LOG_LEVEL ASL_LEVEL_INFO
+
 #import "MWLogging.h"
 
 //

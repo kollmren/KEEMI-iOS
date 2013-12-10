@@ -85,5 +85,9 @@
     return self->index + 1;
 }
 
+-(NSUInteger)currentQuestionGroupCounterValue {
+    return 0;
+}
+
 
 @end

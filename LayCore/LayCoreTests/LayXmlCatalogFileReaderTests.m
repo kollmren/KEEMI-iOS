@@ -105,7 +105,7 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     STAssertEqualObjects(version, expectedVersion, nil);
 }
 
--(void)testReadCatalogGallery{
+-(void)testReadCatalogGallery {
     MWLogNameOfTest(_classObj);
     [self importAddtionalTestData];
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogGallery];
@@ -910,7 +910,7 @@ return readOk;
         if( [answer hasExplanation]) {
             Explanation *explanation = answer.explanationRef;
             NSArray *sectionList = [explanation sectionList];
-            if([sectionList count] == 1) {
+            if([sectionList count] == 2) {
                 Section *section = [sectionList objectAtIndex:0];
                 NSArray *sectionGroupList = [section sectionGroupList];
                 const NSInteger expectedNumberOfGroupsInSection = 3;

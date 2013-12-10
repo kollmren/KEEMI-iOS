@@ -10,13 +10,19 @@
 
 #import "LayQuestionDatasource.h"
 
-@class Catalog;
+@class Catalog, Question;
 @interface LayRandomLeitnerDatasource : NSObject<LayQuestionDatasource> {
 @private
     Catalog* catalog;
+    Question* firstQuestionInGroup;
     NSArray* questionList;
     NSUInteger index;
     BOOL firstQuestionPassed;
+    NSString *currentQuestionGroupName;
+    NSMutableDictionary* groupedQuestionMap;
+    NSInteger groupedQuestionIndex;
+    NSArray* currentGroupedQuestionList;
+    BOOL cancelGroupMode;
 }
 
 @property (nonatomic,readonly) BOOL considerTopicSelection;

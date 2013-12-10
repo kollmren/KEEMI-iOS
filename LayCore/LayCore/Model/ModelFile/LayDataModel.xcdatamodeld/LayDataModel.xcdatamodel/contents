@@ -173,6 +173,7 @@
         <attribute name="favourite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="groupBreakPathAfterWrongAnswer" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="groupBreakPathAfterWrongAnswers" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="groupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="groupTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hint" optional="YES" attributeType="String" syncable="YES"/>

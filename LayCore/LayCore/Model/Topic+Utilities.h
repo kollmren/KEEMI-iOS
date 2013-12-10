@@ -22,6 +22,7 @@
 -(NSUInteger)numberPrimitive;
 
 -(NSSet*)questionSet;
+-(NSArray*)questionsOrderedByNumber;
 -(NSUInteger)numberOfQuestions;
 
 -(NSSet*)explanationSet;

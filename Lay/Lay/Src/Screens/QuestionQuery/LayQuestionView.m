@@ -318,7 +318,8 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     return buttonItemList;
 }
 
--(void)updateStatusProgressBarAmount:(NSUInteger)wholeNumberOfQuestions_ :(NSUInteger)currentQuestionNumber_ {
+-(void)updateStatusProgressBarAmount:(NSUInteger)wholeNumberOfQuestions_ :(NSUInteger)currentQuestionNumber_ :(NSUInteger)counterGroupedQuestion {
+    self->statusProgressBar.counterGroupedQuestion = counterGroupedQuestion;
     self->statusProgressBar.numberTotal = wholeNumberOfQuestions_;
     self->statusProgressBar.numberCurrent = currentQuestionNumber_;
     self->statusProgressBar.numberCurrentCorrectAnswers = self->numberCorrectAnswerdQuestions;
@@ -490,7 +491,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
                 } else {
                     self->numberIncorrectAnswerdQuestions++;
                 }
-                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
+                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]: [self.questionDatasource currentQuestionGroupCounterValue]];
             }
         }
     }
@@ -623,7 +624,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
             currentQuestion = [self.questionDatasource nextQuestion];
             if(currentQuestion) {
                 [self showQuestion:currentQuestion];
-                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
+                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]: [self.questionDatasource currentQuestionGroupCounterValue]];
             }
         } else {
             MWLogWarning([LayQuestionView class], @"Datasource to get questions is nil!");
@@ -650,7 +651,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
             currentQuestion = [self.questionDatasource previousQuestion];
             if(currentQuestion) {
                 [self showQuestion:currentQuestion];
-                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]];
+                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]: [self.questionDatasource currentQuestionGroupCounterValue]];
             }
         } else {
             MWLogWarning([LayQuestionView class], @"Datasource to get questions is nil!");

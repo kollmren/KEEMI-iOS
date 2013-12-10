@@ -196,4 +196,10 @@ numberOfSkippedQuestions, neededTime;
     return number;
 }
 
+-(NSUInteger) currentQuestionGroupCounterValue {
+    NSUInteger number = 0;
+    if(self->datasource) number = [self->datasource currentQuestionGroupCounterValue];
+    return number;
+}
+
 @end

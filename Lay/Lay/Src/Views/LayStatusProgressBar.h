@@ -14,6 +14,7 @@
 @property (nonatomic) NSUInteger numberCurrent;
 @property (nonatomic) NSUInteger numberCurrentCorrectAnswers;
 @property (nonatomic) NSUInteger numberCurrentIncorrectAnswers;
+@property (nonatomic) NSUInteger counterGroupedQuestion;
 
 -(id)initWithFrame:(CGRect)frame numberTotal:(NSUInteger)total andNumberCurrent:(NSUInteger)current;
 

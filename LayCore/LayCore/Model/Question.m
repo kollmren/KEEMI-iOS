@@ -31,5 +31,6 @@
 @dynamic thumbnailRef;
 @dynamic sectionRef;
 @dynamic introRef;
+@dynamic groupName;
 
 @end

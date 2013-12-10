@@ -53,6 +53,7 @@ const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
 const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";
 const NSString* const LAY_XML_ATTRIBUTE_LARGE_MEDIA = @"large";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
+const NSString* const LAY_XML_ATTRIBUTE_GROUP_QUESTIONS = @"groupName";
 
 static const NSInteger NUMBER_OF_DEFAULT_TOPIC = 1;
 
@@ -739,6 +740,7 @@ static Class _classObj = nil;
 }
 
 // Question-Data
+#pragma mark - Catch question
 -(void)catchQuestionData:(LayXmlNode*)questionNode {
     if(!questionNode) {
         [self adjustErrorWith:LayInternalError andMessage:@"Can not catch question-data! Element is nil!"];
@@ -818,6 +820,11 @@ static Class _classObj = nil;
             
             // optional attributes
             [self catchTopicReferenceFromNode:questionNode to:question];
+            
+            NSString *groupName = [questionNode valueOfAttribute:(NSString*)LAY_XML_ATTRIBUTE_GROUP_QUESTIONS];
+            if( groupName ) {
+                question.groupName = groupName;
+            }
             
             //optional elements
             [self addLinkedResourceListFrom:questionNode to:question];

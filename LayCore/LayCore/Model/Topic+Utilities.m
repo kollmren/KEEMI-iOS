@@ -81,6 +81,13 @@ return isDefaultTopic;
     return allQuestionsInTopic;*/
 }
 
+-(NSArray*)questionsOrderedByNumber {
+    NSMutableArray *orderedList = [NSMutableArray arrayWithArray:[self.questionRef allObjects]];
+    NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
+    [orderedList sortUsingDescriptors:@[sd]];
+    return orderedList;
+}
+
 -(NSUInteger)numberOfQuestions {
     return [self.questionRef count];
 }

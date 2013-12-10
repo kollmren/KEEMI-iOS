@@ -8,7 +8,10 @@
 
 #import "LayRandomLeitnerDatasourceTests.h"
 #import "LayRandomLeitnerDatasource.h"
+#import "LayXmlCatalogFileReader.h"
 #import "LayMainDataStore.h"
+#import "LayCatalogImport.h"
+#import "LayCatalogImportReport.h"
 #import "LayError.h"
 #import "LayCatalogManager.h"
 
@@ -29,7 +32,7 @@ static Class _classObj = nil;
 +(void)setUp {
     _classObj = [LayRandomLeitnerDatasourceTests class];
     [LayCoreTestConfig configureTestDataStore];
-    [LayCoreTestConfig populateTestDatabase];
+    //[LayCoreTestConfig populateTestDatabase];
 }
 
 +(void)tearDown {
@@ -66,7 +69,7 @@ static Class _classObj = nil;
     STAssertNotNil(questionText, nil);
 }
 
--(void)testPreviousQuestion{
+-(void)testPreviousQuestion {
     MWLogNameOfTest(_classObj);
     //LayCoreTestCatalogInfoManager *testCatalogInfoManager = [LayCoreTestCatalogInfoManager instance];
     //LayCoreTestCatalogInfo* infoReferenceCatalog = [testCatalogInfoManager infoForCatalog:INFO_TEST_CATALOG_REFERENCE];
@@ -84,6 +87,70 @@ static Class _classObj = nil;
     STAssertNotNil(question, nil);
     questionText = question.question;
     STAssertNotNil(questionText, nil);
+}
+
+-(void)testQuestionGroup {
+    MWLogNameOfTest(_classObj);
+    NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogGallery];
+    LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
+    STAssertNotNil(xmlDataFileReader, nil);
+    LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
+    LayCatalogImportReport *importReport = [catalogImport import];
+    STAssertTrue(importReport.imported, nil);
+    //
+    LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:importReport.importedCatalog considerTopicSelection:NO];
+    const NSString *nameOfExpectedGroup = @"borderCanada";
+    Question *currenQuestion = nil;
+    Question *nextQuestion = datasource.nextQuestion;
+    BOOL foundGroup = NO;
+    do {
+        currenQuestion = nextQuestion;
+        if(currenQuestion.groupName && [currenQuestion.groupName isEqualToString:(NSString*)nameOfExpectedGroup] ) {
+            foundGroup = YES;
+            break;
+        }
+        nextQuestion = datasource.nextQuestion;
+    } while (nextQuestion != currenQuestion );
+    
+    STAssertTrue(foundGroup, nil);
+    BOOL groupIsAsExpected = YES;
+    const NSInteger numberOfExpectedQuestionsInGroup = 4;
+    for (NSInteger questionInGroupIdx = 0; questionInGroupIdx < numberOfExpectedQuestionsInGroup; ++questionInGroupIdx) {
+        if( ![currenQuestion.groupName isEqualToString:(NSString*)nameOfExpectedGroup] ) {
+            groupIsAsExpected = NO;
+            MWLogError(_classObj, @"Expected name of group is:%@ not:%@!", nameOfExpectedGroup, currenQuestion.groupName );
+        }
+        currenQuestion = datasource.nextQuestion;
+        
+        if(questionInGroupIdx==2) {
+            if( [currenQuestion.name isEqualToString:@"borderCanada4"] ) {
+                Question *q = datasource.previousQuestion;
+                if( [q.name isEqualToString:@"borderCanada3"] ) {
+                    Question *q = datasource.previousQuestion;
+                    if( [q.name isEqualToString:@"borderCanada2"] ) {
+                        Question *q = datasource.previousQuestion;
+                        if( ![q.name isEqualToString:@"borderCanada"] ) {
+                            groupIsAsExpected = NO;
+                             MWLogError(_classObj, @"Question with name:borderCanada expected!");
+                        }
+                    } else {
+                        groupIsAsExpected = NO;
+                        MWLogError(_classObj, @"Question with name:borderCanada2 expected!");
+                    }
+                } else {
+                    groupIsAsExpected = NO;
+                    MWLogError(_classObj, @"Question with name:borderCanada3 expected!");
+                }
+            } else {
+                groupIsAsExpected = NO;
+                MWLogError(_classObj, @"Question with name:borderCanada4 expected!");
+            }
+        }
+    }
+    STAssertTrue(groupIsAsExpected, nil);
+    
+    currenQuestion = datasource.nextQuestion;
+    STAssertNotNil(currenQuestion, nil);
 }
 
 -(void)testNumberOfQuestions{

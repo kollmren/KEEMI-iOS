@@ -166,7 +166,7 @@ static const NSInteger invalidSessionNumber = 0;
         [answerItemList removeObjectsAtIndexes:indexesToRemove];
     
     } else {
-        MWLogError([Answer class], @"Number of correct items to show is greater as the number of correct items available!");
+        MWLogError([Answer class], @"Number of correct items to show is greater as the number of correct items available(question:%@)!", self.questionRef.name);
     }
 }
 
