@@ -942,6 +942,53 @@
         </answerItem>
       </answer>
     </question>
+    <question name="order1" type="order">
+    	<text>(style="column")Order1 the following items correctly!</text>
+    	<answer style="column">
+    		<answerItem correct="yes">
+    			<text>The first item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>The second item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>The third item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>The fourth item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>The fifth item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>The sixth item</text>
+    		</answerItem>
+    	</answer>
+    </question>
+     <question name="order2" type="order">
+    	<text>(style="column")Order2 the following items correctly!</text>
+    	<answer style="column" explanation="explanation1">
+    		<answerItem correct="yes" explanation="explanation1">
+    			<text>2 The first item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2 The second item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2 The third item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2 The fourth item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2 The fifth item</text>
+    		</answerItem>
+    		<answerItem correct="yes">
+    			<text>2 The sixth item</text>
+    			<media type="html" ref="aHtmlWithATitle.html"/>
+    		</answerItem>
+    	</answer>
+    </question>
   </questionList>
   <mediaList>
     <media type="image" ref="image1280x640.png" large="yes"/>

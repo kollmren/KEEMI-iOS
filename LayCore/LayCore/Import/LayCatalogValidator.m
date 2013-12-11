@@ -92,6 +92,12 @@ static Class _classObj = nil;
                         MWLogError(_classObj, @"MultiChoice answers must have at least one correct answerItem! Question:%@",question.name);
                     }
                     break;
+                case ANSWER_TYPE_ORDER:
+                    if(numberOfCorrectAnswers < 2) {
+                        valid = NO;
+                        MWLogError(_classObj, @"Ordered answers must have at least two correct answerItem! Question:%@",question.name);
+                    }
+                    break;
                 default:
                     valid = NO;
                     MWLogError(_classObj, @"Upps! Unknown type:%u of question! Question:%@", typeOfQuestion, question.name);

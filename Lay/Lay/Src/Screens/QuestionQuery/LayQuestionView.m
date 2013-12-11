@@ -340,7 +340,9 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     
     if(self->currentAnswerView) {
         [self->currentAnswerView setDelegate:self];
-        if(answerTypeIdentifier==ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA || answerTypeIdentifier==ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA) {
+        if(answerTypeIdentifier == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA ||
+           answerTypeIdentifier == ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA ||
+           answerTypeIdentifier == ANSWER_TYPE_ORDER ) {
             MWLogDebug([LayQuestionView class], @"Show question in large area.");
             // answer-views of type MAP are always presented in large-screen-mode
             [self showQuestionAndAnswerInLargeScreen:question : self->currentAnswerView : YES];
@@ -482,23 +484,28 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
             if(configuredQuerySessionMode==QUERY_SESSION_TRAINING_MODE) {
                 doEvaluate = YES;
             }
-            //
-            BOOL result = [self->currentAnswerView isUserAnswerCorrect];
-            self->currentQuestion.answerRef.correctAnsweredByUser = [NSNumber numberWithBool:result];
-            if(userSetAnswer) {
-                if(result) {
-                    self->numberCorrectAnswerdQuestions++;
-                } else {
-                    self->numberIncorrectAnswerdQuestions++;
-                }
-                [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]: [self.questionDatasource currentQuestionGroupCounterValue]];
-            }
         }
     }
     
     if(doEvaluate) {
+        
+        [self->currentAnswerView showSolution];
+        [self->currentQuestion setIsChecked:YES];
+        
         BOOL userSetAnswer = [self->currentAnswerView userSetAnswer];
         BOOL correctAnswer = [self->currentAnswerView isUserAnswerCorrect];
+        
+        self->currentQuestion.answerRef.correctAnsweredByUser = [NSNumber numberWithBool:correctAnswer];
+        if(userSetAnswer) {
+            if(correctAnswer) {
+                self->numberCorrectAnswerdQuestions++;
+            } else {
+                self->numberIncorrectAnswerdQuestions++;
+            }
+            [self updateStatusProgressBarAmount:[self.questionDatasource numberOfQuestions] : [self.questionDatasource currentQuestionCounterValue]: [self.questionDatasource currentQuestionGroupCounterValue]];
+        }
+        
+        // Hint
         const CGFloat width = self->questionAnswerViewArea.frame.size.width;
         UIView *parentViewToPresentHint = nil;
         if(self->IN_LARGE_SCREEN_MODE) {
@@ -515,9 +522,6 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
             NSString *message = NSLocalizedString(@"QuestionSessionAnswerWrong", nil);
             [hintView showHint:message withBorderColor:AnswerWrong];
         }
-        
-        [self->currentAnswerView showSolution];
-        [self->currentQuestion setIsChecked:YES];
         
         NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
         [[NSNotificationCenter defaultCenter] postNotification:note];

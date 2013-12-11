@@ -14,6 +14,7 @@
 #import "LayAnswerViewChoiceLargeMedia.h"
 #import "LayAnswerViewCard.h"
 #import "LayAnswerViewWordResponse.h"
+#import "LayAnswerViewOrder.h"
 // Datastore cfg
 #import "LayDataStoreConfiguration.h"
 #import "LayUserDataStoreConfiguration.h"
@@ -114,6 +115,12 @@
     
     registered = [LayAnswerViewManagerImpl registerAnswerView:
                   [LayAnswerViewWordResponse class] forTypeOfAnswer:ANSWER_TYPE_WORD_RESPONSE];
+    if(!registered) {
+        registrationComplete = NO;
+    }
+    
+    registered = [LayAnswerViewManagerImpl registerAnswerView:
+                  [LayAnswerViewOrder class] forTypeOfAnswer:ANSWER_TYPE_ORDER];
     if(!registered) {
         registrationComplete = NO;
     }

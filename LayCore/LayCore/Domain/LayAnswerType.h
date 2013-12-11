@@ -17,6 +17,7 @@ typedef enum LayAnswerTypeIdentifier_ {
     ANSWER_TYPE_ASSIGN,
     ANSWER_TYPE_CARD,
     ANSWER_TYPE_WORD_RESPONSE,
+    ANSWER_TYPE_ORDER,
     ANSWER_TYPE_UNKNOWN
 } LayAnswerTypeIdentifier;
 

@@ -42,7 +42,7 @@
 @implementation LayAnswerButton
 
 @synthesize answerItem, width, height, XPos, YPos, showBorder,
-showInfoIconIfEvaluated, showCorrectnessIconIfEvaluated, showMarkIndicator, buttonStyle, showIfHighlighted, showAsMarked;
+showInfoIconIfEvaluated, showCorrectnessIconIfEvaluated, showMarkIndicator, buttonStyle, showIfHighlighted, showAsMarked, showAsWrong;
 
 - (id)initWithFrame:(CGRect)frame and:(AnswerItem*)answerItem_
 {
@@ -287,7 +287,7 @@ static const NSInteger TAG_MEDIA = 101;
 -(void) adjustBorderEvaluated {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     if(self->evaluated) {
-        if([self.answerItem.correct boolValue] && self.showBorder) {
+        if([self.answerItem.correct boolValue] && self.showBorder && !self.showAsWrong ) {
             self->selectedLayer.backgroundColor = [styleGuide getColor:AnswerCorrect].CGColor;
         } else if(self.selected && self.showBorder) {
             self->selectedLayer.backgroundColor = [styleGuide getColor:AnswerWrong].CGColor;
@@ -347,6 +347,9 @@ static const NSInteger TAG_MEDIA = 101;
     CGFloat iconHeight = iconButtonSize.width;
     CGFloat iconWidth = iconButtonSize.height;
     BOOL correct = [self.answerItem.correct boolValue];
+    if(self.showAsWrong) {
+        correct = NO;
+    }
     self->markedIconLayer.anchorPoint = CGPointMake(0.0f, 0.0f);
     self->markedIconLayer.bounds = CGRectMake(self->markedIconLayer.position.x, self->markedIconLayer.position.y, iconWidth, iconHeight);
     BOOL answerButtonSizeChanged = NO;

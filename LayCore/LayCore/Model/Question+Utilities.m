@@ -83,6 +83,8 @@
             break;
         case ANSWER_TYPE_WORD_RESPONSE:
             break;
+        case ANSWER_TYPE_ORDER:
+            break;
         default:
             MWLogError([Question class], @"Unknown type:%u of answerType!", typeAsPrimitive);
             break;

@@ -35,7 +35,8 @@
 
 #import "ZipArchive.h"
 
-const NSString* const LAY_CATALOG_PACKAGE_EXTENSTION=@".keemi";
+const NSString* const LAY_CATALOG_PACKAGE_EXTENSTION_KEEMI=@".keemi";
+const NSString* const LAY_CATALOG_PACKAGE_EXTENSTION_ZIP=@".zip";
 // name if element and attributes
 const NSString* const LAY_XML_TAG_QUESTION=@"question";
 const NSString* const LAY_XML_TAG_MEDIALIST=@"mediaList";
@@ -251,14 +252,19 @@ static Class _classObj = nil;
     NSMutableString* nameOfPackage = nil;
     NSString *packageWithExtension = [catalogFileZipped lastPathComponent];
     // cast to (NSString*) to prevent the warning: .. discard qualifiers
-    NSRange extensionRange = [packageWithExtension rangeOfString:(NSString*)LAY_CATALOG_PACKAGE_EXTENSTION options:NSBackwardsSearch];
+    NSRange extensionRange = [packageWithExtension rangeOfString:(NSString*)LAY_CATALOG_PACKAGE_EXTENSTION_KEEMI options:NSBackwardsSearch];
     if(extensionRange.location==NSNotFound) {
-        MWLogError(_classObj, @"File:%@ does not end with:%@", [catalogFileZipped path], LAY_CATALOG_PACKAGE_EXTENSTION);
-    } else {
+        extensionRange = [packageWithExtension rangeOfString:(NSString*)LAY_CATALOG_PACKAGE_EXTENSTION_ZIP options:NSBackwardsSearch];
+    }
+    
+    if(extensionRange.location!=NSNotFound) {
         nameOfPackage = [NSMutableString stringWithCapacity:[packageWithExtension length]];
         [nameOfPackage appendString:packageWithExtension];
         [nameOfPackage deleteCharactersInRange:extensionRange];
+    } else {
+        MWLogError(_classObj, @"Unknown type of package extension for catalog:%@!", packageWithExtension);
     }
+   
     return nameOfPackage;
 }
 
@@ -887,6 +893,9 @@ static Class _classObj = nil;
             break;
         case ANSWER_TYPE_WORD_RESPONSE:
             answer.shuffleAnswers = [NSNumber numberWithBool:NO];
+            break;
+        case ANSWER_TYPE_ORDER:
+            answer.shuffleAnswers = [NSNumber numberWithBool:YES];
             break;
         default:
             answer.shuffleAnswers = [NSNumber numberWithBool:YES];

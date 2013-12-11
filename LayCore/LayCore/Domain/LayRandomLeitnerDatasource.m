@@ -382,8 +382,15 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
                         [self->groupedQuestionMap setObject:groupedQuestionList forKey:currentNameOfQuestionGroup];
                         groupedQuestionList = nil;
                     }
+                    
                     currentNameOfQuestionGroup = q.groupName;
+                
                 } else {
+                    if( groupedQuestionList ) {
+                        MWLogDebug( [LayRandomLeitnerDatasource class], @"(2)Add question group:%@ to dictionary.", currentNameOfQuestionGroup );
+                        [self->groupedQuestionMap setObject:groupedQuestionList forKey:currentNameOfQuestionGroup];
+                        groupedQuestionList = nil;
+                    }
                     currentNameOfQuestionGroup = nil;
                 }
                 
