@@ -761,7 +761,7 @@
       </answer>
     </question>
     <question name="borderCanada" type="flashcard" groupName="borderCanada">
-      <text>Name four states that border Canada (shuffleAnswers=yes, numberOfVisibleCorrectItems=4)?</text>
+      <text>Name four states that border Canada (shuffleAnswers=yes, numberOfVisibleCorrectItems=4, groupName=borderCanada)?</text>
       <answer style="column" explanation="borderCanada" numberOfVisibleCorrectItems="4" shuffleAnswers="yes">
        <mediaList>
           <media type="image" ref="RibbonImage.png"/>
