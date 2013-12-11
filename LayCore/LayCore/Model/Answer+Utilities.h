@@ -43,6 +43,8 @@ typedef enum LayAnswerStyleTypes_ {
 
 -(NSArray*)answerItemRespectingLearnState;
 
+-(NSArray*)answerItemListOrdered;
+
 -(NSArray*)answerItemListSessionOrderPreserved;
 
 -(AnswerItem*)answerItemInstance;

@@ -65,6 +65,15 @@ static const NSInteger invalidSessionNumber = 0;
     return answerItemList;
 }
 
+-(NSArray*)answerItemListOrdered {
+    NSMutableArray* answerItemList = [[NSMutableArray alloc]initWithArray:[self.answerItemRef allObjects]];
+    NSSortDescriptor *sd = [NSSortDescriptor
+                            sortDescriptorWithKey:@"number"
+                            ascending:YES];
+    [answerItemList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
+    return answerItemList;
+}
+
 -(NSArray*)answerItemListSessionOrderPreserved {
     NSMutableArray* answerItemList = [[NSMutableArray alloc]initWithCapacity:[self.answerItemRef count]];
     BOOL itemListIsSessionPreserved = [self answerItemListIsPreserved];

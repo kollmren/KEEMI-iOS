@@ -11,7 +11,7 @@
 #import "LayAnswerView.h"
 #import "LayAnswerViewDelegate.h"
 
-@class Answer;
+@class Answer, LayButton;
 @interface LayAnswerViewOrder : UIView< LayAnswerView, UITableViewDataSource, UITableViewDelegate > {
     @private
     Answer* answer;
@@ -19,6 +19,7 @@
     id<LayAnswerViewDelegate> delegate;
     BOOL userSetAnswer;
     BOOL userAnswerIsCorrect;
+    LayButton* reorderCorrectButton;
 }
 
 @end

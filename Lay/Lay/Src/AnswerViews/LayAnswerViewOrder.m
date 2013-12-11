@@ -88,6 +88,26 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     }
 }
 
+-(void)addReorderCorrectButtonToView {
+    LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
+    const CGRect buttonRect = CGRectMake(0.0f, 0.0f, self.frame.size.width, [style maxHeightOfAnswerButton]);
+     self->reorderCorrectButton = [[LayButton alloc]initWithFrame:buttonRect label:@"Zeige korrekte Anordnung" font:[style getFont:NormalPreferredFont] andColor:[style getColor:ClearColor]];
+    self->reorderCorrectButton.backgroundColor = [style getColor:WhiteTransparentBackground];
+    [self->reorderCorrectButton addTarget:self action:@selector(reorderItemsToShowCorrect) forControlEvents:UIControlEventTouchUpInside];
+    [reorderCorrectButton fitToContent];
+    const CGFloat yPosButton = self.frame.origin.y + self.frame.size.height - reorderCorrectButton.frame.size.height;
+    const CGFloat xPosButton = (self.frame.size.width - reorderCorrectButton.frame.size.width) / 2.0;
+    [LayFrame setPos:CGPointMake(xPosButton, yPosButton) toView:reorderCorrectButton];
+    [self addSubview:reorderCorrectButton];
+}
+
+-(void) removeReorderCorrectButtonFromView {
+    if(self->reorderCorrectButton) {
+        [self->reorderCorrectButton removeFromSuperview];
+        self->reorderCorrectButton = nil;
+    }
+}
+
 #pragma mark - setup datasource
 -(void) setupAnswerCellListWithAnswer:(Answer*)answer_ andSize:(CGSize)size {
     self->answer = answer_;
@@ -111,6 +131,7 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
 -(CGSize)showAnswer:(Answer*)answer_ andSize:(CGSize)viewSize userCanSetAnswer:(BOOL)userCanSetAnswer {
     self->userSetAnswer = NO;
     self->userAnswerIsCorrect = NO;
+    [self removeReorderCorrectButtonFromView];
     UITableView *tblView = (UITableView*)[self viewWithTag:TAG_TABLE_VIEW];
     if( tblView ) {
         tblView.editing = YES;
@@ -147,6 +168,8 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     }
     if( userOrderCorrect ) {
         self->userAnswerIsCorrect = YES;
+    } else {
+        [self addReorderCorrectButtonToView];
     }
     
     if([self->answer hasExplanation]) {
@@ -224,6 +247,26 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
 -(void)showExplanation:(Explanation*)explanation {
     LayInfoDialog *infoDlg = [[LayInfoDialog alloc]initWithWindow:self.window];
     [infoDlg showShortExplanation:explanation];
+}
+
+-(void)reorderItemsToShowCorrect {
+    UITableView *tblView = (UITableView*)[self viewWithTag:TAG_TABLE_VIEW];
+    if( !tblView ) {
+        MWLogError(g_classObj, @"Could not reorder view!");
+        return;
+    }
+    
+    NSInteger itemPositionInOrderView = 0;
+    for (LayAnswerButtonCell* answerButtonCell in self->answerItemColumnList) {
+        AnswerItem* answerItem = answerButtonCell->answerItem;
+        NSInteger correctPositionOfItem = [answerItem.number integerValue] - 1;
+        if(correctPositionOfItem != itemPositionInOrderView ) {
+            NSIndexPath *fromIdx = [NSIndexPath indexPathForRow:itemPositionInOrderView inSection:0];
+            NSIndexPath *toIdx = [NSIndexPath indexPathForRow:correctPositionOfItem inSection:0];
+            [tblView moveRowAtIndexPath:fromIdx toIndexPath:toIdx];
+        }
+        itemPositionInOrderView++;
+    }
 }
 
 @end
