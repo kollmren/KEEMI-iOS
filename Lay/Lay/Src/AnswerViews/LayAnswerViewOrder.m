@@ -13,6 +13,7 @@
 #import "LayButton.h"
 #import "LayImage.h"
 #import "LayInfoDialog.h"
+#import "LayQuestionBubbleView.h"
 
 #import "Answer+Utilities.h"
 #import "AnswerItem+Utilities.h"
@@ -108,6 +109,14 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     }
 }
 
+-(void)printCellPositon {
+    MWLogDebug(g_classObj, @"Cells were rearranged to: ---------- ");
+    NSInteger itemCounter = 0;
+    for (LayAnswerButtonCell *cell in self->answerItemColumnList) {
+        MWLogDebug(g_classObj, @"Cell:%@ to idx:%d", cell->answerItem.text, itemCounter++ );
+    }
+}
+
 #pragma mark - setup datasource
 -(void) setupAnswerCellListWithAnswer:(Answer*)answer_ andSize:(CGSize)size {
     self->answer = answer_;
@@ -149,6 +158,14 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
 
 
 -(void)showSolution {
+    if(self->userSetAnswer) {
+        [self showSolutionForSetAnswerByUser];
+    } else {
+        [self reorderItemsToShowCorrect];
+    }
+}
+
+-(void)showSolutionForSetAnswerByUser {
     NSInteger itemPositionInOrderView = 1;
     BOOL userOrderCorrect = YES;
     for (LayAnswerButtonCell* answerButtonCell in self->answerItemColumnList) {
@@ -183,7 +200,7 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     } else {
         MWLogError(g_classObj, @"Cound adjust view to show solution!");
     }
-    
+
 }
 
 -(BOOL)userSetAnswer {
@@ -215,6 +232,8 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     [self->answerItemColumnList removeObjectAtIndex:[sourceIndexPath row]];
     [self->answerItemColumnList insertObject:answerButtonCell atIndex:[destinationIndexPath row]];
     self->userSetAnswer = YES;
+    
+    //[self printCellPositon];
 }
 
 
@@ -235,6 +254,7 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleNone;
 }
+
 
 #pragma mark - Event handler
 -(void) showAddtionalInfoToAnswer {
@@ -257,16 +277,35 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     }
     
     NSInteger itemPositionInOrderView = 0;
-    for (LayAnswerButtonCell* answerButtonCell in self->answerItemColumnList) {
-        AnswerItem* answerItem = answerButtonCell->answerItem;
-        NSInteger correctPositionOfItem = [answerItem.number integerValue] - 1;
-        if(correctPositionOfItem != itemPositionInOrderView ) {
-            NSIndexPath *fromIdx = [NSIndexPath indexPathForRow:itemPositionInOrderView inSection:0];
-            NSIndexPath *toIdx = [NSIndexPath indexPathForRow:correctPositionOfItem inSection:0];
-            [tblView moveRowAtIndexPath:fromIdx toIndexPath:toIdx];
-        }
-        itemPositionInOrderView++;
+    if( [self->answer hasExplanation] && self->userAnswerIsCorrect ) {
+        itemPositionInOrderView  = 1;
     }
+    // Delete rows
+    // Save the cell-items temp, as we must adjust the source array to stay the table and datasource in sync!
+    NSMutableArray *answerItemColumnListTmp = [NSMutableArray arrayWithArray:self->answerItemColumnList];
+    const NSInteger numberOfItems = [self->answerItemColumnList count] - itemPositionInOrderView;
+    for ( NSInteger idx = itemPositionInOrderView; idx < numberOfItems; ++idx ) {
+        [self->answerItemColumnList removeObjectAtIndex:itemPositionInOrderView];
+        NSIndexPath *index = [NSIndexPath indexPathForRow:itemPositionInOrderView inSection:0];
+        [tblView deleteRowsAtIndexPaths:@[index] withRowAnimation:YES];
+        
+    }
+    
+    // Add rows
+    MWLogDebug(g_classObj, @"Reorder answerItems correctly!");
+    NSSortDescriptor *sd = [NSSortDescriptor sortDescriptorWithKey:@"answerItem.number" ascending:YES];
+    [answerItemColumnListTmp sortUsingDescriptors:@[sd]];
+    for ( NSInteger idx = itemPositionInOrderView;  idx < numberOfItems; ++idx ) {
+        LayAnswerButtonCell *cell = [answerItemColumnListTmp objectAtIndex:idx];
+        cell->answerButton.showAsWrong = NO;
+        [cell->answerButton showCorrectness];
+        [self->answerItemColumnList addObject:cell];
+        NSIndexPath *index = [NSIndexPath indexPathForRow:idx inSection:0];
+        [tblView insertRowsAtIndexPaths:@[index] withRowAnimation:YES];
+    }
+    
+    tblView.editing = NO;
+    self->reorderCorrectButton.hidden = YES;
 }
 
 @end

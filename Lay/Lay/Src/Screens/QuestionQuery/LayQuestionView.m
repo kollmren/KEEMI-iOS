@@ -341,11 +341,14 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     if(self->currentAnswerView) {
         [self->currentAnswerView setDelegate:self];
         if(answerTypeIdentifier == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA ||
-           answerTypeIdentifier == ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA ||
-           answerTypeIdentifier == ANSWER_TYPE_ORDER ) {
+           answerTypeIdentifier == ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA ) {
             MWLogDebug([LayQuestionView class], @"Show question in large area.");
             // answer-views of type MAP are always presented in large-screen-mode
-            [self showQuestionAndAnswerInLargeScreen:question : self->currentAnswerView : YES];
+            [self showQuestionAndAnswerInLargeScreen:question answerView:self->currentAnswerView userCanSetAnswer:YES showQuestionInBubble:YES];
+        } else if( answerTypeIdentifier == ANSWER_TYPE_ORDER  ) {
+            MWLogDebug([LayQuestionView class], @"Show question in large area, without bubble.");
+            // answer-views of type MAP are always presented in large-screen-mode
+            [self showQuestionAndAnswerInLargeScreen:question answerView:self->currentAnswerView userCanSetAnswer:YES showQuestionInBubble:YES];
         } else {
             MWLogDebug([LayQuestionView class], @"Show question in standard area.");
             [self showQuestionAndAnswerInStandardScreen:question : self->currentAnswerView :YES];
@@ -463,13 +466,19 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
     [self->questionAnswerViewArea setContentSize:sizeWithNewHeight];
 }
 
--(void)showQuestionAndAnswerInLargeScreen:(Question*)question :(NSObject<LayAnswerView>*)answerView :(BOOL)userCanSetAnswer{
+-(void)showQuestionAndAnswerInLargeScreen:(Question*)question
+                               answerView:(NSObject<LayAnswerView>*)answerView
+                         userCanSetAnswer:(BOOL)userCanSetAnswer
+                     showQuestionInBubble:(BOOL)showQuestionInBubble
+{
     [self showMiniIconsForQuestion];
     [self setupAnswerViewForLargeScreen];
-    self->questionBubbleView.question = question;
     [answerView showAnswer:question.answerRef andSize:self->answerViewArea.frame.size userCanSetAnswer:userCanSetAnswer];
     [self->answerViewArea addSubview:[answerView answerView]];
-    [self->answerViewArea addSubview:self->questionBubbleView];
+    if( showQuestionInBubble ) {
+        self->questionBubbleView.question = question;
+        [self->answerViewArea addSubview:self->questionBubbleView];
+    }
     [self addSubview:self->answerViewArea];
 }
 

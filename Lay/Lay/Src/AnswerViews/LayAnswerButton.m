@@ -347,9 +347,9 @@ static const NSInteger TAG_MEDIA = 101;
     CGFloat iconHeight = iconButtonSize.width;
     CGFloat iconWidth = iconButtonSize.height;
     BOOL correct = [self.answerItem.correct boolValue];
-    if(self.showAsWrong) {
+    /*if(self.showAsWrong) {
         correct = NO;
-    }
+    }*/
     self->markedIconLayer.anchorPoint = CGPointMake(0.0f, 0.0f);
     self->markedIconLayer.bounds = CGRectMake(self->markedIconLayer.position.x, self->markedIconLayer.position.y, iconWidth, iconHeight);
     BOOL answerButtonSizeChanged = NO;

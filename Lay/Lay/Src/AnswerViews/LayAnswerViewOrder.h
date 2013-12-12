@@ -11,7 +11,7 @@
 #import "LayAnswerView.h"
 #import "LayAnswerViewDelegate.h"
 
-@class Answer, LayButton;
+@class Answer, LayButton, LayQuestionBubbleView;
 @interface LayAnswerViewOrder : UIView< LayAnswerView, UITableViewDataSource, UITableViewDelegate > {
     @private
     Answer* answer;
