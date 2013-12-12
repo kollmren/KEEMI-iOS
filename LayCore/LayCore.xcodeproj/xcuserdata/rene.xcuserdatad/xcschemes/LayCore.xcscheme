@@ -39,45 +39,6 @@
             </BuildableReference>
             <SkippedTests>
                <Test
-                  Identifier = "MWLoggingTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlPathTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlNodeTests">
-               </Test>
-               <Test
-                  Identifier = "LayXmlDocumentDataCatcherTests">
-               </Test>
-               <Test
-                  Identifier = "LayQuestionQuerySessionTests">
-               </Test>
-               <Test
-                  Identifier = "LayOrderedQuestionDatasourceTests">
-               </Test>
-               <Test
-                  Identifier = "LayExplanationLearnSessionTests">
-               </Test>
-               <Test
-                  Identifier = "LayOrderedExplanationDatasourceTests">
-               </Test>
-               <Test
-                  Identifier = "LayDataStoreTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogUtilitiesTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogManagerTests">
-               </Test>
-               <Test
-                  Identifier = "LayCatalogImportTests">
-               </Test>
-               <Test
-                  Identifier = "LayAnswerStyleTests">
-               </Test>
-               <Test
                   Identifier = "LayXmlCatalogFileReaderTests/testReadNotWellFormedXmlCatalog">
                </Test>
                <Test
@@ -115,33 +76,6 @@
                </Test>
                <Test
                   Identifier = "LayXmlCatalogFileReaderTests/testCatalogWithBase64EncodedImage">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testWithOneQuestionCatalog">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testWithNoSelectedTopics">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testPreviousQuestionRepeated">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testPreviousQuestion">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testNumberOfQuestions">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testNextQuestionRepeated">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testNextQuestion">
-               </Test>
-               <Test
-                  Identifier = "LayRandomLeitnerDatasourceTests/testCatalog">
                </Test>
             </SkippedTests>
          </TestableReference>

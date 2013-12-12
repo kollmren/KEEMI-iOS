@@ -32,7 +32,7 @@ static Class _classObj = nil;
 +(void)setUp {
     _classObj = [LayRandomLeitnerDatasourceTests class];
     [LayCoreTestConfig configureTestDataStore];
-    //[LayCoreTestConfig populateTestDatabase];
+    [LayCoreTestConfig populateTestDatabase];
 }
 
 +(void)tearDown {

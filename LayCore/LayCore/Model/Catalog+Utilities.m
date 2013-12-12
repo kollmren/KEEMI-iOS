@@ -257,7 +257,7 @@
 
 -(BOOL)hasMoreThanOneTopicsWithQuestions {
     BOOL hasTopicsWithQuestions = NO;
-    NSInteger topicCouner = 0;
+    NSInteger topicCouner = 1;
     for (Topic *topic in [self topicList]) {
         if(![topic isDefaultTopic] && [topic numberOfQuestions]>0) {
             topicCouner++;
