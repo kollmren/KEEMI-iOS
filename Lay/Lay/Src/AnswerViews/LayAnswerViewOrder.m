@@ -60,7 +60,6 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
         UITableView *tblView = [[UITableView alloc]initWithFrame:tableRect style:UITableViewStylePlain];
         tblView.tag = TAG_TABLE_VIEW;
         tblView.editing = YES;
-        tblView.contentInset = UIEdgeInsetsMake(70.0f, 0.0f, 0.0f, 0.0f);
         tblView.separatorStyle = UITableViewCellSeparatorStyleNone;
         tblView.dataSource = self;
         tblView.delegate = self;

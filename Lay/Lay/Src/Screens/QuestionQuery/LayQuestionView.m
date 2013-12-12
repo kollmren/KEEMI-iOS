@@ -65,6 +65,7 @@
 
 @interface LayQuestionView() {
     UIScrollView *questionAnswerViewArea;
+    UIView *questionAnswerViewAreaNotScrollable;
     LayMiniIconBar *miniIconBar;
     QuestionLabel *questionLabel;
     LayQuestionBubbleView *questionBubbleView;
@@ -96,6 +97,11 @@ static const CGFloat g_heightOfStatusProgressBar = 20.0f;
 static CGFloat g_heightOfStatusBar;
 static const CGFloat g_heightOfToolbar = 44.0f;
 static BOOL showUtilitiesToggle = YES;
+
+
+static const NSInteger TAG_QUESTION_TITLE = 105;
+static const NSInteger TAG_QUESTION_INTRO = 106;
+static const NSInteger TAG_QUESTION_ANSWER_VIEW_NOT_SCROLLABLE = 107;
 
 @synthesize questionDelegate, questionDatasource, answerViewManager,
 toolbar, nextButton, previousButton, checkButton, utilitiesButton;
@@ -147,6 +153,7 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     [nc addObserver:self selector:@selector(handlePreferredFontSizeChanges) name:(NSString*)LAY_NOTIFICATION_PREFERRED_FONT_SIZE_CHANGED object:nil];
 }
 
+
 -(void)initQuestionView {
     const CGFloat widthOfView = self.frame.size.width;
     const CGFloat heightOfView = self.frame.size.height;
@@ -168,8 +175,10 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     // !! The dimensions of the following views are ajusted depending on the content to show.
     // See: setupAnswerViewForLargeScreen and setupAnswerViewStandardScreen
     CGRect frameQuestionAnswerViewArea = [self frameOfQuestionAnswerView];
-    self->questionAnswerViewArea.frame = frameQuestionAnswerViewArea;
     self->questionAnswerViewArea = [[UIScrollView alloc]initWithFrame:frameQuestionAnswerViewArea];
+    self->questionAnswerViewAreaNotScrollable = [[UIView alloc]initWithFrame:frameQuestionAnswerViewArea];
+    [LayFrame setHeightWith:200 toView:self->questionAnswerViewAreaNotScrollable  animated:NO];
+    self->questionAnswerViewAreaNotScrollable.tag = TAG_QUESTION_ANSWER_VIEW_NOT_SCROLLABLE;
     // Label which shows the question
     self->questionLabel = [[QuestionLabel alloc]init];
     [self setQuestionLabelProperties:self->questionLabel];
@@ -186,29 +195,55 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     [self->questionLabel removeFromSuperview]; // remove from questionAnswerView-Area
     [self->answerViewArea removeFromSuperview];
     [self->questionAnswerViewArea removeFromSuperview];
+    [self->questionAnswerViewAreaNotScrollable removeFromSuperview];
     // The answerView gets the area of the question too.
     self->answerViewArea.frame = [self frameOfQuestionAnswerView];
     self->IN_LARGE_SCREEN_MODE = YES;
 }
 
--(void)setupAnswerViewStandardScreen {
+-(UIView*)currentAnswerViewArea {
+    UIView *currentAnswerViewArea = [self viewWithTag:TAG_QUESTION_ANSWER_VIEW_NOT_SCROLLABLE];
+    if( !currentAnswerViewArea ) {
+        currentAnswerViewArea = self->questionAnswerViewArea;
+    }
+    return currentAnswerViewArea;
+}
+
+-(void)setupAnswerViewStandardScreen:(BOOL)scrollable {
     if(self->IN_LARGE_SCREEN_MODE) {
+        [self->questionBubbleView removeFromSuperview];
+        [self->answerViewArea removeFromSuperview]; // Remove from self
+        self->IN_LARGE_SCREEN_MODE = NO;
+    }
+
+    UIView *currentAnswerViewArea = nil;
+    if( scrollable) {
+        [self->questionAnswerViewAreaNotScrollable removeFromSuperview];
+        currentAnswerViewArea = self->questionAnswerViewArea;
+    } else {
+        [self->questionAnswerViewArea removeFromSuperview];
+        currentAnswerViewArea = self->questionAnswerViewAreaNotScrollable;
+    }
+    
+    if( currentAnswerViewArea.superview != self ) {
+        // A new qaArea must be adjusted
+        for (UIView* view in currentAnswerViewArea.subviews) {
+            [view removeFromSuperview];
+        }
         // setup the question-label
         self->questionLabel.spaceAbove = v_space;
         self->questionLabel.border = horizontalBorderOfView;
-        [self->questionAnswerViewArea addSubview:self->questionLabel];
-        // setup answer-view-area
-        [self->questionBubbleView removeFromSuperview];
-        [self->answerViewArea removeFromSuperview]; // Remove from self
+        [currentAnswerViewArea addSubview:self->questionLabel];
         self->answerViewArea.spaceAbove = v_space + 10;
         self->answerViewArea.frame = [self frameOfQuestionAnswerView];
         self->answerViewArea.border = 0.0f;
-        [self->questionAnswerViewArea addSubview:self->answerViewArea];
-        [self addSubview:self->questionAnswerViewArea];
-        self->IN_LARGE_SCREEN_MODE = NO;
+        [currentAnswerViewArea addSubview:self->answerViewArea];
+        //
+        [self addSubview:currentAnswerViewArea];
     }
+    
     // Set the vertical position and the width of the subviews
-    [LayVBoxLayout layoutVBoxSubviewsInView:self->questionAnswerViewArea];
+    [LayVBoxLayout layoutVBoxSubviewsInView:currentAnswerViewArea];
 }
 
 -(CGRect)frameOfQuestionAnswerView {
@@ -345,13 +380,13 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
             MWLogDebug([LayQuestionView class], @"Show question in large area.");
             // answer-views of type MAP are always presented in large-screen-mode
             [self showQuestionAndAnswerInLargeScreen:question answerView:self->currentAnswerView userCanSetAnswer:YES showQuestionInBubble:YES];
-        } else if( answerTypeIdentifier == ANSWER_TYPE_ORDER  ) {
-            MWLogDebug([LayQuestionView class], @"Show question in large area, without bubble.");
-            // answer-views of type MAP are always presented in large-screen-mode
-            [self showQuestionAndAnswerInLargeScreen:question answerView:self->currentAnswerView userCanSetAnswer:YES showQuestionInBubble:YES];
         } else {
             MWLogDebug([LayQuestionView class], @"Show question in standard area.");
-            [self showQuestionAndAnswerInStandardScreen:question : self->currentAnswerView :YES];
+            BOOL scrollableQuestionAnswerView = YES;
+            if(answerTypeIdentifier == ANSWER_TYPE_ORDER ) {
+                scrollableQuestionAnswerView = NO;
+            }
+            [self showQuestionAndAnswerInStandardScreen:question : self->currentAnswerView :YES scrollable:scrollableQuestionAnswerView];
         }
         if([question isChecked]) {
             [self->currentAnswerView showSolution];
@@ -368,21 +403,19 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     }
 }
 
-static const NSUInteger TAG_QUESTION_TITLE = 105;
-static const NSUInteger TAG_QUESTION_INTRO = 106;
 -(void)addQuestionTitleAndIntro:(Question*)question {
-    UIView *titleView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_TITLE];
+    UIView *currentQuestionAnswerView = [self currentAnswerViewArea];
+    UIView *titleView = [currentQuestionAnswerView viewWithTag:TAG_QUESTION_TITLE];
     if(titleView) {
         [titleView removeFromSuperview];
     }
     
-    UIView *introView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_INTRO];
+    UIView *introView = [currentQuestionAnswerView viewWithTag:TAG_QUESTION_INTRO];
     if(introView) {
         [introView removeFromSuperview];
     }
     
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    
     if(question.title) {
         UIFont *smallFont = [styleGuide getFont:TitlePreferredFont];
         UIColor *textColor = [styleGuide getColor:TextColor];
@@ -406,7 +439,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
         [LayFrame setHeightWith:heightTitleContainer toView:titleContainer animated:NO];
         [titleContainer addSubview:title];
         [styleGuide makeRoundedBorder:titleContainer withBackgroundColor:GrayTransparentBackground andBorderColor:ClearColor];
-        [self->questionAnswerViewArea insertSubview:titleContainer belowSubview:self->questionLabel];
+        [currentQuestionAnswerView insertSubview:titleContainer belowSubview:self->questionLabel];
     }
     
     Introduction *intro = question.introRef;
@@ -422,7 +455,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
         [introButton addTarget:self action:@selector(showIntroduction) forControlEvents:UIControlEventTouchUpInside];
         introButton.spaceAbove = v_space_intro;
         introButton.border = self->horizontalBorderOfView;
-        [self->questionAnswerViewArea insertSubview:introButton belowSubview:self->questionLabel];
+        [currentQuestionAnswerView insertSubview:introButton belowSubview:self->questionLabel];
     }
 }
 
@@ -434,12 +467,14 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
     }
 }
 
--(void)showQuestionAndAnswerInStandardScreen:(Question*)question :(NSObject<LayAnswerView>*)answerView :(BOOL)userCanSetAnswer {
+-(void)showQuestionAndAnswerInStandardScreen:(Question*)question :(NSObject<LayAnswerView>*)answerView :(BOOL)userCanSetAnswer
+                                 scrollable:(BOOL)scrollable {
     [self showMiniIconsForQuestion];
-    [self setupAnswerViewStandardScreen];
+    [self setupAnswerViewStandardScreen:scrollable];
     [self addQuestionTitleAndIntro:question];
     self->questionLabel.spaceAbove = v_space;
-    UIView *introView = [self->questionAnswerViewArea viewWithTag:TAG_QUESTION_INTRO];
+    UIView *currentQuestionAnswerView = [self currentAnswerViewArea];
+    UIView *introView = [currentQuestionAnswerView viewWithTag:TAG_QUESTION_INTRO];
     if(introView) {
         self->questionLabel.spaceAbove = v_space_intro;
     }
@@ -450,20 +485,13 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
     self->questionLabel.text = questionText;
     self->questionLabel.textColor = [UIColor darkGrayColor];
     [self->questionLabel sizeToFit]; // This must be called to set the height of the label
-    CGSize neededAnswerViewSize = [answerView showAnswer:question.answerRef andSize:self->answerViewArea.frame.size userCanSetAnswer:userCanSetAnswer];
+    const CGFloat availableHeightForAnswerViewArea = [self availableHeightForAnswerViewArea];
+    const CGFloat availableWidthForAnswerViewArea = self->answerViewArea.frame.size.width;
+    const CGSize availableWSizeForAnswerViewArea = CGSizeMake(availableWidthForAnswerViewArea, availableHeightForAnswerViewArea);
+    CGSize neededAnswerViewSize = [answerView showAnswer:question.answerRef andSize:availableWSizeForAnswerViewArea userCanSetAnswer:userCanSetAnswer];
     [self adjustSizeOfAnswerViewArea:neededAnswerViewSize];
     self->questionAnswerViewArea.contentOffset = CGPointMake(0.0f,0.0f);
     [self->answerViewArea addSubview:[answerView answerView]];
-}
-
--(void)adjustSizeOfAnswerViewArea:(CGSize)newSize {
-    CGRect answerViewAreaFrame = self->answerViewArea.frame;
-    answerViewAreaFrame.size = newSize;
-    self->answerViewArea.frame = answerViewAreaFrame;
-    // Adjust vertical alignment to the content of the question/answer.
-    CGSize sizeWithNewHeight = [self frameOfQuestionAnswerView].size;
-    sizeWithNewHeight.height = [LayVBoxLayout layoutVBoxSubviewsInView:self->questionAnswerViewArea];
-    [self->questionAnswerViewArea setContentSize:sizeWithNewHeight];
 }
 
 -(void)showQuestionAndAnswerInLargeScreen:(Question*)question
@@ -480,6 +508,30 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
         [self->answerViewArea addSubview:self->questionBubbleView];
     }
     [self addSubview:self->answerViewArea];
+}
+
+-(void)adjustSizeOfAnswerViewArea:(CGSize)newSize {
+    CGRect answerViewAreaFrame = self->answerViewArea.frame;
+    answerViewAreaFrame.size = newSize;
+    self->answerViewArea.frame = answerViewAreaFrame;
+    // Adjust vertical alignment to the content of the question/answer.
+    CGSize sizeWithNewHeight = [self frameOfQuestionAnswerView].size;
+    UIView *currentQuestionAnswerView = [self currentAnswerViewArea];
+    sizeWithNewHeight.height = [LayVBoxLayout layoutVBoxSubviewsInView:currentQuestionAnswerView];
+    if( currentQuestionAnswerView == self->questionAnswerViewArea ) {
+        [self->questionAnswerViewArea setContentSize:sizeWithNewHeight];
+    } else {
+        [LayFrame setSizeWith:sizeWithNewHeight toView:currentQuestionAnswerView];
+    }
+}
+
+-(CGFloat)availableHeightForAnswerViewArea {
+    [LayFrame setHeightWith:0.0f toView:self->answerViewArea animated:NO];
+    const CGRect qaRect = [self frameOfQuestionAnswerView];
+    UIView *currentQuestionAnswerView = [self currentAnswerViewArea];
+    const CGFloat heightTitleAndQuestion = [LayVBoxLayout layoutVBoxSubviewsInView:currentQuestionAnswerView];
+    const CGFloat availableHeight = qaRect.size.height - heightTitleAndQuestion;
+    return availableHeight;
 }
 
 -(BOOL)evaluateCurrentQuestion:(BOOL)force {
@@ -520,7 +572,8 @@ static const NSUInteger TAG_QUESTION_INTRO = 106;
         if(self->IN_LARGE_SCREEN_MODE) {
             parentViewToPresentHint = self->answerViewArea;
         } else {
-            parentViewToPresentHint = self->questionAnswerViewArea;
+            UIView *currentAnswerViewArea = [self currentAnswerViewArea];
+            parentViewToPresentHint = currentAnswerViewArea;
         }
         LayHintView *hintView = [[LayHintView alloc]initWithWidth:width view:parentViewToPresentHint target:nil andAction:nil];
         hintView.duration = 1.0f;

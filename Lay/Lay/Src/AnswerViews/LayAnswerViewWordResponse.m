@@ -325,7 +325,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     const CGSize viewSize = self.frame.size;
     const CGFloat vSpace = 10.0f;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
-    [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:NO];
+    [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
     [choiceView showSolution];
 
     [self insertSubview:choiceView aboveSubview:answerContainer];

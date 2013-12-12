@@ -72,14 +72,20 @@ static const CGSize SIZE_EMPTY_RIBBON_ENTRY = {0.0, 0.0};
     [self->showAnswerButton fitToContent];
     [self->showAnswerButton addTarget:self action:@selector(showAnswer) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self->showAnswerButton];
-    
+}
+
+-(void)addMarkAllYouKnowHintToView:(UIView*)view {
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    const CGSize buttonSize = CGSizeMake(self.frame.size.width, [styleGuide getDefaultButtonHeight]);
+    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
+    const CGRect buttonFrame = CGRectMake(hSpace, 0.0f, buttonSize.width, buttonSize.height);
     NSString *wasRightLabel =NSLocalizedString(@"QuestionSessionCardUserWasRight", nil);
     self->wasRightButton = [[LayButton alloc]initWithFrame:buttonFrame label:wasRightLabel font:[styleGuide getFont:NormalPreferredFont] andColor:[styleGuide getColor:ClearColor]];
     self->wasRightButton.enabled = NO;
     self->wasRightButton.tag = TAG_WAS_RIGHT_BUTTON;
     [self->wasRightButton fitToContent];
     [self->wasRightButton addTarget:self action:@selector(userWasRight) forControlEvents:UIControlEventTouchUpInside];
-    //[self addSubview:self->wasRightButton];
+    [view addSubview:self->wasRightButton];
 }
 
 -(void)showAnswerMedia:(Answer*)answer_ {
@@ -127,11 +133,8 @@ static const CGFloat vSpace = 5.0f;
         const CGRect answerConatinerInitFrame = CGRectMake(0.0f, yPosContainer, width, 0.0f);
         self->answerContainer = [[UIView alloc]initWithFrame:answerConatinerInitFrame];
         self->answerContainer.clipsToBounds = YES;
+        [self addMarkAllYouKnowHintToView:self->answerContainer];
         [self->answerContainer addSubview:choiceView];
-        if(!self->correctAnsweredByUser) {
-            [self->answerContainer addSubview:self->wasRightButton];
-        }
-        
         [self addSubview:self->answerContainer];
     }
     
