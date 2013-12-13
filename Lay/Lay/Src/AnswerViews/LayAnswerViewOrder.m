@@ -91,7 +91,8 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
 -(void)addReorderCorrectButtonToView {
     LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
     const CGRect buttonRect = CGRectMake(0.0f, 0.0f, self.frame.size.width, [style maxHeightOfAnswerButton]);
-     self->reorderCorrectButton = [[LayButton alloc]initWithFrame:buttonRect label:@"Zeige korrekte Anordnung" font:[style getFont:NormalPreferredFont] andColor:[style getColor:ClearColor]];
+     NSString *label = NSLocalizedString(@"QuestionSessionOrderAnswerCorrectly", nil);
+     self->reorderCorrectButton = [[LayButton alloc]initWithFrame:buttonRect label:label font:[style getFont:NormalPreferredFont] andColor:[style getColor:ClearColor]];
     self->reorderCorrectButton.backgroundColor = [style getColor:WhiteTransparentBackground];
     [self->reorderCorrectButton addTarget:self action:@selector(reorderItemsToShowCorrect) forControlEvents:UIControlEventTouchUpInside];
     [reorderCorrectButton fitToContent];

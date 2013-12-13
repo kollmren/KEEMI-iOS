@@ -130,6 +130,7 @@
 "QuestionSessionCheckAnswer" = "Check";
 "QuestionSessionDeleteText" = "Clear the input";
 "QuestionIntroTitle" = "Introduction";
+"QuestionSessionOrderAnswerCorrectly" = "Show correct order";
 /* Error messages */
 "ErrorCatalogToOpenDoesnNotExist" = "Undefined location of catalog! Can not open catalog!";
 "ErrorCouldNotConfigureApp" = "The configuration of the application failed!";

@@ -37,47 +37,6 @@
                BlueprintName = "LayCoreTests"
                ReferencedContainer = "container:LayCore.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadNotWellFormedXmlCatalog">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCitizenshiptest1">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCitizenshiptest">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogWithNoQuestion">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogWithMissingResources">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogOneQuestion">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testReadCatalogEinbuerungstest">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testMetaInfo">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithZippedFile">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithXmlFileNotExistingFile">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testInitWithXmlFile">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testImportInvalidCatalog">
-               </Test>
-               <Test
-                  Identifier = "LayXmlCatalogFileReaderTests/testCatalogWithBase64EncodedImage">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

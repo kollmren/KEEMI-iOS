@@ -202,4 +202,10 @@ numberOfSkippedQuestions, neededTime;
     return number;
 }
 
+-(BOOL)hasNextGroupedQuestion {
+    BOOL hasNextQuestion = NO;
+    if(self->datasource) hasNextQuestion = [self->datasource hasNextGroupedQuestion];
+    return hasNextQuestion;
+}
+
 @end

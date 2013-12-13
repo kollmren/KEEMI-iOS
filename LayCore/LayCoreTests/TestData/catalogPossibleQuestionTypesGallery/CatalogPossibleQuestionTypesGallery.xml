@@ -33,6 +33,26 @@
     <version>2.0</version>
   </info>
   <questionList>
+  <question name="steveJobsDenouncement" type="order">
+      <text>Am 17. September 1985 reichte Steve Jobs seine Kündigung bei Apple ein. Ordne die Ereignisse!</text>
+      <answer>
+        <answerItem correct="yes">
+          <text>Die Macintosh-Computer verkauften sich schlecht, Apple musste den ersten Quartalsverlust in der Unternehmensgeschichte veröffentlichen und Mitarbeiter entlassen</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Der damalige CEO John Sculley machte Steve Jobs für die Verluste mitverantwortlich, Jobs war damals General Manager der Macintosh-Abteilung</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Am 11. April 1985 verlangte John Sculley, Steve Jobs den Posten eines Apple Vicepresident und General Managers der Macintosh-Abteilung zu entziehen</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Darauf startete Steve Jobs einen Putschversuch gegen Sculley der vom Apple-Vorstand zurückgewiesen wurde, die Mehrheit im Board stand hinter dem ehemaligen Pepsi-manager Sculley</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Am 31. Mai 1985 verlor Jobs seine Verantwortlichkeiten, Jobs wurde in eine Abteilung versetzt die firmenintern Sibirien gennant wurde und keinen Einfluss auf das operative Geschäft hatte</text>
+        </answerItem>
+      </answer>
+    </question>
     <question type="singleChoice" name="question1" topic="java" groupName="java">
       <introduction>
         <section>

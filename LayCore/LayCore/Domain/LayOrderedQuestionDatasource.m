@@ -89,5 +89,8 @@
     return 0;
 }
 
+-(BOOL) hasNextGroupedQuestion {
+    return NO;
+}
 
 @end

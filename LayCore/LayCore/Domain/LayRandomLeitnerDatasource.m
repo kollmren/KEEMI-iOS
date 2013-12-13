@@ -200,6 +200,11 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
     return counter;
 }
 
+-(BOOL)hasNextGroupedQuestion {
+    Question* nextQuestion = [self groupedQuestionWithIndex:self->groupedQuestionIndex+1];
+    return nextQuestion ? YES : NO;
+}
+
 -(void) randomizeQuestions:(NSMutableArray*)questionListToRandomize {
     for (NSUInteger x = 0; x < [questionListToRandomize count]; x++) {
         NSUInteger randInt = (random() % ([questionListToRandomize count] - x)) + x;

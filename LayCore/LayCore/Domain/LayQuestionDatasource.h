@@ -26,4 +26,6 @@
 
 -(NSUInteger) currentQuestionGroupCounterValue;
 
+-(BOOL)hasNextGroupedQuestion;
+
 @end

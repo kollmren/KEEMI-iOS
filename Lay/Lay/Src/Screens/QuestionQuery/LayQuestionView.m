@@ -595,7 +595,8 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     BOOL stop = NO;
     const NSUInteger numberOfCurrentQuestion = [self->questionDatasource currentQuestionCounterValue];
     const NSUInteger numberOfTotalQuestions = [self.questionDatasource numberOfQuestions];
-    if(numberOfCurrentQuestion == numberOfTotalQuestions) {
+    BOOL hasNextGroupedQuestion =  [self.questionDatasource hasNextGroupedQuestion];
+    if(numberOfCurrentQuestion == numberOfTotalQuestions && !hasNextGroupedQuestion ) {
         stop = YES;
     }
     return stop;
