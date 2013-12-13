@@ -91,7 +91,7 @@ static Class g_classObj = nil;
     self->vcHeader = [[LayVcCatalogListHeader alloc]initWithNibName:nil bundle:nil];
     self.tableView.tableHeaderView = vcHeader.view;
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
-    self->navBarViewController.backButtonInNavigationBar = YES;
+    self->navBarViewController.backButtonInNavigationBar = NO;
     Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
     UIImage *logoPublisher = [catalog publisherLogo];
     if(logoPublisher) {
