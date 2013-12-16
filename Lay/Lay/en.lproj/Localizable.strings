@@ -40,6 +40,7 @@
 "MyCatalogs" = "My catalogs";
 "MyCatalogsNoCatalogsStored" = "No catalogs stored.";
 "CatalogLearn" = "Learn";
+"CatalogLearnOverview" = "Overview";
 "CatalogShare" = "Mail";
 "CatalogRecall" = "Recall";
 "CatalogRecallByTopic" = "by topic";
@@ -93,6 +94,9 @@
 /* Catalog Favourites */
 "CatalogNumberOfFavouritesLabel" = "Favourites: %u";
 "CatalogFavouritesTitle" = "Favourites";
+/* Catalog Explanations */
+"CatalogExplanationsTitle" = "Explanations";
+"CatalogNumberOfExplanations" = "Explanations: %u";
 /* Catalog Resources */
 "ResourceWebLink" = "Web";
 "ResourceBookLink" = "Books";

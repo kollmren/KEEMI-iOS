@@ -92,6 +92,8 @@ static const CGFloat g_DEFAULT_ENTRY_SPACE = 20.0f;
 
 @implementation LayMenu
 
+static const NSString *lineLayerName = @"l";
+
 @synthesize space, orientation, entryHeight, entryBackgroundColor,
 imageSizeRatio, menuDelegate, frame, entriesInteractive;
 // LayVBoxView protocol
@@ -186,6 +188,7 @@ imageSizeRatio, menuDelegate, frame, entriesInteractive;
     LayMenuEntry *entry = [[LayMenuEntry alloc]initWithHeight:self.entryHeight mediaData:data label:label];
     LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
     entry.backgroundColor = [style getColor:WhiteTransparentBackground];
+    entry.layer.cornerRadius = 10.0f;
     entry.identifier = subIdentifier;
     entry.superIdentifier = identifier;
     entry.tag = identifier;
@@ -500,58 +503,98 @@ static const CGFloat lineMiddleBreak = 6.0f;
 -(BOOL)showSubMenuEntryForSuperMenuEntry:(LayMenuEntry*)superMenuentry {
     BOOL subMenuPresented = NO;
     NSArray *subMenuEntryList = [self subMenuEntryForSuperMenuWithIdentifier:superMenuentry.identifier];
-    if( [subMenuEntryList count] > 0 ) {
-        LayMenuEntry *subMenuEntry = [subMenuEntryList objectAtIndex:0];
-        subMenuPresented = [self showSubMenu:subMenuEntry forSuperMenuEntry:superMenuentry below:NO];
-        if( [subMenuEntryList count] == 2 ) {
-            LayMenuEntry *subMenuEntry = [subMenuEntryList objectAtIndex:1];
-            subMenuPresented = subMenuPresented = [self showSubMenu:subMenuEntry forSuperMenuEntry:superMenuentry below:YES];
-        }
-    } else {
-        MWLogError([LayMenu class], @"No subMenu found for superMenu:%u!", superMenuentry.identifier);
-    }
+    subMenuPresented = [self showSubMenu:subMenuEntryList forSuperMenuEntry:superMenuentry];
 
     return subMenuPresented;
 }
 
--(BOOL)showSubMenu:(LayMenuEntry*)subMenu forSuperMenuEntry:(LayMenuEntry*)superMenu below:(BOOL)below {
+-(BOOL)showSubMenu:(NSArray*)subMenuList forSuperMenuEntry:(LayMenuEntry*)superMenu {
     BOOL subMenuPresented = NO;
+    const NSUInteger numberOfMenus = [subMenuList count];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat lineWidth = [styleGuide getBorderWidth:NormalBorder];
-    if(subMenu) {
-        if(subMenu.hidden) {
-            subMenuPresented = YES;
-            // current position
-            subMenu.hidden = NO;
-            subMenu.userInteractionEnabled = YES;
-            CALayer *superMenuEntryLayer = superMenu.layer;
-            CALayer *subMenuEntryLayer = subMenu.layer;
-            subMenuEntryLayer.position = superMenuEntryLayer.position;
-            CGFloat newYPosSubMenuEntry = 0.0f;
-            CGFloat newXPosSubMenuEntry = 0.0f;
-            CGPoint newPositionSubMenuEntry = CGPointZero;
-            CALayer *line = [[CALayer alloc]init];
-            line.backgroundColor = [styleGuide getColor:ButtonBorderColor].CGColor;
-            line.bounds = CGRectMake(0.0f,0.0f,lineWidth,0.0f);
-            if(below) {
-                newYPosSubMenuEntry = superMenuEntryLayer.position.y + superMenuEntryLayer.bounds.size.height + g_DEFAULT_ENTRY_SPACE;
-                newXPosSubMenuEntry = subMenuEntryLayer.position.x;
-                newPositionSubMenuEntry = CGPointMake(newXPosSubMenuEntry, newYPosSubMenuEntry);
-                line.anchorPoint = CGPointMake(0.5f, 1.0f);
-                line.position = CGPointMake(subMenuEntryLayer.bounds.size.width/2, 0.0f);
-            } else {
-                newYPosSubMenuEntry = superMenuEntryLayer.position.y - subMenuEntryLayer.bounds.size.height - g_DEFAULT_ENTRY_SPACE;
-                newXPosSubMenuEntry = subMenuEntryLayer.position.x;
-                newPositionSubMenuEntry = CGPointMake(newXPosSubMenuEntry, newYPosSubMenuEntry);
+    if( numberOfMenus > 0 ) {
+        if( numberOfMenus == 1 ) {
+            LayMenuEntry *subMenu1 = [subMenuList objectAtIndex:0];
+            if(subMenu1.hidden) {
+                subMenuPresented = YES;
+                // current position
+                subMenu1.hidden = NO;
+                subMenu1.userInteractionEnabled = YES;
+                CALayer *superMenuEntryLayer = superMenu.layer;
+                CALayer *subMenuEntryLayer = subMenu1.layer;
+                subMenuEntryLayer.position = superMenuEntryLayer.position;
+                CALayer *line = [[CALayer alloc]init];
+                line.name = (NSString*)lineLayerName;
+                line.backgroundColor = [styleGuide getColor:ButtonBorderColor].CGColor;
+                line.bounds = CGRectMake(0.0f,0.0f,lineWidth,0.0f);
+                const CGFloat newYPosSubMenuEntry = superMenuEntryLayer.position.y - subMenuEntryLayer.bounds.size.height - g_DEFAULT_ENTRY_SPACE;
+                const CGFloat newXPosSubMenuEntry = subMenuEntryLayer.position.x;
+                const CGPoint newPositionSubMenuEntry = CGPointMake(newXPosSubMenuEntry, newYPosSubMenuEntry);
                 line.anchorPoint = CGPointMake(0.5f, 0.0f);
                 line.position = CGPointMake(subMenuEntryLayer.bounds.size.width/2, subMenuEntryLayer.bounds.size.height);
+                [subMenuEntryLayer addSublayer:line];
+                const CGRect newLineBounds = CGRectMake(0.0f,0.0f,lineWidth,g_DEFAULT_ENTRY_SPACE);
+                [UIView animateWithDuration:0.2 animations:^{
+                    subMenuEntryLayer.position = newPositionSubMenuEntry;
+                    line.bounds = newLineBounds;
+                }];
             }
+        } else if( numberOfMenus == 2 ) {
+            subMenuPresented = YES;
+            LayMenuEntry *subMenu1 = [subMenuList objectAtIndex:0];
+            subMenu1.hidden = NO;
+            subMenu1.userInteractionEnabled = YES;
+            CALayer *superMenuEntryLayer = superMenu.layer;
+            CALayer *subMenuEntryLayer = subMenu1.layer;
+            subMenuEntryLayer.position = superMenuEntryLayer.position;
+            CALayer *line = [[CALayer alloc]init];
+            line.name = (NSString*)lineLayerName;
+            line.backgroundColor = [styleGuide getColor:ButtonBorderColor].CGColor;
+            line.bounds = CGRectMake(0.0f,0.0f,lineWidth,0.0f);
+            const CGFloat newYPosSubMenuEntry = superMenuEntryLayer.position.y - subMenuEntryLayer.bounds.size.height - g_DEFAULT_ENTRY_SPACE;
+            const CGFloat newXPosSubMenuEntry = subMenuEntryLayer.position.x;
+            const CGPoint newPositionSubMenuEntry = CGPointMake(newXPosSubMenuEntry, newYPosSubMenuEntry);
+            line.anchorPoint = CGPointMake(0.5f, 0.0f);
+            line.position = CGPointMake(subMenuEntryLayer.bounds.size.width/2, subMenuEntryLayer.bounds.size.height);
             [subMenuEntryLayer addSublayer:line];
             const CGRect newLineBounds = CGRectMake(0.0f,0.0f,lineWidth,g_DEFAULT_ENTRY_SPACE);
+            //
+            LayMenuEntry *subMenu2 = [subMenuList objectAtIndex:1];
+            subMenu2.hidden = YES;
+            subMenu2.userInteractionEnabled = YES;
+            CALayer *subMenuEntryLayer2 = subMenu2.layer;
+            subMenuEntryLayer2.position = superMenuEntryLayer.position;
+            // show animated menu1 in the first step
             [UIView animateWithDuration:0.2 animations:^{
                 subMenuEntryLayer.position = newPositionSubMenuEntry;
+                subMenuEntryLayer2.position = newPositionSubMenuEntry;
                 line.bounds = newLineBounds;
-            }];
+            } completion:^(BOOL finished) {
+                subMenu2.hidden = NO;
+                const CGFloat newXPosSubMenuEntry = subMenuEntryLayer.position.x - (subMenuEntryLayer.bounds.size.width / 2.0f) - (g_DEFAULT_ENTRY_SPACE / 2.0f);
+                const CGFloat newXPosSubMenuEntry2 = subMenuEntryLayer.position.x + (subMenuEntryLayer.bounds.size.width / 2.0f) + (g_DEFAULT_ENTRY_SPACE / 2.0f);
+                const CGPoint newPositionSubMenuEntry = CGPointMake(newXPosSubMenuEntry, newYPosSubMenuEntry);
+                const CGPoint newPositionSubMenuEntry2 = CGPointMake(newXPosSubMenuEntry2, newYPosSubMenuEntry);
+                const CGPoint vertLinePosition = CGPointMake( line.position.x + (subMenuEntryLayer.bounds.size.width / 2.0f) + (g_DEFAULT_ENTRY_SPACE / 2.0f), line.position.y );
+                // Prepare horizontal line
+                CALayer *horizontalLine = [[CALayer alloc]init];
+                horizontalLine.name = (NSString*)lineLayerName;
+                horizontalLine.backgroundColor = [styleGuide getColor:ButtonBorderColor].CGColor;
+                horizontalLine.bounds = CGRectMake(0.0f,0.0f,0.0f,lineWidth);
+                horizontalLine.anchorPoint = CGPointMake(0.0f, 1.0f);
+                horizontalLine.position = CGPointMake(subMenuEntryLayer.bounds.size.width, subMenuEntryLayer.bounds.size.height);
+                const CGRect horizontalLineBounds = CGRectMake(0.0f,0.0f,g_DEFAULT_ENTRY_SPACE,lineWidth);
+                [subMenuEntryLayer addSublayer:horizontalLine];
+                [UIView animateWithDuration:0.2 animations:^{
+                    subMenuEntryLayer.position = newPositionSubMenuEntry;
+                    subMenuEntryLayer2.position = newPositionSubMenuEntry2;
+                    line.position = vertLinePosition;
+                    horizontalLine.bounds = horizontalLineBounds;
+                } ];
+             }];
+        } else {
+            MWLogError( [LayMenu class], @"More than two subMenus are not allowed!" );
         }
     }
     return subMenuPresented;
@@ -560,7 +603,7 @@ static const CGFloat lineMiddleBreak = 6.0f;
 -(BOOL)willShowSubMenuEntryForSuperMenuEntry:(LayMenuEntry*)superMenuentry {
     BOOL willPresentSubMenu = NO;
     NSArray *subMenuEntryList = [self subMenuEntryForSuperMenuWithIdentifier:superMenuentry.identifier];
-    if( [subMenuEntryList count] > 1 ) {
+    if( [subMenuEntryList count] > 0 ) {
         LayMenuEntry *subMenuEntry = [subMenuEntryList objectAtIndex:0];
         if(subMenuEntry) {
             if(subMenuEntry.hidden) {
@@ -590,7 +633,12 @@ static const CGFloat lineMiddleBreak = 6.0f;
                     menuEntry.hidden = YES;
                     [self sendSubviewToBack:menuEntry];
                 }
-                break;
+                
+                for (CALayer *layer in [[[menuEntry layer] sublayers] copy]) {
+                    if( [layer.name isEqualToString:(NSString*)lineLayerName] ) {
+                        [layer removeFromSuperlayer];
+                    }
+                }
             }
         }
     }
@@ -609,7 +657,6 @@ static const CGFloat lineMiddleBreak = 6.0f;
     return subMenuEntryList;
 }
 
-static const NSString *lineLayerName = @"l";
 -(void) layoutEntriesHorizontal {
     NSArray *lineLayerList = [[self.layer sublayers]copy];
     for (CALayer* layer in lineLayerList) {

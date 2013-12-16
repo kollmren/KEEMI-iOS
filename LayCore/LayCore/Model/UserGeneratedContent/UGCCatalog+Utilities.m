@@ -18,7 +18,7 @@
 #import "LayUserDataStore.h"
 #import "LayMainDataStore.h"
 #import "Question+Utilities.h"
-#import "Answer.h"
+#import "Answer+Utilities.h"
 #import "Catalog+Utilities.h"
 
 #import "MWLogging.h"
@@ -27,6 +27,7 @@
 
 // from mainStore -> userStore
 -(void)syncStateOfQuestions:(NSArray*)listOfChangedQuestions {
+    //NSMutableArray *explanationListToAdjustState = [NSMutableArray arrayWithCapacity:10];
     LayUserDataStore *store = [LayUserDataStore store];
     for (Question *question in listOfChangedQuestions) {
         BOOL questionsWasAnsweredByUser = [question.answerRef.sessionGivenByUser boolValue];
@@ -47,9 +48,14 @@
     }
     
     [self updateNumbersOfWrongAndCorrectAnsweredQuestions:listOfChangedQuestions];
-    
     [store saveChanges];
 }
+
+/**
+-(void)updateAndSyncStateOfExplanations:(NSArray*)explanationList {
+    
+}
+ */
 
 // from userStore -> mainStore
 -(void)syncUserQuestionState:(NSArray*)listOfQuestions {

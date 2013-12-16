@@ -31,6 +31,7 @@
 #import "LayVcCredits.h"
 #import "LayVcExplanation.h"
 #import "LayVcCatalogTopics.h"
+#import "LayVcExplanationList.h"
 #import "LayVcNavigation.h"
 #import "LayUserDefaults.h"
 
@@ -91,7 +92,7 @@ static Class g_classObj = nil;
     self->vcHeader = [[LayVcCatalogListHeader alloc]initWithNibName:nil bundle:nil];
     self.tableView.tableHeaderView = vcHeader.view;
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
-    self->navBarViewController.backButtonInNavigationBar = NO;
+    self->navBarViewController.backButtonInNavigationBar = YES;
     Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
     UIImage *logoPublisher = [catalog publisherLogo];
     if(logoPublisher) {
@@ -382,6 +383,9 @@ static Class g_classObj = nil;
         case MENU_LEARN:
             [self startLearnMode];
             break;
+        case MENU_LEARN_OVERVIEW:
+            [self showExplanationOverview];
+            break;
         case MENU_QUERY:
             [self startQueryMode:nil];
             break;
@@ -421,6 +425,16 @@ static Class g_classObj = nil;
     UINavigationController *navController = [[UINavigationController alloc]
                                              initWithRootViewController:vcExplanation];
     [navController setNavigationBarHidden:YES animated:NO];
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+-(void)showExplanationOverview {
+    [self->sectionMenu closeMenu];
+    LayVcExplanationList *vcExplanationList = [LayVcExplanationList new];
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:vcExplanationList];
     [navController setModalPresentationStyle:UIModalPresentationFormSheet];
     [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentViewController:navController animated:YES completion:nil];

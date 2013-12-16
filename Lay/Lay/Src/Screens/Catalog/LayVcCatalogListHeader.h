@@ -12,6 +12,7 @@
 
 typedef enum MenuEntryIdentifiers_ {
     MENU_LEARN = 1,
+    MENU_LEARN_OVERVIEW,
     MENU_QUERY,
     MENU_QUERY_BY_TOPIC,
     MENU_LEARN_BY_TOPIC,

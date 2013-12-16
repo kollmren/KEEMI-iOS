@@ -27,6 +27,10 @@
 		A71EC6E8177B3AD300F47782 /* UGCCatalog+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A71EC6E7177B3AD300F47782 /* UGCCatalog+Utilities.m */; };
 		A71FBC0B17E2F16900986BE9 /* LayAnswerViewWordResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FBC0A17E2F16900986BE9 /* LayAnswerViewWordResponse.m */; };
 		A721043D17CF8E690044B3A0 /* LayImportStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = A721043C17CF8E690044B3A0 /* LayImportStateView.m */; };
+		A7222DFC185F122B00B15CF8 /* LayVcExplanationList.m in Sources */ = {isa = PBXBuildFile; fileRef = A7222DF7185F122B00B15CF8 /* LayVcExplanationList.m */; };
+		A7222DFD185F122B00B15CF8 /* LayVcExplanationList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7222DF8185F122B00B15CF8 /* LayVcExplanationList.xib */; };
+		A7222DFE185F122B00B15CF8 /* LayVcExplanationListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7222DFA185F122B00B15CF8 /* LayVcExplanationListHeader.m */; };
+		A7222DFF185F122B00B15CF8 /* LayVcExplanationListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7222DFB185F122B00B15CF8 /* LayVcExplanationListHeader.xib */; };
 		A722E74416BF1BB200C17401 /* LayAppConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = A722E74316BF1BB200C17401 /* LayAppConfiguration.m */; };
 		A7238BBC17B281E70075E90B /* LayVcFavouriteList.m in Sources */ = {isa = PBXBuildFile; fileRef = A7238BB717B281E70075E90B /* LayVcFavouriteList.m */; };
 		A7238BBD17B281E70075E90B /* LayVcFavouriteList.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7238BB817B281E70075E90B /* LayVcFavouriteList.xib */; };
@@ -173,6 +177,12 @@
 		A71FBC0A17E2F16900986BE9 /* LayAnswerViewWordResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewWordResponse.m; sourceTree = "<group>"; };
 		A721043B17CF8E680044B3A0 /* LayImportStateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayImportStateView.h; path = Import/LayImportStateView.h; sourceTree = "<group>"; };
 		A721043C17CF8E690044B3A0 /* LayImportStateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayImportStateView.m; path = Import/LayImportStateView.m; sourceTree = "<group>"; };
+		A7222DF6185F122B00B15CF8 /* LayVcExplanationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcExplanationList.h; path = CatalogExplanations/LayVcExplanationList.h; sourceTree = "<group>"; };
+		A7222DF7185F122B00B15CF8 /* LayVcExplanationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcExplanationList.m; path = CatalogExplanations/LayVcExplanationList.m; sourceTree = "<group>"; };
+		A7222DF8185F122B00B15CF8 /* LayVcExplanationList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LayVcExplanationList.xib; path = CatalogExplanations/LayVcExplanationList.xib; sourceTree = "<group>"; };
+		A7222DF9185F122B00B15CF8 /* LayVcExplanationListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcExplanationListHeader.h; path = CatalogExplanations/LayVcExplanationListHeader.h; sourceTree = "<group>"; };
+		A7222DFA185F122B00B15CF8 /* LayVcExplanationListHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcExplanationListHeader.m; path = CatalogExplanations/LayVcExplanationListHeader.m; sourceTree = "<group>"; };
+		A7222DFB185F122B00B15CF8 /* LayVcExplanationListHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LayVcExplanationListHeader.xib; path = CatalogExplanations/LayVcExplanationListHeader.xib; sourceTree = "<group>"; };
 		A722E74216BF1BB200C17401 /* LayAppConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAppConfiguration.h; sourceTree = "<group>"; };
 		A722E74316BF1BB200C17401 /* LayAppConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAppConfiguration.m; sourceTree = "<group>"; };
 		A7238BB617B281E70075E90B /* LayVcFavouriteList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcFavouriteList.h; path = Favourites/LayVcFavouriteList.h; sourceTree = "<group>"; };
@@ -457,6 +467,19 @@
 			name = LearnSession;
 			sourceTree = "<group>";
 		};
+		A7222DF5185F11F400B15CF8 /* Explanations */ = {
+			isa = PBXGroup;
+			children = (
+				A7222DF6185F122B00B15CF8 /* LayVcExplanationList.h */,
+				A7222DF7185F122B00B15CF8 /* LayVcExplanationList.m */,
+				A7222DF8185F122B00B15CF8 /* LayVcExplanationList.xib */,
+				A7222DF9185F122B00B15CF8 /* LayVcExplanationListHeader.h */,
+				A7222DFA185F122B00B15CF8 /* LayVcExplanationListHeader.m */,
+				A7222DFB185F122B00B15CF8 /* LayVcExplanationListHeader.xib */,
+			);
+			name = Explanations;
+			sourceTree = "<group>";
+		};
 		A7238BB517B281D70075E90B /* Favourite */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +649,7 @@
 		A77AE1141700433E00C119AB /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				A7222DF5185F11F400B15CF8 /* Explanations */,
 				A743E34F17E849E4002F007E /* Settings */,
 				A73663DC17BB7E9C00668F6E /* Notes */,
 				A74CA16417B3A48D005DC343 /* Credits */,
@@ -938,7 +962,9 @@
 				A704529516B2A6B60033313C /* LayDataModel.xcdatamodeld in Resources */,
 				A75B4727163EA7F20062C3C5 /* InfoPlist.strings in Resources */,
 				A77AE12C1700433E00C119AB /* LayVcCatalogList.xib in Resources */,
+				A7222DFD185F122B00B15CF8 /* LayVcExplanationList.xib in Resources */,
 				A77AE12E1700433E00C119AB /* LayVcCatalogListHeader.xib in Resources */,
+				A7222DFF185F122B00B15CF8 /* LayVcExplanationListHeader.xib in Resources */,
 				A77AE1301700433E00C119AB /* LayMyCatalogListItem.xib in Resources */,
 				A77AE1321700433E00C119AB /* LayVcMyCatalogList.xib in Resources */,
 				A77AE1DE17004BB300C119AB /* Icons in Resources */,
@@ -1057,6 +1083,7 @@
 				A75585681797D7AB00D3EAD3 /* LayVcResource.m in Sources */,
 				A7312D9C17B17ACE00704406 /* LayMiniIconBar.m in Sources */,
 				A7238BBC17B281E70075E90B /* LayVcFavouriteList.m in Sources */,
+				A7222DFE185F122B00B15CF8 /* LayVcExplanationListHeader.m in Sources */,
 				A7238BBE17B281E70075E90B /* LayVcFavouriteListHeader.m in Sources */,
 				A74CA16717B3A4A3005DC343 /* LayVcCredits.m in Sources */,
 				A71D7C9A17B5207B00A45B65 /* UGCResource+Utilities.m in Sources */,
@@ -1069,6 +1096,7 @@
 				A72AABB117C22FB1001C56A4 /* LayExplanationView.m in Sources */,
 				A73A745217CB41B1004A91C7 /* About+Utilities.m in Sources */,
 				A721043D17CF8E690044B3A0 /* LayImportStateView.m in Sources */,
+				A7222DFC185F122B00B15CF8 /* LayVcExplanationList.m in Sources */,
 				A73DCCC717D4C68400283626 /* LayImportStateViewHandler.m in Sources */,
 				A7363EA517E09169005DFAAB /* LayAdditionalButton.m in Sources */,
 				A71FBC0B17E2F16900986BE9 /* LayAnswerViewWordResponse.m in Sources */,

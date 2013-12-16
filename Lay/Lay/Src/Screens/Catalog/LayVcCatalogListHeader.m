@@ -144,7 +144,8 @@ static const CGFloat V_SPACE = 15.0f;
     if([catalog hasExplanations]) {
         NSString *entryText = NSLocalizedString(@"CatalogLearn", nil);
         [menu addEntryWithImage:learnIcon:entryText identifier:MENU_LEARN ];
-        [menu addSubEntryWithImage:learnIcon:@"Overview" identifier:MENU_LEARN subIdentifier:MENU_LEARN+10];
+         NSString *entryTextLearnOverview = NSLocalizedString(@"CatalogLearnOverview", nil);
+        [menu addSubEntryWithImage:learnIcon:entryTextLearnOverview identifier:MENU_LEARN subIdentifier:MENU_LEARN_OVERVIEW];
         if([catalog hasTopicsWithExplanations]) {
             entryText = NSLocalizedString(@"CatalogRecallByTopic", nil);
             [menu addSubEntryWithImage:learnIcon:entryText identifier:MENU_LEARN subIdentifier:MENU_LEARN_BY_TOPIC];

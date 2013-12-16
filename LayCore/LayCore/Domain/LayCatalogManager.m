@@ -11,7 +11,7 @@
 
 @implementation LayCatalogManager
 
-@synthesize currentSelectedCatalog, currentSelectedQuestion;
+@synthesize currentSelectedCatalog, currentSelectedQuestion, currentSelectedExplanation;
 @synthesize currentCatalogIsUsedInQuestionSession, currentCatalogShouldBeOpenedDirectly;
 @synthesize currentCatalogShouldBeQueriedDirectly, currentCatalogShouldBeLearnedDirectly;
 @synthesize pendingCatalogToImport, selectedQuestions, selectedExplanations;

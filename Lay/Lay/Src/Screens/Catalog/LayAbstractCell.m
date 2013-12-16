@@ -15,6 +15,8 @@
 #import "LayFrame.h"
 
 #import "Question+Utilities.h"
+#import "Explanation+Utilities.h"
+#import "Section+Utilities.h"
 #import "Answer+Utilities.h"
 #import "AnswerItem+Utilities.h"
 #import "Media+Utilities.h"
@@ -89,7 +91,7 @@ NSString* const abstractCellIdentifier = @"CellAbstract";
 
 @implementation LayAbstractCell
 
-@synthesize question;
+@synthesize question, explanation;
 
 +(void)initialize {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -121,6 +123,52 @@ NSString* const abstractCellIdentifier = @"CellAbstract";
     }
     
     return cellHeight;
+}
+
++(CGFloat) heightForExplanation:(Explanation*)explanation {
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    CGFloat cellHeight = g_VERTICAL_BORDER * 2;
+    cellHeight += g_HEIGHT_NUMBER_LABEL + g_VERTICAL_SPACE;
+    if(explanation.title) {
+        UIFont *font = [styleGuide getFont:SmallPreferredFont];
+        CGFloat heightIntro =
+        [LayFrame heightForText:explanation.title withFont:font maxLines:g_NUMBER_OF_LINES_INTRO andCellWidth:g_cellWidth ];
+        cellHeight += heightIntro + g_VERTICAL_SPACE;
+    }
+    
+    
+    NSString *explanationPreviewText = [LayAbstractCell previewTextForExplanation:explanation];
+    if( explanationPreviewText ) {
+        UIFont *font = [styleGuide getFont:NormalPreferredFont];
+        CGFloat heightQuestion =
+        [LayFrame heightForText:explanationPreviewText withFont:font maxLines:g_NUMBER_OF_LINES_QUESTION andCellWidth:g_cellWidth];
+        cellHeight += heightQuestion;
+    }
+    return cellHeight;
+}
+
++(NSString*)previewTextForExplanation:(Explanation*)explanation {
+    NSString *explanationPreviewText = nil;
+    NSArray *sectionList = [explanation sectionList];
+    if([sectionList count] > 0) {
+        for (Section *section in sectionList) {
+            // Search for sample text to show as preview
+            for ( NSObject *sectionItem in [section sectionGroupList] ) {
+                if( [sectionItem isKindOfClass:[LaySectionTextList class]] ) {
+                    LaySectionTextList *textList = (LaySectionTextList *)sectionItem;
+                    if([textList.textList count] > 0) {
+                        SectionText *sectionText = [textList.textList objectAtIndex:0];
+                        explanationPreviewText = sectionText.text;
+                        break;
+                    } else {
+                        MWLogError( [LayAbstractCell class], @"Internal Error! SectionTextList has no text-item!" );
+                    }
+                }
+            }
+            if(explanationPreviewText) break;
+        }
+    }
+    return explanationPreviewText;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -244,6 +292,33 @@ NSString* const abstractCellIdentifier = @"CellAbstract";
     [self layoutCell];
 }
 
+-(void)setExplanation:(Explanation *)explanation_ {
+    explanation = explanation_;
+    
+    self->numberLabel.text = [[explanation number] stringValue];
+    
+    CGRect baseRect = CGRectMake(0.0f, 0.0f, g_cellWidth, 0.0f/**sizeToFit sets the proper height*/);
+    if(explanation.title) {
+        self->introLabel.frame = baseRect;
+        self->introLabel.text = explanation.title;
+        [self->introLabel setHidden:NO];
+        [self->introLabel sizeToFit];
+    } else {
+        [self->introLabel setHidden:YES];
+        self->introLabel.text = @"";
+    }
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    UIFont *questionFont = [styleGuide getFont:NormalPreferredFont];
+    self->questionLabel.font = questionFont;
+    self->questionLabel.frame = baseRect;
+    NSString *explanationPreviewText = [LayAbstractCell previewTextForExplanation:explanation];
+    self->questionLabel.text = explanationPreviewText;
+    [self->questionLabel sizeToFit];
+    [self showMiniIconsForExplanation];
+    [self layoutCell];
+
+}
+
 -(void)layoutCell {
     [LayVBoxLayout layoutVBoxSubviewsInView:self.contentView];
 }
@@ -289,6 +364,20 @@ NSString* const abstractCellIdentifier = @"CellAbstract";
     }
     
     [self->miniIconBar show:YES miniIcon:MINI_LEARN_STATE];
+}
+
+-(void)showMiniIconsForExplanation {
+    if([self->explanation hasLinkedResources]) {
+        [self->miniIconBar show:YES miniIcon:MINI_RESOURCE];
+    } else {
+        [self->miniIconBar show:NO miniIcon:MINI_RESOURCE];
+    }
+    
+    if([self->explanation hasLinkedNotes]) {
+        [self->miniIconBar show:YES miniIcon:MINI_NOTE];
+    } else {
+        [self->miniIconBar show:NO miniIcon:MINI_NOTE];
+    }
 }
 
 @end

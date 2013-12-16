@@ -10,11 +10,13 @@
 
 #import "Catalog+Utilities.h"
 #import "Question+Utilities.h"
+#import "Explanation+Utilities.h"
 
 @interface LayCatalogManager : NSObject
 
 @property (nonatomic) Catalog* currentSelectedCatalog;
 @property (nonatomic) Question* currentSelectedQuestion;
+@property (nonatomic) Explanation* currentSelectedExplanation;
 @property (nonatomic) NSArray* selectedQuestions;
 @property (nonatomic) NSArray* selectedExplanations;
 @property (nonatomic) BOOL currentCatalogIsUsedInQuestionSession;
