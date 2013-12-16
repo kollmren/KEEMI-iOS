@@ -29,6 +29,13 @@
     return self;
 }
 
+-(id)initWithCatalog:(Catalog*)catalog_ andExplanation:(Explanation*)explanation {
+    self = [self initWithCatalog:catalog_ considerTopicSelection:NO];
+    NSUInteger numberOfExplanation = [[explanation number]unsignedIntegerValue];
+    self->index = numberOfExplanation - 2;
+    return self;
+}
+
 -(id)initWithListOfExplanations:(NSArray*)listOfExplanations {
     self = [super init];
     if(self) {

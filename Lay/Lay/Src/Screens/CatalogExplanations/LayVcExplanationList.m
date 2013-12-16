@@ -219,15 +219,14 @@ static Class g_classObj = nil;
     NSManagedObjectContext *managedObjectContext = [mainStore managedObjectContext];
     if (!fetchedResultsController ) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSSortDescriptor *topicSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"topicRef.number" ascending:YES];
         [request setEntity:[NSEntityDescription entityForName:@"Explanation" inManagedObjectContext:managedObjectContext]];
         NSSortDescriptor *numberSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-        [request setSortDescriptors:[NSArray arrayWithObjects:topicSortDescriptor, numberSortDescriptor, nil]];
+        [request setSortDescriptors:[NSArray arrayWithObjects:numberSortDescriptor, nil]];
         Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"catalogRef = %@",
                                   catalog];
         [request setPredicate:predicate];
-        NSFetchedResultsController *newController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:@"topicRef.number" cacheName:nil];
+        NSFetchedResultsController *newController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
         
         newController.delegate = self;
         fetchedResultsController = newController;

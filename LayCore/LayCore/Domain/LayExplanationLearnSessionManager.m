@@ -39,6 +39,13 @@
     return session;
 }
 
+-(LayExplanationLearnSession*)sessionWith:(Catalog*)catalog explanation:(Explanation*)explanation andOrder:(ExplanationSessionOrder)ExplanationOrder {
+    MWLogInfo([LayExplanationLearnSessionManager class], @"Create session with a set  explanation.");
+    id<LayExplanationDatasource> datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog andExplanation:explanation];
+    LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc] initWithDatasource:datasource];
+    return session;
+}
+
 -(LayExplanationLearnSession*)sessionWithListOfExplanations:(NSArray*)listOfExplanations {
     MWLogInfo([LayExplanationLearnSessionManager class], @"Create session with given list of explanations.");
     id<LayExplanationDatasource> datasource = [[LayOrderedExplanationDatasource alloc]initWithListOfExplanations:listOfExplanations];

@@ -21,6 +21,8 @@ typedef enum ExplanationSessionOrder_ {
 
 -(LayExplanationLearnSession*)sessionWith:(Catalog*)catalog andOrder:(ExplanationSessionOrder)order considerTopicSelection:(BOOL)considerTopicSelection;
 
+-(LayExplanationLearnSession*)sessionWith:(Catalog*)catalog explanation:(Explanation*)explanation andOrder:(ExplanationSessionOrder)ExplanationOrder;
+
 -(LayExplanationLearnSession*)sessionWithListOfExplanations:(NSArray*)listOfExplanations;
 
 @end

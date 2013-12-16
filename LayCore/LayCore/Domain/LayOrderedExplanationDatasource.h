@@ -23,6 +23,8 @@
 
 -(id)initWithCatalog:(Catalog*)catalog_ considerTopicSelection:(BOOL)considerTopicSelection;
 
+-(id)initWithCatalog:(Catalog*)catalog_ andExplanation:(Explanation*)explanation;
+
 -(id)initWithListOfExplanations:(NSArray*)listOfExplanations;
 
 // LayExplanationDatasource
