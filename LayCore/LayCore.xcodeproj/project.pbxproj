@@ -45,6 +45,7 @@
 		A723997F18509395001DE4CC /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997E18509395001DE4CC /* Introduction+Utilities.m */; };
 		A7239980185093F4001DE4CC /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997E18509395001DE4CC /* Introduction+Utilities.m */; };
 		A727CFD91786A5420097D721 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = A727CFD81786A5420097D721 /* Answer.m */; };
+		A729CDA6185F92F4002BF2D4 /* LayRandomExplanationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */; };
 		A72D0B7516BFD78E000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = A72D0B7316BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m */; };
 		A732D0D617D71B6B009BAE41 /* Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = A732D0D517D71B6B009BAE41 /* Thumbnail.m */; };
 		A733D88B17B4CF8300BDEDCD /* UGCResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A733D88A17B4CF8300BDEDCD /* UGCResource.m */; };
@@ -227,6 +228,8 @@
 		A723997E18509395001DE4CC /* Introduction+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Introduction+Utilities.m"; path = "LayCore/Model/Introduction+Utilities.m"; sourceTree = "<group>"; };
 		A727CFD71786A5420097D721 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Answer.h; path = LayCore/Model/Answer.h; sourceTree = "<group>"; };
 		A727CFD81786A5420097D721 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Answer.m; path = LayCore/Model/Answer.m; sourceTree = "<group>"; };
+		A729CDA4185F92F4002BF2D4 /* LayRandomExplanationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayRandomExplanationDataSource.h; path = LayCore/Domain/LayRandomExplanationDataSource.h; sourceTree = "<group>"; };
+		A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayRandomExplanationDataSource.m; path = LayCore/Domain/LayRandomExplanationDataSource.m; sourceTree = "<group>"; };
 		A72D0B7216BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogDataFile_HeadFirstDesignPattern.h; path = LayCoreTests/LayCatalogDataFile_HeadFirstDesignPattern.h; sourceTree = "<group>"; };
 		A72D0B7316BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogDataFile_HeadFirstDesignPattern.m; path = LayCoreTests/LayCatalogDataFile_HeadFirstDesignPattern.m; sourceTree = "<group>"; };
 		A72D0B7416BFD78E000CB6E9 /* LayDataFileDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayDataFileDummy.h; path = LayCoreTests/LayDataFileDummy.h; sourceTree = "<group>"; };
@@ -704,6 +707,8 @@
 		A7455714176248BB005D792B /* AllOther */ = {
 			isa = PBXGroup;
 			children = (
+				A729CDA4185F92F4002BF2D4 /* LayRandomExplanationDataSource.h */,
+				A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */,
 				A73E61A71779AD6100AB3EB6 /* LayUserDataStoreConfiguration.h */,
 				A73E61A81779AD6100AB3EB6 /* LayUserDataStoreConfiguration.m */,
 				A73E61A11779AAB100AB3EB6 /* LayUserDataStore .m */,
@@ -1067,6 +1072,7 @@
 				A736F20A17993F09005AAF70 /* UGCQuestion.m in Sources */,
 				A736F20D17993F09005AAF70 /* UGCExplanation.m in Sources */,
 				A74CAB58181EBDE700466192 /* UGCExplanationTextMarker.m in Sources */,
+				A729CDA6185F92F4002BF2D4 /* LayRandomExplanationDataSource.m in Sources */,
 				A736F22217995312005AAF70 /* UGCExplanation+Utilities.m in Sources */,
 				A733D88B17B4CF8300BDEDCD /* UGCResource.m in Sources */,
 				A71D7C9817B51FA000A45B65 /* UGCResource+Utilities.m in Sources */,

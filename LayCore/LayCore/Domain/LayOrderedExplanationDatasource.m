@@ -32,7 +32,13 @@
 -(id)initWithCatalog:(Catalog*)catalog_ andExplanation:(Explanation*)explanation {
     self = [self initWithCatalog:catalog_ considerTopicSelection:NO];
     NSUInteger numberOfExplanation = [[explanation number]unsignedIntegerValue];
-    self->index = numberOfExplanation - 2;
+    if( numberOfExplanation >= 2 ) {
+        self->index =  numberOfExplanation - 2;
+        self->firstExplanationPassed = YES;
+    } else {
+        self->index =  0;
+    }
+   
     return self;
 }
 

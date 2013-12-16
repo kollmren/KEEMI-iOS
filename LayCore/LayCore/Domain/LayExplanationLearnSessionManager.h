@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef enum ExplanationSessionOrder_ {
-    EXPLANATION_ORDERED_BY_NUMBER,
+    EXPLANATION_ORDER_BY_NUMBER,
+    EXPLANATION_ORDER_RANDOM
 } ExplanationSessionOrder;
 
 @class LayExplanationLearnSession;

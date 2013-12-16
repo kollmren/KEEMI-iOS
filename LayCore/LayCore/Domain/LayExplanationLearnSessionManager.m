@@ -11,6 +11,8 @@
 #import "LayExplanationLearnSession.h"
 #import "LayExplanationDatasource.h"
 #import "LayOrderedExplanationDatasource.h"
+#import "LayRandomExplanationDataSource.h"
+
 #import "Catalog+Utilities.h"
 
 #import "MWLogging.h"
@@ -30,10 +32,13 @@
 
 -(LayExplanationLearnSession*)sessionWith:(Catalog*)catalog andOrder:(ExplanationSessionOrder)order considerTopicSelection:(BOOL)considerTopicSelection {
     id<LayExplanationDatasource> datasource = nil;
-    if(order==EXPLANATION_ORDERED_BY_NUMBER) {
+    if(order==EXPLANATION_ORDER_BY_NUMBER) {
         datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:considerTopicSelection];
         MWLogDebug([LayExplanationLearnSessionManager class], @"Use ordered session to learn.");
-    } 
+    } else if( order == EXPLANATION_ORDER_RANDOM ) {
+        datasource = [[LayRandomExplanationDataSource alloc]initWithCatalog:catalog considerTopicSelection:considerTopicSelection];
+        MWLogDebug([LayExplanationLearnSessionManager class], @"Use random session to learn.");
+    }
     
     LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc] initWithDatasource:datasource];
     return session;

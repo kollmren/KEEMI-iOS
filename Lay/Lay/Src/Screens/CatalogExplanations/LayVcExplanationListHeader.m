@@ -97,9 +97,9 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
 
 -(void)updateLabel {
     Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
-    const NSUInteger numberOfFavourites = [catalog numberOfFavourites];
+    const NSUInteger numberOfExplanations = [catalog numberOfExplanations];
     NSString *numberOfItemsLabel = NSLocalizedString(@"CatalogNumberOfExplanations", nil);
-    NSString *textToShow = [NSString stringWithFormat:numberOfItemsLabel, numberOfFavourites];
+    NSString *textToShow = [NSString stringWithFormat:numberOfItemsLabel, numberOfExplanations];
     summaryLabel.text = textToShow;
     [summaryLabel sizeToFit];
 }
