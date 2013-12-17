@@ -206,29 +206,17 @@
         <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="resourceRef" inverseEntity="Question" syncable="YES"/>
         <relationship name="tagRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="resourceRef" inverseEntity="Tag" syncable="YES"/>
     </entity>
-    <entity name="SearchStopWordList" syncable="YES">
-        <attribute name="languageId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="word" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-    </entity>
     <entity name="SearchWord" syncable="YES">
-        <attribute name="contextAfter" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="contextBefore" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="languageId" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="word" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="searchWordRelation" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SearchWordRelation" inverseName="searchWord" inverseEntity="SearchWordRelation" syncable="YES"/>
     </entity>
     <entity name="SearchWordRelation" syncable="YES">
-        <attribute name="catalogID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="catalogIDString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="explanationID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="explanationIDString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="noteID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="noteIDString" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="questionID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="questionIDString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="resourceID" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="resourceIDString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogURI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="explanationURI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="noteURI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="questionURI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="resourceURI" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="searchWord" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SearchWord" inverseName="searchWordRelation" inverseEntity="SearchWord" syncable="YES"/>
     </entity>
@@ -322,7 +310,6 @@
         <element name="Publisher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="SearchStopWordList" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SearchWord" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SearchWordRelation" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Section" positionX="0" positionY="0" width="0" height="0"/>

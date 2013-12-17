@@ -38,6 +38,7 @@
 		A7238BBF17B281E70075E90B /* LayVcFavouriteListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7238BBB17B281E70075E90B /* LayVcFavouriteListHeader.xib */; };
 		A7271573178AA2AC00616A46 /* LayIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A7271572178AA2AC00616A46 /* LayIconButton.m */; };
 		A727CFE51786C9800097D721 /* LayAnswerViewCard.m in Sources */ = {isa = PBXBuildFile; fileRef = A727CFE41786C9800097D721 /* LayAnswerViewCard.m */; };
+		A72898621860513700B98814 /* LayVcSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72898611860513700B98814 /* LayVcSearchViewController.m */; };
 		A72AABAC17C20254001C56A4 /* LaySectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A72AABAB17C20254001C56A4 /* LaySectionView.m */; };
 		A72AABAE17C22BAD001C56A4 /* Section+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A72AABAD17C22BAD001C56A4 /* Section+Utilities.m */; };
 		A72AABB117C22FB1001C56A4 /* LayExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A72AABB017C22FB1001C56A4 /* LayExplanationView.m */; };
@@ -196,6 +197,8 @@
 		A7271572178AA2AC00616A46 /* LayIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayIconButton.m; sourceTree = "<group>"; };
 		A727CFE31786C9800097D721 /* LayAnswerViewCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewCard.h; sourceTree = "<group>"; };
 		A727CFE41786C9800097D721 /* LayAnswerViewCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewCard.m; sourceTree = "<group>"; };
+		A72898601860513700B98814 /* LayVcSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcSearchViewController.h; sourceTree = "<group>"; };
+		A72898611860513700B98814 /* LayVcSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayVcSearchViewController.m; sourceTree = "<group>"; };
 		A728B5E71782ECA40033FE7B /* LayStatisticListHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayStatisticListHeader.h; path = Statistic/LayStatisticListHeader.h; sourceTree = "<group>"; };
 		A72AABAA17C20254001C56A4 /* LaySectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaySectionView.h; sourceTree = "<group>"; };
 		A72AABAB17C20254001C56A4 /* LaySectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaySectionView.m; sourceTree = "<group>"; };
@@ -678,6 +681,8 @@
 				A77AE1191700433E00C119AB /* LayVcCatalogList.xib */,
 				A77AE11A1700433E00C119AB /* LayVcCatalogListHeader.m */,
 				A77AE11B1700433E00C119AB /* LayVcCatalogListHeader.xib */,
+				A72898601860513700B98814 /* LayVcSearchViewController.h */,
+				A72898611860513700B98814 /* LayVcSearchViewController.m */,
 			);
 			path = Catalog;
 			sourceTree = "<group>";
@@ -1026,6 +1031,7 @@
 				A77AE1331700433E00C119AB /* LayVcNavigation.m in Sources */,
 				A77AE1341700433E00C119AB /* LayVcNavigationBar.m in Sources */,
 				A77AE1351700433E00C119AB /* LayVcQuestion.m in Sources */,
+				A72898621860513700B98814 /* LayVcSearchViewController.m in Sources */,
 				A77AE22217004E8E00C119AB /* LayAnswerButton.m in Sources */,
 				A77AE22317004E8E00C119AB /* LayAnswerViewChoice.m in Sources */,
 				A77AE22417004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m in Sources */,

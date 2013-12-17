@@ -61,6 +61,12 @@ delegate;
     [self->viewController navigationItem].hidesBackButton = YES;
     
     NSMutableArray *navigationButtonItemList = [NSMutableArray arrayWithCapacity:NUMBER_OF_POSSIBLE_BUTTONS_IN_NAVIGATION_BAR];
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                       target:nil action:nil];
+    negativeSpacer.width = -16;
+    [navigationButtonItemList addObject:negativeSpacer];
+    
     if(self.queryButtonInNavigationBar) {
         UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_QUESTION];
         [button addTarget:self action:@selector(queryPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -96,8 +102,7 @@ delegate;
         [navigationButtonItemList addObject:buttonItem];
     }
     
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    [navigationButtonItemList addObject:buttonItem];
+    /*UIBarButtonItem *buttonItemSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];*/
     [[self->viewController navigationItem] setRightBarButtonItems:navigationButtonItemList animated:YES];
     
     // items shown left
@@ -113,7 +118,7 @@ delegate;
         UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_BACK];
         [button addTarget:self action:@selector(backToPreviousUiController) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-        [self->viewController navigationItem].leftBarButtonItem = buttonItem;
+        [self->viewController navigationItem].leftBarButtonItems = @[negativeSpacer, buttonItem];
     }
 }
 
@@ -210,44 +215,27 @@ delegate;
 }
 
 -(void)search {
-    if(self.delegate) [self.delegate searchStarted];
     // setup search-bar
     UIViewController *vc = self->viewController;
-    [[vc navigationItem] setTitle:nil];
+    [[vc navigationItem] setTitleView:nil];
     [vc navigationItem].rightBarButtonItems = nil;
     [vc navigationItem].leftBarButtonItems = nil;
     UINavigationBar* navBar = vc.navigationController.navigationBar;
-    CGRect navBarRect = navBar.frame;
+    const CGRect navBarRect = CGRectMake(0.0f, 0.0f, navBar.frame.size.width, navBar.frame.size.height);
     UISearchBar* searchBar = [[UISearchBar alloc]initWithFrame:navBarRect];
     searchBar.delegate = self;
-    searchBar.tintColor = [UIColor clearColor];
-    [searchBar becomeFirstResponder];
-    for (UIView * v in [searchBar  subviews]) {
-        if (![v isKindOfClass:[UITextField class]]) {
-            v.alpha = 0;
-        }
-    }
-    [[vc navigationItem] setTitleView:searchBar];
-    // show disable overlay
-    CGRect viewControllerViewFrame = self->viewController.view.frame;
-    self->disableViewOverlay = [CALayer layer];
-    self->disableViewOverlay.frame = viewControllerViewFrame;
-    self->disableViewOverlay.backgroundColor = [UIColor blackColor].CGColor;
-    [vc.view.layer addSublayer:self->disableViewOverlay];
-    CABasicAnimation *animation = [CABasicAnimation
-                                   animationWithKeyPath:@"opacity"];
-    [animation setFromValue:[NSNumber numberWithFloat:0.0f]];
-    const CGFloat OPACITY = 0.6f;
-    [animation setToValue:[NSNumber numberWithFloat:OPACITY]];
-    [animation setDuration:0.4];
-    [CATransaction begin];
-    [self->disableViewOverlay addAnimation:animation forKey:@"Fade"];
-    [CATransaction setCompletionBlock:^(void)
-     {
-         self->disableViewOverlay.opacity = OPACITY;
-         [self->disableViewOverlay setNeedsDisplay];
-     }];
-    [CATransaction commit];
+    searchBar.showsCancelButton = YES;
+    
+    UIView *searchBarContainer = [[UIView alloc]initWithFrame:[searchBar bounds]];
+    [searchBarContainer addSubview:searchBar];
+    //[[vc navigationItem] setTitleView:searchBarContainer];
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc]initWithCustomView:searchBar];
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                       target:nil action:nil];
+    negativeSpacer.width = -16;
+    [[vc navigationItem] setLeftBarButtonItems:@[negativeSpacer, searchItem] animated:YES];
+    if(self.delegate) [self.delegate didShowSearchBar:searchBar];
 }
 
 -(void)backToPreviousUiController {
@@ -258,17 +246,6 @@ delegate;
 //
 // implement UISearchBarDelegate
 //
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    [searchBar setShowsCancelButton:YES animated:YES];
-    for (UIView * v in [searchBar  subviews]) {
-        if([v isKindOfClass:[UIButton class]]) {
-            UIButton *b = (UIButton*)v;
-            [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-    }
-
-}
-
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     if(self.delegate) [self.delegate searchFinished];
     searchBar.text=@"";

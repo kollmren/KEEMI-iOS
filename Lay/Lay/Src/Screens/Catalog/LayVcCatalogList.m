@@ -22,6 +22,7 @@
 #import "LaySectionMenu.h"
 #import "LayTableSectionView.h"
 #import "LayConstants.h"
+#import "LayVcSearchViewController.h"
 
 #import "LayVcQuestion.h"
 #import "LayVcStatisticList.h"
@@ -93,6 +94,7 @@ static Class g_classObj = nil;
     self.tableView.tableHeaderView = vcHeader.view;
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
     self->navBarViewController.backButtonInNavigationBar = YES;
+    self->navBarViewController.searchButtonInNavigationBar = YES;
     Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
     UIImage *logoPublisher = [catalog publisherLogo];
     if(logoPublisher) {
@@ -365,9 +367,12 @@ static Class g_classObj = nil;
 //
 // LayVcNavigationBarDelegate
 //
--(void) searchStarted {
-    self.tableView.allowsSelection = NO;
-    self.tableView.scrollEnabled = NO;
+-(void) didShowSearchBar:(UISearchBar*)searchBar {
+    UISearchDisplayController* searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:searchBar contentsController:self];
+    searchDisplayController.displaysSearchBarInNavigationBar = YES;
+    //[[self navigationController].navigationBar pushNavigationItem:searchDisplayController.navigationItem animated:YES];
+    //[[self navigationController].navigationBar setItems:@[searchDisplayController.navigationItem] animated:YES];
+    [searchDisplayController setActive:YES animated:YES];
 }
 
 -(void) searchFinished {

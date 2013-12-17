@@ -114,7 +114,7 @@ NSString *const LayIconResourcePath = @"Icons/";
             image = [LayImage imageNamed:@"02-arrow-east.png"];
             break;
         case LAY_IMAGE_SEARCH:
-            image = [LayImage imageNamed:@"06-magnify.png"];
+            image = [LayImage imageNamed:@"708-search.png"];
             break;
         case LAY_IMAGE_TOOLBAR_TOOLS:
             image = [LayImage imageNamed:@"769-male.png"];
