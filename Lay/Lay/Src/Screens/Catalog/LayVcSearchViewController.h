@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LayVcSearchViewController : UITableViewController
+#import "LayVcNavigationBarDelegate.h"
+
+@interface LayVcSearchViewController : UITableViewController<UISearchDisplayDelegate, UISearchBarDelegate, LayVcNavigationBarDelegate>
 
 @end

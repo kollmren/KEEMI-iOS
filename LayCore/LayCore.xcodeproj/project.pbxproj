@@ -105,6 +105,10 @@
 		A741140B16EA18AC00626DCF /* LayMainDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A741140516EA18AC00626DCF /* LayMainDataStore.m */; };
 		A741140E16EA194000626DCF /* LayDataModel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = A741140C16EA194000626DCF /* LayDataModel.xcdatamodeld */; };
 		A741142C16EA320000626DCF /* LayQuestionQuerySessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A741141F16EA31FF00626DCF /* LayQuestionQuerySessionManager.m */; };
+		A74252B51861CF5700167B27 /* SearchWordRelation.m in Sources */ = {isa = PBXBuildFile; fileRef = A74252B41861CF5700167B27 /* SearchWordRelation.m */; };
+		A74252B81861CF5700167B27 /* SearchWord.m in Sources */ = {isa = PBXBuildFile; fileRef = A74252B71861CF5700167B27 /* SearchWord.m */; };
+		A74252BB1861CFBA00167B27 /* SearchWord+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A74252BA1861CFBA00167B27 /* SearchWord+Utilities.m */; };
+		A74252BE1861CFCF00167B27 /* SearchWordRelation+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A74252BD1861CFCF00167B27 /* SearchWordRelation+Utilities.m */; };
 		A7433211173EB4530036E7A1 /* LayCatalogValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7433210173EB4530036E7A1 /* LayCatalogValidator.m */; };
 		A7471DC816569FBC000A8467 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A77C7D44165412110041382B /* CoreData.framework */; };
 		A7474F6D17BBBD0C00B334CD /* UGCNote+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7474F6C17BBBD0C00B334CD /* UGCNote+Utilities.m */; };
@@ -361,6 +365,14 @@
 		A741141F16EA31FF00626DCF /* LayQuestionQuerySessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LayQuestionQuerySessionManager.m; path = LayCore/Domain/LayQuestionQuerySessionManager.m; sourceTree = "<group>"; };
 		A741142016EA31FF00626DCF /* LayRandomLeitnerDatasource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LayRandomLeitnerDatasource.h; path = LayCore/Domain/LayRandomLeitnerDatasource.h; sourceTree = "<group>"; };
 		A741142116EA320000626DCF /* LayRandomLeitnerDatasource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = LayRandomLeitnerDatasource.m; path = LayCore/Domain/LayRandomLeitnerDatasource.m; sourceTree = "<group>"; };
+		A74252B31861CF5700167B27 /* SearchWordRelation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchWordRelation.h; path = LayCore/Model/SearchWordRelation.h; sourceTree = "<group>"; };
+		A74252B41861CF5700167B27 /* SearchWordRelation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchWordRelation.m; path = LayCore/Model/SearchWordRelation.m; sourceTree = "<group>"; };
+		A74252B61861CF5700167B27 /* SearchWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchWord.h; path = LayCore/Model/SearchWord.h; sourceTree = "<group>"; };
+		A74252B71861CF5700167B27 /* SearchWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchWord.m; path = LayCore/Model/SearchWord.m; sourceTree = "<group>"; };
+		A74252B91861CFBA00167B27 /* SearchWord+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SearchWord+Utilities.h"; path = "LayCore/Model/SearchWord+Utilities.h"; sourceTree = "<group>"; };
+		A74252BA1861CFBA00167B27 /* SearchWord+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SearchWord+Utilities.m"; path = "LayCore/Model/SearchWord+Utilities.m"; sourceTree = "<group>"; };
+		A74252BC1861CFCF00167B27 /* SearchWordRelation+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SearchWordRelation+Utilities.h"; path = "LayCore/Model/SearchWordRelation+Utilities.h"; sourceTree = "<group>"; };
+		A74252BD1861CFCF00167B27 /* SearchWordRelation+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SearchWordRelation+Utilities.m"; path = "LayCore/Model/SearchWordRelation+Utilities.m"; sourceTree = "<group>"; };
 		A743320F173EB4530036E7A1 /* LayCatalogValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogValidator.h; path = LayCore/Import/LayCatalogValidator.h; sourceTree = "<group>"; };
 		A7433210173EB4530036E7A1 /* LayCatalogValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogValidator.m; path = LayCore/Import/LayCatalogValidator.m; sourceTree = "<group>"; };
 		A7474F6B17BBBD0C00B334CD /* UGCNote+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UGCNote+Utilities.h"; path = "LayCore/Model/UserGeneratedContent/UGCNote+Utilities.h"; sourceTree = "<group>"; };
@@ -634,6 +646,14 @@
 		A74557131762481A005D792B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A74252B61861CF5700167B27 /* SearchWord.h */,
+				A74252B91861CFBA00167B27 /* SearchWord+Utilities.h */,
+				A74252BA1861CFBA00167B27 /* SearchWord+Utilities.m */,
+				A74252BC1861CFCF00167B27 /* SearchWordRelation+Utilities.h */,
+				A74252BD1861CFCF00167B27 /* SearchWordRelation+Utilities.m */,
+				A74252B71861CF5700167B27 /* SearchWord.m */,
+				A74252B31861CF5700167B27 /* SearchWordRelation.h */,
+				A74252B41861CF5700167B27 /* SearchWordRelation.m */,
 				A723997A18508934001DE4CC /* Introduction.h */,
 				A723997B18508934001DE4CC /* Introduction.m */,
 				A73A08E5184DD4C300350D4B /* SectionQuestion.h */,
@@ -1031,6 +1051,7 @@
 				A7C01FC7173BF0BB004D6E2B /* unzip.c in Sources */,
 				A7C01FC8173BF0BB004D6E2B /* zip.c in Sources */,
 				A7C01FC9173BF0BB004D6E2B /* ZipArchive.mm in Sources */,
+				A74252BB1861CFBA00167B27 /* SearchWord+Utilities.m in Sources */,
 				A7433211173EB4530036E7A1 /* LayCatalogValidator.m in Sources */,
 				A7577AD4174A5D4100E941F7 /* LayPair.m in Sources */,
 				A71D3302174D04D20091922F /* LayDataModel.xcdatamodeld in Sources */,
@@ -1056,6 +1077,7 @@
 				A73E61A31779AAB100AB3EB6 /* LayUserDataStore .m in Sources */,
 				A73E61A61779AC3500AB3EB6 /* UGCCatalog+Utilities.m in Sources */,
 				A73E61A91779AD6100AB3EB6 /* LayUserDataStoreConfiguration.m in Sources */,
+				A74252B51861CF5700167B27 /* SearchWordRelation.m in Sources */,
 				A73F438B17817CC200A821D1 /* UGCQuestion+Utilities.m in Sources */,
 				A73F43A2178196E800A821D1 /* UGCCase5.m in Sources */,
 				A73F43A5178196E800A821D1 /* UGCCase4.m in Sources */,
@@ -1082,8 +1104,10 @@
 				A71A810517BE3D5100486BE4 /* Explanation.m in Sources */,
 				A71A812917BE407E00486BE4 /* Section+Utilities.m in Sources */,
 				A71A813B17BE43A200486BE4 /* SectionMedia.m in Sources */,
+				A74252BE1861CFCF00167B27 /* SearchWordRelation+Utilities.m in Sources */,
 				A71A814417BE43A300486BE4 /* SectionText.m in Sources */,
 				A71A814D17BE453900486BE4 /* Section.m in Sources */,
+				A74252B81861CF5700167B27 /* SearchWord.m in Sources */,
 				A71A815617BE518400486BE4 /* Media.m in Sources */,
 				A71AA3A817C2640100B6D921 /* About.m in Sources */,
 				A71AA3AB17C2652200B6D921 /* About+Utilities.m in Sources */,

@@ -367,12 +367,13 @@ static Class g_classObj = nil;
 //
 // LayVcNavigationBarDelegate
 //
--(void) didShowSearchBar:(UISearchBar*)searchBar {
-    UISearchDisplayController* searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:searchBar contentsController:self];
-    searchDisplayController.displaysSearchBarInNavigationBar = YES;
-    //[[self navigationController].navigationBar pushNavigationItem:searchDisplayController.navigationItem animated:YES];
-    //[[self navigationController].navigationBar setItems:@[searchDisplayController.navigationItem] animated:YES];
-    [searchDisplayController setActive:YES animated:YES];
+-(void) searchIconPressed {
+    LayVcSearchViewController *searchViewController = [LayVcSearchViewController new];
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:searchViewController];
+    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+    [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 -(void) searchFinished {

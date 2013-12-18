@@ -110,7 +110,7 @@ delegate;
         UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_CANCEL];
         [button addTarget:self action:@selector(cancelPressed) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-        [self->viewController navigationItem].leftBarButtonItems = [NSArray arrayWithObject:buttonItem];
+        [self->viewController navigationItem].leftBarButtonItems = @[negativeSpacer, buttonItem];
     }
 
         
@@ -215,27 +215,7 @@ delegate;
 }
 
 -(void)search {
-    // setup search-bar
-    UIViewController *vc = self->viewController;
-    [[vc navigationItem] setTitleView:nil];
-    [vc navigationItem].rightBarButtonItems = nil;
-    [vc navigationItem].leftBarButtonItems = nil;
-    UINavigationBar* navBar = vc.navigationController.navigationBar;
-    const CGRect navBarRect = CGRectMake(0.0f, 0.0f, navBar.frame.size.width, navBar.frame.size.height);
-    UISearchBar* searchBar = [[UISearchBar alloc]initWithFrame:navBarRect];
-    searchBar.delegate = self;
-    searchBar.showsCancelButton = YES;
-    
-    UIView *searchBarContainer = [[UIView alloc]initWithFrame:[searchBar bounds]];
-    [searchBarContainer addSubview:searchBar];
-    //[[vc navigationItem] setTitleView:searchBarContainer];
-    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc]initWithCustomView:searchBar];
-    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
-                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
-                                       target:nil action:nil];
-    negativeSpacer.width = -16;
-    [[vc navigationItem] setLeftBarButtonItems:@[negativeSpacer, searchItem] animated:YES];
-    if(self.delegate) [self.delegate didShowSearchBar:searchBar];
+    if(self.delegate) [self.delegate searchIconPressed];
 }
 
 -(void)backToPreviousUiController {

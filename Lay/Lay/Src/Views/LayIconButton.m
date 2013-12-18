@@ -19,7 +19,6 @@ static const NSInteger g_LAY_BUTTON_IMAGE_IDENTIFIER = 103;
 
 +(UIButton*) buttonWithId:(LayButtonId)buttonIdentifier {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.backgroundColor = [UIColor redColor];
     button.showsTouchWhenHighlighted = YES;
     CGRect buttonFrame = button.frame;
     buttonFrame.size = [[LayStyleGuide instanceOf:nil] buttonSize];

@@ -11,7 +11,7 @@
 @protocol LayVcNavigationBarDelegate <NSObject>
 
 @optional
--(void) didShowSearchBar:(UISearchBar*)searchBar;
+-(void) searchIconPressed;
 -(void) searchFinished;
 -(void) cancelPressed;
 -(void) learnPressed;
