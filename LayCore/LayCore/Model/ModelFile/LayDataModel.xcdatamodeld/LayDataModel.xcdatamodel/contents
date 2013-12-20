@@ -79,6 +79,7 @@
         <relationship name="publisherRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Publisher" inverseName="catalogRef" inverseEntity="Publisher" syncable="YES"/>
         <relationship name="questionRef" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Question" inverseName="catalogRef" inverseEntity="Question" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="catalogRef" inverseEntity="Resource" syncable="YES"/>
+        <relationship name="searchWordRelationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SearchWordRelation" inverseName="catalogRef" inverseEntity="SearchWordRelation" syncable="YES"/>
         <relationship name="sectionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="catalogRef" inverseEntity="Section" syncable="YES"/>
         <relationship name="topicRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Topic" inverseName="catalogRef" inverseEntity="Topic" syncable="YES"/>
     </entity>
@@ -216,10 +217,11 @@
     </entity>
     <entity name="SearchWordRelation" representedClassName="SearchWordRelation" syncable="YES">
         <attribute name="catalogURI" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="explanationRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Explanation" inverseName="searchWordRelationRef" inverseEntity="Explanation" syncable="YES"/>
-        <relationship name="questionRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="searchWordRelationRef" inverseEntity="Question" syncable="YES"/>
-        <relationship name="resourceRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Resource" inverseName="searchWordRelationRef" inverseEntity="Resource" syncable="YES"/>
-        <relationship name="searchWordRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SearchWord" inverseName="searchWordRelation" inverseEntity="SearchWord" syncable="YES"/>
+        <relationship name="catalogRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="searchWordRelationRef" inverseEntity="Catalog" syncable="YES"/>
+        <relationship name="explanationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Explanation" inverseName="searchWordRelationRef" inverseEntity="Explanation" syncable="YES"/>
+        <relationship name="questionRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="searchWordRelationRef" inverseEntity="Question" syncable="YES"/>
+        <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Resource" inverseName="searchWordRelationRef" inverseEntity="Resource" syncable="YES"/>
+        <relationship name="searchWordRef" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchWord" inverseName="searchWordRelation" inverseEntity="SearchWord" syncable="YES"/>
     </entity>
     <entity name="Section" representedClassName="Section" syncable="YES">
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>

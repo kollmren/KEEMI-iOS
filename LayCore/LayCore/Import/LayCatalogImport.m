@@ -12,6 +12,7 @@
 #import "LayMainDataStore.h"
 #import "LayDataStoreUtilities.h"
 #import "LayDataStoreConfiguration.h"
+#import "LayTextSearchSetup.h"
 #import "LayUserDataStore.h"
 #import "LayError.h"
 #import "Catalog+Utilities.h"
@@ -123,20 +124,31 @@ static Class _classObj = nil;
                 if(!imported) {
                     [self deleteTemporarySavedCatalog:importCatalog];
                 } else {
-                    // Create thumbnails
-                    MWLogDebug(_classObj,@"Create thumbnails for catalog.");
-                    [NSThread sleepForTimeInterval:1.5];
-                    if(stateDelegate) {
-                        [stateDelegate startingNextProgressPartWithIdentifier:LayCatalogImportProgressPartIdentifierCreatingThumbnails];
+                    // Setup text for search
+                     MWLogDebug(_classObj,@"Prepare text for search.");
+                    [self setupTextSearchForQuestionSet:importCatalog.questionRef];
+                    imported = [importStore saveChanges];
+                    if(imported) {
+                        MWLogDebug(_classObj, @"Saved searchable text!");
+                    } else {
+                        [self deleteTemporarySavedCatalog:importCatalog];
+                        MWLogError(_classObj, @"Could not save searchable text!");
                     }
-                    NSUInteger numberOfCreatedThumbnails = [LayDataStoreUtilities createThumbnailsForImagesInCatalog:importCatalog withStateDelegate:stateDelegate];
-                    if(numberOfCreatedThumbnails > 0) {
-                        imported = [importStore saveChanges];
-                        if(imported) {
-                             MWLogDebug(_classObj, @"Saved created thumbnails!", titleOfCatalog);
-                        } else {
-                            [self deleteTemporarySavedCatalog:importCatalog];
-                            MWLogError(_classObj, @"Could not save created thumbnails!", titleOfCatalog);
+                    // Create thumbnails
+                    if( imported ) {
+                        MWLogDebug(_classObj,@"Create thumbnails for catalog.");
+                        if(stateDelegate) {
+                            [stateDelegate startingNextProgressPartWithIdentifier:LayCatalogImportProgressPartIdentifierCreatingThumbnails];
+                        }
+                        NSUInteger numberOfCreatedThumbnails = [LayDataStoreUtilities createThumbnailsForImagesInCatalog:importCatalog withStateDelegate:stateDelegate];
+                        if(numberOfCreatedThumbnails > 0) {
+                            imported = [importStore saveChanges];
+                            if(imported) {
+                                MWLogDebug(_classObj, @"Saved created thumbnails!");
+                            } else {
+                                [self deleteTemporarySavedCatalog:importCatalog];
+                                MWLogError(_classObj, @"Could not save created thumbnails!");
+                            }
                         }
                     }
                 }
@@ -193,6 +205,12 @@ static Class _classObj = nil;
     if(uCatalog) {
         MWLogDebug(_classObj, @"Sync user-data for catalog with title:%@", titleOfCatalog);
         [uCatalog syncUserQuestionState:[catalog questionListSortedByNumber]];
+    }
+}
+
+-(void)setupTextSearchForQuestionSet:(NSSet*)questionSet {
+    for (Question *question in questionSet) {
+        [LayTextSearchSetup setupTextSearchForQuestion:question];
     }
 }
 

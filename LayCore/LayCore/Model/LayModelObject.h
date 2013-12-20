@@ -24,7 +24,9 @@ enum LayModelObject_ {
     LayTopic,
     LayResource,
     LayAbout,
-    LayThumbnail
+    LayThumbnail,
+    LaySearchWordRelation,
+    LaySearchWord
 };
 
 typedef enum LayModelObject_ LayModelObject;

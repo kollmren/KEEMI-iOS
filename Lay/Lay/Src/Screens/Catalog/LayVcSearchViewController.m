@@ -12,6 +12,7 @@
 #import "LayCatalogManager.h"
 #import "LayStyleGuide.h"
 #import "LayMainDataStore.h"
+#import "LayAbstractCell.h"
 
 #import "Catalog+Utilities.h"
 #import "SearchWordRelation+Utilities.h"
@@ -79,6 +80,8 @@ static Class g_classObj = nil;
     searchBar.delegate = self;
     // UISearchController
     self->searchDisplayController = [[UISearchDisplayController alloc]initWithSearchBar:searchBar contentsController:self];
+    self->searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self->searchDisplayController.searchResultsTableView.separatorColor = [UIColor clearColor];
     //self->searchDisplayController .displaysSearchBarInNavigationBar = YES;
     self->searchDisplayController .delegate = self;
     self->searchDisplayController.searchResultsDataSource = self;
@@ -102,10 +105,10 @@ static Class g_classObj = nil;
 
 -(void) showCatalogInfoAsBackground {
     const CGFloat heightOfStatusBar = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    const CGFloat yPos = self.navigationController.navigationBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height + heightOfStatusBar + 15.0f;
+    const CGFloat yPos = self.navigationController.navigationBar.frame.size.height + self.searchDisplayController.searchBar.frame.size.height + heightOfStatusBar + 30.0f;
     Catalog *currentSelectedCatalog = [LayCatalogManager instance].currentSelectedCatalog;
     LayCatalogDetails* catalogDetails = [[LayCatalogDetails alloc]initWithCatalog:currentSelectedCatalog andPositionY:yPos];
-    //catalogDetails.alpha = 0.7f;
+    catalogDetails.alpha = 0.5f;
     catalogDetails.showDetailTable = NO;
     [self.tableView setBackgroundView:catalogDetails];
 }
@@ -118,8 +121,11 @@ static Class g_classObj = nil;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 0;
+    NSInteger numberOfSections = 0;
+    if( self->searchResultsFetchedController ) {
+        numberOfSections = 1;
+    }
+    return numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -134,14 +140,23 @@ static Class g_classObj = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    LayAbstractCell *abstractCell = [[LayAbstractCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if(self->searchResultsFetchedController ) {
         Question *question = [self->searchResultsFetchedController objectAtIndexPath:indexPath];
+        abstractCell.question = question;
     }
     
-    return cell;
+    return abstractCell;
+}
+
+#pragma mark - Table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat cellHeight = 0.0f;
+    if(self->searchResultsFetchedController ) {
+        Question *question = [self->searchResultsFetchedController objectAtIndexPath:indexPath];
+        cellHeight = [LayAbstractCell heightForQuestion:question];
+    }
+    return cellHeight;
 }
 
 #pragma mark UISearchDisplayDelegate
@@ -185,12 +200,13 @@ static Class g_classObj = nil;
     searchString = [searchString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSArray *stringComponents = [searchString componentsSeparatedByString:@" "];
     // TODO: That results in a question search first!! Would it be better to search for words at first?
-    NSString *predicateFormat = @"searchWordRef.word CONTAINS[c] %@";
+    NSString *wildcardedString = [NSString stringWithFormat:@"%@*", searchString];
+    NSString *predicateFormat = @"ANY searchWordRef.word like[c] %@";
     NSPredicate *predicate = nil;
     if( [stringComponents count] > 1 )
         predicate = [self predicateForSearchComponents:stringComponents withFormat:predicateFormat];
     else
-        predicate = [NSPredicate predicateWithFormat:predicateFormat, searchString];
+        predicate = [NSPredicate predicateWithFormat:predicateFormat, wildcardedString];
     
     return predicate;
 }
@@ -198,9 +214,11 @@ static Class g_classObj = nil;
 - (NSPredicate *)predicateForSearchComponents:(NSArray *)stringComponents withFormat:(NSString*)format {
     if( [stringComponents count] < 1 ) return nil;
     
+    //NSString *predicateFormat = @"searchWordRef.word like[c] %@";
     NSMutableArray *wordMatchPredicateList = [NSMutableArray arrayWithCapacity:[stringComponents count]];
     for (NSString* searchWord in stringComponents) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:format, searchWord];
+        NSString *wildcardedString = [NSString stringWithFormat:@"%@*", searchWord];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:format, wildcardedString];
         [wordMatchPredicateList addObject:predicate];
     }
 
@@ -217,8 +235,7 @@ static Class g_classObj = nil;
     [fetchRequest setEntity:entity];
     //
     Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
-    NSString *catalogURI = [[[catalog objectID] URIRepresentation] path];
-    NSPredicate *predicateLimitsToCatalog = [NSPredicate predicateWithFormat:@"catalogURI = %@", catalogURI];
+    NSPredicate *predicateLimitsToCatalog = [NSPredicate predicateWithFormat:@"catalogRef = %@", catalog];
     NSPredicate *finalSearchPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateLimitsToCatalog, searchWordsPredicate]];
     [fetchRequest setPredicate:finalSearchPredicate];
     NSError *error;
@@ -230,27 +247,36 @@ static Class g_classObj = nil;
 }
 
 - (NSFetchedResultsController *)fetchedResultsControllerForSearchObject:(LaySearchObject)searchObj andSearchWordRelationList:(NSArray*)searchWordRelationist {
+    NSFetchedResultsController *fetchResultController = nil;
     //
-    NSMutableArray *searchWordRelationPredicateList = [NSMutableArray arrayWithCapacity:[searchWordRelationist count]];
-    for (SearchWordRelation* searchWordRelation in searchWordRelationist) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"searchWordRelationRef = %@", searchWordRelation];
-        [searchWordRelationPredicateList addObject:predicate];
+    if( [searchWordRelationist count] > 0) {
+        
+        /*NSMutableArray *searchWordRelationPredicateList = [NSMutableArray arrayWithCapacity:[searchWordRelationist count]];
+        for (SearchWordRelation* searchWordRelation in searchWordRelationist) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY searchWordRelationRef = %@", searchWordRelation];
+            [searchWordRelationPredicateList addObject:predicate];
+        }
+        NSPredicate *searchWordRelationPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:searchWordRelationPredicateList];*/
+        
+        NSPredicate *searchWordRelationPredicate = [NSPredicate predicateWithFormat:@"ANY searchWordRelationRef IN %@", searchWordRelationist];
+        //
+        LayMainDataStore *mainStore = [LayMainDataStore store];
+        NSManagedObjectContext *managedObjectContext = [mainStore managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:[NSEntityDescription entityForName:@"Question" inManagedObjectContext:managedObjectContext]];
+        [request setPredicate:searchWordRelationPredicate];
+        NSSortDescriptor *numberSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
+        [request setSortDescriptors:[NSArray arrayWithObjects:numberSortDescriptor, nil]];
+        
+        fetchResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+        
+        NSError *error = nil;
+        BOOL success = [fetchResultController performFetch:&error];
+        if( !success ) {
+            MWLogError(g_classObj, @"Could not search within questions! Details:%@", [error description]);
+            fetchResultController = nil;
+        }
     }
-    NSPredicate *searchWordRelationPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:searchWordRelationPredicateList];
-    //
-    LayMainDataStore *mainStore = [LayMainDataStore store];
-    NSManagedObjectContext *managedObjectContext = [mainStore managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"Question" inManagedObjectContext:managedObjectContext]];
-    Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
-    NSPredicate *predicateLimitToCatalog = [NSPredicate predicateWithFormat:@"catalogRef = %@", catalog];
-    NSPredicate *finalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateLimitToCatalog,searchWordRelationPredicate]];
-    [request setPredicate:finalPredicate];
-    NSSortDescriptor *numberSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:YES];
-    [request setSortDescriptors:[NSArray arrayWithObjects:numberSortDescriptor, nil]];
-    
-    NSFetchedResultsController *fetchResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-
     return fetchResultController;
 }
 

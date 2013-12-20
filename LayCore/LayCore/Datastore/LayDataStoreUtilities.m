@@ -100,6 +100,16 @@ static Class g_classObj = nil;
             domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"Thumbnail"
                                                          inManagedObjectContext:managedObjectContext];
             break;
+            
+        case LaySearchWord:
+            domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"SearchWord"
+                                                         inManagedObjectContext:managedObjectContext];
+            break;
+            
+        case LaySearchWordRelation:
+            domainObject = [NSEntityDescription insertNewObjectForEntityForName:@"SearchWordRelation"
+                                                         inManagedObjectContext:managedObjectContext];
+            break;
 
         default:
             MWLogError(g_classObj, @"!!!! Identifier:%d has no mapping !!!!", identifier);

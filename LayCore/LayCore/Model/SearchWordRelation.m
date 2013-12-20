@@ -20,5 +20,6 @@
 @dynamic questionRef;
 @dynamic explanationRef;
 @dynamic resourceRef;
+@dynamic catalogRef;
 
 @end

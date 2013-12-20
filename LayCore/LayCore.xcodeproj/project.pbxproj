@@ -46,6 +46,8 @@
 		A7239980185093F4001DE4CC /* Introduction+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A723997E18509395001DE4CC /* Introduction+Utilities.m */; };
 		A727CFD91786A5420097D721 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = A727CFD81786A5420097D721 /* Answer.m */; };
 		A729CDA6185F92F4002BF2D4 /* LayRandomExplanationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */; };
+		A72A12C518638B220079AEA5 /* LayTokenizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A72A12C418638B220079AEA5 /* LayTokenizer.m */; };
+		A72A12C818638EE00079AEA5 /* LayTextSearchSetup.m in Sources */ = {isa = PBXBuildFile; fileRef = A72A12C718638EE00079AEA5 /* LayTextSearchSetup.m */; };
 		A72D0B7516BFD78E000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = A72D0B7316BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m */; };
 		A732D0D617D71B6B009BAE41 /* Thumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = A732D0D517D71B6B009BAE41 /* Thumbnail.m */; };
 		A733D88B17B4CF8300BDEDCD /* UGCResource.m in Sources */ = {isa = PBXBuildFile; fileRef = A733D88A17B4CF8300BDEDCD /* UGCResource.m */; };
@@ -234,6 +236,10 @@
 		A727CFD81786A5420097D721 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Answer.m; path = LayCore/Model/Answer.m; sourceTree = "<group>"; };
 		A729CDA4185F92F4002BF2D4 /* LayRandomExplanationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayRandomExplanationDataSource.h; path = LayCore/Domain/LayRandomExplanationDataSource.h; sourceTree = "<group>"; };
 		A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayRandomExplanationDataSource.m; path = LayCore/Domain/LayRandomExplanationDataSource.m; sourceTree = "<group>"; };
+		A72A12C318638B220079AEA5 /* LayTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayTokenizer.h; path = LayCore/Utilities/LayTokenizer.h; sourceTree = "<group>"; };
+		A72A12C418638B220079AEA5 /* LayTokenizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayTokenizer.m; path = LayCore/Utilities/LayTokenizer.m; sourceTree = "<group>"; };
+		A72A12C618638EE00079AEA5 /* LayTextSearchSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayTextSearchSetup.h; path = LayCore/Domain/LayTextSearchSetup.h; sourceTree = "<group>"; };
+		A72A12C718638EE00079AEA5 /* LayTextSearchSetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayTextSearchSetup.m; path = LayCore/Domain/LayTextSearchSetup.m; sourceTree = "<group>"; };
 		A72D0B7216BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogDataFile_HeadFirstDesignPattern.h; path = LayCoreTests/LayCatalogDataFile_HeadFirstDesignPattern.h; sourceTree = "<group>"; };
 		A72D0B7316BFD78D000CB6E9 /* LayCatalogDataFile_HeadFirstDesignPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogDataFile_HeadFirstDesignPattern.m; path = LayCoreTests/LayCatalogDataFile_HeadFirstDesignPattern.m; sourceTree = "<group>"; };
 		A72D0B7416BFD78E000CB6E9 /* LayDataFileDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayDataFileDummy.h; path = LayCoreTests/LayDataFileDummy.h; sourceTree = "<group>"; };
@@ -727,6 +733,10 @@
 		A7455714176248BB005D792B /* AllOther */ = {
 			isa = PBXGroup;
 			children = (
+				A72A12C618638EE00079AEA5 /* LayTextSearchSetup.h */,
+				A72A12C718638EE00079AEA5 /* LayTextSearchSetup.m */,
+				A72A12C318638B220079AEA5 /* LayTokenizer.h */,
+				A72A12C418638B220079AEA5 /* LayTokenizer.m */,
 				A729CDA4185F92F4002BF2D4 /* LayRandomExplanationDataSource.h */,
 				A729CDA5185F92F4002BF2D4 /* LayRandomExplanationDataSource.m */,
 				A73E61A71779AD6100AB3EB6 /* LayUserDataStoreConfiguration.h */,
@@ -1061,6 +1071,7 @@
 				A73D580217685D5E000A72AA /* AnswerMedia.m in Sources */,
 				A73D580517685D5E000A72AA /* Author.m in Sources */,
 				A73D583517685D87000A72AA /* Publisher.m in Sources */,
+				A72A12C518638B220079AEA5 /* LayTokenizer.m in Sources */,
 				A711339C1769F8D300E8DEEE /* LayOrderedExplanationDatasource.m in Sources */,
 				A71133A11769FA0200E8DEEE /* LayExplanationLearnSession.m in Sources */,
 				A71133A21769FA0200E8DEEE /* LayExplanationLearnSessionManager.m in Sources */,
@@ -1081,6 +1092,7 @@
 				A73F438B17817CC200A821D1 /* UGCQuestion+Utilities.m in Sources */,
 				A73F43A2178196E800A821D1 /* UGCCase5.m in Sources */,
 				A73F43A5178196E800A821D1 /* UGCCase4.m in Sources */,
+				A72A12C818638EE00079AEA5 /* LayTextSearchSetup.m in Sources */,
 				A73F43A8178196E800A821D1 /* UGCBox.m in Sources */,
 				A74CAB52181EB16000466192 /* MediaImageMap.m in Sources */,
 				A71399211785A74B00B294FE /* LayConstants.m in Sources */,
