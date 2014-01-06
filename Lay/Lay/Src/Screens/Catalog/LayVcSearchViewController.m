@@ -162,9 +162,10 @@ static Class g_classObj = nil;
 #pragma mark UISearchDisplayDelegate
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    NSPredicate *searchWordPredicate = [self predicateForSearchString:searchString];
-    NSArray *searchWordRelationList = [self resultListOfSearchWordRelationsWithPredicate:searchWordPredicate];
-    self->searchResultsFetchedController = [self fetchedResultsControllerForSearchObject:LAY_SEARCH_QUESTION_OBJ andSearchWordRelationList:searchWordRelationList];
+    //NSPredicate *searchWordPredicate = [self predicateForSearchString:searchString];
+    //NSArray *searchWordRelationList = [self resultListOfSearchWordRelationsWithPredicate:searchWordPredicate];
+    NSArray *stringComponents = [searchString componentsSeparatedByString:@" "];
+    self->searchResultsFetchedController = [self fetchedResultsControllerForSearchObject:LAY_SEARCH_QUESTION_OBJ andSearchWordRelationList:stringComponents];
     return YES;
 }
 
@@ -201,7 +202,7 @@ static Class g_classObj = nil;
     NSArray *stringComponents = [searchString componentsSeparatedByString:@" "];
     // TODO: That results in a question search first!! Would it be better to search for words at first?
     NSString *wildcardedString = [NSString stringWithFormat:@"%@*", searchString];
-    NSString *predicateFormat = @"ANY searchWordRef.word like[c] %@";
+    NSString *predicateFormat = @"searchWordRef.word like[c] %@";
     NSPredicate *predicate = nil;
     if( [stringComponents count] > 1 )
         predicate = [self predicateForSearchComponents:stringComponents withFormat:predicateFormat];
@@ -216,13 +217,17 @@ static Class g_classObj = nil;
     
     //NSString *predicateFormat = @"searchWordRef.word like[c] %@";
     NSMutableArray *wordMatchPredicateList = [NSMutableArray arrayWithCapacity:[stringComponents count]];
+    //NSString *predicateFormat = @"(SUBQUERY(residents, $x, $x.firstname == "Jane" && $x.lastname == "Doe").@count != 0)";
+    
     for (NSString* searchWord in stringComponents) {
         NSString *wildcardedString = [NSString stringWithFormat:@"%@*", searchWord];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:format, wildcardedString];
         [wordMatchPredicateList addObject:predicate];
     }
 
-    NSPredicate *searchWordPredicateList = [NSCompoundPredicate andPredicateWithSubpredicates:wordMatchPredicateList];
+    NSPredicate *searchWordPredicateList = [NSCompoundPredicate orPredicateWithSubpredicates:wordMatchPredicateList];
+    
+    //NSPredicate *searchWordPredicateList = [NSPredicate predicateWithFormat:predicateFormat, @"wapp", @"zwe"];
     return searchWordPredicateList;
 }
 
@@ -251,14 +256,17 @@ static Class g_classObj = nil;
     //
     if( [searchWordRelationist count] > 0) {
         
-        /*NSMutableArray *searchWordRelationPredicateList = [NSMutableArray arrayWithCapacity:[searchWordRelationist count]];
-        for (SearchWordRelation* searchWordRelation in searchWordRelationist) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ANY searchWordRelationRef = %@", searchWordRelation];
+        NSMutableArray *searchWordRelationPredicateList = [NSMutableArray arrayWithCapacity:[searchWordRelationist count]];
+        NSString *searchWordRelationPredicateFormat = @"SUBQUERY(searchWordRelationRef, $wordRelation, $wordRelation.searchWordRef.word like[c] %@).@count > 0";
+        for (NSString* searchWordRelation in searchWordRelationist) {
+            NSString *wildcardedString = [NSString stringWithFormat:@"%@*", searchWordRelation];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:searchWordRelationPredicateFormat, wildcardedString];
             [searchWordRelationPredicateList addObject:predicate];
         }
-        NSPredicate *searchWordRelationPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:searchWordRelationPredicateList];*/
         
-        NSPredicate *searchWordRelationPredicate = [NSPredicate predicateWithFormat:@"ANY searchWordRelationRef IN %@", searchWordRelationist];
+        NSPredicate *searchWordRelationPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:searchWordRelationPredicateList];
+        
+        //NSPredicate *searchWordRelationPredicate = [NSPredicate predicateWithFormat:@"ANY searchWordRelationRef IN %@", searchWordRelationist];
         //
         LayMainDataStore *mainStore = [LayMainDataStore store];
         NSManagedObjectContext *managedObjectContext = [mainStore managedObjectContext];
