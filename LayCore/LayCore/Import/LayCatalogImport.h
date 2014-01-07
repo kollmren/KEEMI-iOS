@@ -12,6 +12,7 @@
 
 extern const NSInteger LayCatalogImportProgressPartIdentifierImport;
 extern const NSInteger LayCatalogImportProgressPartIdentifierCreatingThumbnails;
+extern const NSInteger LayCatalogImportProgressPartIdentifierOptimizeSearch;
 
 @class LayCatalogImportReport;
 @interface LayCatalogImport : NSObject {

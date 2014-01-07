@@ -22,6 +22,7 @@
 
 const NSInteger LayCatalogImportProgressPartIdentifierImport = 101;
 const NSInteger LayCatalogImportProgressPartIdentifierCreatingThumbnails = 102;
+const NSInteger LayCatalogImportProgressPartIdentifierOptimizeSearch = 103;
 
 @implementation LayCatalogImport
 
@@ -126,8 +127,16 @@ static Class _classObj = nil;
                 } else {
                     // Setup text for search
                      MWLogDebug(_classObj,@"Prepare text for search.");
-                    [self setupTextSearchForQuestionSet:importCatalog.questionRef];
-                    [self setupTextSearchForExplanationSet:importCatalog.explanationRef];
+                    if(stateDelegate) {
+                        [stateDelegate startingNextProgressPartWithIdentifier:LayCatalogImportProgressPartIdentifierOptimizeSearch];
+                        NSUInteger numberOfQuestions = [importCatalog numberOfQuestions];
+                        NSUInteger numberOfExplanations = [importCatalog numberOfExplanations];
+                        NSUInteger searchableItemsTotal = numberOfQuestions + numberOfExplanations;
+                        [stateDelegate setMaxSteps:searchableItemsTotal];
+                    }
+                    NSUInteger step = 0;
+                    [self setupTextSearchForQuestionSet:importCatalog.questionRef andProgressDelegate:stateDelegate step:&step];
+                    [self setupTextSearchForExplanationSet:importCatalog.explanationRef andProgressDelegate:stateDelegate step:&step];
                     imported = [importStore saveChanges];
                     if(imported) {
                         MWLogDebug(_classObj, @"Saved searchable text!");
@@ -209,15 +218,17 @@ static Class _classObj = nil;
     }
 }
 
--(void)setupTextSearchForQuestionSet:(NSSet*)questionSet {
+-(void)setupTextSearchForQuestionSet:(NSSet*)questionSet andProgressDelegate:(id<LayImportProgressDelegate>)stateDelegate step:(NSUInteger*)step {
     for (Question *question in questionSet) {
         [LayTextSearchSetup setupTextSearchForQuestion:question];
+        [stateDelegate setStep:(*step)++];
     }
 }
 
--(void)setupTextSearchForExplanationSet:(NSSet*)explanationSet {
+-(void)setupTextSearchForExplanationSet:(NSSet*)explanationSet andProgressDelegate:(id<LayImportProgressDelegate>)stateDelegate step:(NSUInteger*)step{
     for (Explanation *explanation in explanationSet) {
         [LayTextSearchSetup setupTextSearchForExplanation:explanation];
+        [stateDelegate setStep:(*step)++];
     }
 }
 

@@ -10,6 +10,9 @@
 
 #import "LayVcNavigationBarDelegate.h"
 
-@interface LayVcSearchViewController : UITableViewController<UISearchDisplayDelegate, UISearchBarDelegate, LayVcNavigationBarDelegate>
+@class LayButton;
+@interface LayVcSearchViewController : UITableViewController<UISearchDisplayDelegate, UISearchBarDelegate, LayVcNavigationBarDelegate> {
+    LayButton *startSessionButton;
+}
 
 @end

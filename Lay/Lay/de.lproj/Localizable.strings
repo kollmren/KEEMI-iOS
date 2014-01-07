@@ -33,6 +33,7 @@
 "ImportDeleteCatalogState" = "Lösche Katalog ...";
 "ImportStillATaskInProgress" = "Das Öffnen eines Katalogs wurde ignoriert, da ein Katalog gerade verarbeitet wird!";
 "ImportCatalogCreateThumbnailState" = "Erstelle Miniaturbilder ...";
+"ImportCatalogCreateOptimizeSearch" = "Optimiere Suche ...";
 /* General */
 "Help" = "Hilfe";
 "BackToMyCatalogs" = "Zeige meine Kataloge";
@@ -166,3 +167,4 @@
 /* Search */
 "CatalogSearch" = "Suche";
 "CatalogSearchPlaceholder" = "durchsuche Katalog";
+"CatalogSearchOpenAll" = "Alle öffnen";

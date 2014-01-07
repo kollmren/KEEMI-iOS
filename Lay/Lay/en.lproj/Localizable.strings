@@ -31,6 +31,7 @@
 "ImportReadCatalogInfo" = "Read catalog information ...";
 "ImportCatalogState" = "Importing catalog ...";
 "ImportCatalogCreateThumbnailState" = "Create thumbnails ...";
+"ImportCatalogCreateOptimizeSearch" = "Optimize search ...";
 "ImportDeleteCatalogState" = "Delete catalog ...";
 "ImportStillATaskInProgress" = "The opening of a catalog was ignored, as another catalog is sill in progress!";
 /* General */
@@ -166,6 +167,7 @@
 /* Search */
 "CatalogSearch" = "Search";
 "CatalogSearchPlaceholder" = "search catalog";
+"CatalogSearchOpenAll" = "open all";
 
 
 

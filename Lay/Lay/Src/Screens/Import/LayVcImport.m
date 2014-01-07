@@ -214,6 +214,12 @@ static Class g_classObj = nil;
     [importStateView setLabelText:text];
 }
 
+-(void)showLabelOptimizeSearch {
+    NSString *text = NSLocalizedString(@"ImportCatalogCreateOptimizeSearch", nil);
+    LayImportStateView *importStateView = (LayImportStateView *)[self.view.window viewWithTag:TAG_STATE_VIEW];
+    [importStateView setLabelText:text];
+}
+
 -(void)resetProgressView {
     LayImportStateView *importStateView = (LayImportStateView *)[self.view.window viewWithTag:TAG_STATE_VIEW];
     [importStateView.progressView setProgress:0.0f animated:NO];
@@ -862,6 +868,11 @@ static Class g_classObj = nil;
         self->currentImportStep = 0;
         [self performSelectorOnMainThread:@selector(resetProgressView) withObject:nil waitUntilDone:NO];
         [self performSelectorOnMainThread:@selector(showLabelCreateThumbnails) withObject:nil waitUntilDone:NO];
+    } else if(identifiier == LayCatalogImportProgressPartIdentifierOptimizeSearch) {
+        self->maxImportSteps = 0;
+        self->currentImportStep = 0;
+        [self performSelectorOnMainThread:@selector(resetProgressView) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(showLabelOptimizeSearch) withObject:nil waitUntilDone:NO];
     }
 }
 

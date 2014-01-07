@@ -103,7 +103,7 @@
     
     if(catalogManager.selectedExplanations) {
         self->explanationLearnSession = [sessionManager sessionWithListOfExplanations:catalogManager.selectedExplanations];
-    } if( catalogManager.currentSelectedExplanation ) {
+    } else if( catalogManager.currentSelectedExplanation ) {
         self->explanationLearnSession = [sessionManager sessionWith:catalogToLearn explanation:catalogManager.currentSelectedExplanation andOrder:EXPLANATION_ORDER_BY_NUMBER];
     } else {
         self->explanationLearnSession = [sessionManager sessionWith:catalogToLearn andOrder:EXPLANATION_ORDER_RANDOM considerTopicSelection:considerTopicSelection];

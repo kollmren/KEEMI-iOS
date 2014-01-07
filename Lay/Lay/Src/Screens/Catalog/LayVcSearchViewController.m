@@ -15,6 +15,8 @@
 #import "LayAbstractCell.h"
 #import "LayVcQuestion.h"
 #import "LayVcExplanation.h"
+#import "LayButton.h"
+#import "LayFrame.h"
 
 #import "Catalog+Utilities.h"
 #import "SearchWordRelation+Utilities.h"
@@ -54,6 +56,12 @@ static Class g_classObj = nil;
 
 -(void)dealloc {
     MWLogDebug( g_classObj, @"dealloc" );
+    LayCatalogManager* catalogMgr = [LayCatalogManager instance];
+    catalogMgr.selectedQuestions = nil;
+    catalogMgr.selectedExplanations = nil;
+    if(self->startSessionButton) {
+        [self->startSessionButton removeFromSuperview];
+    }
 }
 
 - (void)viewDidLoad
@@ -119,6 +127,11 @@ static Class g_classObj = nil;
 }
 
 -(void)setupSearchFetchController:(UISearchDisplayController *)controller forSearchString:(NSString *)searchString {
+    if(self->startSessionButton) {
+        [self->startSessionButton removeFromSuperview];
+        self->startSessionButton = nil;
+    }
+    
     NSArray *stringComponents = [searchString componentsSeparatedByString:@" "];
     LaySearchObject *searchObject = LAY_SEARCH_QUESTION_OBJ;
     if( controller.searchBar.selectedScopeButtonIndex == LAY_SEARCH_EXPLANATION_OBJ ) {
@@ -149,6 +162,54 @@ static Class g_classObj = nil;
     [navController setModalPresentationStyle:UIModalPresentationFormSheet];
     [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentViewController:navController animated:YES completion:nil];
+}
+
+-(void)addStartSessionButton {
+    if(self->startSessionButton) {
+        [self->startSessionButton removeFromSuperview];
+    } else {
+        LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
+        const CGRect buttonRect = CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, [style maxHeightOfAnswerButton]);
+        NSString *label = NSLocalizedString(@"CatalogSearchOpenAll", nil);
+        self->startSessionButton = [[LayButton alloc]initWithFrame:buttonRect label:label font:[style getFont:NormalPreferredFont] andColor:[style getColor:ClearColor]];
+        self->startSessionButton.backgroundColor = [style getColor:WhiteTransparentBackground];
+        [self->startSessionButton addTarget:self action:@selector(startSessionWithSearchResults) forControlEvents:UIControlEventTouchUpInside];
+        [startSessionButton fitToContent];
+        const CGFloat yPosButton = self.tableView.frame.origin.y + self.tableView.frame.size.height - startSessionButton.frame.size.height - 15.0f;
+        const CGFloat xPosButton = (self.tableView.frame.size.width - startSessionButton.frame.size.width) / 2.0;
+        [LayFrame setPos:CGPointMake(xPosButton, yPosButton) toView:startSessionButton];
+    }
+    
+    if(self->searchResultsFetchedController) {
+        NSArray *searchResultList = [self->searchResultsFetchedController fetchedObjects];
+        if([searchResultList count] > 1) {
+            [self.tableView addSubview:startSessionButton];
+        }
+    }
+}
+
+-(void)startSessionWithSearchResults {
+    if(self->searchDisplayController.searchBar.selectedScopeButtonIndex == LAY_SEARCH_QUESTION_OBJ) {
+        LayVcQuestion *vcQuestion = [LayVcQuestion new];
+        LayCatalogManager* catalogMgr = [LayCatalogManager instance];
+        catalogMgr.selectedQuestions = [[self->searchResultsFetchedController fetchedObjects] copy];
+        UINavigationController *navController = [[UINavigationController alloc]
+                                                 initWithRootViewController:vcQuestion];
+        [navController setNavigationBarHidden:YES animated:NO];
+        [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+        [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [self presentViewController:navController animated:YES completion:nil];
+    } else {
+        LayVcExplanation *vcExplanation = [LayVcExplanation new];
+        LayCatalogManager* catalogMgr = [LayCatalogManager instance];
+        catalogMgr.selectedExplanations = [[self->searchResultsFetchedController fetchedObjects] copy];
+        UINavigationController *navController = [[UINavigationController alloc]
+                                                 initWithRootViewController:vcExplanation];
+        [navController setNavigationBarHidden:YES animated:NO];
+        [navController setModalPresentationStyle:UIModalPresentationFormSheet];
+        [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+        [self presentViewController:navController animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -224,6 +285,7 @@ static Class g_classObj = nil;
     UISearchBar *searchBar = controller.searchBar;
     NSString *searchString = searchBar.text;
     [self setupSearchFetchController:controller forSearchString:searchString];
+    [self addStartSessionButton];
     return YES;
 }
 
@@ -239,11 +301,27 @@ static Class g_classObj = nil;
     searchBar.text = @"";
     self->searchResultsFetchedController = nil;
     [self.tableView reloadData];
+    //
+    if(self->startSessionButton) {
+        [self->startSessionButton removeFromSuperview];
+        self->startSessionButton = nil;
+    }
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     //UISearchDisplayController *searchDisplayController_ = self.searchDisplayController;
     //[searchDisplayController_ setActive:YES animated:YES];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if([searchText length] == 0) {
+        self->searchResultsFetchedController = nil;
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self addStartSessionButton];
 }
 
 #pragma mark LayVcNavigationBarDelegate
