@@ -208,4 +208,8 @@ numberOfSkippedQuestions, neededTime;
     return hasNextQuestion;
 }
 
+-(void)stopFollowingCurrentQuestionGroup {
+    if(self->datasource) [self->datasource stopFollowingCurrentQuestionGroup];
+}
+
 @end

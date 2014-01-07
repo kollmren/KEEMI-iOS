@@ -93,4 +93,8 @@
     return NO;
 }
 
+-(void)stopFollowingCurrentQuestionGroup {
+    
+}
+
 @end

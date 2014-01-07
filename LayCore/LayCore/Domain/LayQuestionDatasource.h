@@ -28,4 +28,6 @@
 
 -(BOOL)hasNextGroupedQuestion;
 
+-(void)stopFollowingCurrentQuestionGroup;
+
 @end

@@ -23,6 +23,7 @@
     NSMutableDictionary* groupedQuestionMap;
     NSInteger groupedQuestionIndex;
     NSArray* currentGroupedQuestionList;
+    BOOL breakCurrentQuestionGroup;
 }
 
 @property (nonatomic,readonly) BOOL considerTopicSelection;

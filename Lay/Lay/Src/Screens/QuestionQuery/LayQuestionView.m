@@ -588,6 +588,7 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
         NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_ANSWER_EVALUATED object:self];
         [[NSNotificationCenter defaultCenter] postNotification:note];
     }
+    
     return doEvaluate;
 }
 
@@ -688,6 +689,14 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     BOOL evaluated = [self evaluateCurrentQuestion:NO];
     if(!evaluated) {
         if(self.questionDatasource) {
+            // check if the previous question was answered and break a question group if the answer was wrong
+            if(currentQuestion) {
+                Answer *answer = currentQuestion.answerRef;
+                if([answer.sessionGivenByUser boolValue] && ![answer.correctAnsweredByUser boolValue]) {
+                    [self.questionDatasource stopFollowingCurrentQuestionGroup];
+                }
+            }
+            
             currentQuestion = [self.questionDatasource nextQuestion];
             if(currentQuestion) {
                 [self showQuestion:currentQuestion];

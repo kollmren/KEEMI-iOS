@@ -31,6 +31,7 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         considerTopicSelection = consider;
         self->index = 0;
         self->firstQuestionPassed = NO;
+        self->breakCurrentQuestionGroup = NO;
         self->groupedQuestionIndex = initIdxValueForGroupedQuestions;
         [self preparingQuestionList:catalog_];
     }
@@ -55,7 +56,10 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
         question = [self nextRandomQuestion];
     } else {
         MWLogDebug([LayRandomLeitnerDatasource class], @"Get(next) question within group:%@.", self->currentQuestionGroupName);
-        question = [self nextGroupedQuestion];
+        if(!self->breakCurrentQuestionGroup) {
+            question = [self nextGroupedQuestion];
+        }
+        
         if( !question ) {
             MWLogDebug([LayRandomLeitnerDatasource class], @"Break path for question:%@ in group:%@.", question.name, question.groupName );
             Question* nextQuestionFromRandomList = [self nextRandomQuestion];
@@ -82,6 +86,9 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
     }
     
     self->currentQuestion = question;
+    
+    self->breakCurrentQuestionGroup = NO;
+    
     return question;
 }
 
@@ -203,6 +210,10 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
 -(BOOL)hasNextGroupedQuestion {
     Question* nextQuestion = [self groupedQuestionWithIndex:self->groupedQuestionIndex+1];
     return nextQuestion ? YES : NO;
+}
+
+-(void)stopFollowingCurrentQuestionGroup {
+    self->breakCurrentQuestionGroup = YES;
 }
 
 -(void) randomizeQuestions:(NSMutableArray*)questionListToRandomize {
