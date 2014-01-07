@@ -127,6 +127,7 @@ static Class _classObj = nil;
                     // Setup text for search
                      MWLogDebug(_classObj,@"Prepare text for search.");
                     [self setupTextSearchForQuestionSet:importCatalog.questionRef];
+                    [self setupTextSearchForExplanationSet:importCatalog.explanationRef];
                     imported = [importStore saveChanges];
                     if(imported) {
                         MWLogDebug(_classObj, @"Saved searchable text!");
@@ -211,6 +212,12 @@ static Class _classObj = nil;
 -(void)setupTextSearchForQuestionSet:(NSSet*)questionSet {
     for (Question *question in questionSet) {
         [LayTextSearchSetup setupTextSearchForQuestion:question];
+    }
+}
+
+-(void)setupTextSearchForExplanationSet:(NSSet*)explanationSet {
+    for (Explanation *explanation in explanationSet) {
+        [LayTextSearchSetup setupTextSearchForExplanation:explanation];
     }
 }
 

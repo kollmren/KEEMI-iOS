@@ -60,6 +60,10 @@ static Class g_classObj = nil;
                 MWLogInfo(g_classObj, @"Deleted catalog:%@, %@ successfully.", catalog_.title, [catalog_ publisher] );
                 deletedCatalog = YES;
             }
+            
+            MWLogDebug(g_classObj, @"Cleanup data for optimizing search.");
+            [LayMainDataStore cleanupDataForOptimizingSearchInContext:managedObjContext_];
+            
         } else {
             MWLogError(g_classObj, @"Could not find catalog:(%@, %@) for deletion!", catalog_.title, [catalog_ publisher]);
         }
@@ -71,6 +75,35 @@ static Class g_classObj = nil;
 
 -(NSUInteger) numberOfCatalogs {
     return [[self findAllCatalogs] count];
+}
+
++(void)cleanupDataForOptimizingSearchInContext:(NSManagedObjectContext *)managedObjContextToCleanup {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SearchWord"
+                                              inManagedObjectContext:managedObjContextToCleanup];
+    [fetchRequest setEntity:entity];
+     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"searchWordRelation.@count == 0"];
+    [fetchRequest setPredicate:predicate];
+    NSError *error;
+    NSArray *allNoMoreReferencedSearchWords = [managedObjContextToCleanup executeFetchRequest:fetchRequest error:&error];
+    if (allNoMoreReferencedSearchWords == nil) {
+        MWLogError(g_classObj, @"Failure getting references to search words which are not referenced! Details:%@", [error description]);
+    }
+    
+    if ([allNoMoreReferencedSearchWords count] == 0) {
+        MWLogWarning(g_classObj, @"Got no references to search words which are not referenced!");
+    }
+    
+    for (NSManagedObject* searchWord in allNoMoreReferencedSearchWords) {
+        [managedObjContextToCleanup deleteObject:searchWord];
+    }
+    
+    BOOL successful = [managedObjContextToCleanup save:&error];
+    if (!successful) {
+        MWLogError(g_classObj, @"Error saving cleaned up store! Details:%@", [error localizedDescription]);
+    } else {
+        MWLogInfo(g_classObj, @"Cleaned up store successfully.");
+    }
 }
 
 -(BOOL) deleteAllCatalogsFromStore {

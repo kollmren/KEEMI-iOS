@@ -163,6 +163,9 @@
 "MailNotConfiguredText" = "You did not create a standard E-Mail account!";
 "MailSendButton" = "Send";
 "MailCancelButton" = "Cancel";
+/* Search */
+"CatalogSearch" = "Search";
+"CatalogSearchPlaceholder" = "search catalog";
 
 
 

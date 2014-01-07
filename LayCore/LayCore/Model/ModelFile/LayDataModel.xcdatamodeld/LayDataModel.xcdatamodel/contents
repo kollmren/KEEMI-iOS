@@ -79,7 +79,7 @@
         <relationship name="publisherRef" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Publisher" inverseName="catalogRef" inverseEntity="Publisher" syncable="YES"/>
         <relationship name="questionRef" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" destinationEntity="Question" inverseName="catalogRef" inverseEntity="Question" syncable="YES"/>
         <relationship name="resourceRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="catalogRef" inverseEntity="Resource" syncable="YES"/>
-        <relationship name="searchWordRelationRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SearchWordRelation" inverseName="catalogRef" inverseEntity="SearchWordRelation" syncable="YES"/>
+        <relationship name="searchWordRelationRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SearchWordRelation" inverseName="catalogRef" inverseEntity="SearchWordRelation" syncable="YES"/>
         <relationship name="sectionRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Section" inverseName="catalogRef" inverseEntity="Section" syncable="YES"/>
         <relationship name="topicRef" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Topic" inverseName="catalogRef" inverseEntity="Topic" syncable="YES"/>
     </entity>

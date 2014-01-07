@@ -56,31 +56,75 @@
     NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog];
     // Link the relations with the question
     for (SearchWordRelation *searchWordRelation in searchWordRelationsForCatalog) {
-        [LayTextSearchSetup linkSearchWordRelation:searchWordRelation withQuestion:question];
+        [LayTextSearchSetup linkSearchWordRelation:searchWordRelation withManagedObject:question];
     }
 }
 
 +(void)setupTextSearchForExplanation:(Explanation*)explanation {
+    //
+    // Prepare searchable text for the explanation
+    //
+    NSMutableString *textToPrepareForSearch = nil;
+    if(explanation.title) {
+        textToPrepareForSearch = [NSMutableString stringWithString:explanation.title];
+    } else {
+        textToPrepareForSearch = [NSMutableString stringWithCapacity:200];
+    }
     
+    NSString *appendFormat = @" %@";
+    NSArray *sectionList = [explanation sectionList];
+    for (Section* section in sectionList) {
+        if(section.title) {
+            [textToPrepareForSearch appendFormat:appendFormat, section.title];
+        }
+        NSSet *sectionTextSet = section.sectionTextRef;
+        for (SectionText* sectionText in sectionTextSet) {
+            [textToPrepareForSearch appendFormat:appendFormat, sectionText.text];
+        }
+    }
+    
+    //
+    // Get or create SearchWord and SearchWordRelations for the catalog
+    //
+    Catalog* catalog = explanation.catalogRef;
+    NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog];
+    // Link the relations with the explanation
+    for (SearchWordRelation *searchWordRelation in searchWordRelationsForCatalog) {
+        [LayTextSearchSetup linkSearchWordRelation:searchWordRelation withManagedObject:explanation];
+    }
 }
 
-+(BOOL)linkSearchWordRelation:(SearchWordRelation*)searchWordRelation withQuestion:(Question*)question {
++(BOOL)linkSearchWordRelation:(SearchWordRelation*)searchWordRelation withManagedObject:(NSManagedObject*)managedObject {
     // Check if a relation exist for the question already
     BOOL linked = NO;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SearchWordRelation" inManagedObjectContext:question.managedObjectContext];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@ AND questionRef = %@", searchWordRelation, question];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"SearchWordRelation" inManagedObjectContext:managedObject.managedObjectContext];
+    NSString *managedObjectContextText = nil;
+    NSString *nameOfReferencedManagedObjectProperty = @"questionRef";
+    if([managedObject isKindOfClass:[Explanation class]]) {
+        managedObjectContextText = ((Explanation*)managedObject).name;
+        nameOfReferencedManagedObjectProperty = @"explanationRef";
+    } else {
+        managedObjectContextText = ((Question*)managedObject).name;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF = %@ AND %K = %@", searchWordRelation,nameOfReferencedManagedObjectProperty, managedObject];
     [fetchRequest setEntity:entity];
     [fetchRequest setPredicate:predicate];
     NSError *error;
-    NSArray *searchWordRelationList = [question.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *searchWordRelationList = [managedObject.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if( !searchWordRelationList ) {
         MWLogError([LayTextSearchSetup class], @"Failure executing fetch:%@", [error description] );
     } else if([searchWordRelationList count] > 1) {
-        MWLogError([LayTextSearchSetup class], @"Only one link can exist between a SearchWordRelation and a Question:%@!", question.name);
+        MWLogError([LayTextSearchSetup class], @"Only one link can exist between a SearchWordRelation and a Question:%@!", managedObjectContextText);
     } else if( [searchWordRelationList count] == 0 ) {
-        MWLogDebug([LayTextSearchSetup class], @"Link SearchWordRelation with question:%@!", question.name);
-        [searchWordRelation addQuestionRefObject:question];
+        MWLogDebug([LayTextSearchSetup class], @"Link SearchWordRelation with question:%@!", managedObjectContextText);
+        if([managedObject isKindOfClass:[Explanation class]]) {
+            Explanation *explanation = (Explanation*)managedObject;
+            [searchWordRelation addExplanationRefObject:explanation];
+        } else {
+            Question *question = (Question*)managedObject;
+            [searchWordRelation addQuestionRefObject:question];
+        }
         linked = YES;
     } /*else {
         // link already exists
