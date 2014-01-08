@@ -40,6 +40,10 @@
     [self rememberPresentedExplanation:self->currentExplanation];
 }
 
+-(NSDictionary*)presentedExplanations {
+    return self->presentedExplanationMap;
+}
+
 -(NSTimeInterval)neededTime {
     NSDate *sessionEnd = [NSDate date];
     NSTimeInterval neededTime_ = [sessionEnd timeIntervalSinceDate:sessionStart];
@@ -54,13 +58,13 @@
 }
 
 -(void)rememberPresentedExplanation:(Explanation*)explanation {
-    /*if(explanation) {
-        NSNumber *explanationNumber = [Explanation number];
+    if(explanation) {
+        NSNumber *explanationNumber = [explanation number];
         Explanation* alreadyPresentedExplanation = [self->presentedExplanationMap objectForKey:explanationNumber];
         if(alreadyPresentedExplanation==nil) {
-            [self->presentedExplanationMap setObject:explanation forKey:ExplanationNumber];
+            [self->presentedExplanationMap setObject:explanation forKey:explanationNumber];
         }
-    }*/
+    }
 }
 
 //
@@ -84,7 +88,6 @@
 
 -(Explanation*) previousExplanation {
     Explanation* Explanation = nil;
-    [self rememberPresentedExplanation:self->currentExplanation];
     if(self->datasource) Explanation = [self->datasource previousExplanation];
     self->currentExplanation = Explanation;
     return Explanation;

@@ -16,4 +16,6 @@
 
 -(void)finish;
 
+-(NSDictionary*)presentedExplanations;
+
 @end

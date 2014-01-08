@@ -163,6 +163,7 @@ static Class g_classObj = nil;
     }
     [standardUserDefaults setInteger:didUserShowCatalogMenu forKey:(NSString*)didUserShowCatalogMenuKey];
     [standardUserDefaults synchronize];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

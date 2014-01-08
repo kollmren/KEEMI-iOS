@@ -53,6 +53,27 @@
         </answerItem>
       </answer>
     </question>
+    <question name="steveJobsDenouncement2" type="order">
+  	  <title>The title of the ordered question</title>
+      <text>(2)Am 17. September 1985 reichte Steve Jobs seine Kündigung bei Apple ein. Ordne die Ereignisse!</text>
+      <answer>
+        <answerItem correct="yes">
+          <text>Die Macintosh-Computer verkauften sich schlecht, Apple musste den ersten Quartalsverlust in der Unternehmensgeschichte veröffentlichen und Mitarbeiter entlassen</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Der damalige CEO John Sculley machte Steve Jobs für die Verluste mitverantwortlich, Jobs war damals General Manager der Macintosh-Abteilung</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Am 11. April 1985 verlangte John Sculley, Steve Jobs den Posten eines Apple Vicepresident und General Managers der Macintosh-Abteilung zu entziehen</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Darauf startete Steve Jobs einen Putschversuch gegen Sculley der vom Apple-Vorstand zurückgewiesen wurde, die Mehrheit im Board stand hinter dem ehemaligen Pepsi-manager Sculley</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <text>Am 31. Mai 1985 verlor Jobs seine Verantwortlichkeiten, Jobs wurde in eine Abteilung versetzt die firmenintern Sibirien gennant wurde und keinen Einfluss auf das operative Geschäft hatte</text>
+        </answerItem>
+      </answer>
+    </question>
     <question type="singleChoice" name="question1" topic="java" groupName="java">
       <introduction>
         <section>
@@ -1071,6 +1092,7 @@
         <text>The northern border of the United States stretches more than 5,000 miles from Maine in the East to Alaska in the West. There are 13 states on the border with Canada:</text>
         <question name="borderCanada2"/>
         <text>The Treaty of Paris of 1783 established the official boundary between Canada and the United States after the Revolutionary War. Since that time, there have been land disputes, but they have been resolved through treaties. The International Boundary Commission, which is headed by two commissioners, one American and one Canadian, is responsible for maintaining the boundary.</text>
+        <question name="borderCanada2"/>
       </section>
     </explanation>
   </explanationList>

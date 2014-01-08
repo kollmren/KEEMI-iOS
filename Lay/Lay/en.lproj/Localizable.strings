@@ -98,6 +98,7 @@
 /* Catalog Explanations */
 "CatalogExplanationsTitle" = "Explanations";
 "CatalogNumberOfExplanations" = "Explanations: %u";
+"CatalogExplanationAskStartRecallWithRelatedQuestions" = "Do you like to recall the information you read in %u explanation(s)?";
 /* Catalog Resources */
 "ResourceWebLink" = "Web";
 "ResourceBookLink" = "Books";

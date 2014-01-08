@@ -84,7 +84,8 @@ static BOOL showUtilitiesToggle = YES;
     self->vcQuestion = nil;
     self->vcResource = nil;
     LayCatalogManager* catalogMgr = [LayCatalogManager instance];
-    catalogMgr.selectedQuestions = nil;
+    catalogMgr.selectedExplanations = nil;
+    catalogMgr.currentSelectedExplanation = nil;
 }
 
 -(void)viewCanAppear {

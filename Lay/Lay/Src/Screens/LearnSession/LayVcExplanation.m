@@ -15,6 +15,9 @@
 #import "LayCatalogManager.h"
 #import "Catalog+Utilities.h"
 #import "LayInfoDialog.h"
+#import "LayFrame.h"
+#import "LayStyleGuide.h"
+#import "LayButton.h"
 
 #import "MWLogging.h"
 
@@ -23,6 +26,8 @@
     NSInteger index;
     NSArray *explanationList;
     LayExplanationLearnSession* explanationLearnSession;
+    UIView *askOpenRelatedQuestionsDialog;
+    NSMutableArray *relatedQuestions;
 }
 @end
 
@@ -37,7 +42,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        relatedQuestions = nil;
+        self->askOpenRelatedQuestionsDialog = nil;
     }
     return self;
 }
@@ -47,6 +53,8 @@
     LayExplanationSessionView *explanationView = (LayExplanationSessionView*)self.view;
     explanationView.explanationDatasource = nil;
     explanationView.explanationViewDelegate = nil;
+    relatedQuestions = nil;
+    [self closeDialog];
 }
 
 - (void)loadView
@@ -114,14 +122,140 @@
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)showAskRelatedQuestionsDialog:(UIView*)dialog {
+    const CGPoint dialogCenter = CGPointMake(0.0f, self.view.window.frame.size.height/2.0f);
+    [LayFrame setPos:dialogCenter toView:dialog];
+    const CGFloat dialogHeight = [self layoutAskRecallDialog:dialog];
+    CALayer *dialogLayer = dialog.layer;
+    [UIView animateWithDuration:0.3 animations:^{
+        dialogLayer.bounds = CGRectMake(0.0f, 0.0f, dialog.frame.size.width, dialogHeight);
+    }];
+}
+
+-(UIView*)createAskRelatedQuestionsDialogWithNumberOfExplanations:(NSUInteger)numberExplanations andNumberOfRelatedQuestions:(NSUInteger)numberOfQuestions {
+    [self closeDialog];
+    
+    UIWindow *window = self.view.window;
+    const CGFloat width = window.frame.size.width;
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    UIView *backgound = [[UIView alloc] initWithFrame:window.frame];
+    backgound.backgroundColor = [[LayStyleGuide instanceOf:nil] getColor:InfoBackgroundColor];
+    [window addSubview:backgound];
+    self->askOpenRelatedQuestionsDialog = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, 0.0f)];
+    self->askOpenRelatedQuestionsDialog.backgroundColor = [styleGuide getColor:BackgroundColor];
+    self->askOpenRelatedQuestionsDialog.clipsToBounds = TRUE;
+    // title
+    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
+    const CGRect titleRect = CGRectMake(hSpace, 0.0f, width-2*hSpace, 0.0f);
+    UILabel *title = [[UILabel alloc]initWithFrame:titleRect];
+    title.font = [styleGuide getFont:NormalPreferredFont];
+    title.numberOfLines = [styleGuide numberOfLines];
+    title.textColor = [styleGuide getColor:TextColor];
+    title.backgroundColor = [UIColor clearColor];
+    NSString *titleTextFormat = NSLocalizedString(@"CatalogExplanationAskStartRecallWithRelatedQuestions", nil);
+    NSString *titleText = [NSString stringWithFormat:titleTextFormat, numberExplanations];
+    title.text = titleText;
+    [title sizeToFit];
+    [self->askOpenRelatedQuestionsDialog addSubview:title];
+    // Buttons
+    const CGFloat buttonHeight = [styleGuide getDefaultButtonHeight];
+    const CGRect buttonContainerRect = CGRectMake(hSpace, 0.0f, width, buttonHeight);
+    UIView *dialogButtonContainer = [[UIView alloc]initWithFrame:buttonContainerRect];
+    UIFont *font = [styleGuide getFont:NormalPreferredFont];
+    NSString *buttonLabel = NSLocalizedString(@"CatalogRecall", nil);
+    LayButton *button = [[LayButton alloc]initWithFrame:buttonContainerRect label:buttonLabel font:font andColor:[styleGuide getColor:WhiteTransparentBackground]];
+    button.enabled = YES;
+    [button addTarget:self action:@selector(prepareRecallSessionForPresentedExplanations) forControlEvents:UIControlEventTouchUpInside];
+    [button fitToContent];
+    [dialogButtonContainer addSubview:button];
+    buttonLabel = NSLocalizedString(@"Cancel", nil);
+    button = [[LayButton alloc]initWithFrame:buttonContainerRect label:buttonLabel font:font andColor:[styleGuide getColor:WhiteTransparentBackground]];
+    button.enabled = YES;
+    [button addTarget:self action:@selector(closeViewController) forControlEvents:UIControlEventTouchUpInside];
+    [button fitToContent];
+    [dialogButtonContainer addSubview:button];
+    [self layoutDialogButtonContainer:dialogButtonContainer];
+    [self->askOpenRelatedQuestionsDialog addSubview:dialogButtonContainer];
+    //
+    [backgound addSubview:self->askOpenRelatedQuestionsDialog];
+    
+    return self->askOpenRelatedQuestionsDialog;
+}
+
+-(CGFloat)layoutDialogButtonContainer:(UIView*)dialogButtonContainer {
+    const CGFloat hSpace = 20.0f;
+    CGFloat currentXPos = 0.0f;
+    for (UIView* subView in [dialogButtonContainer subviews]) {
+        [LayFrame setXPos:currentXPos toView:subView];
+        currentXPos += subView.frame.size.width + hSpace;
+    }
+    return currentXPos;
+}
+
+-(CGFloat)layoutAskRecallDialog:(UIView*)dialog {
+    const CGFloat vSpace = 10.0f;
+    CGFloat currentYPos = 15.0f;
+    for (UIView* subView in [dialog subviews]) {
+        [LayFrame setYPos:currentYPos toView:subView];
+        currentYPos += subView.frame.size.height + vSpace;
+    }
+    return currentYPos;
+}
+
+-(void)closeViewController {
+    [self closeDialog];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)prepareRecallSessionForPresentedExplanations {
+    if(self->relatedQuestions) {
+        LayCatalogManager *catalogManager = [LayCatalogManager instance];
+        catalogManager.selectedQuestions = relatedQuestions;
+        catalogManager.currentCatalogShouldBeQueriedDirectly = YES;
+    }
+    [self closeViewController];
+}
+
+-(void)closeDialog {
+    if(self->askOpenRelatedQuestionsDialog) {
+        [self->askOpenRelatedQuestionsDialog.superview removeFromSuperview];
+        [self->askOpenRelatedQuestionsDialog removeFromSuperview];
+        self->askOpenRelatedQuestionsDialog = nil;
+    }
+}
+
 //
 // LayExplanationViewDelegate
 //
 -(void)cancel {
-    [self->explanationLearnSession finish];
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     catalogManager.selectedExplanations = nil;
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self->explanationLearnSession finish];
+    
+    // Only show the dialog if started from the catalog overview
+    if( !(self.presentingViewController.presentingViewController) ) {
+        // Check if the read explanations have linked questions, if so ask the user if he want to get ask the questions
+        NSDictionary *presentedQuestionsInSession = [self->explanationLearnSession presentedExplanations];
+        if(presentedQuestionsInSession && [presentedQuestionsInSession count] > 0) {
+            relatedQuestions = [NSMutableArray arrayWithCapacity:20];
+            NSArray *presentedQuestionList = [presentedQuestionsInSession allValues];
+            for (Explanation* explanation in presentedQuestionList) {
+                if([explanation hasRelatedQuestions]) {
+                    NSArray* relatedQuestionsForExplanation = [explanation relatedQuestionList];
+                    [relatedQuestions addObjectsFromArray:relatedQuestionsForExplanation];
+                }
+            }
+            NSUInteger numberOfRelatedQuestions = [relatedQuestions count];
+            if(numberOfRelatedQuestions > 1) {
+                UIView* askRecallRelatedQuestionsDialog = [self createAskRelatedQuestionsDialogWithNumberOfExplanations:[presentedQuestionsInSession count] andNumberOfRelatedQuestions:numberOfRelatedQuestions];
+                [self showAskRelatedQuestionsDialog:askRecallRelatedQuestionsDialog];
+            } else {
+                [self closeViewController];
+            }
+        }
+    } else {
+        [self closeViewController];
+    }
 }
 
 @end
