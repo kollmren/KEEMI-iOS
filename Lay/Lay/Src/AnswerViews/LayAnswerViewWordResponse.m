@@ -268,18 +268,13 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 
 -(BOOL)answerCorrect {
     BOOL answerCorrect = NO;
-    if(self->answer.questionRef.isChecked) {
-        answerCorrect = [self->answer.correctAnsweredByUser boolValue];
-    } else {
-        for (AnswerItem *answerItem in [self->answer answerItemListSessionOrderPreserved]) {
-            NSString *itemText = answerItem.text;
-            if([self->answer.sessionAnswer  isEqualToString:itemText]) {
-                answerCorrect = YES;
-                answerItem.setByUser = [NSNumber numberWithBool:YES];
-                break;
-            }
+    for (AnswerItem *answerItem in [self->answer answerItemListSessionOrderPreserved]) {
+        NSString *itemText = answerItem.text;
+        if([self->answer.sessionAnswer  isEqualToString:itemText]) {
+            answerCorrect = YES;
+            answerItem.setByUser = [NSNumber numberWithBool:YES];
+            break;
         }
-
     }
     return answerCorrect;
 }
