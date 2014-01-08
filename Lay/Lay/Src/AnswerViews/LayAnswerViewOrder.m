@@ -65,6 +65,7 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
         tblView.delegate = self;
         [self addSubview:tblView];
     } else {
+        [LayFrame setHeightWith:initialSize.height toView:tblView animated:NO];
         [tblView reloadData];
     }
 }

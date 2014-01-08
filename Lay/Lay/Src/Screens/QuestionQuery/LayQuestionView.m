@@ -91,7 +91,7 @@
 @implementation LayQuestionView
 
 static const CGFloat g_fontSizeOfQuestionText = 18.0f;
-static const CGFloat v_space = 15.0f;
+static const CGFloat v_space = 18.0f;
 static const CGFloat v_space_intro = 5.0f;
 static const CGFloat g_heightOfStatusProgressBar = 20.0f;
 static CGFloat g_heightOfStatusBar;
@@ -216,34 +216,34 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
         self->IN_LARGE_SCREEN_MODE = NO;
     }
 
-    UIView *currentAnswerViewArea = nil;
+    UIView *currentQuestionAnswerViewArea = nil;
     if( scrollable) {
         [self->questionAnswerViewAreaNotScrollable removeFromSuperview];
-        currentAnswerViewArea = self->questionAnswerViewArea;
+        currentQuestionAnswerViewArea = self->questionAnswerViewArea;
     } else {
         [self->questionAnswerViewArea removeFromSuperview];
-        currentAnswerViewArea = self->questionAnswerViewAreaNotScrollable;
+        currentQuestionAnswerViewArea = self->questionAnswerViewAreaNotScrollable;
     }
     
-    if( currentAnswerViewArea.superview != self ) {
+    if( currentQuestionAnswerViewArea.superview != self ) {
         // A new qaArea must be adjusted
-        for (UIView* view in currentAnswerViewArea.subviews) {
+        for (UIView* view in currentQuestionAnswerViewArea.subviews) {
             [view removeFromSuperview];
         }
         // setup the question-label
         self->questionLabel.spaceAbove = v_space;
         self->questionLabel.border = horizontalBorderOfView;
-        [currentAnswerViewArea addSubview:self->questionLabel];
-        self->answerViewArea.spaceAbove = v_space + 10;
+        [currentQuestionAnswerViewArea addSubview:self->questionLabel];
+        self->answerViewArea.spaceAbove = v_space;
         self->answerViewArea.frame = [self frameOfQuestionAnswerView];
         self->answerViewArea.border = 0.0f;
-        [currentAnswerViewArea addSubview:self->answerViewArea];
+        [currentQuestionAnswerViewArea addSubview:self->answerViewArea];
         //
-        [self addSubview:currentAnswerViewArea];
+        [self addSubview:currentQuestionAnswerViewArea];
     }
     
     // Set the vertical position and the width of the subviews
-    [LayVBoxLayout layoutVBoxSubviewsInView:currentAnswerViewArea];
+    [LayVBoxLayout layoutVBoxSubviewsInView:currentQuestionAnswerViewArea];
 }
 
 -(CGRect)frameOfQuestionAnswerView {
