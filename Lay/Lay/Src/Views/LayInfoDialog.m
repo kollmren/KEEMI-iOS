@@ -175,6 +175,8 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     if([explanationOrIntro isKindOfClass:[Explanation class]]) {
         Explanation *explanation = (Explanation*)explanationOrIntro;
         explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andExplanation:explanation];
+        NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_EXPLANATION_PRESENTED object:self];
+        [[NSNotificationCenter defaultCenter] postNotification:note];
     } else if( [explanationOrIntro isKindOfClass:[Introduction class]] ) {
         Introduction *introduction = (Introduction*)explanationOrIntro;
         explanationView = [[LayExplanationView alloc]initWithFrame:explanationViewRect andIntroduction:introduction];
@@ -195,9 +197,6 @@ static const CGFloat SPACE_ICON_TITLE = 10.0f;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]
                                          initWithTarget:self action:@selector(hide)];
     [self addGestureRecognizer:singleTap];
-    
-    NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_EXPLANATION_PRESENTED object:self];
-    [[NSNotificationCenter defaultCenter] postNotification:note];
 
     [self open];
     return infoView;

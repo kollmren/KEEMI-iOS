@@ -417,6 +417,7 @@ static const CGFloat SPACE_BETWEEN_MEDIA = 10.0f;
         LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:mediaFrame andMediaData:mediaData];
         mediaView.ignoreEvents = YES;
         mediaView.fitToContent = YES;
+        mediaView.zoomable = NO;
         [mediaView layoutMediaView];
         CGFloat mediaViewWidth = mediaView.frame.size.width;
         if(widthInUse + SPACE_BETWEEN_MEDIA + mediaViewWidth <= g_cellWidth) {

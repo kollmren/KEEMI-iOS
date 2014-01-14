@@ -12,6 +12,7 @@
 #import "LayAdditionalButton.h"
 #import "LayAppNotifications.h"
 #import "LayInfoDialog.h"
+#import "LayIconButton.h"
 
 #import "MWLogging.h"
 
@@ -29,10 +30,11 @@
 
 static const CGFloat DEFAULT_BORDER_WIDTH = 5.0f;
 static const CGFloat HSPACE_LABEL = 4.0f;
+static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
 
 @implementation LayMediaView
 
-@synthesize border, borderWidth, fitToContent, fitLabelToFitContent, scaleToFrame, showLabel, ignoreEvents, zoomable;
+@synthesize border, borderWidth, fitToContent, fitLabelToFitContent, scaleToFrame, showLabel, ignoreEvents, zoomable, showFullscreen;
 
 - (id)initWithFrame:(CGRect)frame_ andMediaData:(LayMediaData*)mediaData_
 {
@@ -46,7 +48,8 @@ static const CGFloat HSPACE_LABEL = 4.0f;
         self->mediaData = mediaData_;
         self.borderWidth = DEFAULT_BORDER_WIDTH;
         self.scaleToFrame = NO;
-        self.zoomable = NO;
+        self.zoomable = YES;
+        self.showFullscreen = NO;
         [self setupView];
         //[self layoutMediaView];
         [self registerEvents];
@@ -127,9 +130,8 @@ static const CGFloat HSPACE_LABEL = 4.0f;
         }
         CGFloat yPos = 0.0f;
         CGFloat xPos = 0.0f;
-        if(self.zoomable) {
+        if(self.showFullscreen) {
             yPos = self.frame.size.height - heightOfHint - 10.0f;
-            // !! If zoomable is used to present a media in fullscreen(portrait) at the AnswerItemView.
             // We make the label a little smaller here so that the minimized buttons does not overlap the label.
             LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
             const CGFloat newLabelWidth = labelWidth - 2 * [styleGuide buttonSize].width - 2 * HSPACE_LABEL;
@@ -203,7 +205,7 @@ static const CGFloat HSPACE_LABEL = 4.0f;
 }
 
 -(void)addAdditionalButton {
-    if( self->mediaData && self->mediaData.type == LAY_MEDIA_XML && !self.zoomable) {
+    if( self->mediaData && self->mediaData.type == LAY_MEDIA_XML && !self.showFullscreen) {
         // Is shown in webview. As we dont know if the xml or html is rendered entirely we give the user the chance to open in in fullscreen.
         const CGFloat xPosAddButton = self.frame.size.width - additionalButtonSize.width;
         const CGFloat yPosAddButton = self.frame.size.height - additionalButtonSize.height;
@@ -215,7 +217,7 @@ static const CGFloat HSPACE_LABEL = 4.0f;
 }
 
 -(void)layoutMediaView {
-    if(self.zoomable) {
+    if(self.showFullscreen) {
         if(self->mediaData.type == LAY_MEDIA_IMAGE) {
             UIImageView *imageView = (UIImageView*)self->contentSubview;
             // The image should be shown as fitted into the whole visible frame
@@ -245,6 +247,11 @@ static const CGFloat HSPACE_LABEL = 4.0f;
     } else {
         if(self->mediaData.type == LAY_MEDIA_IMAGE) {
             [self layoutMediaViewWithImage];
+            if(self.zoomable) {
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                               initWithTarget:self action:@selector(showImageFullScreenMode:)];
+                [self addGestureRecognizer:tap];
+            }
         } else if(self->mediaData.type == LAY_MEDIA_XML) {
             UIWebView *webView = (UIWebView*)self->contentSubview;
             webView.scalesPageToFit = NO;
@@ -373,15 +380,84 @@ static const CGFloat HSPACE_LABEL = 4.0f;
     return show;
 }
 
+-(void)showImageFullScreenInWindow {
+    UIWindow *windowToShowIn = self.window;
+    if(!windowToShowIn) {
+        MWLogWarning( [LayMediaView class], @"Can not show image in fullscreen mode (window is nil)!");
+        return;
+    }
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    UIView *background = [[UIView alloc] initWithFrame:windowToShowIn.frame];
+    background.tag = TAG_IMAGE_FULLSCREEN_BACKGROUND;
+    background.backgroundColor = [[LayStyleGuide instanceOf:nil] getColor:InfoBackgroundColor];
+    [windowToShowIn addSubview:background];
+    
+    UIView *container = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, background.frame.size.width, 0.0f)];
+    container.clipsToBounds = YES;
+    UIImage *image = [UIImage imageWithData:self->mediaData.data];
+    LayMediaData *data = [LayMediaData byUIImage:image];
+    const CGRect mediaViewRect = CGRectMake(0.0f, 0.0f, background.frame.size.width, background.frame.size.height);
+    LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:mediaViewRect andMediaData:data];
+    mediaView.showFullscreen = YES;
+    [mediaView layoutMediaView];
+    [container addSubview:mediaView];
+    /*UIImageView *imageView = [UIImageView new];
+     imageView.contentMode = UIViewContentModeScaleAspectFit;
+     [LayFrame setSizeWith:backgound.frame.size toView:imageView];
+     imageView.center = backgound.center;
+     imageView.image = image;
+     [container addSubview:imageView];
+     */
+    [background addSubview:container];
+    //
+    const CGFloat indent = 10.0f;
+    const CGSize closeButtonSize = CGSizeMake(50.0f + indent, 30.0f);
+    const CGFloat yPosCloseButton = background.frame.size.height - closeButtonSize.height;
+    const CGFloat xPosCloseButton = -closeButtonSize.width;
+    const CGRect closeButtonFrame = CGRectMake(xPosCloseButton, yPosCloseButton, closeButtonSize.width, closeButtonSize.height);
+    UIView *closeButton = [[UIView alloc]initWithFrame:closeButtonFrame];
+    UIButton *iconButon = [LayIconButton buttonWithId:LAY_BUTTON_CANCEL];
+    [closeButton addSubview:iconButon];
+    iconButon.center = CGPointMake(closeButtonSize.width/2.0f + indent, closeButtonSize.height/2.0f);
+    [iconButon addTarget:self action:@selector(closeFullScreenMode) forControlEvents:UIControlEventTouchUpInside];
+    [styleGuide makeRoundedBorder:closeButton withBackgroundColor:GrayTransparentBackground andBorderColor:ClearColor];
+    [background addSubview:closeButton];
+    
+    const CGPoint dialogCenter = CGPointMake(0.0f, background.frame.size.height/2.0f);
+    [LayFrame setPos:dialogCenter toView:container];
+    const CGFloat dialogHeight = background.frame.size.height;//imageView.frame.size.height;
+    CALayer *dialogLayer = container.layer;
+    [UIView animateWithDuration:0.3 animations:^{
+        dialogLayer.bounds = CGRectMake(0.0f, 0.0f, container.frame.size.width, dialogHeight);
+    }];
+    
+    CALayer *closeButtonLayer = closeButton.layer;
+    [UIView animateWithDuration:0.4 animations:^{
+        closeButtonLayer.position = CGPointMake((closeButtonSize.width/2.0f) - indent,
+                                                closeButtonLayer.position.y);
+        
+    }];
+}
+
 //
 // Action handlers
 //
+-(void)closeFullScreenMode {
+    UIWindow *window = self.window;
+    UIView *fullScreenBackground = [window viewWithTag:TAG_IMAGE_FULLSCREEN_BACKGROUND];
+    [fullScreenBackground removeFromSuperview];
+}
+
 -(void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
     UIView *view = gestureRecognizer.view;
     if([view isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollView = (UIScrollView*)view;
         [scrollView setZoomScale:1.0f animated:YES];
     }
+}
+
+-(void)showImageFullScreenMode:(UIGestureRecognizer *)gestureRecognizer {
+    [self showImageFullScreenInWindow];
 }
 
 -(void)showFullLabel {

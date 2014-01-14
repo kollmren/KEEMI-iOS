@@ -26,6 +26,8 @@
 
 @property (nonatomic) BOOL zoomable;
 
+@property (nonatomic) BOOL showFullscreen;
+
 @property (nonatomic) BOOL fitLabelToFitContent;
 
 - (id)initWithFrame:(CGRect)frame_ andMediaData:(LayMediaData*)mediaData_;

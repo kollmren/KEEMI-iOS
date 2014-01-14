@@ -78,7 +78,7 @@ static const CGFloat SPACE = 5.0f;
             self->mediaView = nil;
         }
         self->mediaView = [[LayMediaView alloc]initWithFrame:self.frame andMediaData:mediaData];
-        self->mediaView.zoomable = YES;
+        self->mediaView.showFullscreen = YES;
         [self->mediaView layoutMediaView];
         [self addSubview:self->mediaView];
     } else {
