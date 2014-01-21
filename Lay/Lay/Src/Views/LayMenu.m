@@ -480,19 +480,21 @@ static const CGFloat lineMiddleBreak = 6.0f;
 - (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view {
     if(!imageMenu.entriesInteractive) return NO;
     if([view isKindOfClass:[LayMenuEntry class]]) {
-        LayMenuEntry* entry = (LayMenuEntry*)view;
-        [imageMenu animateTap:entry];
-        if(imageMenu.menuDelegate != nil) {
-            static BOOL subMenuPresented = NO;
-            if(subMenuPresented && [self willShowSubMenuEntryForSuperMenuEntry:entry]) {
-                [self collapseSubMenuEntries:YES];
+        if(!view.hidden) {
+            LayMenuEntry* entry = (LayMenuEntry*)view;
+            [imageMenu animateTap:entry];
+            if(imageMenu.menuDelegate != nil) {
+                static BOOL subMenuPresented = NO;
+                if(subMenuPresented && [self willShowSubMenuEntryForSuperMenuEntry:entry]) {
+                    [self collapseSubMenuEntries:YES];
+                }
+                subMenuPresented = [self showSubMenuEntryForSuperMenuEntry:entry];
+                if(!subMenuPresented) {
+                    [imageMenu.menuDelegate entryTapped:entry.identifier];
+                }
+            } else {
+                MWLogWarning([LayMenu class], @"No delegate set. No message send for tap on entry with id:%d", entry.identifier);
             }
-            subMenuPresented = [self showSubMenuEntryForSuperMenuEntry:entry];
-            if(!subMenuPresented) {
-                [imageMenu.menuDelegate entryTapped:entry.identifier];
-            }
-        } else {
-            MWLogWarning([LayMenu class], @"No delegate set. No message send for tap on entry with id:%d", entry.identifier);
         }
     } else {
         MWLogError([LayMenu class], @"There are subviews of an unknown type!");
@@ -621,18 +623,21 @@ static const CGFloat lineMiddleBreak = 6.0f;
         if([subView isKindOfClass:[LayMenuEntry class]]) {
             LayMenuEntry* menuEntry = (LayMenuEntry*)subView;
             if(menuEntry.superIdentifier!=NO_SUBMENU_ENTRY_IDENTIFIER && !menuEntry.hidden) {
+                CALayer *subMenuEntryLayer = menuEntry.layer;
+                const CGPoint positionSubMenuEntry = CGPointMake(subMenuEntryLayer.position.x, subMenuEntryLayer.position.y + subMenuEntryLayer.bounds.size.height + g_DEFAULT_ENTRY_SPACE);
                 if(animated) {
-                    CALayer *subMenuEntryLayer = menuEntry.layer;
-                    const CGPoint positionSubMenuEntry = CGPointMake(subMenuEntryLayer.position.x, subMenuEntryLayer.position.y + subMenuEntryLayer.bounds.size.height + g_DEFAULT_ENTRY_SPACE);
                     [UIView animateWithDuration:0.3 animations:^{
                         subMenuEntryLayer.position = positionSubMenuEntry;
                     } completion:^(BOOL finished){
+                        subMenuEntryLayer.position = positionSubMenuEntry;
                         menuEntry.hidden = YES;
                         menuEntry.userInteractionEnabled = NO;
                         [self sendSubviewToBack:menuEntry];
                     }];
                 } else {
+                    subMenuEntryLayer.position = positionSubMenuEntry;
                     menuEntry.hidden = YES;
+                    menuEntry.userInteractionEnabled = NO;
                     [self sendSubviewToBack:menuEntry];
                 }
                 
