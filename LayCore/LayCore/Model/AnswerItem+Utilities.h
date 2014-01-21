@@ -35,4 +35,6 @@
 
 -(void)deleteAnswerItem;
 
+-(BOOL)belongsToGroup;
+
 @end

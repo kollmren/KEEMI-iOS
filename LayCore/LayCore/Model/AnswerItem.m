@@ -16,6 +16,7 @@
 @implementation AnswerItem
 
 @dynamic assignedToItem;
+@dynamic equalGroupName;
 @dynamic assignedToNumber;
 @dynamic correct;
 @dynamic name;

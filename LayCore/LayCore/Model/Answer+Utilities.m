@@ -279,6 +279,16 @@ static const NSInteger invalidSessionNumber = 0;
     return styleType;
 }
 
+-(NSArray*)answerItemListWithGroupName:(NSString*)groupName {
+    NSMutableArray *answerItemList = [NSMutableArray arrayWithCapacity:5];
+    for (AnswerItem *answerItem in self.answerItemRef) {
+        if(answerItem.equalGroupName && [answerItem.equalGroupName isEqualToString:groupName]) {
+            [answerItemList addObject:answerItem];
+        }
+    }
+    return answerItemList;
+}
+
 @end
 
 

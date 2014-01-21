@@ -166,6 +166,10 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
 
 -(Question*) groupedQuestionWithIndex:(NSInteger)questionIndex {
     Question *question = nil;
+    if( nil == self->currentQuestionGroupName ) {
+        return question;
+    }
+    
     if( self->groupedQuestionMap ) {
         if( !self->currentGroupedQuestionList ) {
             self->currentGroupedQuestionList = [self->groupedQuestionMap valueForKey:self->currentQuestionGroupName];

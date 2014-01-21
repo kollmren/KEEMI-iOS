@@ -84,4 +84,8 @@
     [self.managedObjectContext deleteObject:self];
 }
 
+-(BOOL)belongsToGroup {
+    return self.equalGroupName?YES:NO;
+}
+
 @end

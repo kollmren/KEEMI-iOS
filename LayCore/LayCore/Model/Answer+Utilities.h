@@ -67,4 +67,6 @@ typedef enum LayAnswerStyleTypes_ {
 
 -(LayAnswerStyleType)styleType;
 
+-(NSArray*)answerItemListWithGroupName:(NSString*)groupName;
+
 @end

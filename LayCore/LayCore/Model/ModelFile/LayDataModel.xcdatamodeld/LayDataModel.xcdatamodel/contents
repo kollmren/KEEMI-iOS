@@ -22,6 +22,7 @@
         <attribute name="assignedToItem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="assignedToNumber" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="equalGroupName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longTermWordList" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>

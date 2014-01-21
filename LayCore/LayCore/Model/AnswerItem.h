@@ -14,6 +14,7 @@
 @interface AnswerItem : NSManagedObject
 
 @property (nonatomic, retain) NSString * assignedToItem;
+@property (nonatomic, retain) NSString * equalGroupName;
 @property (nonatomic, retain) NSNumber * assignedToNumber;
 @property (nonatomic, retain) NSNumber * correct;
 @property (nonatomic, retain) NSString * name;

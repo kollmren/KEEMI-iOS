@@ -55,6 +55,7 @@ const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";
 const NSString* const LAY_XML_ATTRIBUTE_LARGE_MEDIA = @"large";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
 const NSString* const LAY_XML_ATTRIBUTE_GROUP_QUESTIONS = @"groupName";
+const NSString* const LAY_XML_ATTRIBUTE_EQUAL_GROUP_NAME = @"equalGroupName";
 
 static const NSInteger NUMBER_OF_DEFAULT_TOPIC = 1;
 
@@ -1016,9 +1017,15 @@ static Class _classObj = nil;
                             [self adjustErrorWith:LayImportCatalogResourceError andMessage:message];
                         }
                     }
-                    // explanation - otional element
+                    // explanation - otional attribute
                     [self addExplanationFrom:answerItemNode to:answerItem];
                     
+                    // groupName  - optional attribute
+                    NSString *groupName = [answerItemNode valueOfAttribute:(NSString*)LAY_XML_ATTRIBUTE_EQUAL_GROUP_NAME];
+                    if( groupName ) {
+                        answerItem.equalGroupName = groupName;
+                    }
+                    // Link to answer
                     [answer addAnswerItem:answerItem];
                 } else {
                     NSString *message = [NSString stringWithFormat:@"Element:%@ must have an attribute:%@!", answerItemNode, answerItemAttrCorrect];

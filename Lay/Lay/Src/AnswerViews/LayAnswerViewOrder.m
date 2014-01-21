@@ -170,13 +170,28 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
     NSInteger itemPositionInOrderView = 1;
     BOOL userOrderCorrect = YES;
     for (LayAnswerButtonCell* answerButtonCell in self->answerItemColumnList) {
+        BOOL userItemOrderCorrect = NO;
         AnswerItem* answerItem = answerButtonCell->answerItem;
-        NSInteger correctPositionOfItem = [answerItem.number integerValue];
-        [answerButtonCell->answerButton mark];
-        if(correctPositionOfItem != itemPositionInOrderView ) {
-            userOrderCorrect = NO;
-            answerButtonCell->answerButton.showAsWrong = YES;
+        if( [answerItem belongsToGroup] ) {
+            NSArray *groupedAnswerItemList = [self->answer answerItemListWithGroupName:answerItem.equalGroupName];
+            for (AnswerItem *answerItem in groupedAnswerItemList) {
+                NSInteger correctPositionOfItem = [answerItem.number integerValue];
+                if(correctPositionOfItem == itemPositionInOrderView ) {
+                    userItemOrderCorrect = YES;
+                    break;
+                }
+            }
+        } else {
+            NSInteger correctPositionOfItem = [answerItem.number integerValue];
+            if(correctPositionOfItem == itemPositionInOrderView ) {
+                userItemOrderCorrect = YES;
+            }
         }
+        if(!userItemOrderCorrect) {
+            answerButtonCell->answerButton.showAsWrong = YES;
+            userOrderCorrect = NO;
+        }
+        [answerButtonCell->answerButton mark];
         [answerButtonCell->answerButton showCorrectness];
         itemPositionInOrderView++;
         
@@ -184,6 +199,7 @@ static const NSInteger TAG_TABLE_VIEW = 1123;
             answerButtonCell->answerButton.enabled = YES;
         }
     }
+    
     if( userOrderCorrect ) {
         self->userAnswerIsCorrect = YES;
     } else {
