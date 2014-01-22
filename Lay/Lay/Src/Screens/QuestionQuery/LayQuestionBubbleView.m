@@ -84,7 +84,7 @@ static const CGFloat g_horizontalBorder = 8.0f;
 
 -(void) setupMinimizeArea {
     minimizeArea = [[UIView alloc] init];
-    minimizeArea.alpha = 0.7f;
+    minimizeArea.alpha = 0.5f;
     [self addSubview:minimizeArea];
     
     maximizeButton = [LayIconButton buttonWithId:LAY_BUTTON_QUESTION];
@@ -95,8 +95,8 @@ static const CGFloat g_horizontalBorder = 8.0f;
     [[LayStyleGuide instanceOf:nil] makeRoundedBorder:minimizeArea withBackgroundColor:WhiteTransparentBackground];
 }
 
-static const NSUInteger TAG_QUESTION_TITLE = 1004;
-static const NSUInteger TAG_QUESTION_INTRO = 1005;
+static const NSUInteger TAG_QUESTION_TITLE = 3104;
+static const NSUInteger TAG_QUESTION_INTRO = 3105;
 -(CGFloat)addQuestonTitleAndIntro:(Question*)question_ {
     UIView *view = [self viewWithTag:TAG_QUESTION_TITLE];
     if(view) {
