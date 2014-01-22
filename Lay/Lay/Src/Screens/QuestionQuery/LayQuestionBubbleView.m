@@ -76,7 +76,10 @@ static const CGFloat g_horizontalBorder = 8.0f;
                                           initWithTarget:self action:@selector(minimizeQuestion)]];
     [self addSubview:minimizeButton];
     
-    [[LayStyleGuide instanceOf:nil] makeRoundedBorder:questionArea withBackgroundColor:WhiteTransparentBackground];
+    questionArea.layer.cornerRadius = [styleGuide getRoundedBorderRadius];
+    questionArea.layer.borderWidth = 0.0f;
+    questionArea.layer.borderColor = [UIColor clearColor].CGColor;
+    questionArea.backgroundColor = [styleGuide getColor:WhiteTransparentBackground];
 }
 
 -(void) setupMinimizeArea {

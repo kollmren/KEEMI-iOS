@@ -52,7 +52,6 @@ const NSString* const LAY_XML_TAG_SOURCE = @"source";
 const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
 
 const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";
-const NSString* const LAY_XML_ATTRIBUTE_LARGE_MEDIA = @"large";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
 const NSString* const LAY_XML_ATTRIBUTE_GROUP_QUESTIONS = @"groupName";
 const NSString* const LAY_XML_ATTRIBUTE_EQUAL_GROUP_NAME = @"equalGroupName";
@@ -67,7 +66,6 @@ static const NSInteger NUMBER_OF_DEFAULT_TOPIC = 1;
 @property (nonatomic) LayMediaFormat mediaFormat;
 @property (nonatomic) NSString *label; // optional
 @property (nonatomic) NSString *showLabel; // optional
-@property (nonatomic) NSString *large; // optional
 @property (nonatomic) NSData *mediaFileContent;
 @property (nonatomic) NSString *fileRef;
 @end
@@ -1052,13 +1050,11 @@ static Class _classObj = nil;
         NSString *mediaRef = [mediaNode valueOfAttribute:mediaAttrRef];
         NSString *mediaLabel = [mediaNode valueOfAttribute:mediaAttrLabel];
         NSString *mediaShowLabel = [mediaNode valueOfAttribute:mediaAttrShowLabel];
-        NSString *mediaLargeFlag = [mediaNode valueOfAttribute:(NSString*)LAY_XML_ATTRIBUTE_LARGE_MEDIA];
         if(mediaType) {
             if(mediaRef && [mediaRef length] > 0) {
                 nodeData = [self mediaNodeDataBy:mediaRef andType:mediaType];
                 nodeData.label = mediaLabel;
                 nodeData.showLabel = mediaShowLabel;
-                nodeData.large = mediaLargeFlag;
             } else {
                 NSString *message = [NSString stringWithFormat:@"Value for mediaRef is empty!"];
                 [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
@@ -1117,7 +1113,6 @@ static Class _classObj = nil;
 -(void)fillFurtherInfoFrom:(LayXmlMediaNodeData*)mediaNode into:(Media*)media {
     media.label = mediaNode.label;
     media.showLabel = mediaNode.showLabel;
-    media.isLargeMedia = [NSNumber numberWithBool:[mediaNode.large boolValue]];
 }
 
 -(void)catchTopicReferenceFromNode:(LayXmlNode*)nodeWithTopic to:(NSManagedObject*)managedObject {
@@ -1318,37 +1313,9 @@ static Class _classObj = nil;
         Media *media = [self->importCatalog mediaByName:mediaNodeData.fileRef];
         if(media) {
             [self fillFurtherInfoFrom:mediaNodeData into:media];
-            [self adjustTypeForLinkedQuestionByLargeMediaFlag:media];
         } else {
             NSString *message = [NSString stringWithFormat:@"Media-Item:%@ is never referenced in the catalog!", mediaNodeData.fileRef];
             MWLogWarning(_classObj, message);
-        }
-    }
-}
-
--(void)adjustTypeForLinkedQuestionByLargeMediaFlag:(Media*)media {
-    if([media.isLargeMedia boolValue]) {
-        if(media.answerMediaRef) {
-            NSSet* answerMediaSet = media.answerMediaRef;
-            if([answerMediaSet count] > 0) {
-                Answer *currentAnswer = nil;
-                for (AnswerMedia* answerMedia in answerMediaSet) {
-                    if(currentAnswer != answerMedia.answerRef) {
-                        Question *question = answerMedia.answerRef.questionRef;
-                        if(question) {
-                            if( [question questionType] == ANSWER_TYPE_MULTIPLE_CHOICE) {
-                                [question setQuestionType:ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA];
-                            } else if([question questionType] == ANSWER_TYPE_SINGLE_CHOICE) {
-                                [question setQuestionType:ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA];
-                            }
-                        } else {
-                            NSString *message = [NSString stringWithFormat:@"Internal error! Can not adjust type of question by large flag!"];
-                            [self adjustErrorWith:LayImportCatalogParsingError andMessage:message];
-                        }
-                        currentAnswer = answerMedia.answerRef;
-                    }
-                }
-            }
         }
     }
 }
@@ -1590,6 +1557,6 @@ static Class _classObj = nil;
 //
 @implementation LayXmlMediaNodeData
 
-@synthesize mediaType, mediaFormat, mediaFileContent, label, fileRef, showLabel, large;
+@synthesize mediaType, mediaFormat, mediaFileContent, label, fileRef, showLabel;
 
 @end

@@ -33,7 +33,6 @@
 @dynamic publisherRef;
 @dynamic topicRef;
 @dynamic thumbnailRef;
-@dynamic isLargeMedia;
 @dynamic mediaImageMapRef;
 
 @end

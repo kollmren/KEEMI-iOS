@@ -20,7 +20,7 @@
 const NSString* const SHOW_LABEL_BEFORE_EVALUATED = @"yes";
 
 @implementation LayMediaData
-@synthesize type, format, data, name, label, showLabel, isLargeMedia;
+@synthesize type, format, data, name, label, showLabel;
 
 
 - (NSString *)description {
@@ -50,7 +50,6 @@ const NSString* const SHOW_LABEL_BEFORE_EVALUATED = @"yes";
     LayMediaData *mediaData = [LayMediaData new];
     [mediaData setUIImage:image];
     mediaData.type = LAY_MEDIA_IMAGE;
-    mediaData.isLargeMedia = NO;
     return mediaData;
 }
 
@@ -61,7 +60,6 @@ const NSString* const SHOW_LABEL_BEFORE_EVALUATED = @"yes";
     mediaData.name = media.name;
     mediaData.label = media.label;
     mediaData.showLabel = media.showLabel;
-    mediaData.isLargeMedia = [media.isLargeMedia boolValue];
     return mediaData;
 }
 
@@ -74,7 +72,6 @@ const NSString* const SHOW_LABEL_BEFORE_EVALUATED = @"yes";
         mediaData.name = media.name;
         mediaData.label = media.label;
         mediaData.showLabel = media.showLabel;
-        mediaData.isLargeMedia = [media.isLargeMedia boolValue];
     }
     return mediaData;
 }
@@ -84,7 +81,6 @@ const NSString* const SHOW_LABEL_BEFORE_EVALUATED = @"yes";
     mediaData.data = data;
     mediaData.type = type;
     mediaData.format = format;
-    mediaData.isLargeMedia = NO;
     return mediaData;
 }
 

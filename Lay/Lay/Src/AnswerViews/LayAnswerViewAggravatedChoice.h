@@ -1,5 +1,4 @@
 //
-//  LayAnswerViewChoiceLargeMedia.h
 //  Lay
 //
 //  Created by Rene Kollmorgen on 18.03.13.
@@ -11,6 +10,6 @@
 #import "LayAnswerView.h"
 #import "LayAnswerButtonDelegate.h"
 
-@interface LayAnswerViewChoiceLargeMedia : UIView<LayAnswerView>
+@interface LayAnswerViewAggravatedChoice : UIView<LayAnswerView>
 
 @end

@@ -59,6 +59,7 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
     //
     UITapGestureRecognizer *singleTap;
     BOOL evaluated;
+    NSUInteger lastIndexOfShownAnswerItem;
     //
     LayAnswerTypeIdentifier questionType;
 }
@@ -76,6 +77,7 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
         self->questionType = [answer_.questionRef questionType];
         self.itemViewSolutionDelegate = self;
         self->evaluated = NO;
+        self->lastIndexOfShownAnswerItem = 0;
         self.withBackground = YES;
         self.space = DEFAULT_SPACE;
         [self setupAnswerItemViewWithWidth:width];
@@ -466,7 +468,7 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
 //
 -(void)tapped:(LayAnswerButton*)answerButton_ wasSelected:(BOOL)wasSelected {
     
-    if(!self->evaluated && self->questionType == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA) {
+    if(!self->evaluated && self->questionType == ANSWER_TYPE_AGGRAVATED_SINGLE_CHOICE) {
         for(LayAnswerButton *answerButton in [self->answerButtonList subviews]) {
             if(answerButton_ != answerButton ) {
                 [answerButton unmark];
@@ -503,8 +505,21 @@ static const NSInteger TAG_MINIMIZE_BUITTON = 100;
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
     // Switch the indicator when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = self->answerButtonList.frame.size.width;
-    self->indexOfCurrentAnswerItem = floor((self->answerButtonList.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    const CGFloat pageWidth = self->answerButtonList.frame.size.width;
+    const CGFloat contentOffsetX = self->answerButtonList.contentOffset.x;
+    self->indexOfCurrentAnswerItem = floor((contentOffsetX - pageWidth / 2) / pageWidth) + 1;
+    //
+    if( !self->evaluated ) {
+        if( lastIndexOfShownAnswerItem > self->indexOfCurrentAnswerItem ) {
+            const CGFloat contentOffsetXLastItem = lastIndexOfShownAnswerItem * pageWidth;
+            const CGFloat contentOffsetY = self->answerButtonList.contentOffset.y;
+            const CGPoint stayAtContentOffset = CGPointMake(contentOffsetXLastItem, contentOffsetY);
+            [sender setContentOffset:stayAtContentOffset animated:NO];
+        } else {
+            lastIndexOfShownAnswerItem = self->indexOfCurrentAnswerItem;
+        }
+    }
+    
     [self updateTitle];
     NSArray *answerButtonViewList = [self->answerButtonList subviews];
     if(self->indexOfCurrentAnswerItem  < [answerButtonViewList count]) {

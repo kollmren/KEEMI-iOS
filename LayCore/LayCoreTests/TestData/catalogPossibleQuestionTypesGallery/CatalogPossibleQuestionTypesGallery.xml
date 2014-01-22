@@ -74,16 +74,14 @@
         </answerItem>
       </answer>
     </question>
-    <question type="singleChoice" name="question1" topic="java" groupName="java">
+    <question type="aggravatedSingleChoice" name="question1" topic="java" groupName="java">
       <introduction>
         <section>
           <title>This is the title of the first section</title>
           <text>This is the first paragraph of the first section ...</text>
           <text>This is the second paragraph of the first section ...</text>
           <mediaList>
-            <media type="image" ref="image144x77.png"/>
             <media type="html" ref="java1.html"/>
-            <media type="image" ref="image144x77.png"/>
           </mediaList>
           <text>This is the third paragraph of the first section ...</text>
           <text>This is the fourth paragraph of the first section ...</text>
@@ -531,7 +529,7 @@
           <text>....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
         </answerItem>
         <answerItem correct="no">
-          <media type="html" ref="aHtmlWithATitle.html" large="yes"/>
+          <media type="html" ref="aHtmlWithATitle.html"/>
           <text>(html)....Im Beispiel sind zwei Absätze definiert. Für den ersten wird bestimmt, dass er in der Schriftart Arial oder einer anderen serifenlosen Schrift dargestellt wird, 18 Pixel Schriftgröße hat und in blauer Farbe erscheint. Der zweite Absatz erhält eine gelbe Hintergrundfarbe.</text>
         </answerItem>
         <answerItem correct="no">
@@ -1032,12 +1030,12 @@
     </question>
   </questionList>
   <mediaList>
-    <media type="image" ref="image1280x640.png" large="yes"/>
-    <media type="html" ref="aHtmlWithATitle.html" large="yes"/>
-    <media type="html" ref="java1.html" large="yes"/>
+    <media type="image" ref="image1280x640.png"/>
+    <media type="html" ref="aHtmlWithATitle.html"/>
+    <media type="html" ref="java1.html"/>
     <media type="image" ref="image144x144.png" label="Das ist ein Label zum Bild" showLabelBeforeEvaluated="no"/>
     <media type="image" ref="image2_144x144.png" label="Dieses Label ist ein bisschen zu lang für den zur Verfügung stehenden Platz" showLabelBeforeEvaluated="yes"/>
-    <media type="image" large="yes" ref="image3_144x144.png" label="Dieses Label ist ein bisschen zu lang für den zur Verfügung stehenden Platz" showLabelBeforeEvaluated="yes"/>
+    <media type="image" ref="image3_144x144.png" label="Dieses Label ist ein bisschen zu lang für den zur Verfügung stehenden Platz" showLabelBeforeEvaluated="yes"/>
   </mediaList>
   <resourceList>
     <resource name="resJavaQuestion" type="website">

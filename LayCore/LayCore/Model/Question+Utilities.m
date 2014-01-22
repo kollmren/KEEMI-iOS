@@ -73,9 +73,9 @@
             break;
         case ANSWER_TYPE_SINGLE_CHOICE:
             break;
-        case ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA:
+        case ANSWER_TYPE_AGGRAVATED_MULTIPLE_CHOICE:
             break;
-        case ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA:
+        case ANSWER_TYPE_AGGRAVATED_SINGLE_CHOICE:
             break;
         case ANSWER_TYPE_ASSIGN:
             break;

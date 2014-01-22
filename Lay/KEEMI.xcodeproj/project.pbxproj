@@ -100,7 +100,7 @@
 		A77AE1DE17004BB300C119AB /* Icons in Resources */ = {isa = PBXBuildFile; fileRef = A77AE1DD17004BB300C119AB /* Icons */; };
 		A77AE22217004E8E00C119AB /* LayAnswerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1E117004E8E00C119AB /* LayAnswerButton.m */; };
 		A77AE22317004E8E00C119AB /* LayAnswerViewChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1E417004E8E00C119AB /* LayAnswerViewChoice.m */; };
-		A77AE22417004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1E617004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m */; };
+		A77AE22417004E8E00C119AB /* LayAnswerViewAggravatedChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1E617004E8E00C119AB /* LayAnswerViewAggravatedChoice.m */; };
 		A77AE22517004E8E00C119AB /* LayAnswerViewManagerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1E917004E8E00C119AB /* LayAnswerViewManagerImpl.m */; };
 		A77AE22617004E8E00C119AB /* LayAnswerViewSingleChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE1EB17004E8E00C119AB /* LayAnswerViewSingleChoice.m */; };
 		A77AE23817004E8E00C119AB /* LayAffineTransformationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A77AE21117004E8E00C119AB /* LayAffineTransformationAnimator.m */; };
@@ -302,8 +302,8 @@
 		A77AE1E217004E8E00C119AB /* LayAnswerButtonDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerButtonDelegate.h; sourceTree = "<group>"; };
 		A77AE1E317004E8E00C119AB /* LayAnswerViewChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewChoice.h; sourceTree = "<group>"; };
 		A77AE1E417004E8E00C119AB /* LayAnswerViewChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewChoice.m; sourceTree = "<group>"; };
-		A77AE1E517004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewChoiceLargeMedia.h; sourceTree = "<group>"; };
-		A77AE1E617004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewChoiceLargeMedia.m; sourceTree = "<group>"; };
+		A77AE1E517004E8E00C119AB /* LayAnswerViewAggravatedChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewAggravatedChoice.h; sourceTree = "<group>"; };
+		A77AE1E617004E8E00C119AB /* LayAnswerViewAggravatedChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewAggravatedChoice.m; sourceTree = "<group>"; };
 		A77AE1E717004E8E00C119AB /* LayAnswerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewDelegate.h; sourceTree = "<group>"; };
 		A77AE1E817004E8E00C119AB /* LayAnswerViewManagerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewManagerImpl.h; sourceTree = "<group>"; };
 		A77AE1E917004E8E00C119AB /* LayAnswerViewManagerImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewManagerImpl.m; sourceTree = "<group>"; };
@@ -750,8 +750,8 @@
 				A77AE1E217004E8E00C119AB /* LayAnswerButtonDelegate.h */,
 				A77AE1E317004E8E00C119AB /* LayAnswerViewChoice.h */,
 				A77AE1E417004E8E00C119AB /* LayAnswerViewChoice.m */,
-				A77AE1E517004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.h */,
-				A77AE1E617004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m */,
+				A77AE1E517004E8E00C119AB /* LayAnswerViewAggravatedChoice.h */,
+				A77AE1E617004E8E00C119AB /* LayAnswerViewAggravatedChoice.m */,
 				A77AE1E717004E8E00C119AB /* LayAnswerViewDelegate.h */,
 				A77AE1E817004E8E00C119AB /* LayAnswerViewManagerImpl.h */,
 				A77AE1E917004E8E00C119AB /* LayAnswerViewManagerImpl.m */,
@@ -1034,7 +1034,7 @@
 				A72898621860513700B98814 /* LayVcSearchViewController.m in Sources */,
 				A77AE22217004E8E00C119AB /* LayAnswerButton.m in Sources */,
 				A77AE22317004E8E00C119AB /* LayAnswerViewChoice.m in Sources */,
-				A77AE22417004E8E00C119AB /* LayAnswerViewChoiceLargeMedia.m in Sources */,
+				A77AE22417004E8E00C119AB /* LayAnswerViewAggravatedChoice.m in Sources */,
 				A77AE22517004E8E00C119AB /* LayAnswerViewManagerImpl.m in Sources */,
 				A749FA7E18585819001EB8D4 /* LayAnswerViewOrder.m in Sources */,
 				A77AE22617004E8E00C119AB /* LayAnswerViewSingleChoice.m in Sources */,

@@ -80,13 +80,13 @@ static Class _classObj = nil;
                         MWLogError(_classObj, @"Text answers must have at least one correct answerItem! Question:%@",question.name);
                     }
                     break;
-                case ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA:
+                case ANSWER_TYPE_AGGRAVATED_SINGLE_CHOICE:
                     if(numberOfCorrectAnswers != 1) {
                         valid = NO;
                         MWLogError(_classObj, @"SingleChoice answers must have exact one correct answerItem! Question:%@",question.name);
                     }
                     break;
-                case ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA:
+                case ANSWER_TYPE_AGGRAVATED_MULTIPLE_CHOICE:
                     if(numberOfCorrectAnswers < 1) {
                         valid = NO;
                         MWLogError(_classObj, @"MultiChoice answers must have at least one correct answerItem! Question:%@",question.name);

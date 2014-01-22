@@ -352,8 +352,8 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
     
     if(self->currentAnswerView) {
         [self->currentAnswerView setDelegate:self];
-        if(answerTypeIdentifier == ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA ||
-           answerTypeIdentifier == ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA ||
+        if(answerTypeIdentifier == ANSWER_TYPE_AGGRAVATED_SINGLE_CHOICE ||
+           answerTypeIdentifier == ANSWER_TYPE_AGGRAVATED_MULTIPLE_CHOICE ||
            answerTypeIdentifier == ANSWER_TYPE_ORDER ) {
             MWLogDebug([LayQuestionView class], @"Show question in large area.");
             // answer-views of type MAP are always presented in large-screen-mode

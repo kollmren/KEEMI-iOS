@@ -11,7 +11,7 @@
 #import "LayAnswerViewManagerImpl.h"
 #import "LayAnswerViewChoice.h"
 #import "LayAnswerViewSingleChoice.h"
-#import "LayAnswerViewChoiceLargeMedia.h"
+#import "LayAnswerViewAggravatedChoice.h"
 #import "LayAnswerViewCard.h"
 #import "LayAnswerViewWordResponse.h"
 #import "LayAnswerViewOrder.h"
@@ -96,13 +96,13 @@
     }
     
     registered = [LayAnswerViewManagerImpl registerAnswerView:
-                  [LayAnswerViewChoiceLargeMedia class] forTypeOfAnswer:ANSWER_TYPE_MULTIPLE_CHOICE_LARGE_MEDIA];
+                  [LayAnswerViewAggravatedChoice class] forTypeOfAnswer:ANSWER_TYPE_AGGRAVATED_MULTIPLE_CHOICE];
     if(!registered) {
         registrationComplete = NO;
     }
     
     registered = [LayAnswerViewManagerImpl registerAnswerView:
-                  [LayAnswerViewChoiceLargeMedia class] forTypeOfAnswer:ANSWER_TYPE_SINGLE_CHOICE_LARGE_MEDIA];
+                  [LayAnswerViewAggravatedChoice class] forTypeOfAnswer:ANSWER_TYPE_AGGRAVATED_SINGLE_CHOICE];
     if(!registered) {
         registrationComplete = NO;
     }

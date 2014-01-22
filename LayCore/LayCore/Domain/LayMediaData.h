@@ -21,7 +21,6 @@ extern const NSString* const SHOW_LABEL_BEFORE_EVALUATED;
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic) NSString* label;
 @property (nonatomic) NSString* showLabel;
-@property (nonatomic) BOOL isLargeMedia;
 
 -(void)setUIImage:(UIImage*)image;
 -(UIImage*)uiimage;

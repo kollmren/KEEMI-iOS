@@ -1,12 +1,11 @@
 //
-//  LayAnswerViewChoiceLargeMedia.m
 //  Lay
 //
 //  Created by Rene Kollmorgen on 18.03.13.
 //  Copyright (c) 2013 Rene. All rights reserved.
 //
 
-#import "LayAnswerViewChoiceLargeMedia.h"
+#import "LayAnswerViewAggravatedChoice.h"
 #import "LayMediaView.h"
 #import "LayAnswerType.h"
 #import "LayMediaTypes.h"
@@ -25,14 +24,14 @@
 
 static const CGFloat SPACE = 5.0f;
 
-@interface LayAnswerViewChoiceLargeMedia() {
+@interface LayAnswerViewAggravatedChoice() {
     Answer* answer;
     LayMediaView *mediaView;
     LayAnswerItemViewMinimized *answerItemView;
 }
 @end
 
-@implementation LayAnswerViewChoiceLargeMedia
+@implementation LayAnswerViewAggravatedChoice
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -43,7 +42,7 @@ static const CGFloat SPACE = 5.0f;
 }
 
 -(void)dealloc {
-    MWLogDebug([LayAnswerViewChoiceLargeMedia class], @"dealloc");
+    MWLogDebug([LayAnswerViewAggravatedChoice class], @"dealloc");
 }
 
 -(void)addAnswerItemViewWith:(Answer*)answer_ {
@@ -62,17 +61,13 @@ static const CGFloat SPACE = 5.0f;
 
 -(void)setMedia:(Answer*)answer_ {
     NSArray *answerMediaList = [answer_ mediaList];
-     MWLogDebug([LayAnswerViewChoiceLargeMedia class], @"Catch one media marked as large from media-list(question:%@)!", answer_.questionRef.name);
-    Media* largeMedia = nil;
-    for (Media* media in answerMediaList) {
-        if([media isLargeMedia]) {
-            largeMedia = media;
-            break;
+    if([answerMediaList count] > 0) {
+        if([answerMediaList count] > 1) {
+            MWLogWarning([LayAnswerViewAggravatedChoice class], @"The aggravated type the single- or multiple-ChoiceView does not support more than one media yet! Related question:%@", answer_.questionRef.name);
         }
-    }
-    
-    if(largeMedia) {
-        LayMediaData *mediaData = [LayMediaData byMediaObject:largeMedia];
+        
+        Media *media = [answerMediaList objectAtIndex:0];
+        LayMediaData *mediaData = [LayMediaData byMediaObject:media];
         if(self->mediaView) {
             [self->mediaView removeFromSuperview];
             self->mediaView = nil;
@@ -82,7 +77,7 @@ static const CGFloat SPACE = 5.0f;
         [self->mediaView layoutMediaView];
         [self addSubview:self->mediaView];
     } else {
-        MWLogError([LayAnswerViewChoiceLargeMedia class], @"Did not find any media marked as large for question:%@", answer_.questionRef.name );
+        MWLogError([LayAnswerViewAggravatedChoice class], @"No media set for question:%@", answer_.questionRef.name );
     }
 }
 

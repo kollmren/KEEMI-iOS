@@ -30,7 +30,6 @@
 @property (nonatomic, retain) NSSet *mediaImageMapRef;
 @property (nonatomic, retain) NSSet *topicRef;
 @property (nonatomic, retain) Thumbnail *thumbnailRef;
-@property (nonatomic, retain) NSNumber * isLargeMedia;
 
 @end
 
