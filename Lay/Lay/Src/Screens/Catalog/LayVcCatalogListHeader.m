@@ -50,6 +50,7 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
     LayMediaData *coverMediaData = [LayMediaData byMediaObject:cover_];
     LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:coverMediaRect andMediaData:coverMediaData];
     mediaView.scaleToFrame = YES;
+    mediaView.zoomable = NO;
     mediaView.ignoreEvents = YES;
     mediaView.tag = TAG_MEDIA_VIEW;
     [mediaView layoutMediaView];
