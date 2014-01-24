@@ -212,7 +212,7 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
         LayAdditionalButton *additionalButton = [[LayAdditionalButton alloc]initWithPosition:CGPointMake(xPosAddButton, yPosAddButton)];
         [self addSubview:additionalButton];
         
-        [additionalButton->button addTarget:self action:@selector(showWebViewContentFullScreen) forControlEvents:UIControlEventTouchUpInside];
+        [additionalButton->button addTarget:self action:@selector(showContentInFullScreen) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
@@ -247,16 +247,17 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
     } else {
         if(self->mediaData.type == LAY_MEDIA_IMAGE) {
             [self layoutMediaViewWithImage];
-            if(self.zoomable) {
-                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                               initWithTarget:self action:@selector(showImageFullScreenMode:)];
-                [self addGestureRecognizer:tap];
-            }
         } else if(self->mediaData.type == LAY_MEDIA_XML) {
             UIWebView *webView = (UIWebView*)self->contentSubview;
             webView.scalesPageToFit = NO;
             webView.userInteractionEnabled = NO;
             //webView.delegate = self;
+        }
+        
+        if(self.zoomable) {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(showContentInFullScreen)];
+            [self addGestureRecognizer:tap];
         }
     }
     [self addAdditionalButton];
@@ -380,6 +381,16 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
     return show;
 }
 
+-(void)showContentInFullScreen {
+    if(self->mediaData.type == LAY_MEDIA_IMAGE) {
+        [self showImageFullScreenInWindow];
+    } else if( self->mediaData.type == LAY_MEDIA_XML ) {
+        [self showWebViewContentFullScreen];
+    } else {
+        MWLogDebug([LayMediaView class], @"Unknown media-type:%d for fullscreen mode!", self->mediaData.type);
+    }
+}
+
 -(void)showImageFullScreenInWindow {
     UIWindow *windowToShowIn = self.window;
     if(!windowToShowIn) {
@@ -454,10 +465,6 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
         UIScrollView *scrollView = (UIScrollView*)view;
         [scrollView setZoomScale:1.0f animated:YES];
     }
-}
-
--(void)showImageFullScreenMode:(UIGestureRecognizer *)gestureRecognizer {
-    [self showImageFullScreenInWindow];
 }
 
 -(void)showFullLabel {
