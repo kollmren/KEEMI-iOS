@@ -120,9 +120,7 @@ toolbar, nextButton, previousButton, checkButton, utilitiesButton;
         [self initQuestionView];
         [self registerEvents];
         //
-        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-        NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
-        self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
+        self->userBoughtProVersion = YES;
     }
     return self;
 }

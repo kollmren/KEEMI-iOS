@@ -15,7 +15,6 @@
 
 @interface LayAppDelegate : UIResponder <UIApplicationDelegate, MFMailComposeViewControllerDelegate> {
     BOOL appConfigured;
-    BOOL paymentObserverAlreadyRegistered;
 }
 
 @property (strong, nonatomic) UIWindow *window;

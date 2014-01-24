@@ -169,10 +169,8 @@ static Class g_classObj = nil;
     [self setupTableHeader];
     [self setupSectionViews];
     [self setupAddButtons];
-    
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
-    self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
+    //
+    self->userBoughtProVersion = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

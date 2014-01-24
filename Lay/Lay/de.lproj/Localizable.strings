@@ -157,7 +157,7 @@
 "InfoBuyProVersionSuccessfully" = "Die Features der KEEMI-Pro Version wurden freigeschaltet.";
 "InfoBuyProVersionFailed" = "Der Kauf der KEEMI-Pro Version konnte nicht abgeschlossen werden!";
 "InfoBuyProVersionNoConnection" = "Keine Verbindung zum iTunes Store!";
-"InfoHelpSampleCatalogs" = "Fragenkataloge (Beispiele)";
+"InfoHelpSampleCatalogs" = "KEEMI Kataloge auf GitHub";
 "InfoSupportBugReport" = "Einen Fehler melden";
 "InfoFeedbackSubject" = "KEEMI Feedback";
 "InfoBugReportSubject" = "KEEMI Fehlerbericht";

@@ -19,7 +19,6 @@
 #import "LayCatalogManager.h"
 #import "LayStyleGuide.h"
 #import "LayUserDefaults.h"
-#import "LayInAppPurchaseManager.h"
 
 #import "MWLogging.h"
 
@@ -107,15 +106,6 @@ static NSURL* currentCatalogToImport;
                                            cancelButtonTitle:@"OK"
                                            otherButtonTitles:nil];
         [av show];
-    }
-    
-    //
-    //
-    if(!paymentObserverAlreadyRegistered) {
-        MWLogInfo(_classObj, @"Register observer for payment transactions.");
-        LayInAppPurchaseManager *inAppPurchaseMngr = [LayInAppPurchaseManager instance];
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:inAppPurchaseMngr];
-        paymentObserverAlreadyRegistered = YES;
     }
 
     return YES;

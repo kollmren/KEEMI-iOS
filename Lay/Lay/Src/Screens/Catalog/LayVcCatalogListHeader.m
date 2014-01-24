@@ -30,9 +30,7 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
     self = [super initWithNibName:nil bundle:nil];
     if(self) {
         self->appearsFirstTime = YES;
-        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-        NSDictionary *appSettings = [standardUserDefaults dictionaryRepresentation];
-        self->userBoughtProVersion = [appSettings objectForKey:(NSString*)userDidBuyProVersion]==nil?NO:YES;
+        self->userBoughtProVersion = YES;
     }
     return self;
 }

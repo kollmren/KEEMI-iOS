@@ -63,7 +63,6 @@
 		A7474F6F17BBBD3800B334CD /* UGCNote+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7474F6E17BBBD3800B334CD /* UGCNote+Utilities.m */; };
 		A749FA7E18585819001EB8D4 /* LayAnswerViewOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = A749FA7D18585819001EB8D4 /* LayAnswerViewOrder.m */; };
 		A74CA16717B3A4A3005DC343 /* LayVcCredits.m in Sources */ = {isa = PBXBuildFile; fileRef = A74CA16617B3A4A3005DC343 /* LayVcCredits.m */; };
-		A74DF0ED1827BB5E00B599B5 /* LayInAppPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A74DF0EC1827BB5E00B599B5 /* LayInAppPurchaseManager.m */; };
 		A7500742175F5D8E007AD407 /* LayHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7500741175F5D8E007AD407 /* LayHintView.m */; };
 		A7507C8916C84DB7007ACB78 /* Media+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A7507C8816C84DB7007ACB78 /* Media+Utilities.m */; };
 		A75585641797D5F000D3EAD3 /* Resource+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A75585631797D5F000D3EAD3 /* Resource+Utilities.m */; };
@@ -243,8 +242,6 @@
 		A749FA7D18585819001EB8D4 /* LayAnswerViewOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewOrder.m; sourceTree = "<group>"; };
 		A74CA16517B3A4A3005DC343 /* LayVcCredits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcCredits.h; path = Credits/LayVcCredits.h; sourceTree = "<group>"; };
 		A74CA16617B3A4A3005DC343 /* LayVcCredits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcCredits.m; path = Credits/LayVcCredits.m; sourceTree = "<group>"; };
-		A74DF0EB1827BB5E00B599B5 /* LayInAppPurchaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayInAppPurchaseManager.h; sourceTree = "<group>"; };
-		A74DF0EC1827BB5E00B599B5 /* LayInAppPurchaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayInAppPurchaseManager.m; sourceTree = "<group>"; };
 		A750073E175F37CC007AD407 /* LayMyCatalogListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMyCatalogListItem.h; sourceTree = "<group>"; };
 		A750073F175F37CC007AD407 /* LayVcMyCatalogList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayVcMyCatalogList.h; sourceTree = "<group>"; };
 		A7500740175F5D8E007AD407 /* LayHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayHintView.h; sourceTree = "<group>"; };
@@ -875,8 +872,6 @@
 				A7D51FE116EF466C00E1D241 /* LayConfigurationManager.m */,
 				A71568DF182543CE00A3BF8D /* LayUserDefaults.h */,
 				A71568E0182543CE00A3BF8D /* LayUserDefaults.m */,
-				A74DF0EB1827BB5E00B599B5 /* LayInAppPurchaseManager.h */,
-				A74DF0EC1827BB5E00B599B5 /* LayInAppPurchaseManager.m */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -1025,7 +1020,6 @@
 				A77AE1291700433E00C119AB /* LayAbstractCell.m in Sources */,
 				A77AE12B1700433E00C119AB /* LayVcCatalogList.m in Sources */,
 				A77AE12D1700433E00C119AB /* LayVcCatalogListHeader.m in Sources */,
-				A74DF0ED1827BB5E00B599B5 /* LayInAppPurchaseManager.m in Sources */,
 				A77AE12F1700433E00C119AB /* LayMyCatalogListItem.m in Sources */,
 				A77AE1311700433E00C119AB /* LayVcMyCatalogList.m in Sources */,
 				A77AE1331700433E00C119AB /* LayVcNavigation.m in Sources */,
