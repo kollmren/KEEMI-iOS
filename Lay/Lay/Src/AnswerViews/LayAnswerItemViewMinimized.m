@@ -43,7 +43,7 @@ static const CGFloat DEFAULT_SPACE = 5.0f;
         self->answerItemView.itemViewDelegate = self;
         [self addSubview:self->answerItemView];
         [self setupMinimizeArea];
-        [self minimize];
+        [self maximize];
     }
     return self;
 }

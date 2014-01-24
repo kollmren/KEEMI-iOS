@@ -48,7 +48,7 @@ const NSString* const LAY_XML_TAG_CATALOG_ABOUT=@"about";
 const NSString* const LAY_XML_TAG_LINK = @"link";
 const NSString* const LAY_XML_TAG_WEBSITE = @"website";
 const NSString* const LAY_XML_TAG_EMAIL = @"email";
-const NSString* const LAY_XML_TAG_SOURCE = @"source";
+const NSString* const LAY_XML_TAG_SOURCE = @"download";
 const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
 
 const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";

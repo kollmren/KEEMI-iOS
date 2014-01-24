@@ -65,8 +65,8 @@
 "Cancel" = "Cancel";
 "CatalogQuestionAnswerTitle" = "Answer:";
 /* Share */
-"CatalogShareByMailSubject" = "KEEMI question catalog";
-"CatalogShareByMailText" = "Send you a link to an interesting question catalog. Link:";
+"CatalogShareByMailSubject" = "KEEMI catalog";
+"CatalogShareByMailText" = "Send you a link to an interesting KEEMI catalog. Link:";
 /* Notes */
 "CatalogNotes" = "Notes";
 "NotesAddTextNote" = "Add text";
@@ -98,7 +98,7 @@
 /* Catalog Explanations */
 "CatalogExplanationsTitle" = "Explanations";
 "CatalogNumberOfExplanations" = "Explanations: %u";
-"CatalogExplanationAskStartRecallWithRelatedQuestions" = "Do you like to recall the information you read in %u explanation(s)?";
+"CatalogExplanationAskStartRecallWithRelatedQuestions" = "Do you like to recall the information you read in %u explanations?";
 /* Catalog Resources */
 "ResourceWebLink" = "Web";
 "ResourceBookLink" = "Books";
@@ -157,7 +157,7 @@
 "InfoBuyProVersionNoConnection" = "Cannot connect to iTunes Store!";
 "InfoBuyButton" = "Buy for %@";
 "InfoBuyCanMakeNoPayments" = "You are not authorized to make payments!";
-"InfoHelpSampleCatalogs" = "Question-Catalogs (Samples)";
+"InfoHelpSampleCatalogs" = "KEEMI catalogs at GitHub";
 "InfoSupportBugReport" = "Report a Bug";
 "InfoFeedbackSubject" = "KEEMI Feedback";
 "InfoBugReportSubject" = "KEEMI Bug-Report";

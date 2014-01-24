@@ -187,7 +187,7 @@ static const NSInteger SECTION_GENERAL_IDX = 3;
             faqPath = @"faqs-studenten";
         }*/
         if(row == SECTION_HELP_SAMPLE_CATALOGS_IDX) {
-            NSString *catalogLink = [NSString stringWithFormat:@"http://www.keemimobile.com/%@/catalogues", language];
+            NSString *catalogLink = @"https://github.com/PaaSQ";
             NSURL *link = [NSURL URLWithString:catalogLink];
             MWLogInfo([LayVcSettings class], @"Try to open link:%@", catalogLink);
             if (![[UIApplication sharedApplication] openURL:link]) {

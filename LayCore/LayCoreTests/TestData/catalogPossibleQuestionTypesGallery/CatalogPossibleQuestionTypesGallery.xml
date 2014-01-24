@@ -15,7 +15,7 @@
     <description>Durch die erfolgreiche Teilnahme am Einbürgerungstest können Sie Kenntnisse der Rechts- und Gesellschaftsordnung und der Lebensverhältnisse in Deutschland nachweisen, die Sie benötigen, um sich in Deutschland einbürgern zu lassen. Bei den Prüfstellen des Bundesamtes für Migration und Flüchtlinge können Sie sich zum Test anmelden.</description>
     <language>deutsch</language>
     <topic>Allgemeinbildung</topic>
-    <source>https://www.dropbox.com/s/lkfwt5p2wcxbnha/catalogPossibleQuestionTypesGallery.zip</source>
+    <download>https://www.dropbox.com/s/lkfwt5p2wcxbnha/catalogPossibleQuestionTypesGallery.zip</download>
     <about>
       <section>
         <title>Weitere Autoren</title>
@@ -113,7 +113,7 @@
         </answerItem>
       </answer>
     </question>
-    <question type="singleChoice" name="javaQuestion" topic="java" groupName="java">
+    <question type="aggravatedSingleChoice" name="javaQuestion" topic="java" groupName="java">
     <introduction>
         <section>
           <title>This is the title of the first section of question2</title>

@@ -11,7 +11,7 @@
          <media ref="Cover.png" type="image"/>
       </cover>
       <description>This is a sample question catalog which contains some questions of the original citizenship test provided by the United States Citizenship and Immigration Services (USCIS).</description>
-      <source>www.keemimobile.com</source>
+      <download>www.keemimobile.com</download>
       <language>English</language>
       <version>1.0</version>
       <about>

@@ -59,6 +59,8 @@
         <attribute name="audience" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="catalogDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="format" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gitHubURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gitHubWikiURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imported" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="intro" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCommercial" optional="YES" attributeType="String" syncable="YES"/>
@@ -321,6 +323,7 @@
         <element name="News" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Publisher" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="RelatedTermList" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SearchWord" positionX="0" positionY="0" width="0" height="0"/>
         <element name="SearchWordRelation" positionX="0" positionY="0" width="0" height="0"/>
@@ -332,6 +335,5 @@
         <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Thumbnail" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Topic" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="RelatedTermList" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

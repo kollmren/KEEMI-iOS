@@ -140,7 +140,7 @@ static const NSUInteger TAG_QUESTION_INTRO = 3105;
     
     Introduction *intro = question_.introRef;
     if(intro) {
-        const CGFloat introWidth = self.frame.size.width;
+        const CGFloat introWidth = self->questionArea.frame.size.width;
         const CGRect introFrame = CGRectMake(0.0f, 0.0f, introWidth, 0.0f);
         UIFont *introFont = [styleGuide getFont:NormalPreferredFont];
         UIColor *clearColor = [styleGuide getColor:ClearColor];
