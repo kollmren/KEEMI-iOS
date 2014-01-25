@@ -17,6 +17,9 @@
 #import "LayDataStoreUtilities.h"
 
 #import "LayUserDataStore.h"
+#import "Introduction+Utilities.h"
+#import "Section+Utilities.h"
+#import "SectionMedia.h"
 #import "UGCCatalog+Utilities.h"
 #import "UGCQuestion+Utilities.h"
 #import "UGCResource+Utilities.h"
@@ -251,6 +254,15 @@
     for (AnswerItem* answerItem in answer.answerItemRef) {
         if(answerItem.mediaRef && [answerItem.mediaRef isImage]) {
             [questionImageList addObject:answerItem.mediaRef ];
+        }
+    }
+    
+    if( self.introRef && self.introRef.sectionRef) {
+        for (Section *section in self.introRef.sectionRef) {
+            NSSet *sectionMediaSet = section.sectionMediaRef;
+            for (SectionMedia *sectionMedia in sectionMediaSet) {
+                [questionImageList addObject:sectionMedia.mediaRef];
+            }
         }
     }
 

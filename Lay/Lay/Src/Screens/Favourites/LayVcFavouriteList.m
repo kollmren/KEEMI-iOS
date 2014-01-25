@@ -88,13 +88,6 @@ static Class g_classObj = nil;
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 60000
     [self.tableView registerClass:[LayAbstractCell class] forCellReuseIdentifier:(NSString*)abstractCellIdentifier];
 #endif
-    
-    
-    NSError *error = nil;
-    BOOL success = [self.fetchedResultsController performFetch:&error];
-    if( !success ) {
-        MWLogError(g_classObj, @"Could not load favourites! Details:%@", [error description]);
-    }
     //self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor clearColor];
 }
@@ -124,9 +117,13 @@ static Class g_classObj = nil;
     self->vcQuestion = nil;
     self->navBarViewController.delegate = self;
     [self updateNavigation];
-    
-    NSIndexPath *pathToSelectedRow = [self.tableView indexPathForSelectedRow];
-    [self.tableView deselectRowAtIndexPath:pathToSelectedRow animated:NO];
+    //
+    NSError *error = nil;
+    BOOL success = [self.fetchedResultsController performFetch:&error];
+    if( !success ) {
+        MWLogError(g_classObj, @"Could not load favourites! Details:%@", [error description]);
+    }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -244,46 +241,10 @@ static Class g_classObj = nil;
                                   catalog, [NSNumber numberWithBool:YES]];
         [request setPredicate:predicate];
         NSFetchedResultsController *newController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-        
-        newController.delegate = self;
         fetchedResultsController = newController;
     }
     
     return fetchedResultsController;
-}
-
-//
-// NSFetchedResultsControllerDelegate
-//
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate: {
-            /*UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            
-            AWRandomDate *object = [controller objectAtIndexPath:indexPath];
-            cell.textLabel.text = [object.date description];
-            cell.detailTextLabel.text = object.dayName;*/
-            break;
-        }
-    }
 }
 
 //

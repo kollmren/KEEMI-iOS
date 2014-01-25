@@ -97,9 +97,6 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    if(!self->appearsFirstTime) {
-        [self updateMenu];
-    }
     [self->menu collapseSubMenuEntries];
     self->appearsFirstTime = NO;
 }
@@ -154,11 +151,9 @@ static const CGFloat V_SPACE = 15.0f;
     entryText = NSLocalizedString(@"CatalogMenuStatistic", nil);
     [menu addEntryWithImage:statisticIcon:entryText identifier:MENU_STATISTIC ];
     
-    if([catalog numberOfFavourites] > 0) {
-        NSString *entryText = NSLocalizedString(@"CatalogFavourites", nil);
-        UIImage *favouritesIcon = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
-        [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES ];
-    }
+    entryText = NSLocalizedString(@"CatalogFavourites", nil);
+    UIImage *favouritesIcon = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
+    [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES ];
 
     if([catalog hasResources] || self->userBoughtProVersion) {
         NSString *entryText = NSLocalizedString(@"CatalogResources", nil);
@@ -179,20 +174,6 @@ static const CGFloat V_SPACE = 15.0f;
     [menu addEntryWithImage:creditsIcon:entryText identifier:MENU_CREDITS ];
     
     [self.view addSubview:self->menu];
-}
-
--(void)updateMenu {
-    Catalog *catalog = [LayCatalogManager instance].currentSelectedCatalog;
-    if([catalog numberOfFavourites] > 0) {
-        if(![self->menu hasEntryWithIdentifier:MENU_FAVOURITES]) {
-            NSString *entryText = NSLocalizedString(@"CatalogFavourites", nil);
-            UIImage *favouritesIcon = [LayImage imageWithId:LAY_IMAGE_FAVOURITES_SELECTED];
-            [menu addEntryWithImage:favouritesIcon:entryText identifier:MENU_FAVOURITES nextTo:MENU_STATISTIC animated:NO];
-            [menu showEntryWithIdentifier:MENU_FAVOURITES];
-        }
-    } else {
-        [menu removeEntry:MENU_FAVOURITES];
-    }
 }
 
 @end

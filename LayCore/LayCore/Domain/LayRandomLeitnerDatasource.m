@@ -181,7 +181,7 @@ static const NSInteger initIdxValueForGroupedQuestions = -1;
                 question = [self->currentGroupedQuestionList objectAtIndex:questionIndex];
                 MWLogDebug([LayRandomLeitnerDatasource class], @"Got question:%@ with index:%d from group:%@", question.name, questionIndex, self->currentQuestionGroupName );
             } else {
-                MWLogWarning([LayRandomLeitnerDatasource class], @"Index:%d out of range!", questionIndex);
+                MWLogDebug([LayRandomLeitnerDatasource class], @"Index:%d out of range!", questionIndex);
             }
         } else {
             MWLogError([LayRandomLeitnerDatasource class], @"Did not find a cached list with questions for group:%@!", self->currentQuestionGroupName);

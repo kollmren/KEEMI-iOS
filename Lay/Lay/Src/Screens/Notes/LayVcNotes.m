@@ -221,15 +221,17 @@ static Class g_classObj = nil;
         const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
         const CGRect titleRect = CGRectMake(hSpace, vSpace, width-2*hSpace, 0.0f);
         UILabel *title = [[UILabel alloc]initWithFrame:titleRect];
-        title.font = [styleGuide getFont:NormalPreferredFont];
         title.numberOfLines = [styleGuide numberOfLines];
         title.textColor = [styleGuide getColor:TextColor];
         title.backgroundColor = [UIColor clearColor];
         title.textAlignment = NSTextAlignmentLeft;
         NSString *text = nil;
         if(self->questionParam) {
+            title.font = [styleGuide getFont:QuestionFont];
+            title.textColor = [UIColor darkGrayColor];
             text = self->questionParam.question;
         } else if(explanationParam) {
+            title.font = [styleGuide getFont:TitlePreferredFont];
             text = self->explanationParam.title;
         } else {
             MWLogError(g_classObj, @"Invalid object initialization!");
