@@ -30,9 +30,13 @@
 
 @property (nonatomic) BOOL fitLabelToFitContent;
 
+@property (nonatomic) BOOL removeAfterClosedFullscreen;
+
 - (id)initWithFrame:(CGRect)frame_ andMediaData:(LayMediaData*)mediaData_;
 
 // if any property is set this method must be called
 -(void)layoutMediaView;
+
+-(void)showContentInFullScreen;
 
 @end

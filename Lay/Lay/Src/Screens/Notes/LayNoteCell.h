@@ -31,4 +31,6 @@ extern const NSString* const noteCellIdentifier;
 
 @property (nonatomic) UGCNote* note;
 
+-(CGPoint)imageNotePosition;
+
 @end

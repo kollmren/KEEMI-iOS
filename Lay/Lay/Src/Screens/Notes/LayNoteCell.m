@@ -154,6 +154,10 @@ NSString* const noteCellIdentifier = @"CellResource";
     }
 }*/
 
+-(CGPoint)imageNotePosition {
+    return self->imageView.frame.origin;
+}
+
 -(void)setupHeaderView {
     
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];

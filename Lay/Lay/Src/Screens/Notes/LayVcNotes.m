@@ -38,7 +38,7 @@ static const NSUInteger TAG_TEXT_VIEW = 1001;
 static const NSUInteger TAG_STATUS_LABEL = 1002;
 static const NSUInteger TAG_SAVE_BUTTON = 1003;
 static const NSInteger TAG_IMAGE_NOTE_VIEW = 1004;
-static const NSUInteger g_HEIGHT_OF_THUMBNAIL_VIEW = 150.0f;
+static const CGFloat g_HEIGHT_OF_THUMBNAIL_VIEW = 150.0f;
 
 @interface LayVcNotes () {
     LayVcNavigationBar* navBarViewController;
@@ -332,11 +332,10 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         NSInteger lastRowInSection = 0;
         lastRowInSection = [self->noteList count];
         [self->noteList addObject:note];
+        [self.tableView reloadData];
         // show note
         NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRowInSection inSection:0];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:ip] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        [self.tableView endUpdates];
+        [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 }
 
@@ -346,11 +345,10 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         NSInteger lastRowInSection = 0;
         lastRowInSection = [self->noteList count];
         [self->noteList addObject:note];
+        [self.tableView reloadData];
         // show note
         NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRowInSection inSection:0];
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:ip] withRowAnimation:UITableViewRowAnimationTop];
-        [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-        [self.tableView endUpdates];
+        [self.tableView scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 }
 
@@ -418,7 +416,19 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
     LayNoteCell *noteCell = (LayNoteCell *)[tableView cellForRowAtIndexPath:indexPath];
     if(noteCell.note && noteCell.note.mediaRef) {
-        [self showImageNote:noteCell.note];
+        LayMediaData *mediaData = [LayMediaData byData:noteCell.note.mediaRef.data type:LAY_MEDIA_IMAGE andFormat:LAY_FORMAT_JPG];
+        const CGPoint posThumbnail = [noteCell imageNotePosition];
+        const CGRect mediaViewRect = CGRectMake(0.0f, posThumbnail.y, self.tableView.frame.size.width, g_HEIGHT_OF_THUMBNAIL_VIEW);
+        LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:mediaViewRect andMediaData:mediaData];
+        mediaView.ignoreEvents = YES;
+        mediaView.fitToContent = YES;
+        mediaView.removeAfterClosedFullscreen = YES;
+        mediaView.zoomable = YES;
+        [mediaView layoutMediaView];
+        const CGFloat posX = (noteCell.frame.size.width - mediaView.frame.size.width) / 2.0f;
+        [LayFrame setXPos:posX toView:mediaView];
+        [noteCell addSubview:mediaView];
+        [mediaView showContentInFullScreen];
     } else {
         [self showTextNote:noteCell.note];
     }
@@ -658,65 +668,6 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
     if(self->addTextNoteDialog) {
         [self->addTextNoteDialog.superview removeFromSuperview];
         self->addTextNoteDialog = nil;
-    }
-}
-
--(void)showImageNote:(UGCNote*)note {
-    if(note && note.mediaRef) {
-        UIWindow *window = self.tableView.window;
-        LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-        UIView *backgound = [[UIView alloc] initWithFrame:window.frame];
-        backgound.tag = TAG_IMAGE_NOTE_VIEW;
-        backgound.backgroundColor = [[LayStyleGuide instanceOf:nil] getColor:InfoBackgroundColor];
-        [window addSubview:backgound];
-        
-        UIView *container = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, backgound.frame.size.width, 0.0f)];
-        container.clipsToBounds = YES;
-        UIImage *image = [UIImage imageWithData:note.mediaRef.data];
-        
-        LayMediaData *mediaData = [LayMediaData byUIImage:image];
-        const CGRect mediaViewRect = CGRectMake(0.0f, 0.0f, backgound.frame.size.width, backgound.frame.size.height);
-        LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:mediaViewRect andMediaData:mediaData];
-        mediaView.zoomable = YES;
-        [mediaView layoutMediaView];
-        [container addSubview:mediaView];
-        /*UIImageView *imageView = [UIImageView new];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [LayFrame setSizeWith:backgound.frame.size toView:imageView];
-        imageView.center = backgound.center;
-        imageView.image = image;
-        [container addSubview:imageView];
-        */
-        [backgound addSubview:container];
-        //
-        const CGFloat indent = 10.0f;
-        const CGSize closeButtonSize = CGSizeMake(50.0f + indent, 30.0f);
-        const CGFloat yPosCloseButton = backgound.frame.size.height - closeButtonSize.height;
-        const CGFloat xPosCloseButton = -closeButtonSize.width;
-        const CGRect closeButtonFrame = CGRectMake(xPosCloseButton, yPosCloseButton, closeButtonSize.width, closeButtonSize.height);
-        UIView *closeButton = [[UIView alloc]initWithFrame:closeButtonFrame];
-        UIButton *iconButon = [LayIconButton buttonWithId:LAY_BUTTON_CANCEL];
-        [closeButton addSubview:iconButon];
-        iconButon.center = CGPointMake(closeButtonSize.width/2.0f + indent, closeButtonSize.height/2.0f);
-        [iconButon addTarget:self action:@selector(closeImageNote) forControlEvents:UIControlEventTouchUpInside];
-        [styleGuide makeRoundedBorder:closeButton withBackgroundColor:GrayTransparentBackground andBorderColor:ClearColor];
-        [backgound addSubview:closeButton];
-        
-        
-        const CGPoint dialogCenter = CGPointMake(0.0f, backgound.frame.size.height/2.0f);
-        [LayFrame setPos:dialogCenter toView:container];
-        const CGFloat dialogHeight = backgound.frame.size.height;//imageView.frame.size.height;
-        CALayer *dialogLayer = container.layer;
-        [UIView animateWithDuration:0.3 animations:^{
-            dialogLayer.bounds = CGRectMake(0.0f, 0.0f, container.frame.size.width, dialogHeight);
-        }];
-        
-        CALayer *closeButtonLayer = closeButton.layer;
-        [UIView animateWithDuration:0.4 animations:^{
-            closeButtonLayer.position = CGPointMake((closeButtonSize.width/2.0f) - indent,
-                                                    closeButtonLayer.position.y);
-            
-        }];
     }
 }
 

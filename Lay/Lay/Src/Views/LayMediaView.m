@@ -34,7 +34,7 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
 
 @implementation LayMediaView
 
-@synthesize border, borderWidth, fitToContent, fitLabelToFitContent, scaleToFrame, showLabel, ignoreEvents, zoomable, showFullscreen;
+@synthesize border, borderWidth, fitToContent, fitLabelToFitContent, scaleToFrame, showLabel, ignoreEvents, zoomable, showFullscreen, removeAfterClosedFullscreen;
 
 - (id)initWithFrame:(CGRect)frame_ andMediaData:(LayMediaData*)mediaData_
 {
@@ -50,6 +50,7 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
         self.scaleToFrame = NO;
         self.zoomable = YES;
         self.showFullscreen = NO;
+        self.removeAfterClosedFullscreen = NO;
         [self setupView];
         //[self layoutMediaView];
         [self registerEvents];
@@ -457,6 +458,10 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
     UIWindow *window = self.window;
     UIView *fullScreenBackground = [window viewWithTag:TAG_IMAGE_FULLSCREEN_BACKGROUND];
     [fullScreenBackground removeFromSuperview];
+    if(self.removeAfterClosedFullscreen) {
+        MWLogDebug([LayMediaView class], @"Remove MediaView from superView!");
+        [self removeFromSuperview];
+    }
 }
 
 -(void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {
