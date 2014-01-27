@@ -751,7 +751,11 @@ static const NSUInteger TAG_QUESTION_TITLE = 105;
         [self->addResourceDialog addSubview:dialogButtonContainer];
         if(resource) {
             titleTextField.text = resource.title;
-            linkTextField.text = resource.link;
+            if(resourceTypeId_ == RESOURCE_TYPE_BOOK) {
+                linkTextField.text = resource.text;
+            } else {
+                linkTextField.text = resource.link;
+            }
         } else {
             [self showDefaultValueForTextField:titleTextField resourceType:resourceTypeId_ show:YES];
             [self showDefaultValueForTextField:linkTextField resourceType:resourceTypeId_ show:YES];

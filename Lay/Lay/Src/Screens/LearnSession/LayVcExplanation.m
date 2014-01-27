@@ -235,11 +235,12 @@
     // Only show the dialog if started from the catalog overview
     if( !(self.presentingViewController.presentingViewController) ) {
         // Check if the read explanations have linked questions, if so ask the user if he want to get ask the questions
-        NSDictionary *presentedQuestionsInSession = [self->explanationLearnSession presentedExplanations];
-        if(presentedQuestionsInSession && [presentedQuestionsInSession count] > 0) {
+        NSDictionary *presentedExplanationsInSession = [self->explanationLearnSession presentedExplanations];
+        const NSUInteger numberOfPresentedExplanationsInSession = [presentedExplanationsInSession count];
+        if(presentedExplanationsInSession && numberOfPresentedExplanationsInSession > 1) {
             relatedQuestions = [NSMutableArray arrayWithCapacity:20];
-            NSArray *presentedQuestionList = [presentedQuestionsInSession allValues];
-            for (Explanation* explanation in presentedQuestionList) {
+            NSArray *presentedExplanationsList = [presentedExplanationsInSession allValues];
+            for (Explanation* explanation in presentedExplanationsList) {
                 if([explanation hasRelatedQuestions]) {
                     NSArray* relatedQuestionsForExplanation = [explanation relatedQuestionList];
                     [relatedQuestions addObjectsFromArray:relatedQuestionsForExplanation];
@@ -247,11 +248,13 @@
             }
             NSUInteger numberOfRelatedQuestions = [relatedQuestions count];
             if(numberOfRelatedQuestions > 1) {
-                UIView* askRecallRelatedQuestionsDialog = [self createAskRelatedQuestionsDialogWithNumberOfExplanations:[presentedQuestionsInSession count] andNumberOfRelatedQuestions:numberOfRelatedQuestions];
+                UIView* askRecallRelatedQuestionsDialog = [self createAskRelatedQuestionsDialogWithNumberOfExplanations:numberOfPresentedExplanationsInSession andNumberOfRelatedQuestions:numberOfRelatedQuestions];
                 [self showAskRelatedQuestionsDialog:askRecallRelatedQuestionsDialog];
             } else {
                 [self closeViewController];
             }
+        } else {
+            [self closeViewController];
         }
     } else {
         [self closeViewController];

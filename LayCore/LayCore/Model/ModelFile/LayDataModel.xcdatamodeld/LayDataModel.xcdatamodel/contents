@@ -203,6 +203,7 @@
     </entity>
     <entity name="RelatedTermList" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="termList" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="answerItemRef" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnswerItem" inverseName="relatedTermListRef" inverseEntity="AnswerItem" syncable="YES"/>
     </entity>

@@ -296,7 +296,7 @@
         if([fileMngr fileExistsAtPath:[urlToBackupedLogFile path]]) {
             contentOfLogFile = [fileMngr contentsAtPath:[urlToBackupedLogFile path]];
         } else {
-            MWLogError([LayAppConfiguration class], @"Backup log-file does not exists!");
+            MWLogInfo([LayAppConfiguration class], @"Backup log-file does not exists!");
         }
     }
   
