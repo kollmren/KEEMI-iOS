@@ -43,6 +43,8 @@
 		A72AABB117C22FB1001C56A4 /* LayExplanationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A72AABB017C22FB1001C56A4 /* LayExplanationView.m */; };
 		A72D0B8916C02691000CB6E9 /* AnswerItem+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A72D0B8716C02691000CB6E9 /* AnswerItem+Utilities.m */; };
 		A72D0B8A16C02691000CB6E9 /* Question+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A72D0B8816C02691000CB6E9 /* Question+Utilities.m */; };
+		A73041D61907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = A73041D51907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.m */; };
+		A73041D91907D1F100F7F41D /* LayTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A73041D81907D1F100F7F41D /* LayTextField.m */; };
 		A7312D9C17B17ACE00704406 /* LayMiniIconBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A7312D9B17B17ACE00704406 /* LayMiniIconBar.m */; };
 		A733FA8C170EB49200CC72AA /* LayPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A733FA8B170EB49200CC72AA /* LayPageControl.m */; };
 		A734182D16831E9400CA432E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A734182C16831E9400CA432E /* QuartzCore.framework */; };
@@ -205,6 +207,10 @@
 		A72D0B7F16C01A30000CB6E9 /* Answer+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Answer+Utilities.m"; path = "../LayCore/LayCore/Model/Answer+Utilities.m"; sourceTree = "<group>"; };
 		A72D0B8716C02691000CB6E9 /* AnswerItem+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AnswerItem+Utilities.m"; path = "../LayCore/LayCore/Model/AnswerItem+Utilities.m"; sourceTree = "<group>"; };
 		A72D0B8816C02691000CB6E9 /* Question+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Question+Utilities.m"; path = "../LayCore/LayCore/Model/Question+Utilities.m"; sourceTree = "<group>"; };
+		A73041D41907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayAnswerViewKeywordItemMatch.h; sourceTree = "<group>"; };
+		A73041D51907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayAnswerViewKeywordItemMatch.m; sourceTree = "<group>"; };
+		A73041D71907D1F100F7F41D /* LayTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayTextField.h; sourceTree = "<group>"; };
+		A73041D81907D1F100F7F41D /* LayTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayTextField.m; sourceTree = "<group>"; };
 		A7312D9A17B17ACE00704406 /* LayMiniIconBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMiniIconBar.h; sourceTree = "<group>"; };
 		A7312D9B17B17ACE00704406 /* LayMiniIconBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayMiniIconBar.m; sourceTree = "<group>"; };
 		A733FA8A170EB49200CC72AA /* LayPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayPageControl.h; sourceTree = "<group>"; };
@@ -734,6 +740,8 @@
 		A77AE1DF17004E8E00C119AB /* AnswerViews */ = {
 			isa = PBXGroup;
 			children = (
+				A73041D41907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.h */,
+				A73041D51907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.m */,
 				A71FBC0917E2F16900986BE9 /* LayAnswerViewWordResponse.h */,
 				A71FBC0A17E2F16900986BE9 /* LayAnswerViewWordResponse.m */,
 				A7920F291701BE3D00B71E62 /* LayAnswerItemViewMinimized.h */,
@@ -843,6 +851,8 @@
 				A72AABB017C22FB1001C56A4 /* LayExplanationView.m */,
 				A7363EA317E09169005DFAAB /* LayAdditionalButton.h */,
 				A7363EA417E09169005DFAAB /* LayAdditionalButton.m */,
+				A73041D71907D1F100F7F41D /* LayTextField.h */,
+				A73041D81907D1F100F7F41D /* LayTextField.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1004,6 +1014,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A73041D91907D1F100F7F41D /* LayTextField.m in Sources */,
 				A704529116B2A4810033313C /* Catalog+Utilities.m in Sources */,
 				A71568E1182543CE00A3BF8D /* LayUserDefaults.m in Sources */,
 				A75B4729163EA7F20062C3C5 /* main.m in Sources */,
@@ -1048,6 +1059,7 @@
 				A77AE266170055DC00C119AB /* LayStyleGuide.m in Sources */,
 				A77AE267170055DC00C119AB /* LayVBoxLayout.m in Sources */,
 				A77AE26B17005C2000C119AB /* LayAnswerItemView.m in Sources */,
+				A73041D61907D05E00F7F41D /* LayAnswerViewKeywordItemMatch.m in Sources */,
 				A7920F2B1701BE3D00B71E62 /* LayAnswerItemViewMinimized.m in Sources */,
 				A733FA8C170EB49200CC72AA /* LayPageControl.m in Sources */,
 				A7DDAA301733E8C300894790 /* LayMinimizeAnimator.m in Sources */,

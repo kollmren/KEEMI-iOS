@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Rene. All rights reserved.
 //
 
-#import "LayAnswerViewWordResponse.h"
+#import "LayAnswerViewKeywordItemMatch.h"
 #import "LayAnswerButton.h"
 #import "LayButton.h"
 #import "LayFrame.h"
@@ -38,11 +38,10 @@ static const NSInteger TAG_ANSWER_CHOICE_VIEW = 123492;
 //
 static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 
-
 //
 // LayAnswerViewWordResponse
 //
-@interface LayAnswerViewWordResponse() {
+@interface LayAnswerViewKeywordItemMatch() {
     Answer* answer;
     LayImageRibbon *imageRibbon;
     // remember the layouted position in the answerView, the position is used to reconnect the
@@ -55,7 +54,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 //
 // LayAnswerViewWordResponse
 //
-@implementation LayAnswerViewWordResponse
+@implementation LayAnswerViewKeywordItemMatch
 
 @synthesize answerViewDelegate;
 
@@ -77,7 +76,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 }
 
 -(void)dealloc {
-    MWLogDebug([LayAnswerViewWordResponse class], @"dealloc");
+    MWLogDebug([LayAnswerViewKeywordItemMatch class], @"dealloc");
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
 }
@@ -415,7 +414,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
             }];
         }
     } else {
-        MWLogError([LayAnswerViewWordResponse class], @"Could not find conainer for answer!");
+        MWLogError([LayAnswerViewKeywordItemMatch class], @"Could not find conainer for answer!");
     }
 }
 

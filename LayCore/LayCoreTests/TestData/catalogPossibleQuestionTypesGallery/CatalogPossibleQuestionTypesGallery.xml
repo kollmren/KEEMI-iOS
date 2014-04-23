@@ -1028,7 +1028,7 @@
     		</answerItem>
     	</answer>
     </question>
-    <question name="keyWordItemMatch1" type="keyWordItemMatch">
+    <question name="keyWordItemMatch1" type="keywordItemMatch">
     	<text>Name five movies that Daniel Day-Lewis has performed in?</text>
     	<answer>
         <answerItem correct="yes">
