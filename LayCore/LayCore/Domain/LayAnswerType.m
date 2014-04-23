@@ -19,6 +19,8 @@ const NSString* LAY_ANSWER_TYPE_WORD_RESPONSE = @"wordResponse";
 const NSString* LAY_ANSWER_TYPE_ORDER = @"order";
 const NSString* LAY_ANSWER_TYPE_NAME_AGGRAVATED_SINGLE_CHOICE = @"aggravatedSingleChoice";
 const NSString* LAY_ANSWER_TYPE_NAME_AGGRAVATED_MULTIPLE_CHOICE = @"aggravatedMultipleChoice";
+const NSString* LAY_ANSWER_TYPE_KEY_WORD_ITEM_MATCH = @"keywordItemMatch";
+
 
 static Class _classObj = nil;
 
@@ -42,6 +44,8 @@ static Class _classObj = nil;
         identifier = ANSWER_TYPE_WORD_RESPONSE;
     } else if([answerType isEqualToString:(NSString*)LAY_ANSWER_TYPE_ORDER]) {
         identifier = ANSWER_TYPE_ORDER;
+    } else if([answerType isEqualToString:(NSString*)LAY_ANSWER_TYPE_KEY_WORD_ITEM_MATCH]) {
+        identifier = ANSWER_TYPE_KEY_WORD_ITEM_MATCH;
     } else  {
         MWLogError(_classObj, @"Unknown type of answer:%@", answerType);
     }

@@ -50,6 +50,7 @@ const NSString* const LAY_XML_TAG_WEBSITE = @"website";
 const NSString* const LAY_XML_TAG_EMAIL = @"email";
 const NSString* const LAY_XML_TAG_SOURCE = @"download";
 const NSString* const LAY_XML_TAG_INTRODUCTION = @"introduction";
+const NSString* const LAY_XML_TAG_KEY_WORD_LIST = @"keyWordList";
 
 const NSString* const LAY_XML_ATTRIBUTE_NAME = @"name";
 const NSString* const LAY_XML_ATTRIBUTE_SHUFFLE_ANSWERS = @"shuffleAnswers";
@@ -896,6 +897,9 @@ static Class _classObj = nil;
         case ANSWER_TYPE_ORDER:
             answer.shuffleAnswers = [NSNumber numberWithBool:YES];
             break;
+        case ANSWER_TYPE_KEY_WORD_ITEM_MATCH:
+            answer.shuffleAnswers = [NSNumber numberWithBool:NO];
+            break;
         default:
             answer.shuffleAnswers = [NSNumber numberWithBool:YES];
             break;
@@ -1023,6 +1027,12 @@ static Class _classObj = nil;
                     if( groupName ) {
                         answerItem.equalGroupName = groupName;
                     }
+                    
+                    
+                    // keyWordList
+                    LayXmlNode *keyWordListNode = [answerItemNode nodeByName:(NSString*)LAY_XML_TAG_KEY_WORD_LIST];
+                    answerItem.longTermWordList = [keyWordListNode content];
+                    
                     // Link to answer
                     [answer addAnswerItem:answerItem];
                 } else {

@@ -30,5 +30,7 @@
 @property (nonatomic, retain) Answer *answerRef;
 @property (nonatomic, retain) Explanation *explanationRef;
 @property (nonatomic, retain) Media *mediaRef;
+@property (nonatomic, retain) NSString * longTermWordList;
+
 
 @end

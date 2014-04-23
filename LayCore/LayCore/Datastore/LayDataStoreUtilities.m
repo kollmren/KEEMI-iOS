@@ -184,7 +184,7 @@ static Class g_classObj = nil;
             Thumbnail *existingThumbnail = [LayDataStoreUtilities findThumbnailInCatalog:catalog byName:mediaImage.name inContext:catalog.managedObjectContext];
             if(existingThumbnail) {
                 [existingThumbnail addQuestionRefObject:question];
-            } else {
+            } else if( [mediaImage mediaType] == LAY_MEDIA_IMAGE ) {
                 Thumbnail *thumbnail = [LayDataStoreUtilities insertDomainObject:LayThumbnail :catalog.managedObjectContext];
                 const NSURL *catalogIDAsUrl = [[catalog objectID]URIRepresentation];
                 NSString* catalogIDAsString = [catalogIDAsUrl path];

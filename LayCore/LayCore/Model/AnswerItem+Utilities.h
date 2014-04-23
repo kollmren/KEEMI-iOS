@@ -37,4 +37,6 @@
 
 -(BOOL)belongsToGroup;
 
+-(NSArray*)keyWordListLowerCase;
+
 @end

@@ -1028,6 +1028,23 @@
     		</answerItem>
     	</answer>
     </question>
+    <question name="keyWordItemMatch1" type="keyWordItemMatch">
+    	<text>Name five movies that Daniel Day-Lewis has performed in?</text>
+    	<answer>
+        <answerItem correct="yes">
+          <keyWordList>bounty</keyWordList>
+          <text>The Bounty</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>blood</keyWordList>
+          <text>There Will Be Blood</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>gangs, new york</keyWordList>
+          <text>Gangs of New York</text>
+        </answerItem>
+      </answer>
+    </question>
   </questionList>
   <mediaList>
     <media type="image" ref="image1280x640.png"/>

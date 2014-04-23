@@ -881,6 +881,8 @@ return readOk;
         
         if ( [question.name isEqualToString:nameOfQuestionToCheck] ) {
             catalogIsAsExpected = [self checkReadCatalogGalleryQuestionWithNameBorderCanada:question];
+        } else if( [question.name isEqualToString:@"keyWordItemMatch1"] ) {
+            catalogIsAsExpected = [self checkReadCatalogGalleryQuestionWithNameKeyWordItemMatch1:question];
         }
         
         if([question questionType] == ANSWER_TYPE_WORD_RESPONSE) {
@@ -938,6 +940,56 @@ return readOk;
     } else {
         MWLogError(_classObj, @"Expect a question with name:%@ not:%@", nameOfQuestionToCheck, question.name);
     }
+    return questionIsAsExpected;
+}
+
+-(BOOL)checkReadCatalogGalleryQuestionWithNameKeyWordItemMatch1:(Question*)question {
+    BOOL questionIsAsExpected = YES;
+    LayAnswerTypeIdentifier questionType = [question questionType];
+    if( questionType == ANSWER_TYPE_KEY_WORD_ITEM_MATCH ) {
+        Answer *answer = question.answerRef;
+        NSArray *answerItemList = [answer answerItemListSessionOrderPreserved];
+        for (size_t itemIdx = 0; itemIdx < [answerItemList count]; ++itemIdx ) {
+            AnswerItem* item = [answerItemList objectAtIndex:itemIdx];
+            if( 0 == itemIdx ) {
+                NSArray *keyWordList = [item keyWordListLowerCase];
+                if( [keyWordList count] == 1 ) {
+                    NSString *keyWord = [keyWordList objectAtIndex:0];
+                    if(![keyWord isEqualToString:@"bounty"]) {
+                        questionIsAsExpected = NO;
+                        MWLogError(_classObj, @"Expected bounty!");
+                    }
+                }
+            } else if( 1 == itemIdx ) {
+                NSArray *keyWordList = [item keyWordListLowerCase];
+                if( [keyWordList count] == 1 ) {
+                    NSString *keyWord = [keyWordList objectAtIndex:0];
+                    if(![keyWord isEqualToString:@"blood"]) {
+                        questionIsAsExpected = NO;
+                        MWLogError(_classObj, @"Expected blood!");
+                    }
+                }
+            } else if( 2 == itemIdx ) {
+                NSArray *keyWordList = [item keyWordListLowerCase];
+                if( [keyWordList count] == 2 ) {
+                    NSString *keyWord = [keyWordList objectAtIndex:0];
+                    if(![keyWord isEqualToString:@"gangs"]) {
+                        questionIsAsExpected = NO;
+                        MWLogError(_classObj, @"Expected gangs!");
+                    }
+                    
+                    keyWord = [keyWordList objectAtIndex:1];
+                    if(![keyWord isEqualToString:@"new york"]) {
+                        questionIsAsExpected = NO;
+                        MWLogError(_classObj, @"Expected new york!");
+                    }
+                }
+            }
+        }
+    } else {
+        questionIsAsExpected = NO;
+    }
+    
     return questionIsAsExpected;
 }
 

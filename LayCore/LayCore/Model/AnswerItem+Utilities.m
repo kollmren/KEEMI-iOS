@@ -88,4 +88,20 @@
     return self.equalGroupName?YES:NO;
 }
 
+-(NSArray*)keyWordListLowerCase {
+    NSMutableArray *keyWordList = [NSMutableArray arrayWithCapacity:5];
+    if([self.longTermWordList length] > 0) {
+        NSArray *keyWordListNotNormalized = [self.longTermWordList componentsSeparatedByString:@","];
+        for (NSString* keyWordNotNormalized in keyWordListNotNormalized) {
+            NSString* keyWordNormalized = [keyWordNotNormalized stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSString* keyWordNormalizedLowerCase = [keyWordNormalized lowercaseString];
+            if(keyWordNormalizedLowerCase && [keyWordNormalizedLowerCase length] > 0) {
+                [keyWordList addObject:keyWordNormalizedLowerCase];
+            }
+        }
+    }
+    
+    return keyWordList;
+}
+
 @end
