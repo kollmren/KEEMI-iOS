@@ -63,7 +63,9 @@
 "CatalogStatisticMenuTitle" = "Knowledge Level";
 "Save" = "Save";
 "Cancel" = "Cancel";
+"Finished" = "Finished";
 "CatalogQuestionAnswerTitle" = "Answer:";
+"CatalogQuestionAnswerItemTitle" = "Keyword:";
 /* Share */
 "CatalogShareByMailSubject" = "KEEMI catalog";
 "CatalogShareByMailText" = "Send you a link to an interesting KEEMI catalog. Link:";
@@ -137,6 +139,8 @@
 "QuestionSessionDeleteText" = "Clear the input";
 "QuestionIntroTitle" = "Introduction";
 "QuestionSessionOrderAnswerCorrectly" = "Show correct order";
+"QuestionItemMatch" = "Match";
+"QuestionItemNoMatch" = "No Match";
 /* Error messages */
 "ErrorCatalogToOpenDoesnNotExist" = "Undefined location of catalog! Can not open catalog!";
 "ErrorCouldNotConfigureApp" = "The configuration of the application failed!";

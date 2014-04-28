@@ -29,4 +29,6 @@ typedef enum LAY_ANSWER_VIEW_CHOICE_MODE_ {
 
 @property (nonatomic) BOOL showAnswerItemsRespectingLearnState;
 
+@property (nonatomic) BOOL showAnswerItemsKnownByUserOnly;
+
 @end

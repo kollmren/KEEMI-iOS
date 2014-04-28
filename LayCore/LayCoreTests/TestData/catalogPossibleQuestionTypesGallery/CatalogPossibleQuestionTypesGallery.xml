@@ -1045,6 +1045,69 @@
         </answerItem>
       </answer>
     </question>
+    <question name="keyWordItemMatch2" type="keywordItemMatch">
+    	<text>Name five movies that Christian Bale has performed in?</text>
+    	<answer>
+        <answerItem correct="yes">
+          <keyWordList>American,Hustle,American Hustle</keyWordList>
+          <text>American Hustle</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>fighter,The Fighter</keyWordList>
+          <text>The Fighter</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>The Machinist,Machinist</keyWordList>
+          <text>The Machinist</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>American Psycho,American,Psycho</keyWordList>
+          <text>American Psycho</text>
+        </answerItem>
+      </answer>
+    </question>
+    <question name="keyWordItemMatchOrdered1" type="keywordItemMatchOrdered">
+    	<text>Benenne die Schichten des TCP/IP-Referenzmodells! Beginne mit der unteresten Schicht.</text>
+    	<answer>
+        <answerItem correct="yes">
+          <keyWordList>Netzzugangsschicht, Netzzugang, netz</keyWordList>
+          <text>Netzzugangsschicht, Kodierung der Bits auf der Leitung, Erkennung und Behebung von Bitübertragungsfehlern</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>Internetschicht, Internet, IP</keyWordList>
+          <text>Internetschicht, sorgt für die Kommunikation mit direkt oder indirekt verbundenen Rechnern, Wegewahl und Routing</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>Transportschicht, Transport, TCP</keyWordList>
+          <text>Transportschicht, ermöglicht die Datenübertragung zwischen zwei Prozessen</text>
+        </answerItem>
+        <answerItem correct="yes" explanation="anwendungsschicht">
+          <keyWordList>Anwendungsschicht, Anwendung</keyWordList>
+          <text>Anwendungsschicht</text>
+        </answerItem>
+      </answer>
+    </question>
+        <question name="keyWordItemMatch3" type="keywordItemMatchOrdered">
+    	<text>Frage mit speziellen items?</text>
+    	<answer>
+        <answerItem correct="yes">
+          <keyWordList></keyWordList>
+          <text>abc1</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>a,b</keyWordList>
+          <text>abc2</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>a,b</keyWordList>
+          <text>xyz1</text>
+        </answerItem>
+        <answerItem correct="yes">
+          <keyWordList>x,y</keyWordList>
+          <text>xyz2</text>
+        </answerItem>
+      </answer>
+    </question>
   </questionList>
   <mediaList>
     <media type="image" ref="image1280x640.png"/>
@@ -1066,6 +1129,12 @@
     </topic>
   </topicList>
   <explanationList>
+    <explanation name="anwendungsschicht">
+      <title>Anwendungsschicht</title>
+      <section>
+      <text>Die Anwendungsschicht (auch Verarbeitungsschicht genannt) umfasst alle höherschichtigen Protokolle des TCP/IP Modells. Zu den Protokollen der Anwendungschicht gehören ...</text>
+      </section>
+    </explanation>
     <explanation name="explanation1">
       <title>Title of the explanation1</title>
       <section>

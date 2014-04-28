@@ -898,6 +898,9 @@ static Class _classObj = nil;
             answer.shuffleAnswers = [NSNumber numberWithBool:YES];
             break;
         case ANSWER_TYPE_KEY_WORD_ITEM_MATCH:
+            answer.shuffleAnswers = [NSNumber numberWithBool:YES];
+            break;
+        case ANSWER_TYPE_KEY_WORD_ITEM_MATCH_ORDERED:
             answer.shuffleAnswers = [NSNumber numberWithBool:NO];
             break;
         default:

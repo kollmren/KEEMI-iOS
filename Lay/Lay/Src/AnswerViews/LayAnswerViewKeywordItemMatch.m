@@ -17,6 +17,7 @@
 #import "LayAppNotifications.h"
 #import "LayImage.h"
 #import "LayTextField.h"
+#import "LayHintView.h"
 
 #import "Question+Utilities.h"
 #import "Answer+Utilities.h"
@@ -47,6 +48,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     // remember the layouted position in the answerView, the position is used to reconnect the
     // container(TextField and buttons) from the window to the anserView 
     CGFloat answerContainerYPos;
+    BOOL userTriedAnswering;
 }
 
 @end
@@ -63,6 +65,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     self = [super initWithFrame:frame];
     if (self) {
         self->imageRibbon = nil;
+        self->userTriedAnswering = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
@@ -94,29 +97,25 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     UIView *answerContainer = [[UIView alloc]initWithFrame:containerFrame];
     answerContainer.backgroundColor = [styleGuide getColor:BackgroundColor];
     answerContainer.tag = TAG_ANSWER_CONTAINER;
-    // Label
-    const CGRect titleRect = CGRectMake(hBorderWidth, 0.0f, containerWidth - 2* hBorderWidth, 0.0f);
-    UILabel *title = [[UILabel alloc]initWithFrame:titleRect];
-    title.font = [styleGuide getFont:NormalPreferredFont];
-    title.backgroundColor = [UIColor clearColor];
-    title.textAlignment = NSTextAlignmentLeft;
-    title.text = NSLocalizedString(@"CatalogQuestionAnswerTitle", nil);
-    [title sizeToFit];
-    [answerContainer addSubview:title];
-    // TextField
-    LayTextField *layTextField = [[LayTextField alloc]initWithPosition:CGPointZero andWidth:containerWidth];
-    layTextField.tag = TAG_TEXT_LAY_FIELD_ANSWER;
-    layTextField->textField.tag = TAG_TEXT_FIELD_ANSWER;
-    layTextField->textField.delegate = self;
-    [layTextField->textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
-    if(answer_.questionRef.isChecked) {
-        layTextField->textField.layer.borderColor = [styleGuide getColor:ClearColor].CGColor;
-        layTextField->textField.text = answer_.sessionAnswer;
-    } else {
-        layTextField->textField.layer.borderColor = [styleGuide getColor:ButtonBorderColor].CGColor;
-    }
-    [answerContainer addSubview:layTextField];
+    
     if(!answer_.questionRef.isChecked) {
+        // Label
+        const CGRect titleRect = CGRectMake(hBorderWidth, 0.0f, containerWidth - 2* hBorderWidth, 0.0f);
+        UILabel *title = [[UILabel alloc]initWithFrame:titleRect];
+        title.font = [styleGuide getFont:NormalPreferredFont];
+        title.backgroundColor = [UIColor clearColor];
+        title.textAlignment = NSTextAlignmentLeft;
+        title.text = NSLocalizedString(@"CatalogQuestionAnswerItemTitle", nil);
+        [title sizeToFit];
+        [answerContainer addSubview:title];
+        // TextField
+        LayTextField *layTextField = [[LayTextField alloc]initWithPosition:CGPointZero andWidth:containerWidth];
+        layTextField.tag = TAG_TEXT_LAY_FIELD_ANSWER;
+        layTextField->textField.tag = TAG_TEXT_FIELD_ANSWER;
+        layTextField->textField.delegate = self;
+        [layTextField->textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
+        [answerContainer addSubview:layTextField];
+        layTextField->textField.layer.borderColor = [styleGuide getColor:ButtonBorderColor].CGColor;
         // Buttons
         const CGFloat buttonHeight = [styleGuide getDefaultButtonHeight];
         const CGRect buttonContainerRect = CGRectMake(hBorderWidth, 0.0f, containerWidth - 2 * hBorderWidth, buttonHeight);
@@ -130,7 +129,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
         buttonCheckAnswer.enabled = NO;
         [buttonCheckAnswer addTarget:self action:@selector(checkTextInput) forControlEvents:UIControlEventTouchUpInside];
         [buttonCheckAnswer fitToContent];
-        NSString *buttonCancelLabel = NSLocalizedString(@"Cancel", nil);
+        NSString *buttonCancelLabel = NSLocalizedString(@"Finished", nil);
         LayButton *buttonCancel = [[LayButton alloc]initWithFrame:buttonContainerRect label:buttonCancelLabel font:font andColor:[styleGuide getColor:WhiteTransparentBackground]];
         buttonCancel.tag = TAG_THE_OTHER_BUTTON;
         [buttonCancel addTarget:self action:@selector(cancelTextInput) forControlEvents:UIControlEventTouchUpInside];
@@ -141,6 +140,14 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
         [answerContainer addSubview:buttonContainer];
         
     }
+    //
+    LayAnswerViewChoice *choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
+    choiceView.tag = TAG_ANSWER_CHOICE_VIEW;
+    choiceView.showMediaList = NO;
+    choiceView.showAnswerItemsKnownByUserOnly = YES;
+    [choiceView showMarkIndicator:YES];
+    [self insertSubview:choiceView aboveSubview:answerContainer];
+    //
     [self layoutContainer:answerContainer withStartYPos:0.0f];
     [self addSubview:answerContainer];
     [self layoutView];
@@ -175,16 +182,13 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     CGFloat currentYPos = 0.0f;
     for (UIView* subView in [self subviews]) {
         if(!subView.hidden) {
-            if(subView.tag == TAG_ANSWER_CHOICE_VIEW) {
-                currentYPos += 15.0f;
-            }
-            
-            [LayFrame setYPos:currentYPos toView:subView];
             
             if(subView.tag == TAG_ANSWER_CONTAINER) {
+                currentYPos += 15.0f;
                 self->answerContainerYPos = currentYPos;
             }
             
+            [LayFrame setYPos:currentYPos toView:subView];
             currentYPos += subView.frame.size.height + vSpace;
         }
     }
@@ -219,6 +223,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
         [choiceView removeFromSuperview];
         choiceView = nil;
     }
+    self->userTriedAnswering = NO;
 }
 
 -(void)closeTextInputDialog {
@@ -236,6 +241,13 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     }
 }
 
+-(void)removeTextInputDialog {
+    UIView *answerContainer = [self.window viewWithTag:TAG_ANSWER_CONTAINER];
+    [answerContainer removeFromSuperview];
+    UIView *backgound = [self.window viewWithTag:TAG_BACKGROUND];
+    [backgound removeFromSuperview];
+}
+
 -(void)layoutAnswerContainerInputMode:(UIView*)answerContainer {
     // add a little space above the conainer
     [LayFrame setHeightWith:answerContainer.frame.size.height + ANSWER_CONTAINER_SPACE_ABOVE toView:answerContainer animated:NO];
@@ -249,13 +261,10 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 }
 
 -(BOOL)answerCorrect {
-    BOOL answerCorrect = NO;
+    BOOL answerCorrect = YES;
     for (AnswerItem *answerItem in [self->answer answerItemListSessionOrderPreserved]) {
-        NSString *itemText = answerItem.text;
-        if([self->answer.sessionAnswer  isEqualToString:itemText]) {
-            answerCorrect = YES;
-            answerItem.setByUser = [NSNumber numberWithBool:YES];
-            break;
+        if([answerItem.sessionKnownByUser boolValue] == NO) {
+            answerCorrect = NO;
         }
     }
     return answerCorrect;
@@ -287,38 +296,28 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 }
 
 -(void)showSolution {
-    UIView *answerContainer = [self viewWithTag:TAG_ANSWER_CONTAINER];
-    LayTextField *layTextField = (LayTextField *)[self viewWithTag:TAG_TEXT_LAY_FIELD_ANSWER];
-    if([layTextField->textField.text length] > 0) {
-        layTextField.isCorrect = [self answerCorrect];
-    } else {
-        answerContainer.hidden = YES;
-    }
-    
-    LayAnswerViewChoice *choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
-    choiceView.tag = TAG_ANSWER_CHOICE_VIEW;
-    choiceView.showMediaList = NO;
-    [choiceView showMarkIndicator:YES];
+    [self removeTextInputDialog];
     const CGSize viewSize = self.frame.size;
     const CGFloat vSpace = 10.0f;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
+    LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
+    choiceView.showAnswerItemsKnownByUserOnly = NO;
     [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
     [choiceView showSolution];
-
-    [self insertSubview:choiceView aboveSubview:answerContainer];
     [self layoutView];
     if(self.answerViewDelegate ) {
         [self.answerViewDelegate resizedToSize:self.frame.size];
     }
+
 }
 
 -(BOOL)userSetAnswer {
-    BOOL userSetAnswer = NO;
-    UITextField *answerTextField = (UITextField*)[self viewWithTag:TAG_TEXT_FIELD_ANSWER];
-    if([answerTextField.text length] > 0) {
-        userSetAnswer = YES;
+    // userTriedAnswering is set if the user checks his given input, if no matches occurre we must
+    // mark at least one item as set by user as the session handling indicates a given anser be this flag.
+    if( self->userTriedAnswering ) {
+        self->answer.sessionAnswer = @"";
     }
-    return userSetAnswer;
+    return self->userTriedAnswering;
 }
 
 -(BOOL)isUserAnswerCorrect {
@@ -334,14 +333,121 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 //
 -(void)cancelTextInput {
     [self closeTextInputDialog];
+    [self layoutView];
+    if(self.answerViewDelegate ) {
+        [self.answerViewDelegate resizedToSize:self.frame.size];
+    }
 }
 
 -(void)checkTextInput {
-    [self closeTextInputDialog];
-    //
+    self->userTriedAnswering = YES;
     UITextField *answerTextField = (UITextField*)[self.window viewWithTag:TAG_TEXT_FIELD_ANSWER];
     NSString *textFromTextField = answerTextField.text;
     NSString *textToCheck = [textFromTextField stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *textToCheckLowerCase = [textToCheck lowercaseString];
+    Question *question = self->answer.questionRef;
+    NSUInteger numberOfKnownItems = 0;
+    BOOL answerMatched = NO;
+    NSString *currentMatchedAnswer = nil;
+    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
+    if( [question questionType] == ANSWER_TYPE_KEY_WORD_ITEM_MATCH ) {
+        // The order of the items is ignored
+        for (AnswerItem *answerItem in answerItemList) {
+            BOOL itemAlreadyShown = [answerItem.sessionKnownByUser boolValue];
+            if( itemAlreadyShown ) {
+                numberOfKnownItems++;
+                continue;
+            }
+            
+            NSArray *keywordList = [answerItem keyWordListLowerCase];
+            for (NSString *keyword in keywordList) {
+                if( [keyword isEqualToString:textToCheckLowerCase] ) {
+                    answerItem.sessionKnownByUser = [NSNumber numberWithBool:YES];
+                    answerItem.setByUser = [NSNumber numberWithBool:YES];
+                    const CGSize viewSize = self.frame.size;
+                    const CGFloat vSpace = 10.0f;
+                    CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
+                    LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
+                    [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:NO];
+                    [choiceView showSolution];
+                    numberOfKnownItems++;
+                    answerMatched = YES;
+                    currentMatchedAnswer = answerItem.text;
+                    break;
+                }
+            }
+        }
+    } else if( [question questionType] == ANSWER_TYPE_KEY_WORD_ITEM_MATCH_ORDERED ) {
+        // get the next item to find
+        AnswerItem *answerItemToMatchNext = nil;
+        for (AnswerItem *answerItem in answerItemList) {
+            BOOL itemAlreadyShown = [answerItem.sessionKnownByUser boolValue];
+            if( !itemAlreadyShown ) {
+                answerItemToMatchNext = answerItem;
+                break;
+            } else {
+                numberOfKnownItems++;
+            }
+        }
+        
+        if( answerItemToMatchNext ) {
+            NSArray *keywordList = [answerItemToMatchNext keyWordListLowerCase];
+            for (NSString *keyword in keywordList) {
+                if( [keyword isEqualToString:textToCheckLowerCase] ) {
+                    answerItemToMatchNext.sessionKnownByUser = [NSNumber numberWithBool:YES];
+                    answerItemToMatchNext.setByUser = [NSNumber numberWithBool:YES];
+                    const CGSize viewSize = self.frame.size;
+                    const CGFloat vSpace = 10.0f;
+                    CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
+                    LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
+                    [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:NO];
+                    [choiceView showSolution];
+                    numberOfKnownItems++;
+                    answerMatched = YES;
+                    currentMatchedAnswer = answerItemToMatchNext.text;
+                    break;
+                }
+            }
+        } else {
+            MWLogError([LayAnswerViewKeywordItemMatch class], @"No item found to test next match!");
+        }
+        
+    } else {
+        MWLogError([LayAnswerViewKeywordItemMatch class], @"Invalid type of question for view!");
+    }
+    
+
+    if( answerMatched ) {
+        static const NSUInteger MAX_LENGTH_OF_ANSWER_TO_SHOW = 40;
+        NSUInteger lengthOfCurrentAnswer = [currentMatchedAnswer length];
+        NSString *textToShow = nil;
+        if( MAX_LENGTH_OF_ANSWER_TO_SHOW < lengthOfCurrentAnswer ) {
+            textToShow = [currentMatchedAnswer substringToIndex:MAX_LENGTH_OF_ANSWER_TO_SHOW-1];
+            if( textToShow && [textToShow length] == 0 ) {
+                textToShow = NSLocalizedString(@"QuestionItemMatch", nil);
+            } else {
+                textToShow = [NSString stringWithFormat:@"%@...", textToShow];
+            }
+        } else {
+            textToShow = currentMatchedAnswer;
+        }
+        [self showMatchHintWithText:textToShow andState:YES];
+        answerTextField.text = @"";
+    } else {
+        NSString *message = NSLocalizedString(@"QuestionItemNoMatch", nil);
+        [self showMatchHintWithText:message andState:NO];
+    }
+    
+    if( numberOfKnownItems == [answerItemList count] ) {
+        [self removeTextInputDialog];
+    }
+    
+    [self layoutView];
+    if(self.answerViewDelegate ) {
+        [self.answerViewDelegate resizedToSize:self.frame.size];
+    }
+    
+    /*
     self->answer.sessionAnswer = textToCheck;
     //
     answerTextField.enabled = NO;
@@ -353,6 +459,21 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     [self layoutContainer:answerContainer withStartYPos:0.0f];
     if(self.answerViewDelegate) {
         [self.answerViewDelegate evaluate];
+    }
+     */
+}
+
+-(void)showMatchHintWithText:(NSString*)text andState:(BOOL)wrongOrCorrect {
+    // Hint
+    UIView *backgound = [self.window viewWithTag:TAG_BACKGROUND];
+    const CGFloat width = backgound.frame.size.width;
+    UIView *parentViewToPresentHint = backgound;
+    LayHintView *hintView = [[LayHintView alloc]initWithWidth:width view:parentViewToPresentHint target:nil andAction:nil];
+    hintView.duration = 1.5f;
+    if(wrongOrCorrect) {
+        [hintView showHint:text withBorderColor:AnswerCorrect];
+    } else {
+        [hintView showHint:text withBorderColor:AnswerWrong];
     }
 }
 
@@ -412,9 +533,15 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
             [UIView animateWithDuration:0.3 animations:^{
                 dialogLayer.position = CGPointMake(dialogLayer.position.x, newYPosDialog);
             }];
+        } else {
+            CALayer *dialogLayer = answerContainer.layer;
+            const CGFloat newYPosDialog = keyboardFrame.origin.y - (dialogLayer.bounds.size.height / 2.0f);
+            [UIView animateWithDuration:0.3 animations:^{
+                dialogLayer.position = CGPointMake(dialogLayer.position.x, newYPosDialog);
+            }];
         }
     } else {
-        MWLogError([LayAnswerViewKeywordItemMatch class], @"Could not find conainer for answer!");
+        MWLogWarning([LayAnswerViewKeywordItemMatch class], @"Could not find conainer for answer!");
     }
 }
 

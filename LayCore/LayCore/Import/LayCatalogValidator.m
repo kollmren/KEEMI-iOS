@@ -80,6 +80,12 @@ static Class _classObj = nil;
                         MWLogError(_classObj, @"Item-Match answers must have at least one correct answerItem! Question:%@",question.name);
                     }
                     break;
+                case ANSWER_TYPE_KEY_WORD_ITEM_MATCH_ORDERED:
+                    if(numberOfCorrectAnswers < 1) {
+                        valid = NO;
+                        MWLogError(_classObj, @"Item-Match answers must have at least one correct answerItem! Question:%@",question.name);
+                    }
+                    break;
                 case ANSWER_TYPE_WORD_RESPONSE:
                     if(numberOfCorrectAnswers < 1) {
                         valid = NO;

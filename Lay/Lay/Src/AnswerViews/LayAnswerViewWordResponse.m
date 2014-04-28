@@ -413,9 +413,15 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
             [UIView animateWithDuration:0.3 animations:^{
                 dialogLayer.position = CGPointMake(dialogLayer.position.x, newYPosDialog);
             }];
+        } else {
+            CALayer *dialogLayer = answerContainer.layer;
+            const CGFloat newYPosDialog = keyboardFrame.origin.y - (dialogLayer.bounds.size.height / 2.0f);
+            [UIView animateWithDuration:0.3 animations:^{
+                dialogLayer.position = CGPointMake(dialogLayer.position.x, newYPosDialog);
+            }];
         }
     } else {
-        MWLogError([LayAnswerViewWordResponse class], @"Could not find conainer for answer!");
+        MWLogWarning([LayAnswerViewWordResponse class], @"Could not find conainer for answer!");
     }
 }
 
