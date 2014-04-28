@@ -1,0 +1,3 @@
+[submodule "ThirdParty/OctoKit"]
+	path = ThirdParty/OctoKit
+	url = https://github.com/octokit/octokit.objc.git

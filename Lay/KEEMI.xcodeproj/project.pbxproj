@@ -54,6 +54,10 @@
 		A73663E217BB7EB000668F6E /* LayVcNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = A73663E017BB7EB000668F6E /* LayVcNotes.m */; };
 		A73A745217CB41B1004A91C7 /* About+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A73A745117CB41B1004A91C7 /* About+Utilities.m */; };
 		A73DCCC717D4C68400283626 /* LayImportStateViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A73DCCC617D4C68300283626 /* LayImportStateViewHandler.m */; };
+		A73E40AA190E7B7000873678 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A5190E7B7000873678 /* libAFNetworking.a */; };
+		A73E40AB190E7B7000873678 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A6190E7B7000873678 /* libMantle-iOS.a */; };
+		A73E40AD190E7B7000873678 /* libOctoKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A8190E7B7000873678 /* libOctoKit.a */; };
+		A73E40AE190E7B7000873678 /* libReactiveCocoa-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A9190E7B7000873678 /* libReactiveCocoa-iOS.a */; };
 		A73F43881781731200A821D1 /* LayStatisticFetchedResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F43871781731200A821D1 /* LayStatisticFetchedResultsController.m */; };
 		A73F438D17817E3300A821D1 /* UGCQuestion+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F438C17817E3300A821D1 /* UGCQuestion+Utilities.m */; };
 		A73F439017818D5F00A821D1 /* LayTableSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = A73F438F17818D5F00A821D1 /* LayTableSectionView.m */; };
@@ -227,6 +231,11 @@
 		A73A745117CB41B1004A91C7 /* About+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "About+Utilities.m"; path = "../LayCore/LayCore/Model/About+Utilities.m"; sourceTree = "<group>"; };
 		A73DCCC517D4C68300283626 /* LayImportStateViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayImportStateViewHandler.h; sourceTree = "<group>"; };
 		A73DCCC617D4C68300283626 /* LayImportStateViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayImportStateViewHandler.m; sourceTree = "<group>"; };
+		A73E40A5190E7B7000873678 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libAFNetworking.a; path = "../ThirdParty/OctoKit/External/OctoKitDependencies/build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		A73E40A6190E7B7000873678 /* libMantle-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libMantle-iOS.a"; path = "../ThirdParty/OctoKit/External/Mantle/build/Debug-iphoneos/libMantle-iOS.a"; sourceTree = "<group>"; };
+		A73E40A7190E7B7000873678 /* libMantle-Mac.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libMantle-Mac.a"; path = "../ThirdParty/OctoKit/External/Mantle/build/Debug/libMantle-Mac.a"; sourceTree = "<group>"; };
+		A73E40A8190E7B7000873678 /* libOctoKit.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libOctoKit.a; path = "../ThirdParty/OctoKit/build/Debug-iphoneos/libOctoKit.a"; sourceTree = "<group>"; };
+		A73E40A9190E7B7000873678 /* libReactiveCocoa-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libReactiveCocoa-iOS.a"; path = "../ThirdParty/OctoKit/External/ReactiveCocoa/ReactiveCocoaFramework/build/Debug-iphoneos/libReactiveCocoa-iOS.a"; sourceTree = "<group>"; };
 		A73F43861781731200A821D1 /* LayStatisticFetchedResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayStatisticFetchedResultsController.h; path = Statistic/LayStatisticFetchedResultsController.h; sourceTree = "<group>"; };
 		A73F43871781731200A821D1 /* LayStatisticFetchedResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayStatisticFetchedResultsController.m; path = Statistic/LayStatisticFetchedResultsController.m; sourceTree = "<group>"; };
 		A73F438C17817E3300A821D1 /* UGCQuestion+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UGCQuestion+Utilities.m"; path = "../LayCore/LayCore/Model/UserGeneratedContent/UGCQuestion+Utilities.m"; sourceTree = "<group>"; };
@@ -381,6 +390,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A73E40AA190E7B7000873678 /* libAFNetworking.a in Frameworks */,
+				A73E40AB190E7B7000873678 /* libMantle-iOS.a in Frameworks */,
+				A73E40AD190E7B7000873678 /* libOctoKit.a in Frameworks */,
+				A73E40AE190E7B7000873678 /* libReactiveCocoa-iOS.a in Frameworks */,
 				A75FA33E1744D3ED00AAC8EE /* MessageUI.framework in Frameworks */,
 				A79BD72A17424C2E00CB8A39 /* libc++.dylib in Frameworks */,
 				A79BD72817424C0800CB8A39 /* libz.1.2.5.dylib in Frameworks */,
@@ -571,6 +584,11 @@
 		A75B471B163EA7F20062C3C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A73E40A5190E7B7000873678 /* libAFNetworking.a */,
+				A73E40A6190E7B7000873678 /* libMantle-iOS.a */,
+				A73E40A7190E7B7000873678 /* libMantle-Mac.a */,
+				A73E40A8190E7B7000873678 /* libOctoKit.a */,
+				A73E40A9190E7B7000873678 /* libReactiveCocoa-iOS.a */,
 				A75FA33D1744D3ED00AAC8EE /* MessageUI.framework */,
 				A79BD72917424C2E00CB8A39 /* libc++.dylib */,
 				A79BD72717424C0700CB8A39 /* libz.1.2.5.dylib */,
@@ -1230,6 +1248,8 @@
 					$SOURCE_ROOT/../LayCore/LayCore/Datastore,
 					$SOURCE_ROOT/../LayCore/LayCore/Domain,
 					$SOURCE_ROOT/../LayCore/LayCore/Import,
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Lay/KEEMI-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1259,6 +1279,8 @@
 					$SOURCE_ROOT/../LayCore/LayCore/Datastore,
 					$SOURCE_ROOT/../LayCore/LayCore/Domain,
 					$SOURCE_ROOT/../LayCore/LayCore/Import,
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Lay/KEEMI-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
