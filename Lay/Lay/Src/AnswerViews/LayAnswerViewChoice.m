@@ -37,6 +37,7 @@
 @implementation LayAnswerViewChoice
 
 @synthesize mode, showMarkIndicatorInButtons, showMediaList, showAnswerItemsOrdered, showAnswerItemsRespectingLearnState;
+@synthesize showAnswerItemsKnownByUserOnly;
 
 static const CGFloat VERTICAL_SPACE = 0.0f;
 static const CGFloat BORDER_MEDIA_BUTTON = 10.0f;
@@ -53,6 +54,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     if (self) {
         self->evaluated = NO;
         self.showMediaList = YES;
+        self.showAnswerItemsKnownByUserOnly = NO;
         self.showAnswerItemsOrdered = NO;
         self.showMarkIndicatorInButtons = YES;
         self.mode = LAY_ANSWER_VIEW_MULTIPLE_CHOICE;
@@ -105,6 +107,9 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
 -(void)addButtonsForAnswerItemsRowStyle:(Answer*)answer_ enableButton:(BOOL)enable {
     NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
     for (AnswerItem* answerItem in answerItemList) {
+        
+        if(self.showAnswerItemsKnownByUserOnly && [answerItem.sessionKnownByUser boolValue] == NO) continue;
+        
         LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
         const CGFloat hSpace = 0.0f;//[style getHorizontalScreenSpace];
         CGFloat widthOfButton = self.frame.size.width - 2 * hSpace;
@@ -142,6 +147,9 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     BOOL leftRight = YES;
     NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
     for (AnswerItem* answerItem in answerItemList) {
+        
+        if(self.showAnswerItemsKnownByUserOnly && [answerItem.sessionKnownByUser boolValue] == NO) continue;
+        
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
         if( self.showAnswerItemsRespectingLearnState ) {
             answerButton.showAsMarked = YES;

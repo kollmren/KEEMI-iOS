@@ -15,6 +15,7 @@
 #import "LayAnswerViewCard.h"
 #import "LayAnswerViewWordResponse.h"
 #import "LayAnswerViewOrder.h"
+#import "LayAnswerViewKeywordItemMatch.h"
 // Datastore cfg
 #import "LayDataStoreConfiguration.h"
 #import "LayUserDataStoreConfiguration.h"
@@ -124,6 +125,19 @@
     if(!registered) {
         registrationComplete = NO;
     }
+    
+    registered = [LayAnswerViewManagerImpl registerAnswerView:
+                  [LayAnswerViewKeywordItemMatch class] forTypeOfAnswer:ANSWER_TYPE_KEY_WORD_ITEM_MATCH];
+    if(!registered) {
+        registrationComplete = NO;
+    }
+    
+    registered = [LayAnswerViewManagerImpl registerAnswerView:
+                  [LayAnswerViewKeywordItemMatch class] forTypeOfAnswer:ANSWER_TYPE_KEY_WORD_ITEM_MATCH_ORDERED];
+    if(!registered) {
+        registrationComplete = NO;
+    }
+
 
     
     return registrationComplete;

@@ -88,6 +88,10 @@
             break;
         case ANSWER_TYPE_ORDER:
             break;
+        case ANSWER_TYPE_KEY_WORD_ITEM_MATCH:
+            break;
+        case ANSWER_TYPE_KEY_WORD_ITEM_MATCH_ORDERED:
+            break;
         default:
             MWLogError([Question class], @"Unknown type:%u of answerType!", typeAsPrimitive);
             break;

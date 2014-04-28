@@ -32,5 +32,6 @@
 @dynamic answerRef;
 @dynamic explanationRef;
 @dynamic mediaRef;
+@dynamic longTermWordList;
 
 @end

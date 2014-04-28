@@ -72,12 +72,14 @@ numberOfSkippedQuestions, neededTime;
     // Throw away temp session data (transient data)
     // Update UserDataStore and sync the the state of the questions with the MainDataStore
     [self saveUserGeneratedContent];
+    //
+    [self resetTemporarySessionData];
+    //
     LayMainDataStore *mainStore = [LayMainDataStore store];
     BOOL savedChanges = [mainStore saveChanges];
     if(!savedChanges) {
         MWLogError(g_classObj, @"Could not update state of questions to main-store!");
     }
-    [self resetTemporarySessionData];
     //
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     catalogManager.selectedQuestions = nil;
@@ -135,6 +137,7 @@ numberOfSkippedQuestions, neededTime;
         for (AnswerItem *item in [answer answerItemListSessionOrderPreserved]) {
             item.setByUser =  [NSNumber numberWithBool:NO];
             item.sessionNumber = [NSNumber numberWithUnsignedInteger:0];
+            item.sessionKnownByUser = [NSNumber numberWithBool:NO];
         }
     }
 }

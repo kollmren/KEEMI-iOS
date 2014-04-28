@@ -63,7 +63,9 @@
 "CatalogStatisticMenuTitle" = "Lernstand";
 "Save" = "Speichern";
 "Cancel" = "Abbrechen";
+"Finished" = "Fertig";
 "CatalogQuestionAnswerTitle" = "Antwort:";
+"CatalogQuestionAnswerItemTitle" = "Strichwort:";
 /* Share */
 "CatalogShareByMailSubject" = "KEEMI Fragenkatalog";
 "CatalogShareByMailText" = "Hier ein Link zu einem interessanten KEEMI-Katalog. Link:";
@@ -137,6 +139,8 @@
 "QuestionSessionDeleteText" = "Lösche die Eingabe";
 "QuestionIntroTitle" = "Einleitung";
 "QuestionSessionOrderAnswerCorrectly" = "Zeige korrekte Anordnung";
+"QuestionItemMatch" = "Treffer";
+"QuestionItemNoMatch" = "Kein Treffer";
 /* Error messages */
 "ErrorCatalogToOpenDoesnNotExist" = "Die zu öffnende Datei existiert nicht. Der Katalog kann nicht importiert werden";
 "ErrorCouldNotConfigureApp" = "Bei der Konfiguration der Anwendung traten Fehler auf!";
