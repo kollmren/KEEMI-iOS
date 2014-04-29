@@ -148,6 +148,7 @@
 		A7F3505F165BAEC10002262B /* LayCatalogDataFileReaderDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F3505E165BAEC10002262B /* LayCatalogDataFileReaderDummy.m */; };
 		A7F35062165BB8A60002262B /* LayCoreTestConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F35061165BB8A60002262B /* LayCoreTestConfig.m */; };
 		A7F3F281173BBA2A006F5BF3 /* LayCatalogFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F3F280173BBA2A006F5BF3 /* LayCatalogFileReader.m */; };
+		A7F456FF190FA89A0001F146 /* LayAnswerStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F456FE190FA89A0001F146 /* LayAnswerStyle.m */; };
 		A7F665C216B2CD18002A8097 /* LayCatalog+UtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F665C116B2CD18002A8097 /* LayCatalog+UtilitiesTests.m */; };
 		A7F9953F1653F22300C74386 /* LayDataStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F9953E1653F22300C74386 /* LayDataStoreTests.m */; };
 		A7FA6AA516F6655C00E71F17 /* LayOrderedQuestionDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FA6AA416F6655C00E71F17 /* LayOrderedQuestionDatasource.m */; };
@@ -447,6 +448,8 @@
 		A7F35061165BB8A60002262B /* LayCoreTestConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayCoreTestConfig.m; sourceTree = "<group>"; };
 		A7F3F27F173BBA2A006F5BF3 /* LayCatalogFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayCatalogFileReader.h; path = LayCore/Import/LayCatalogFileReader.h; sourceTree = "<group>"; };
 		A7F3F280173BBA2A006F5BF3 /* LayCatalogFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayCatalogFileReader.m; path = LayCore/Import/LayCatalogFileReader.m; sourceTree = "<group>"; };
+		A7F456FD190FA89A0001F146 /* LayAnswerStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayAnswerStyle.h; path = LayCore/Domain/LayAnswerStyle.h; sourceTree = "<group>"; };
+		A7F456FE190FA89A0001F146 /* LayAnswerStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayAnswerStyle.m; path = LayCore/Domain/LayAnswerStyle.m; sourceTree = "<group>"; };
 		A7F665C016B2CD18002A8097 /* LayCatalog+UtilitiesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LayCatalog+UtilitiesTests.h"; sourceTree = "<group>"; };
 		A7F665C116B2CD18002A8097 /* LayCatalog+UtilitiesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LayCatalog+UtilitiesTests.m"; sourceTree = "<group>"; };
 		A7F9953D1653F22300C74386 /* LayDataStoreTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayDataStoreTests.h; sourceTree = "<group>"; };
@@ -733,6 +736,8 @@
 		A7455714176248BB005D792B /* AllOther */ = {
 			isa = PBXGroup;
 			children = (
+				A7F456FD190FA89A0001F146 /* LayAnswerStyle.h */,
+				A7F456FE190FA89A0001F146 /* LayAnswerStyle.m */,
 				A72A12C618638EE00079AEA5 /* LayTextSearchSetup.h */,
 				A72A12C718638EE00079AEA5 /* LayTextSearchSetup.m */,
 				A72A12C318638B220079AEA5 /* LayTokenizer.h */,
@@ -1117,6 +1122,7 @@
 				A71A812917BE407E00486BE4 /* Section+Utilities.m in Sources */,
 				A71A813B17BE43A200486BE4 /* SectionMedia.m in Sources */,
 				A74252BE1861CFCF00167B27 /* SearchWordRelation+Utilities.m in Sources */,
+				A7F456FF190FA89A0001F146 /* LayAnswerStyle.m in Sources */,
 				A71A814417BE43A300486BE4 /* SectionText.m in Sources */,
 				A71A814D17BE453900486BE4 /* Section.m in Sources */,
 				A74252B81861CF5700167B27 /* SearchWord.m in Sources */,

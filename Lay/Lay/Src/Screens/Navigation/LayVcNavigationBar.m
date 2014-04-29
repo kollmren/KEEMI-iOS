@@ -35,6 +35,7 @@ searchButtonInNavigationBar,
 settingsButtonInNavigationBar,
 backButtonInNavigationBar,
 infoButtonInNavigationBar,
+addButtonInNavigationBar,
 delegate;
 
 -(id)initWithViewController:(UIViewController*)viewController_ {
@@ -74,6 +75,13 @@ delegate;
         [navigationButtonItemList addObject:buttonItem];
     }
     
+    if(self.addButtonInNavigationBar) {
+        UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_ADD];
+        [button addTarget:self action:@selector(addPressed) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+        [navigationButtonItemList addObject:buttonItem];
+    }
+    
     if(self.learnButtonInNavigationBar) {
         UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_LEARN];
         [button addTarget:self action:@selector(learnPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -99,7 +107,8 @@ delegate;
         UIButton *button = [LayIconButton buttonWithId:LAY_BUTTON_INFO];
         [button addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-        [navigationButtonItemList addObject:buttonItem];
+        NSArray *navigationButtonItemListLeft = @[buttonItem];
+        [[self->viewController navigationItem] setLeftBarButtonItems:navigationButtonItemListLeft animated:YES];
     }
     
     /*UIBarButtonItem *buttonItemSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];*/
@@ -216,6 +225,10 @@ delegate;
 
 -(void)search {
     if(self.delegate) [self.delegate searchIconPressed];
+}
+
+-(void)addPressed {
+    if(self.delegate) [self.delegate addPressed];
 }
 
 -(void)backToPreviousUiController {

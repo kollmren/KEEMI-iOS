@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Rene. All rights reserved.
 //
 
-#import "LayVcMyCatalogList.h"
+#import "LayVcCatalogStoreList.h"
 #import "LayMainDataStore.h"
 #import "LayMyCatalogListItem.h"
 #import "LayVcCatalogList.h"
@@ -21,40 +21,36 @@
 #import "LayHintView.h"
 #import "LayVcNavigation.h"
 #import "LayVcSettings.h"
-#import "LayVcCatalogStoreList.h"
+
+#import "OctoKit.h"
 
 #import "LayCatalogManager.h"
-#import "Catalog+Utilities.h"
 #import "MWLogging.h"
 
 
 static const NSInteger NUMBER_OF_SECTIONS = 1;
 
-@interface LayVcMyCatalogList () {
+@interface LayVcCatalogStoreList () {
     LayTableSectionView* sectionMyCatalog;
     LayImportStateViewHandler *stateViewHandler;
     LayVcNavigationBar* navBarViewController;
-    Catalog *catalogToDelete;
-    NSIndexPath *indexPathToDelete;
-    NSMutableArray* allCatalogs;
     UILabel *noCatalogsLoadedLabel;
 }
 
 @end
 
 
-@implementation LayVcMyCatalogList
+@implementation LayVcCatalogStoreList
 
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle {
     
-    self = [super initWithNibName:@"LayVcMyCatalogList"
+    self = [super initWithNibName:@"LayVcCatalogStoreList"
                            bundle:nil];
     if (self) {
         self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
         self->navBarViewController.delegate = self;
-        self->navBarViewController.addButtonInNavigationBar = YES;
-        self->navBarViewController.infoButtonInNavigationBar = YES;
+        self->navBarViewController.cancelButtonInNavigationBar = YES;
         [self registerEvents];
     }
     return self;
@@ -68,7 +64,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     UIFont *appTitleFont = [styleGuide getFont:AppTitleFont];
     UIColor *appNameColor = [styleGuide getColor:TextColor];
-    [self->navBarViewController showTitle:@"KEEMI" atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
+    [self->navBarViewController showTitle:@"Catalogs at GitHub" atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
     //
     NSString *sectionMyCatalogsTitle = NSLocalizedString(@"MyCatalogs", nil);
     self->sectionMyCatalog = [self sectionLabelWithTitle:sectionMyCatalogsTitle];
@@ -90,8 +86,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     [self.tableView setBackgroundView:noCatalogsLoadedLabel];
     [self adjustNoCatalogsStoredLabel];
     // Sime informations about the table are requested before: viewWillAppear
-    NSArray *catalogsInStore = [[LayMainDataStore store] findAllCatalogsOrderedByDateLastImportedFirst];
-    self->allCatalogs = [NSMutableArray arrayWithArray:catalogsInStore];
+    //NSArray *catalogsInStore = [[LayMainDataStore store] findAllCatalogsOrderedByDateLastImportedFirst];
 }
 
 - (void)viewDidUnload {
@@ -100,6 +95,10 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    
+    [self keemiRepoitories];
+    
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     if(catalogManager.currentCatalogShouldBeOpenedDirectly) {
         catalogManager.currentCatalogShouldBeOpenedDirectly = NO;
@@ -118,14 +117,6 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
         [self.tableView reloadData];
     }
     
-    self->catalogToDelete = nil;
-    self->indexPathToDelete = nil;
-    
-    NSArray *catalogsInStore = [[LayMainDataStore store] findAllCatalogsOrderedByDateLastImportedFirst];
-    self->allCatalogs = [NSMutableArray arrayWithArray:catalogsInStore];
-    if([self->allCatalogs count] == 0) {
-        self->noCatalogsLoadedLabel.hidden = NO;
-    }
     [self adjustNoCatalogsStoredLabel];
     [self.tableView reloadData];
 }
@@ -147,11 +138,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     noCatalogsLoadedLabel.text = NSLocalizedString(@"CatalogNoCatalogsStored", nil);;
     [noCatalogsLoadedLabel sizeToFit];
     self->noCatalogsLoadedLabel.center = self.tableView.center;
-    if([self->allCatalogs count] == 0) {
-        self->noCatalogsLoadedLabel.hidden = NO;
-    } else {
-        self->noCatalogsLoadedLabel.hidden = YES;
-    }
+    self->noCatalogsLoadedLabel.hidden = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -168,12 +155,13 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:@"CatalogListItemIdentifier"];
     }
-
+/*
     LayMyCatalogListItem *column = (LayMyCatalogListItem *)cell;
     Catalog *catalog = [self->allCatalogs objectAtIndex:[indexPath section]];
     NSString *numberOfQuestionsFormat = NSLocalizedString(@"CatalogNumberOfQuestionsLabel", nil);
     NSString *numberOfQuestions = [NSString stringWithFormat:numberOfQuestionsFormat, [catalog numberOfQuestions]];
     [column setCover:catalog.coverRef title:catalog.title publisher:[catalog publisher] andNumberOfQuestions:numberOfQuestions];
+ */
     return cell;
 }
 
@@ -182,25 +170,16 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(editingStyle == UITableViewCellEditingStyleDelete) {
-        Catalog *catalog = [self->allCatalogs objectAtIndex:[indexPath section]];
-        if(catalog) {
-            [self setupCatalogToDelete:catalog atIndexPath:indexPath];
-        } else {
-            MWLogError([LayVcMyCatalogList class], @"Could not get a catalog at index:%u", [indexPath section]);
-        }
-    }
-}
-
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     Catalog *catalog = [self->allCatalogs objectAtIndex:[indexPath section]];
     [LayCatalogManager instance].currentSelectedCatalog = catalog;
     LayVcCatalogList *vcCatalog = [LayVcCatalogList new];
     // Push it onto the top of the navigation controller's stack
     [[self navigationController] pushViewController:vcCatalog
                                            animated:YES];
+     */
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -208,15 +187,15 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-     NSInteger numberOfCatalogs = [self->allCatalogs count];
-     return numberOfCatalogs;
+    NSInteger numberOfCatalogsInSection = 1;
+    return numberOfCatalogsInSection;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger numberOfCatalogsInSection = 1;
-    return numberOfCatalogsInSection;
+    return 0;
+   
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -269,71 +248,43 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     }
 }
 
-//
--(void)setupCatalogToDelete:(Catalog*)catalog atIndexPath:(NSIndexPath *)indexPath {
-    NSString *text = NSLocalizedString(@"ImportDeleteCatalogState", nil);
-    UIImage *image = [LayImage imageWithId:LAY_IMAGE_IMPORT];
-    self->stateViewHandler = [[LayImportStateViewHandler alloc]initWithSuperView:self.tableView.window icon:image andText:text];
-    self->stateViewHandler.delegate = self;
-    self->stateViewHandler.useTimerForSteps = YES;
-    self->catalogToDelete = catalog;
-    self->indexPathToDelete = indexPath;
-    [self->stateViewHandler startWork];
-}
-
--(void)deleteCatalogFromtableAnimated {
-    [self->allCatalogs removeObjectAtIndex:[self->indexPathToDelete section]];
-    //NSArray *rowsToDelete = [NSArray arrayWithObjects:self->indexPathToDelete, nil];
-    //[self.tableView deleteRowsAtIndexPaths:rowsToDelete withRowAnimation:UITableViewRowAnimationTop];
-    NSIndexSet *sectionToDelete = [NSIndexSet indexSetWithIndex:[self->indexPathToDelete section]];
-    [self.tableView deleteSections:sectionToDelete withRowAnimation:UITableViewRowAnimationTop];
-    //[self.tableView reloadData];
-    [self adjustNoCatalogsStoredLabel];
-}
 
 //
 // LayVcNavigationBarDelegate
 //
--(void) addPressed {
-    LayVcCatalogStoreList *catalogStore = [[LayVcCatalogStoreList alloc]init];
-    LayVcNavigation *navController = [[LayVcNavigation alloc] initWithRootViewController:catalogStore];
-    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
-    [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentViewController:navController animated:YES completion:nil];
+-(void)cancelPressed {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) infoPressed {
-    LayVcSettings *settings = [[LayVcSettings alloc]init];
-    LayVcNavigation *navController = [[LayVcNavigation alloc] initWithRootViewController:settings];
-    [navController setModalPresentationStyle:UIModalPresentationFormSheet];
-    [navController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
-    [self presentViewController:navController animated:YES completion:nil];
-}
+
 //
 // LayImportStateViewHandlerDelegate
 //
 -(NSString*)startWork:(id<LayImportProgressDelegate>)progressDelegate {
+    /*
     NSString *errorMessage = nil;
     NSString *titleOfCatalog = self->catalogToDelete.title;
     NSString *publisherOfCatalog = [self->catalogToDelete publisher];
-    MWLogInfo([LayVcMyCatalogList class], @"Delete catalog with title:%@, publisher:%@ .", titleOfCatalog, publisherOfCatalog);
+    MWLogInfo([LayVcCatalogStoreList class], @"Delete catalog with title:%@, publisher:%@ .", titleOfCatalog, publisherOfCatalog);
     const NSUInteger maxSteps = [self->catalogToDelete numberOfQuestions] + [self->catalogToDelete numberOfExplanations];
     [progressDelegate setMaxSteps:maxSteps];
     Catalog *catalog = [[LayMainDataStore store] findCatalogByTitle:titleOfCatalog andPublisher:publisherOfCatalog];
     if(catalog) {
         BOOL deletedCatalog = [LayMainDataStore deleteCatalogWithinNewCreatedContext:catalog];
         if(!deletedCatalog) {
-             MWLogError( [LayVcMyCatalogList class], @"Could not delete catalog:(%@, %@)!", titleOfCatalog, publisherOfCatalog);
+             MWLogError( [LayVcCatalogStoreList class], @"Could not delete catalog:(%@, %@)!", titleOfCatalog, publisherOfCatalog);
             self->catalogToDelete = nil;
             self->indexPathToDelete = nil;
         }
     } else {
-        MWLogError( [LayVcMyCatalogList class], @"Could not find catalog:(%@, %@) for deletion!", titleOfCatalog, publisherOfCatalog);
+        MWLogError( [LayVcCatalogStoreList class], @"Could not find catalog:(%@, %@) for deletion!", titleOfCatalog, publisherOfCatalog);
     }
     
     //TODO: What should happen if a catalog could not be deleted?
     
     return errorMessage;
+     */
+    return @"startWork";
 }
 
 -(void)buttonPressed {
@@ -341,9 +292,11 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 -(void)closedStateView {
+    /*
     if(self->catalogToDelete && self->indexPathToDelete) {
         [self deleteCatalogFromtableAnimated];
     }
+     */
 }
 
 //
@@ -361,6 +314,90 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     LayHintView *hintView = [[LayHintView alloc]initWithWidth:width view:self.view target:target andAction:action];
     hintView.duration = duration;
     [hintView showHint:hint withBorderColor:color];
+}
+
+//
+//
+//
+-(NSArray*)keemiRepoitories {
+    __block NSMutableArray *keemiRepositories = [NSMutableArray arrayWithCapacity:10];;
+    OCTClient *client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
+    NSDictionary *parameters = @{ @"q": @"KEEMI" };
+    NSURLRequest *request = [client requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
+    RACSignal *result = [client enqueueRequest:request resultClass:nil];
+    
+    NSError *myError = nil;
+    BOOL mySuccess = NO;
+    OCTResponse *myResponse = [result asynchronousFirstOrDefault:nil success:&mySuccess error:&myError];
+    
+    /*
+    //This method actually kicks off the request, handling any results using the
+    // blocks below.
+    [result subscribeNext:^(OCTResponse *response) {
+        // This block is invoked for _each_ result received, so you can deal with
+        // them one-by-one as they arrive.
+        myResponse = response;
+    } error:^(NSError *error) {
+        // Invoked when an error occurs.
+        //
+        // Your `next` and `completed` blocks won't be invoked after this point.
+        myError = error;
+    } completed:^{
+        // Invoked when the request completes and we've received/processed all the
+        // results.
+        //
+        // Your `next` and `error` blocks won't be invoked after this point.
+        MWLogDebug([LayVcCatalogStoreList class], @"Search completed!");
+    }];
+     */
+    
+    if( !myError && myResponse ) {
+        NSDictionary *repo = myResponse.parsedResult;
+        NSArray *items = [repo valueForKey:@"items"];
+        // all repo's found which keyword KEEMI
+        //__block NSMutableArray *keemiRepositoriesAll = [NSMutableArray arrayWithCapacity:10];
+        for (NSDictionary* keemiRepo in items ) {
+            NSString *repoName = keemiRepo[@"name"];
+            NSDictionary *ownerMetaData = keemiRepo[@"owner"];
+            NSString *owner = ownerMetaData[@"login"];
+            RACSignal *repoRequest = [client fetchRepositoryWithName:repoName owner:owner];
+            [repoRequest subscribeNext:^(OCTRepository *repositoryWithKeyword) {
+                MWLogDebug([LayVcCatalogStoreList class], @"Found repo with name:%@", repositoryWithKeyword.name );
+                //[keemiRepositoriesAll addObject:repository];
+                RACSignal *catalogCover = [client fetchRelativePath:@"Cover.jpg" inRepository:repositoryWithKeyword reference:nil];
+                [catalogCover subscribeNext:^(OCTRepository *repository) {
+                    MWLogDebug([LayVcCatalogStoreList class], @"Found catalog with name:%@", repositoryWithKeyword.name );
+                    [keemiRepositories addObject:repository];
+                } error:^(NSError *error) {
+                    MWLogError([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
+                } completed:^{
+                    MWLogDebug([LayVcCatalogStoreList class], @"FetchPath completed!");
+                }];
+            } error:^(NSError *error) {
+                MWLogError([LayVcCatalogStoreList class], @"Could not fetch repo:%@", repoName );
+            } completed:^{
+                MWLogDebug([LayVcCatalogStoreList class], @"FetchRepo completed!", repoName );
+            }];
+        }
+        
+        /*for (OCTRepository* repoWithKeyword in keemiRepositoriesAll) {
+            RACSignal *catalogCover = [client fetchRelativePath:@"Cover.jpg" inRepository:repoWithKeyword reference:nil];
+            [catalogCover subscribeNext:^(OCTRepository *repository) {
+                MWLogDebug([LayVcCatalogStoreList class], @"Found catalog with name:%@", repository.name );
+                [keemiRepositories addObject:repository];
+            } error:^(NSError *error) {
+                MWLogError([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
+            } completed:^{
+                MWLogDebug([LayVcCatalogStoreList class], @"FetchPath completed!");
+            }];
+        }
+         */
+
+    } else {
+        MWLogError([LayVcCatalogStoreList class], @"Searching for KEEMI catalogs failed: %@", [myError description] );
+    }
+    
+    return keemiRepositories;
 }
 
 

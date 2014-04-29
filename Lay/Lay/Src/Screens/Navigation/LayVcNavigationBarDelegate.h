@@ -18,4 +18,5 @@
 -(void) queryPressed;
 -(void) infoPressed;
 -(void) backPressed;
+-(void) addPressed;
 @end

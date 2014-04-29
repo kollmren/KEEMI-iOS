@@ -33,7 +33,8 @@ typedef enum LayButtonId_ {
     LAY_BUTTON_LIST,
     LAY_BUTTON_ARROW_NORTH,
     LAY_BUTTON_ARROW_WEST,
-    LAY_BUTTON_ARROW_EAST
+    LAY_BUTTON_ARROW_EAST,
+    LAY_BUTTON_ADD
 } LayButtonId;
 
 

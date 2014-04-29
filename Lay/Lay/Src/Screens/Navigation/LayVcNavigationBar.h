@@ -30,6 +30,7 @@ typedef enum TitlePoition_ {
 @property (nonatomic) BOOL settingsButtonInNavigationBar;
 @property (nonatomic) BOOL backButtonInNavigationBar;
 @property (nonatomic) BOOL infoButtonInNavigationBar;
+@property (nonatomic) BOOL addButtonInNavigationBar;
 
 -(void)showTitle:(NSString*)title atPosition:(TitlePosition)position;
 

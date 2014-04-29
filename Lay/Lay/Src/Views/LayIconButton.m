@@ -102,6 +102,9 @@ static const NSInteger g_LAY_BUTTON_IMAGE_IDENTIFIER = 103;
         case LAY_BUTTON_NOTES_SELECTED:
             image = [LayImage imageWithId:LAY_IMAGE_NOTES_SELECTED];
             break;
+        case LAY_BUTTON_ADD:
+            image = [LayImage imageWithId:LAY_IMAGE_ADD];
+            break;
 
         default:
             button.backgroundColor = [UIColor redColor];

@@ -8,31 +8,7 @@
 
 #import "Answer.h"
 #import "LayMediaData.h"
-
-typedef enum LayAnswerStyleTypes_ {
-    StyleColumn, // presents the button in a separate column, only in single- and multiple-choice answer-view
-    NoStyle
-} LayAnswerStyleType;
-
-//
-// LayAnswerItemStyle
-//
-@interface LayAnswerStyle : NSObject {
-@private
-    NSArray* listWithPossibleStyles;
-    NSMutableArray* styleList;
-}
-
-@property (nonatomic,readonly) NSString* plainStyleDescription;
-
-+(id)styleWithString:(NSString*)styleDescription;
-+(LayAnswerStyleType)styleTypeForDescription:(NSString*)description;
-
--(id)initWithStyleDescription:(NSString*)plainStyleDescription;
-
--(BOOL)hasStyle:(LayAnswerStyleType)style;
-
-@end
+#import "LayAnswerStyle.h"
 
 //
 // Answer
