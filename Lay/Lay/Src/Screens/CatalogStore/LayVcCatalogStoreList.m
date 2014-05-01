@@ -21,6 +21,7 @@
 #import "LayHintView.h"
 #import "LayVcNavigation.h"
 #import "LayVcSettings.h"
+#import "LayMediaData.h"
 
 #import "OctoKit.h"
 
@@ -28,13 +29,37 @@
 #import "MWLogging.h"
 
 
-static const NSInteger NUMBER_OF_SECTIONS = 1;
+@interface LayGithubCatalog : NSObject {
+@public
+    NSString *title;
+    NSData *cover;
+    NSString *description;
+    NSString *owner;
+    NSString *version;
+    NSString *url;
+    NSString *name;
+}
+
++(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover description:(NSString*)descr owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
+
+@end
+
+//
+//
+//static const NSInteger NUMBER_OF_SECTIONS = 1;
+static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
 
 @interface LayVcCatalogStoreList () {
-    LayTableSectionView* sectionMyCatalog;
+    //LayTableSectionView* sectionMyCatalog;
     LayImportStateViewHandler *stateViewHandler;
     LayVcNavigationBar* navBarViewController;
-    UILabel *noCatalogsLoadedLabel;
+    NSMutableArray* githubCatalogList;
+    NSURLConnection *urlConnection;
+    NSMutableData *searchResultInJson;
+    NSDictionary *searchResultMap;
+    UIActivityIndicatorView *activity;
+    LayGithubCatalog *catalogToDownload;
+    NSIndexPath *indexPathToDelete;
 }
 
 @end
@@ -51,9 +76,16 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
         self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
         self->navBarViewController.delegate = self;
         self->navBarViewController.cancelButtonInNavigationBar = YES;
+        self->githubCatalogList = [NSMutableArray arrayWithCapacity:100];
+        self->urlConnection = nil;
+        self->searchResultInJson = [NSMutableData dataWithCapacity:1024];
         [self registerEvents];
     }
     return self;
+}
+
+-(void)dealloc {
+    MWLogDebug([LayVcCatalogStoreList class], @"dealloc");
 }
 
 - (void)viewDidLoad
@@ -66,9 +98,9 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     UIColor *appNameColor = [styleGuide getColor:TextColor];
     [self->navBarViewController showTitle:@"Catalogs at GitHub" atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
     //
-    NSString *sectionMyCatalogsTitle = NSLocalizedString(@"MyCatalogs", nil);
-    self->sectionMyCatalog = [self sectionLabelWithTitle:sectionMyCatalogsTitle];
-    self.tableView.tableHeaderView = self->sectionMyCatalog;
+    //NSString *sectionMyCatalogsTitle = NSLocalizedString(@"MyCatalogs", nil);
+    //self->sectionMyCatalog = [self sectionLabelWithTitle:sectionMyCatalogsTitle];
+    //self.tableView.tableHeaderView = self->sectionMyCatalog;
     //
     self.tableView.backgroundColor = [styleGuide getColor:BackgroundColor];
     //
@@ -76,17 +108,6 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     [self.tableView registerNib:cellXibFile forCellReuseIdentifier:@"CatalogListItemIdentifier"];
     
     self.tableView.separatorColor = [UIColor clearColor];
-    
-    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
-    const CGFloat width = self.tableView.frame.size.width - 2 * hSpace;
-    const CGRect labelRect = CGRectMake(0.0f, 0.0f, width, 0.0f);
-    self->noCatalogsLoadedLabel = [[UILabel alloc]initWithFrame:labelRect];
-    noCatalogsLoadedLabel.textColor = [UIColor lightGrayColor];
-    noCatalogsLoadedLabel.text = NSLocalizedString(@"MyCatalogsNoCatalogsStored", nil);
-    [self.tableView setBackgroundView:noCatalogsLoadedLabel];
-    [self adjustNoCatalogsStoredLabel];
-    // Sime informations about the table are requested before: viewWillAppear
-    //NSArray *catalogsInStore = [[LayMainDataStore store] findAllCatalogsOrderedByDateLastImportedFirst];
 }
 
 - (void)viewDidUnload {
@@ -96,8 +117,12 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    
-    [self keemiRepoitories];
+    self->activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self->activity.color = [[LayStyleGuide instanceOf:nil] getColor:ButtonSelectedColor];
+    [self.tableView setBackgroundView:self->activity];
+    [self->activity startAnimating];
+    //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
+    [self searchKeemiCatalogsAtGitHub];
     
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     if(catalogManager.currentCatalogShouldBeOpenedDirectly) {
@@ -116,8 +141,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
         [self.tableView deselectRowAtIndexPath:pathToSelectedRow animated:NO];
         [self.tableView reloadData];
     }
-    
-    [self adjustNoCatalogsStoredLabel];
+
     [self.tableView reloadData];
 }
 
@@ -125,20 +149,6 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)adjustNoCatalogsStoredLabel {
-    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
-    const CGFloat width = self.tableView.frame.size.width - 2 * hSpace;
-    [LayFrame setWidthWith:width toView:self->noCatalogsLoadedLabel];
-    self->noCatalogsLoadedLabel.textColor = [UIColor lightGrayColor];
-    self->noCatalogsLoadedLabel.textAlignment = NSTextAlignmentCenter;
-    self->noCatalogsLoadedLabel.font = [styleGuide getFont:NormalPreferredFont];
-    noCatalogsLoadedLabel.text = NSLocalizedString(@"CatalogNoCatalogsStored", nil);;
-    [noCatalogsLoadedLabel sizeToFit];
-    self->noCatalogsLoadedLabel.center = self.tableView.center;
-    self->noCatalogsLoadedLabel.hidden = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -155,13 +165,13 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:@"CatalogListItemIdentifier"];
     }
-/*
+
     LayMyCatalogListItem *column = (LayMyCatalogListItem *)cell;
-    Catalog *catalog = [self->allCatalogs objectAtIndex:[indexPath section]];
-    NSString *numberOfQuestionsFormat = NSLocalizedString(@"CatalogNumberOfQuestionsLabel", nil);
-    NSString *numberOfQuestions = [NSString stringWithFormat:numberOfQuestionsFormat, [catalog numberOfQuestions]];
-    [column setCover:catalog.coverRef title:catalog.title publisher:[catalog publisher] andNumberOfQuestions:numberOfQuestions];
- */
+    LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
+    NSString *numberOfQuestions = @"";
+    LayMediaData *coverMediaData = [LayMediaData byData:catalog->cover type:LAY_MEDIA_IMAGE andFormat:LAY_FORMAT_JPG];
+    [column setCoverWithMediaData:coverMediaData title:catalog->title publisher:catalog->owner andNumberOfQuestions:numberOfQuestions];
+ 
     return cell;
 }
 
@@ -172,14 +182,8 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    Catalog *catalog = [self->allCatalogs objectAtIndex:[indexPath section]];
-    [LayCatalogManager instance].currentSelectedCatalog = catalog;
-    LayVcCatalogList *vcCatalog = [LayVcCatalogList new];
-    // Push it onto the top of the navigation controller's stack
-    [[self navigationController] pushViewController:vcCatalog
-                                           animated:YES];
-     */
+    LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
+    [self setupCatalogToDownload:catalog atIndexPath:indexPath];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,7 +198,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [githubCatalogList count];
    
 }
 
@@ -225,8 +229,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 }
 
 -(void)handlePreferredFontSizeChanges {
-    [self->sectionMyCatalog adjustToNewPreferredFont];
-    [self adjustNoCatalogsStoredLabel];
+    //[self->sectionMyCatalog adjustToNewPreferredFont];
 }
 
 -(void)handleWantToImportCatalogNotification {
@@ -248,6 +251,18 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     }
 }
 
+-(void)setupCatalogToDownload:(LayGithubCatalog*)catalog atIndexPath:(NSIndexPath *)indexPath {
+    NSString *textTemplate = NSLocalizedString(@"ImportDownloadCatalogState", nil);
+    NSString* text = [NSString stringWithFormat:textTemplate, catalog->title];
+    UIImage *image = [LayImage imageWithId:LAY_IMAGE_IMPORT];
+    self->stateViewHandler = [[LayImportStateViewHandler alloc]initWithSuperView:self.tableView.window icon:image andText:text];
+    self->stateViewHandler.delegate = self;
+    //self->stateViewHandler.useTimerForSteps = YES;
+    self->catalogToDownload = catalog;
+    self->indexPathToDelete = indexPath;
+    [self->stateViewHandler startWork];
+}
+
 
 //
 // LayVcNavigationBarDelegate
@@ -261,30 +276,54 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 // LayImportStateViewHandlerDelegate
 //
 -(NSString*)startWork:(id<LayImportProgressDelegate>)progressDelegate {
-    /*
     NSString *errorMessage = nil;
-    NSString *titleOfCatalog = self->catalogToDelete.title;
-    NSString *publisherOfCatalog = [self->catalogToDelete publisher];
-    MWLogInfo([LayVcCatalogStoreList class], @"Delete catalog with title:%@, publisher:%@ .", titleOfCatalog, publisherOfCatalog);
-    const NSUInteger maxSteps = [self->catalogToDelete numberOfQuestions] + [self->catalogToDelete numberOfExplanations];
+    NSString *titleOfCatalog = self->catalogToDownload->title;
+    NSString *publisherOfCatalog = self->catalogToDownload->owner;
+    MWLogInfo([LayVcCatalogStoreList class], @"Download catalog with title:%@, publisher:%@ .", titleOfCatalog, publisherOfCatalog);
+    const NSUInteger maxSteps = 100;
     [progressDelegate setMaxSteps:maxSteps];
-    Catalog *catalog = [[LayMainDataStore store] findCatalogByTitle:titleOfCatalog andPublisher:publisherOfCatalog];
-    if(catalog) {
-        BOOL deletedCatalog = [LayMainDataStore deleteCatalogWithinNewCreatedContext:catalog];
-        if(!deletedCatalog) {
-             MWLogError( [LayVcCatalogStoreList class], @"Could not delete catalog:(%@, %@)!", titleOfCatalog, publisherOfCatalog);
-            self->catalogToDelete = nil;
-            self->indexPathToDelete = nil;
-        }
-    } else {
-        MWLogError( [LayVcCatalogStoreList class], @"Could not find catalog:(%@, %@) for deletion!", titleOfCatalog, publisherOfCatalog);
-    }
     
-    //TODO: What should happen if a catalog could not be deleted?
+    NSString *urlToZipBall = [NSString stringWithFormat:@"%@/zipball/master", self->catalogToDownload->url];
+    NSURL *url = [NSURL URLWithString:urlToZipBall];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    NSString *nameOfInboxDir = @"Inbox";
+    NSFileManager* fileMngr = [NSFileManager defaultManager];
+    NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *documentDirUrl = [dirList objectAtIndex:0];
+    // TODO: get the name of the Inbox directory programmatically !
+    NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
+    NSString *inboxDirPath = [inboxDirUrl path];
+    NSString *fileName = [NSString stringWithFormat:@"%@.zip", [url lastPathComponent]];
+    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:fileName];
+    
+    [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fullPath append:NO]];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        NSUInteger step = (totalBytesRead / totalBytesExpectedToRead) * 100;
+        [progressDelegate setStep:step];
+    }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"RES: %@", [[[operation response] allHeaderFields] description]);
+        NSError *error;
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
+        if (error) {
+            NSLog(@"ERR: %@", [error description]);
+        } else {
+            NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
+            long long fileSize = [fileSizeNumber longLongValue];
+            MWLogInfo([LayVcCatalogStoreList class], @"Downloaded file:%@ with size:%l", fileName, fileSize );
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MWLogError([LayVcCatalogStoreList class], @"Can not download file:%@ details:%@", fileName, [error description] );
+    }];
+    
+    [operation start];
     
     return errorMessage;
-     */
-    return @"startWork";
 }
 
 -(void)buttonPressed {
@@ -319,55 +358,56 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
 //
 //
 //
--(NSArray*)keemiRepoitories {
-    __block NSMutableArray *keemiRepositories = [NSMutableArray arrayWithCapacity:10];;
+-(void)searchKeemiCatalogsAtGitHub {
     OCTClient *client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
-    NSDictionary *parameters = @{ @"q": @"KEEMI" };
+    NSDictionary *parameters = @{ @"q": @"KEEMI", @"sort": @"stars" };
     NSURLRequest *request = [client requestWithMethod:@"GET" path:@"/search/repositories" parameters:parameters notMatchingEtag:nil];
-    RACSignal *result = [client enqueueRequest:request resultClass:nil];
-    
-    NSError *myError = nil;
-    BOOL mySuccess = NO;
-    OCTResponse *myResponse = [result asynchronousFirstOrDefault:nil success:&mySuccess error:&myError];
-    
-    /*
-    //This method actually kicks off the request, handling any results using the
-    // blocks below.
-    [result subscribeNext:^(OCTResponse *response) {
-        // This block is invoked for _each_ result received, so you can deal with
-        // them one-by-one as they arrive.
-        myResponse = response;
-    } error:^(NSError *error) {
-        // Invoked when an error occurs.
-        //
-        // Your `next` and `completed` blocks won't be invoked after this point.
-        myError = error;
-    } completed:^{
-        // Invoked when the request completes and we've received/processed all the
-        // results.
-        //
-        // Your `next` and `error` blocks won't be invoked after this point.
-        MWLogDebug([LayVcCatalogStoreList class], @"Search completed!");
-    }];
-     */
-    
-    if( !myError && myResponse ) {
-        NSDictionary *repo = myResponse.parsedResult;
-        NSArray *items = [repo valueForKey:@"items"];
+    self->urlConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    if( !self->urlConnection ) {
+        MWLogError([LayVcCatalogStoreList class], @"Can not make search request!" );
+    }
+}
+
+-(void)loadKeemiCatalogListFromGitHub {
+    if( self->searchResultMap  ) {
+        OCTClient *client = [[OCTClient alloc] initWithServer:OCTServer.dotComServer];
+        NSArray *items = self->searchResultMap[@"items"];
         // all repo's found which keyword KEEMI
         //__block NSMutableArray *keemiRepositoriesAll = [NSMutableArray arrayWithCapacity:10];
         for (NSDictionary* keemiRepo in items ) {
             NSString *repoName = keemiRepo[@"name"];
             NSDictionary *ownerMetaData = keemiRepo[@"owner"];
             NSString *owner = ownerMetaData[@"login"];
+            NSString *url = keemiRepo[@"html_url"];
             RACSignal *repoRequest = [client fetchRepositoryWithName:repoName owner:owner];
             [repoRequest subscribeNext:^(OCTRepository *repositoryWithKeyword) {
                 MWLogDebug([LayVcCatalogStoreList class], @"Found repo with name:%@", repositoryWithKeyword.name );
                 //[keemiRepositoriesAll addObject:repository];
                 RACSignal *catalogCover = [client fetchRelativePath:@"Cover.jpg" inRepository:repositoryWithKeyword reference:nil];
-                [catalogCover subscribeNext:^(OCTRepository *repository) {
+                [catalogCover subscribeNext:^(OCTFileContent *coverFile) {
                     MWLogDebug([LayVcCatalogStoreList class], @"Found catalog with name:%@", repositoryWithKeyword.name );
-                    [keemiRepositories addObject:repository];
+                    //OCTFileContent
+                    //id content = [cover valueForKey:@"file"];
+                    //NSString * n = NSStringFromClass([content class]);
+                    NSData *cover = nil;
+                    if( [coverFile.encoding isEqualToString:@"base64"] ) {
+                        cover = [[NSData alloc] initWithBase64EncodedString:coverFile.content options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                    } else {
+                        OCTContent *content = (OCTContent *)coverFile;
+                        MWLogError([LayVcCatalogStoreList class], @"Can not decode file:%@", content.name );
+                    }
+                    NSString *title = [self separateCamelCaseString:repositoryWithKeyword.name];
+                    if( title ) {
+                        title = [title stringByReplacingOccurrencesOfString:@"Keemi " withString:@""];
+                    } else {
+                        title = repositoryWithKeyword.name;
+                    }
+                    NSString *descr = repositoryWithKeyword.repoDescription;
+                    NSString *owner = repositoryWithKeyword.ownerLogin;
+                    LayGithubCatalog* catalogAtGitHub = [LayGithubCatalog catalogWithTitle:title cover:cover description:descr owner:owner url:url andVersion:nil];
+                    [self fetchNamesForOwnersForCatalog:catalogAtGitHub];
+                    [self->githubCatalogList addObject:catalogAtGitHub];
+                    [self performSelectorOnMainThread:@selector(addCatalogToTable) withObject:nil waitUntilDone:NO];
                 } error:^(NSError *error) {
                     MWLogError([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
                 } completed:^{
@@ -379,26 +419,86 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
                 MWLogDebug([LayVcCatalogStoreList class], @"FetchRepo completed!", repoName );
             }];
         }
-        
-        /*for (OCTRepository* repoWithKeyword in keemiRepositoriesAll) {
-            RACSignal *catalogCover = [client fetchRelativePath:@"Cover.jpg" inRepository:repoWithKeyword reference:nil];
-            [catalogCover subscribeNext:^(OCTRepository *repository) {
-                MWLogDebug([LayVcCatalogStoreList class], @"Found catalog with name:%@", repository.name );
-                [keemiRepositories addObject:repository];
-            } error:^(NSError *error) {
-                MWLogError([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
-            } completed:^{
-                MWLogDebug([LayVcCatalogStoreList class], @"FetchPath completed!");
-            }];
-        }
-         */
-
     } else {
-        MWLogError([LayVcCatalogStoreList class], @"Searching for KEEMI catalogs failed: %@", [myError description] );
+        MWLogError([LayVcCatalogStoreList class], @"Searching for KEEMI catalogs failed!");
     }
-    
-    return keemiRepositories;
 }
 
+-(void)fetchNamesForOwnersForCatalog:(LayGithubCatalog*)catalog {
+    NSString* urlToGetUserInfo = [NSString stringWithFormat:@"%@%@", urlToGetUserInfoTemplate, catalog->owner];
+    NSURL *url = [NSURL URLWithString:urlToGetUserInfo];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    //AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://samwize.com/"]];
+    /*NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                            path:@"http://samwize.com/api/pigs/"
+                                                      parameters:nil];*/
+    //AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    //[httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // Print the response body in text
+        NSError *error = nil;
+        NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
+        catalog->name = userInfo[@"name"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MWLogError([LayVcCatalogStoreList class], @"Could not get name of owner:%@!", catalog->owner);
+    }];
+    [operation start];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [self->searchResultInJson appendData:data];
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSError *error = nil;
+    self->searchResultMap = [NSJSONSerialization JSONObjectWithData:self->searchResultInJson options:0 error:&error];
+    [self performSelectorInBackground:@selector(loadKeemiCatalogListFromGitHub) withObject:nil];
+}
+
+
+-(void)addCatalogToTable {
+    int lastRow = [self->githubCatalogList count] - 1;
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
+    [[self tableView] insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationBottom];
+    [self->activity stopAnimating];
+    self->activity.hidden = YES;
+}
+
+-(NSString*) separateCamelCaseString:(NSString*)camelCaseString {
+    NSMutableString *separated = [NSMutableString string];
+    @try {
+        for (NSInteger i=0; i < camelCaseString.length; i++){
+            NSString *ch = [camelCaseString substringWithRange:NSMakeRange(i, 1)];
+            if ( i != 0 && [ch rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound) {
+                [separated appendString:@" "];
+            }
+            [separated appendString:ch];
+        }
+    }
+    @catch (NSException *exception) {
+        MWLogError([LayVcCatalogStoreList class], @"Separating camelCaseString:%@ failed!", camelCaseString);
+    }
+    
+    return separated;
+}
+
+@end
+
+
+//
+//
+@implementation LayGithubCatalog
+
++(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover description:(NSString*)descr owner:(NSString*)owner url:(NSString*)url andVersion:(NSString*)version {
+    LayGithubCatalog *catalog = [LayGithubCatalog new];
+    catalog->title = title;
+    catalog->cover = cover;
+    catalog->description = descr;
+    catalog->owner = owner;
+    catalog->version = version;
+    catalog->url = url;
+    return catalog;
+}
 
 @end

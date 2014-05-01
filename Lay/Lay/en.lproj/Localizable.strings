@@ -33,6 +33,7 @@
 "ImportCatalogCreateThumbnailState" = "Create thumbnails ...";
 "ImportCatalogCreateOptimizeSearch" = "Optimize search ...";
 "ImportDeleteCatalogState" = "Delete catalog ...";
+"ImportDownloadCatalogState" = "Download catalog: %@";
 "ImportStillATaskInProgress" = "The opening of a catalog was ignored, as another catalog is sill in progress!";
 /* General */
 "Help" = "Help";

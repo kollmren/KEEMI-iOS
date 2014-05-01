@@ -56,6 +56,11 @@ static const NSInteger TAG_LINE = 1112;
 }
 
 -(void)setCover:(Media *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)numberOfQuestions {
+    LayMediaData *coverMediaData = [LayMediaData byMediaObject:cover];
+    [self setCoverWithMediaData:coverMediaData title:title publisher:publisher andNumberOfQuestions:numberOfQuestions];
+}
+
+-(void)setCoverWithMediaData:(LayMediaData *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)numberOfQuestions {
     UIView *subview = [self viewWithTag:TAG_MEDIA_VIEW];
     if(subview) {
         [subview removeFromSuperview];
@@ -71,8 +76,7 @@ static const NSInteger TAG_LINE = 1112;
     const CGFloat yPosCover = 0.0f;
     const CGSize coverSize = [styleGuide coverMediaSize];
     const CGRect coverMediaRect = CGRectMake(hSpace, yPosCover, coverSize.width, coverSize.height);
-    LayMediaData *coverMediaData = [LayMediaData byMediaObject:cover];
-    LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:coverMediaRect andMediaData:coverMediaData];
+    LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:coverMediaRect andMediaData:cover];
     mediaView.scaleToFrame = YES;
     mediaView.ignoreEvents = YES;
     mediaView.zoomable = NO;

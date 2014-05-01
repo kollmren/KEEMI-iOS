@@ -31,6 +31,7 @@
 "ImportReadCatalogInfo" = "Lese Kataloginformationen ...";
 "ImportCatalogState" = "Katalog wird importiert ...";
 "ImportDeleteCatalogState" = "Lösche Katalog ...";
+"ImportDownloadCatalogState" = "Download Katalog: %@";
 "ImportStillATaskInProgress" = "Das Öffnen eines Katalogs wurde ignoriert, da ein Katalog gerade verarbeitet wird!";
 "ImportCatalogCreateThumbnailState" = "Erstelle Miniaturbilder ...";
 "ImportCatalogCreateOptimizeSearch" = "Optimiere Suche ...";

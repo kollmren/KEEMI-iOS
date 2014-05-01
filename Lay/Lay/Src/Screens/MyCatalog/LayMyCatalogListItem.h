@@ -13,6 +13,8 @@ extern const NSInteger MAX_NUMBER_OF_LINES_TITLE;
 
 @class Media;
 @class LayMediaView;
+@class LayMediaData;
+
 @interface LayMyCatalogListItem : UITableViewCell {
     UILabel *catalogPublisher;
     UILabel *importDate;
@@ -21,5 +23,7 @@ extern const NSInteger MAX_NUMBER_OF_LINES_TITLE;
 @property (weak, nonatomic) IBOutlet UILabel *catalogTitle;
 
 -(void)setCover:(Media *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)numberOfQuestions;
+
+-(void)setCoverWithMediaData:(LayMediaData *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)n;
 
 @end
