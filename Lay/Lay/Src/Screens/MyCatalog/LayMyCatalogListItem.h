@@ -22,6 +22,8 @@ extern const NSInteger MAX_NUMBER_OF_LINES_TITLE;
 
 @property (weak, nonatomic) IBOutlet UILabel *catalogTitle;
 
+@property (nonatomic) BOOL numberOfQuestionsLabelInBlueColor;
+
 -(void)setCover:(Media *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)numberOfQuestions;
 
 -(void)setCoverWithMediaData:(LayMediaData *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)n;

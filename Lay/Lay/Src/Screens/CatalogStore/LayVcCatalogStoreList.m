@@ -26,6 +26,7 @@
 #import "OctoKit.h"
 
 #import "LayCatalogManager.h"
+#import "Catalog+Utilities.h"
 #import "MWLogging.h"
 
 
@@ -33,14 +34,14 @@
 @public
     NSString *title;
     NSData *cover;
-    NSString *description;
     NSString *owner;
     NSString *version;
     NSString *url;
     NSString *name;
+    NSString *repoName;
 }
 
-+(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover description:(NSString*)descr owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
++(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
 
 @end
 
@@ -60,9 +61,17 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     UIActivityIndicatorView *activity;
     LayGithubCatalog *catalogToDownload;
     NSIndexPath *indexPathToDelete;
+    NSArray *catalogsInStore;
 }
 
 @end
+
+
+typedef enum : NSUInteger {
+    CatalogIsUpTodate,
+    CatalogIsNotStored,
+    CatalogIsNotUpTodate,
+} CatalogStati;
 
 
 @implementation LayVcCatalogStoreList
@@ -108,6 +117,8 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     [self.tableView registerNib:cellXibFile forCellReuseIdentifier:@"CatalogListItemIdentifier"];
     
     self.tableView.separatorColor = [UIColor clearColor];
+    
+    catalogsInStore = [[LayMainDataStore store] findAllCatalogs];
 }
 
 - (void)viewDidUnload {
@@ -167,10 +178,18 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     }
 
     LayMyCatalogListItem *column = (LayMyCatalogListItem *)cell;
+    column.numberOfQuestionsLabelInBlueColor = YES;
     LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
-    NSString *numberOfQuestions = @"";
+    NSString *label = @"Download";
+    CatalogStati statiOfCatalog = [self statiForCatalog:catalog];
+    if( statiOfCatalog == CatalogIsUpTodate ) {
+        label = @"Open";
+    } else if( statiOfCatalog == CatalogIsNotUpTodate ) {
+        label = @"Update";
+    }
+    
     LayMediaData *coverMediaData = [LayMediaData byData:catalog->cover type:LAY_MEDIA_IMAGE andFormat:LAY_FORMAT_JPG];
-    [column setCoverWithMediaData:coverMediaData title:catalog->title publisher:catalog->owner andNumberOfQuestions:numberOfQuestions];
+    [column setCoverWithMediaData:coverMediaData title:catalog->title publisher:catalog->name andNumberOfQuestions:label];
  
     return cell;
 }
@@ -311,7 +330,7 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
         NSError *error;
         NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
         if (error) {
-            NSLog(@"ERR: %@", [error description]);
+            MWLogError([LayVcCatalogStoreList class], @"Details:%@", [error description] );
         } else {
             NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
             long long fileSize = [fileSizeNumber longLongValue];
@@ -396,20 +415,13 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
                         OCTContent *content = (OCTContent *)coverFile;
                         MWLogError([LayVcCatalogStoreList class], @"Can not decode file:%@", content.name );
                     }
-                    NSString *title = [self separateCamelCaseString:repositoryWithKeyword.name];
-                    if( title ) {
-                        title = [title stringByReplacingOccurrencesOfString:@"Keemi " withString:@""];
-                    } else {
-                        title = repositoryWithKeyword.name;
-                    }
-                    NSString *descr = repositoryWithKeyword.repoDescription;
+                    NSString *title = repositoryWithKeyword.repoDescription;
                     NSString *owner = repositoryWithKeyword.ownerLogin;
-                    LayGithubCatalog* catalogAtGitHub = [LayGithubCatalog catalogWithTitle:title cover:cover description:descr owner:owner url:url andVersion:nil];
-                    [self fetchNamesForOwnersForCatalog:catalogAtGitHub];
-                    [self->githubCatalogList addObject:catalogAtGitHub];
-                    [self performSelectorOnMainThread:@selector(addCatalogToTable) withObject:nil waitUntilDone:NO];
+                    LayGithubCatalog* catalogAtGitHub = [LayGithubCatalog catalogWithTitle:title cover:cover owner:owner url:url andVersion:nil];
+                    catalogAtGitHub->repoName = repositoryWithKeyword.name;
+                    [self fetchCurrentReleaseOfCatalog:catalogAtGitHub];
                 } error:^(NSError *error) {
-                    MWLogError([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
+                    MWLogDebug([LayVcCatalogStoreList class], @"catalogCover:%@", [error description] );
                 } completed:^{
                     MWLogDebug([LayVcCatalogStoreList class], @"FetchPath completed!");
                 }];
@@ -424,22 +436,46 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     }
 }
 
+
+-(void)fetchCurrentReleaseOfCatalog:(LayGithubCatalog*)catalog {
+    NSString* urlToGetUserInfo = [NSString stringWithFormat:@"https://api.github.com/repos/%@/%@/releases", catalog->owner, catalog->repoName];
+    NSURL *url = [NSURL URLWithString:urlToGetUserInfo];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // Print the response body in text
+        NSError *error = nil;
+        NSArray *releaseInfoList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
+        if( [releaseInfoList count] > 0 ) {
+            NSDictionary *currentRelease = [releaseInfoList objectAtIndex:0];
+            NSString *tag = currentRelease[@"tag_name"];
+            catalog->version = tag;
+            [self fetchNamesForOwnersForCatalog:catalog];
+        } else {
+            MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the catalog was not released yet!", catalog->title );
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MWLogError([LayVcCatalogStoreList class], @"Could not get name of owner:%@!", catalog->owner);
+    }];
+    [operation start];
+}
+
 -(void)fetchNamesForOwnersForCatalog:(LayGithubCatalog*)catalog {
     NSString* urlToGetUserInfo = [NSString stringWithFormat:@"%@%@", urlToGetUserInfoTemplate, catalog->owner];
     NSURL *url = [NSURL URLWithString:urlToGetUserInfo];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    //AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://samwize.com/"]];
-    /*NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                            path:@"http://samwize.com/api/pigs/"
-                                                      parameters:nil];*/
-    //AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    //[httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         // Print the response body in text
         NSError *error = nil;
         NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
         catalog->name = userInfo[@"name"];
+        if( [catalog->name length] > 1 ) {
+            [self->githubCatalogList addObject:catalog];
+            [self performSelectorOnMainThread:@selector(addCatalogToTable) withObject:nil waitUntilDone:NO];
+        } else {
+            MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the owner has no name set!", catalog->title );
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         MWLogError([LayVcCatalogStoreList class], @"Could not get name of owner:%@!", catalog->owner);
     }];
@@ -465,22 +501,22 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     self->activity.hidden = YES;
 }
 
--(NSString*) separateCamelCaseString:(NSString*)camelCaseString {
-    NSMutableString *separated = [NSMutableString string];
-    @try {
-        for (NSInteger i=0; i < camelCaseString.length; i++){
-            NSString *ch = [camelCaseString substringWithRange:NSMakeRange(i, 1)];
-            if ( i != 0 && [ch rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location != NSNotFound) {
-                [separated appendString:@" "];
+-(CatalogStati) statiForCatalog:(LayGithubCatalog*)githubCatalog {
+    CatalogStati statiOfCatalog = CatalogIsNotStored;
+    for (Catalog *storedCatalog in self->catalogsInStore) {
+        NSString *publisherOfStoredCatalog =  [storedCatalog publisher];
+        if( [storedCatalog.title isEqualToString:githubCatalog->title] &&
+           [publisherOfStoredCatalog isEqualToString:githubCatalog->owner] ) {
+            float storedVersion = [storedCatalog.version floatValue];
+            float githubVersion = [githubCatalog->version floatValue];
+            if( storedVersion < githubVersion ) {
+                statiOfCatalog = CatalogIsNotUpTodate;
+            } else {
+                statiOfCatalog = CatalogIsUpTodate;
             }
-            [separated appendString:ch];
         }
     }
-    @catch (NSException *exception) {
-        MWLogError([LayVcCatalogStoreList class], @"Separating camelCaseString:%@ failed!", camelCaseString);
-    }
-    
-    return separated;
+    return statiOfCatalog;
 }
 
 @end
@@ -490,11 +526,10 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
 //
 @implementation LayGithubCatalog
 
-+(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover description:(NSString*)descr owner:(NSString*)owner url:(NSString*)url andVersion:(NSString*)version {
++(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url andVersion:(NSString*)version {
     LayGithubCatalog *catalog = [LayGithubCatalog new];
     catalog->title = title;
     catalog->cover = cover;
-    catalog->description = descr;
     catalog->owner = owner;
     catalog->version = version;
     catalog->url = url;

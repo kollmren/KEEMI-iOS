@@ -44,6 +44,8 @@
 		A7363EA517E09169005DFAAB /* LayAdditionalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A7363EA417E09169005DFAAB /* LayAdditionalButton.m */; };
 		A73663E117BB7EB000668F6E /* LayNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A73663DE17BB7EB000668F6E /* LayNoteCell.m */; };
 		A73663E217BB7EB000668F6E /* LayVcNotes.m in Sources */ = {isa = PBXBuildFile; fileRef = A73663E017BB7EB000668F6E /* LayVcNotes.m */; };
+		A73BD81C19128A4A003C39F3 /* LayDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A73BD81A19128A4A003C39F3 /* LayDataModel.xcdatamodeld */; };
+		A73BD81F19128A73003C39F3 /* LayUserDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A73BD81D19128A73003C39F3 /* LayUserDataModel.xcdatamodeld */; };
 		A73DCCC717D4C68400283626 /* LayImportStateViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A73DCCC617D4C68300283626 /* LayImportStateViewHandler.m */; };
 		A73E40AA190E7B7000873678 /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A5190E7B7000873678 /* libAFNetworking.a */; };
 		A73E40AB190E7B7000873678 /* libMantle-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73E40A6190E7B7000873678 /* libMantle-iOS.a */; };
@@ -209,6 +211,8 @@
 		A73663DE17BB7EB000668F6E /* LayNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayNoteCell.m; path = Notes/LayNoteCell.m; sourceTree = "<group>"; };
 		A73663DF17BB7EB000668F6E /* LayVcNotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LayVcNotes.h; path = Notes/LayVcNotes.h; sourceTree = "<group>"; };
 		A73663E017BB7EB000668F6E /* LayVcNotes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LayVcNotes.m; path = Notes/LayVcNotes.m; sourceTree = "<group>"; };
+		A73BD81B19128A4A003C39F3 /* LayDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LayDataModel.xcdatamodel; sourceTree = "<group>"; };
+		A73BD81E19128A73003C39F3 /* LayUserDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LayUserDataModel.xcdatamodel; sourceTree = "<group>"; };
 		A73DCCC517D4C68300283626 /* LayImportStateViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayImportStateViewHandler.h; sourceTree = "<group>"; };
 		A73DCCC617D4C68300283626 /* LayImportStateViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayImportStateViewHandler.m; sourceTree = "<group>"; };
 		A73E40A5190E7B7000873678 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../ThirdParty/OctoKit/External/OctoKitDependencies/build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
@@ -363,7 +367,7 @@
 		A7F456F5190F93A10001F146 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A7F456F7190F93DA0001F146 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A7F456F9190F941A0001F146 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		A7F456FB190FA1FC0001F146 /* libISO8601DateFormatter.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libISO8601DateFormatter.a; path = "../ThirdParty/OctoKit/External/OctoKitDependencies/build/Debug-iphoneos/libISO8601DateFormatter.a"; sourceTree = "<group>"; };
+		A7F456FB190FA1FC0001F146 /* libISO8601DateFormatter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libISO8601DateFormatter.a; path = "../ThirdParty/OctoKit/External/OctoKitDependencies/build/Debug-iphoneos/libISO8601DateFormatter.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,6 +719,8 @@
 		A77AE143170046F500C119AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A73BD81D19128A73003C39F3 /* LayUserDataModel.xcdatamodeld */,
+				A73BD81A19128A4A003C39F3 /* LayDataModel.xcdatamodeld */,
 				A7955CC3181151DF003CDD0A /* Images.xcassets */,
 				A77AE1DD17004BB300C119AB /* Icons */,
 			);
@@ -1047,6 +1053,7 @@
 				A77156861740F1CC00D69AC6 /* LayCatalogDetails.m in Sources */,
 				A7577ACE174A3F1E00E941F7 /* LayButton.m in Sources */,
 				A7577AD1174A3F3000E941F7 /* LayDetailsTable.m in Sources */,
+				A73BD81C19128A4A003C39F3 /* LayDataModel.xcdatamodeld in Sources */,
 				A71367AF174FFA6D006AA428 /* LayMenu.m in Sources */,
 				A7500742175F5D8E007AD407 /* LayHintView.m in Sources */,
 				A711D73C176B3B83007A2815 /* LayExplanationSessionView.m in Sources */,
@@ -1063,6 +1070,7 @@
 				A727CFE51786C9800097D721 /* LayAnswerViewCard.m in Sources */,
 				A7271573178AA2AC00616A46 /* LayIconButton.m in Sources */,
 				A740C978190F895900E2574B /* LayVcCatalogStoreList.m in Sources */,
+				A73BD81F19128A73003C39F3 /* LayUserDataModel.xcdatamodeld in Sources */,
 				A75585681797D7AB00D3EAD3 /* LayVcResource.m in Sources */,
 				A7312D9C17B17ACE00704406 /* LayMiniIconBar.m in Sources */,
 				A7238BBC17B281E70075E90B /* LayVcFavouriteList.m in Sources */,
@@ -1329,6 +1337,31 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A73BD81A19128A4A003C39F3 /* LayDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A73BD81B19128A4A003C39F3 /* LayDataModel.xcdatamodel */,
+			);
+			currentVersion = A73BD81B19128A4A003C39F3 /* LayDataModel.xcdatamodel */;
+			name = LayDataModel.xcdatamodeld;
+			path = ../../../LayCore/LayCore/Model/ModelFile/LayDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		A73BD81D19128A73003C39F3 /* LayUserDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A73BD81E19128A73003C39F3 /* LayUserDataModel.xcdatamodel */,
+			);
+			currentVersion = A73BD81E19128A73003C39F3 /* LayUserDataModel.xcdatamodel */;
+			name = LayUserDataModel.xcdatamodeld;
+			path = ../../../LayCore/LayCore/Model/LayUserDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A75B470F163EA7F20062C3C5 /* Project object */;
 }

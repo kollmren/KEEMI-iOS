@@ -20,7 +20,7 @@ static const NSInteger TAG_LINE = 1112;
 
 @implementation LayMyCatalogListItem
 
-@synthesize catalogTitle;
+@synthesize catalogTitle, numberOfQuestionsLabelInBlueColor;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -31,6 +31,7 @@ static const NSInteger TAG_LINE = 1112;
 }
 
 -(void)setCatalogTitle:(UILabel *)catalogTitle_ {
+    self.numberOfQuestionsLabelInBlueColor = NO;
     catalogTitle = catalogTitle_;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     catalogTitle.font = [styleGuide getFont:NormalFont];
@@ -61,6 +62,11 @@ static const NSInteger TAG_LINE = 1112;
 }
 
 -(void)setCoverWithMediaData:(LayMediaData *)cover title:(NSString *)title publisher:(NSString *)publisher andNumberOfQuestions:(NSString*)numberOfQuestions {
+    
+    if(self.numberOfQuestionsLabelInBlueColor) {
+        self->importDate.textColor = [[LayStyleGuide instanceOf:nil] getColor:ButtonSelectedColor];
+    }
+    
     UIView *subview = [self viewWithTag:TAG_MEDIA_VIEW];
     if(subview) {
         [subview removeFromSuperview];
