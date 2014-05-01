@@ -21,4 +21,6 @@
 
 -(id)initWithZippedFile:(NSURL*)urlZippedCatalog;
 
+-(id)initWithDownloadURL:(NSURL*)urlDownloadCatalog_ andFileNameToCreate:(NSString*)downloadCatalogFileName_;
+
 @end

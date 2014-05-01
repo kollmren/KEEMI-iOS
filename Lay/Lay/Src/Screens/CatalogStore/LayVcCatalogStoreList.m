@@ -17,11 +17,11 @@
 #import "LayFrame.h"
 #import "LayTableSectionView.h"
 #import "LayAppNotifications.h"
-#import "LayImportStateViewHandler.h"
 #import "LayHintView.h"
 #import "LayVcNavigation.h"
 #import "LayVcSettings.h"
 #import "LayMediaData.h"
+#import "LayVcImport.h"
 
 #import "OctoKit.h"
 
@@ -39,6 +39,7 @@
     NSString *url;
     NSString *name;
     NSString *repoName;
+    NSString *zipball_url;
 }
 
 +(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
@@ -52,7 +53,6 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
 
 @interface LayVcCatalogStoreList () {
     //LayTableSectionView* sectionMyCatalog;
-    LayImportStateViewHandler *stateViewHandler;
     LayVcNavigationBar* navBarViewController;
     NSMutableArray* githubCatalogList;
     NSURLConnection *urlConnection;
@@ -60,7 +60,6 @@ static NSString *urlToGetUserInfoTemplate = @"https://api.github.com/users/";
     NSDictionary *searchResultMap;
     UIActivityIndicatorView *activity;
     LayGithubCatalog *catalogToDownload;
-    NSIndexPath *indexPathToDelete;
     NSArray *catalogsInStore;
 }
 
@@ -128,29 +127,14 @@ typedef enum : NSUInteger {
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    self->activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self->activity.color = [[LayStyleGuide instanceOf:nil] getColor:ButtonSelectedColor];
-    [self.tableView setBackgroundView:self->activity];
-    [self->activity startAnimating];
-    //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
-    [self searchKeemiCatalogsAtGitHub];
-    
-    LayCatalogManager *catalogManager = [LayCatalogManager instance];
-    if(catalogManager.currentCatalogShouldBeOpenedDirectly) {
-        catalogManager.currentCatalogShouldBeOpenedDirectly = NO;
-        LayVcCatalogList *vcCatalog = [LayVcCatalogList new];
-        // Push it onto the top of the navigation controller's stack
-        [[self navigationController] pushViewController:vcCatalog
-                                               animated:NO];
-    } else if(catalogManager.pendingCatalogToImport) {
-        catalogManager.pendingCatalogToImport = NO;
-        NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_DO_IMPORT_CATALOG object:self];
-        [[NSNotificationCenter defaultCenter] postNotification:note];
-    } else {
-        [catalogManager resetAllProperties];
-        NSIndexPath *pathToSelectedRow = [self.tableView indexPathForSelectedRow];
-        [self.tableView deselectRowAtIndexPath:pathToSelectedRow animated:NO];
-        [self.tableView reloadData];
+    if( [self->githubCatalogList count] == 0 ) {
+        // The view appears from the import of a catalog
+        self->activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        self->activity.color = [[LayStyleGuide instanceOf:nil] getColor:ButtonSelectedColor];
+        [self.tableView setBackgroundView:self->activity];
+        [self->activity startAnimating];
+        //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
+        [self searchKeemiCatalogsAtGitHub];
     }
 
     [self.tableView reloadData];
@@ -202,7 +186,11 @@ typedef enum : NSUInteger {
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
-    [self setupCatalogToDownload:catalog atIndexPath:indexPath];
+    NSURL *catalogDownloadUrl = [NSURL URLWithString:catalog->zipball_url];
+    NSString *fileNameToCreate = [NSString stringWithFormat:@"%@.zip", catalog->repoName];
+    LayVcImport *vcImport = [[LayVcImport alloc] initWithDownloadURL:catalogDownloadUrl andFileNameToCreate:fileNameToCreate];
+    UINavigationController* navigationController = (UINavigationController* )self.navigationController;
+    [navigationController pushViewController:vcImport animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -248,38 +236,11 @@ typedef enum : NSUInteger {
 }
 
 -(void)handlePreferredFontSizeChanges {
-    //[self->sectionMyCatalog adjustToNewPreferredFont];
+
 }
 
 -(void)handleWantToImportCatalogNotification {
-    if(self.navigationController.topViewController == self) {
-        LayCatalogManager *catalogManager = [LayCatalogManager instance];
-        if(catalogManager.pendingCatalogToImport) {
-            if(self->stateViewHandler && self->stateViewHandler.busy) {
-                [LayCatalogManager instance].pendingCatalogToImport = NO;
-                NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_IGNORE_IMPORT_CATALOG__ANOTHER_IS_STILL_IN_PROGRESS object:self];
-                [[NSNotificationCenter defaultCenter] postNotification:note];
-                NSString *text = NSLocalizedString(@"ImportStillATaskInProgress", nil);
-                [self showHint:text withTarget:nil andAction:nil state:NO andDuration:4.0f];
-            } else {
-                catalogManager.pendingCatalogToImport = NO;
-                NSNotification *note = [NSNotification notificationWithName:(NSString*)LAY_NOTIFICATION_DO_IMPORT_CATALOG object:self];
-                [[NSNotificationCenter defaultCenter] postNotification:note];
-            }
-        }
-    }
-}
 
--(void)setupCatalogToDownload:(LayGithubCatalog*)catalog atIndexPath:(NSIndexPath *)indexPath {
-    NSString *textTemplate = NSLocalizedString(@"ImportDownloadCatalogState", nil);
-    NSString* text = [NSString stringWithFormat:textTemplate, catalog->title];
-    UIImage *image = [LayImage imageWithId:LAY_IMAGE_IMPORT];
-    self->stateViewHandler = [[LayImportStateViewHandler alloc]initWithSuperView:self.tableView.window icon:image andText:text];
-    self->stateViewHandler.delegate = self;
-    //self->stateViewHandler.useTimerForSteps = YES;
-    self->catalogToDownload = catalog;
-    self->indexPathToDelete = indexPath;
-    [self->stateViewHandler startWork];
 }
 
 
@@ -288,73 +249,6 @@ typedef enum : NSUInteger {
 //
 -(void)cancelPressed {
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
-
-//
-// LayImportStateViewHandlerDelegate
-//
--(NSString*)startWork:(id<LayImportProgressDelegate>)progressDelegate {
-    NSString *errorMessage = nil;
-    NSString *titleOfCatalog = self->catalogToDownload->title;
-    NSString *publisherOfCatalog = self->catalogToDownload->owner;
-    MWLogInfo([LayVcCatalogStoreList class], @"Download catalog with title:%@, publisher:%@ .", titleOfCatalog, publisherOfCatalog);
-    const NSUInteger maxSteps = 100;
-    [progressDelegate setMaxSteps:maxSteps];
-    
-    NSString *urlToZipBall = [NSString stringWithFormat:@"%@/zipball/master", self->catalogToDownload->url];
-    NSURL *url = [NSURL URLWithString:urlToZipBall];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-    NSString *nameOfInboxDir = @"Inbox";
-    NSFileManager* fileMngr = [NSFileManager defaultManager];
-    NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *documentDirUrl = [dirList objectAtIndex:0];
-    // TODO: get the name of the Inbox directory programmatically !
-    NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
-    NSString *inboxDirPath = [inboxDirUrl path];
-    NSString *fileName = [NSString stringWithFormat:@"%@.zip", [url lastPathComponent]];
-    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:fileName];
-    
-    [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fullPath append:NO]];
-    
-    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        NSUInteger step = (totalBytesRead / totalBytesExpectedToRead) * 100;
-        [progressDelegate setStep:step];
-    }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"RES: %@", [[[operation response] allHeaderFields] description]);
-        NSError *error;
-        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
-        if (error) {
-            MWLogError([LayVcCatalogStoreList class], @"Details:%@", [error description] );
-        } else {
-            NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
-            long long fileSize = [fileSizeNumber longLongValue];
-            MWLogInfo([LayVcCatalogStoreList class], @"Downloaded file:%@ with size:%l", fileName, fileSize );
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        MWLogError([LayVcCatalogStoreList class], @"Can not download file:%@ details:%@", fileName, [error description] );
-    }];
-    
-    [operation start];
-    
-    return errorMessage;
-}
-
--(void)buttonPressed {
-    
-}
-
--(void)closedStateView {
-    /*
-    if(self->catalogToDelete && self->indexPathToDelete) {
-        [self deleteCatalogFromtableAnimated];
-    }
-     */
 }
 
 //
@@ -448,8 +342,8 @@ typedef enum : NSUInteger {
         NSArray *releaseInfoList = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
         if( [releaseInfoList count] > 0 ) {
             NSDictionary *currentRelease = [releaseInfoList objectAtIndex:0];
-            NSString *tag = currentRelease[@"tag_name"];
-            catalog->version = tag;
+            catalog->version = currentRelease[@"tag_name"];;
+            catalog->zipball_url = currentRelease[@"zipball_url"];
             [self fetchNamesForOwnersForCatalog:catalog];
         } else {
             MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the catalog was not released yet!", catalog->title );

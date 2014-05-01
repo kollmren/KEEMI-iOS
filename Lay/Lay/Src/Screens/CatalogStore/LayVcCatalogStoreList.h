@@ -11,6 +11,6 @@
 #import "LayVcNavigationBarDelegate.h"
 #import "LayImportStateViewHandler.h"
 
-@interface LayVcCatalogStoreList : UITableViewController<LayVcNavigationBarDelegate, LayImportStateViewHandlerDelegate, NSURLConnectionDataDelegate>
+@interface LayVcCatalogStoreList : UITableViewController<LayVcNavigationBarDelegate, NSURLConnectionDataDelegate>
 
 @end

@@ -26,6 +26,7 @@
 #import "LayError.h"
 #import "LayAppNotifications.h"
 #import "MWLogging.h"
+#import "OctoKit.h"
 
 #import "Catalog+Utilities.h"
 
@@ -35,6 +36,8 @@ static const NSInteger TAG_STATE_VIEW = 6002;
 
 @interface LayVcImport () {
     NSURL *urlZippedCatalog;
+    NSURL *urlDownloadCatalog;
+    NSString *downloadCatalogFileName;
     id<LayCatalogFileReader> catalogFileReader;
     UIScrollView *importView;
     UILabel *importQuestionLabel;
@@ -66,6 +69,14 @@ static Class g_classObj = nil;
 
 -(id)initWithZippedFile:(NSURL*)urlZippedCatalog_ {
     self->urlZippedCatalog = urlZippedCatalog_;
+    self->maxImportSteps = 0;
+    self->catalogWasUnzipped = NO;
+    return [super initWithNibName:nil bundle:nil];
+}
+
+-(id)initWithDownloadURL:(NSURL*)urlDownloadCatalog_ andFileNameToCreate:(NSString*)downloadCatalogFileName_ {
+    self->urlDownloadCatalog = urlDownloadCatalog_;
+    self->downloadCatalogFileName = downloadCatalogFileName_;
     self->maxImportSteps = 0;
     self->catalogWasUnzipped = NO;
     return [super initWithNibName:nil bundle:nil];
@@ -103,7 +114,11 @@ static Class g_classObj = nil;
 
 -(void)viewWillAppear:(BOOL)animated {
     if(!catalogWasUnzipped) {
-        [self showUnzipState];
+        if( !self->urlZippedCatalog ) {
+            [self showDownloadState];
+        } else {
+            [self showUnzipState];
+        }
     }
 }
 
@@ -172,6 +187,13 @@ static Class g_classObj = nil;
     [self->navBarViewController showButtonsInNavigationBar];
 }
 
+-(void)setupNavigationDownloadState {
+    // Setup the navigation controller
+    self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
+    [self->navBarViewController showTitle:self->downloadCatalogFileName atPosition:TITLE_CENTER];
+    [self->navBarViewController showButtonsInNavigationBar];
+}
+
 -(void)setupUnzipStateView {
     const CGFloat viewWidth = self.view.frame.size.width;
     UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_UNPACK];
@@ -185,6 +207,27 @@ static Class g_classObj = nil;
     [self.view addSubview:importStateView];
 }
 
+-(void)setupDownloadStateView {
+    const CGFloat viewWidth = self.view.frame.size.width;
+    UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_UNPACK];
+    NSString *buttonText = NSLocalizedString(@"BackToMyCatalogs", nil);
+    LayImportStateView *importStateView = [[LayImportStateView alloc]initWithWidth:viewWidth icon:imageUnpack andButtonText:buttonText];
+    importStateView.delegate = self;
+    NSString *text = @"Downlaod...";//NSLocalizedString(@"ImportUnpackCatalog", nil);
+    [importStateView setLabelText:text];
+    importStateView.tag = TAG_STATE_VIEW;
+    importStateView.center = self.view.center;
+    [self.view addSubview:importStateView];
+}
+
+
+-(void)showDownloadState {
+    MWLogDebug(g_classObj, @"Download catalog:", self->downloadCatalogFileName );
+    [self setupNavigationDownloadState];
+    [self setupDownloadStateView];
+    [self performSelectorInBackground:@selector(downloadCatalog) withObject:nil];
+}
+
 -(void)showUnzipState {
     if(!self->urlZippedCatalog) {
         MWLogError(g_classObj, @"Object is not properly initialized! URL to zipped catalog is nil!");
@@ -192,7 +235,10 @@ static Class g_classObj = nil;
     }
     MWLogDebug(g_classObj, @"Unzip catalog-file:", [self->urlZippedCatalog path] );
     [self setupNavigationUnzipState];
-    [self setupUnzipStateView];
+    LayImportStateView *importStateView = (LayImportStateView *)[self.view viewWithTag:TAG_STATE_VIEW];
+    if( !importStateView ) {
+        [self setupUnzipStateView];
+    }
     [self performSelectorInBackground:@selector(unzipCatalog) withObject:nil];
 }
 
@@ -516,6 +562,48 @@ static Class g_classObj = nil;
             [LayCatalogManager cleanupInboxAndTmpDir];
         }
     }
+}
+
+-(void)downloadCatalog {
+    NSURLRequest *request = [NSURLRequest requestWithURL:self->urlDownloadCatalog];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    //
+    NSString *nameOfInboxDir = @"Inbox";
+    NSFileManager* fileMngr = [NSFileManager defaultManager];
+    NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *documentDirUrl = [dirList objectAtIndex:0];
+    // TODO: get the name of the Inbox directory programmatically !
+    NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
+    NSString *inboxDirPath = [inboxDirUrl path];
+    [fileMngr createDirectoryAtURL:inboxDirUrl withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:self->downloadCatalogFileName];
+    [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fullPath append:NO]];
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        NSUInteger step = totalBytesRead / totalBytesExpectedToRead;
+        LayImportStateView *importStateView = (LayImportStateView *)[self.view.window viewWithTag:TAG_STATE_VIEW];
+        [importStateView.progressView setProgress:step animated:YES];
+    }];
+    //
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"RES: %@", [[[operation response] allHeaderFields] description]);
+        NSError *error;
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
+        if (error) {
+            MWLogError([g_classObj class], @"Details:%@", [error description] );
+        } else {
+            NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
+            long long fileSize = [fileSizeNumber longLongValue];
+            MWLogInfo([g_classObj class], @"Downloaded file:%@ with size:%lld", self->downloadCatalogFileName, fileSize );
+        }
+        [self setProgressViewComplete];
+        self->urlZippedCatalog = [NSURL fileURLWithPath:fullPath];
+        [self showUnzipState];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        MWLogError([g_classObj class], @"Can not download file:%@ details:%@", self->downloadCatalogFileName, [error description] );
+    }];
+    
+    [operation start];
+
 }
 
 -(void)importCatalog {
