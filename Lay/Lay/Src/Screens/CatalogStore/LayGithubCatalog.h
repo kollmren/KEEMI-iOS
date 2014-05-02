@@ -23,3 +23,4 @@
 +(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
 
 @end
+
