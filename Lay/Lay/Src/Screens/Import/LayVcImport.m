@@ -207,11 +207,11 @@ static Class g_classObj = nil;
 
 -(void)setupDownloadStateView {
     const CGFloat viewWidth = self.view.frame.size.width;
-    UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_UNPACK];
+    UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_DOWNLOAD];
     NSString *buttonText = NSLocalizedString(@"BackToMyCatalogs", nil);
     LayImportStateView *importStateView = [[LayImportStateView alloc]initWithWidth:viewWidth icon:imageUnpack andButtonText:buttonText];
     importStateView.delegate = self;
-    NSString *text = @"Downlaod...";//NSLocalizedString(@"ImportUnpackCatalog", nil);
+    NSString *text = NSLocalizedString(@"ImportCatalogDownloadCatalog", nil);
     [importStateView setLabelText:text];
     importStateView.tag = TAG_STATE_VIEW;
     importStateView.center = self.view.center;
@@ -848,7 +848,11 @@ static Class g_classObj = nil;
 }
 
 -(void)showMyCatalogsNoAnimation {
-    [self.navigationController popViewControllerAnimated:NO];
+    if(self->githubCatalog) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 -(void)sendErrorReport {

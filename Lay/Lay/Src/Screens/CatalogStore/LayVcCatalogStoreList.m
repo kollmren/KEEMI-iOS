@@ -24,6 +24,7 @@
 #import "LayVcImport.h"
 #import "LayGithubCatalog.h"
 
+
 #import "OctoKit.h"
 
 #import "LayCatalogManager.h"
@@ -84,6 +85,7 @@ typedef enum : NSUInteger {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //
     [self->navBarViewController showButtonsInNavigationBar];
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
@@ -120,6 +122,8 @@ typedef enum : NSUInteger {
         [self->activity startAnimating];
         //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
         [self searchKeemiCatalogsAtGitHub];
+    } else {
+        catalogsInStore = [[LayMainDataStore store] findAllCatalogs];
     }
 
     [self.tableView reloadData];
@@ -149,12 +153,12 @@ typedef enum : NSUInteger {
     LayMyCatalogListItem *column = (LayMyCatalogListItem *)cell;
     column.numberOfQuestionsLabelInBlueColor = YES;
     LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
-    NSString *label = @"Download";
+    NSString *label = NSLocalizedString(@"ImportCatalogDownloadCatalog", nil);
     CatalogStati statiOfCatalog = [self statiForCatalog:catalog];
     if( statiOfCatalog == CatalogIsUpTodate ) {
-        label = @"Open";
+        label = NSLocalizedString(@"ImportCatalogOpenCatalog", nil);
     } else if( statiOfCatalog == CatalogIsNotUpTodate ) {
-        label = @"Update";
+        label = NSLocalizedString(@"ImportCatalogUpdateCatalog", nil);
     }
     
     LayMediaData *coverMediaData = [LayMediaData byData:catalog->cover type:LAY_MEDIA_IMAGE andFormat:LAY_FORMAT_JPG];
@@ -171,9 +175,18 @@ typedef enum : NSUInteger {
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
-    LayVcImport *vcImport = [[LayVcImport alloc] initWithGithubCatalogToDownload:catalog];
-    UINavigationController* navigationController = (UINavigationController* )self.navigationController;
-    [navigationController pushViewController:vcImport animated:YES];
+    CatalogStati statiOfCatalog = [self statiForCatalog:catalog];
+    if( statiOfCatalog == CatalogIsUpTodate ) {
+        Catalog *storedCatalog = [self storedCatalogForGithubCatalog:catalog];
+        [LayCatalogManager instance].currentSelectedCatalog = storedCatalog;
+        [LayCatalogManager instance].currentCatalogShouldBeOpenedDirectly = YES;
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
+        LayVcImport *vcImport = [[LayVcImport alloc] initWithGithubCatalogToDownload:catalog];
+        UINavigationController* navigationController = (UINavigationController* )self.navigationController;
+        [navigationController pushViewController:vcImport animated:YES];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -303,7 +316,7 @@ typedef enum : NSUInteger {
                     MWLogDebug([LayVcCatalogStoreList class], @"FetchPath completed!");
                 }];
             } error:^(NSError *error) {
-                MWLogError([LayVcCatalogStoreList class], @"Could not fetch repo:%@", repoName );
+                MWLogError([LayVcCatalogStoreList class], @"Could not fetch repo:%@. Details:%@", repoName, [error description] );
             } completed:^{
                 MWLogDebug([LayVcCatalogStoreList class], @"FetchRepo completed!", repoName );
             }];
@@ -329,10 +342,10 @@ typedef enum : NSUInteger {
             catalog->zipball_url = currentRelease[@"zipball_url"];
             [self fetchNamesForOwnersForCatalog:catalog];
         } else {
-            MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the catalog was not released yet!", catalog->title );
+            MWLogWarning([LayVcCatalogStoreList class], @"Ignore catalog:%@ was the catalog was not released yet!", catalog->title );
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        MWLogError([LayVcCatalogStoreList class], @"Could not get name of owner:%@!", catalog->owner);
+        MWLogError([LayVcCatalogStoreList class], @"Could not get release of catalog:%@!", catalog->title);
     }];
     [operation start];
 }
@@ -394,6 +407,19 @@ typedef enum : NSUInteger {
         }
     }
     return statiOfCatalog;
+}
+
+-(Catalog*)storedCatalogForGithubCatalog:(LayGithubCatalog*)githubCatalog {
+    Catalog *catalog = nil;
+    for (Catalog *storedCatalog in self->catalogsInStore) {
+        NSString *publisherOfStoredCatalog =  [storedCatalog publisher];
+        if( [storedCatalog.title isEqualToString:githubCatalog->title] &&
+           [publisherOfStoredCatalog isEqualToString:githubCatalog->name] ) {
+            catalog = storedCatalog;
+            break;
+        }
+    }
+    return catalog;
 }
 
 @end

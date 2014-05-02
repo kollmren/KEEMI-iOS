@@ -120,7 +120,7 @@ NSString *const LayIconResourcePath = @"Icons/";
             image = [LayImage imageNamed:@"769-male.png"];
             break;
         case LAY_IMAGE_ADD:
-            image = [LayImage imageNamed:@"746-plus-circle.png"];
+            image = [LayImage imageNamed:@"709-plus.png"];
             break;
         case LAY_IMAGE_USER:
             image = [LayImage imageNamed:@"769-male.png"];
@@ -134,6 +134,10 @@ NSString *const LayIconResourcePath = @"Icons/";
         case LAY_IMAGE_IMPORT:
             image = [LayImage imageNamed:@"293-database.png"];
             break;
+        case LAY_IMAGE_DOWNLOAD:
+            image = [LayImage imageNamed:@"703-download.png"];
+            break;
+            
         default:
             break;
     }

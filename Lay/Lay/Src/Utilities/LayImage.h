@@ -49,6 +49,7 @@ typedef enum LayImageId_ {
     LAY_IMAGE_USER_SELECTED,
     LAY_IMAGE_UNPACK,
     LAY_IMAGE_IMPORT,
+    LAY_IMAGE_DOWNLOAD,
     LAY_IMAGE_MAIL,
     LAY_IMAGE_ADD
 } LayImageId;

@@ -35,6 +35,9 @@
 "ImportDeleteCatalogState" = "Delete catalog ...";
 "ImportDownloadCatalogState" = "Download catalog: %@";
 "ImportStillATaskInProgress" = "The opening of a catalog was ignored, as another catalog is sill in progress!";
+"ImportCatalogOpenCatalog" = "Open";
+"ImportCatalogUpdateCatalog" = "Update";
+"ImportCatalogDownloadCatalog" = "Download";
 /* General */
 "Help" = "Help";
 "BackToMyCatalogs" = "Show my catalogs";

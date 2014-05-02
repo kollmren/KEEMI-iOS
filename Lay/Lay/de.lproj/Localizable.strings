@@ -35,6 +35,9 @@
 "ImportStillATaskInProgress" = "Das Öffnen eines Katalogs wurde ignoriert, da ein Katalog gerade verarbeitet wird!";
 "ImportCatalogCreateThumbnailState" = "Erstelle Miniaturbilder ...";
 "ImportCatalogCreateOptimizeSearch" = "Optimiere Suche ...";
+"ImportCatalogOpenCatalog" = "Öffnen";
+"ImportCatalogUpdateCatalog" = "Aktualisieren";
+"ImportCatalogDownloadCatalog" = "Herunterladen";
 /* General */
 "Help" = "Hilfe";
 "BackToMyCatalogs" = "Zeige meine Kataloge";
