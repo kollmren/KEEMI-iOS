@@ -36,8 +36,7 @@ static const NSInteger TAG_STATE_VIEW = 6002;
 
 @interface LayVcImport () {
     NSURL *urlZippedCatalog;
-    NSURL *urlDownloadCatalog;
-    NSString *downloadCatalogFileName;
+    LayGithubCatalog *githubCatalog;
     id<LayCatalogFileReader> catalogFileReader;
     UIScrollView *importView;
     UILabel *importQuestionLabel;
@@ -74,9 +73,8 @@ static Class g_classObj = nil;
     return [super initWithNibName:nil bundle:nil];
 }
 
--(id)initWithDownloadURL:(NSURL*)urlDownloadCatalog_ andFileNameToCreate:(NSString*)downloadCatalogFileName_ {
-    self->urlDownloadCatalog = urlDownloadCatalog_;
-    self->downloadCatalogFileName = downloadCatalogFileName_;
+-(id)initWithGithubCatalogToDownload:(LayGithubCatalog*)githubCatalog_ {
+    self->githubCatalog = githubCatalog_;
     self->maxImportSteps = 0;
     self->catalogWasUnzipped = NO;
     return [super initWithNibName:nil bundle:nil];
@@ -190,7 +188,7 @@ static Class g_classObj = nil;
 -(void)setupNavigationDownloadState {
     // Setup the navigation controller
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
-    [self->navBarViewController showTitle:self->downloadCatalogFileName atPosition:TITLE_CENTER];
+    [self->navBarViewController showTitle:self->githubCatalog->title atPosition:TITLE_CENTER];
     [self->navBarViewController showButtonsInNavigationBar];
 }
 
@@ -222,7 +220,7 @@ static Class g_classObj = nil;
 
 
 -(void)showDownloadState {
-    MWLogDebug(g_classObj, @"Download catalog:", self->downloadCatalogFileName );
+    MWLogDebug(g_classObj, @"Download catalog:", self->githubCatalog->title );
     [self setupNavigationDownloadState];
     [self setupDownloadStateView];
     [self performSelectorInBackground:@selector(downloadCatalog) withObject:nil];
@@ -548,6 +546,15 @@ static Class g_classObj = nil;
                     [self->catalogFileReader readMetaInfoWithStateDelegate:self];
                     [self performSelectorOnMainThread:@selector(setProgressViewComplete) withObject:nil waitUntilDone:NO];
                      [NSThread sleepForTimeInterval:1.5];
+                    //
+                    if( self->githubCatalog ) {
+                        // the version, publisher and title of the github-catalog have precedence for the values within the catalog's xml
+                        LayCatalogFileInfo *metaInfo = [self->catalogFileReader metaInfo];
+                        metaInfo.catalogTitle = self->githubCatalog->title;
+                        [metaInfo setDetail:self->githubCatalog->name forKey:@"publisher"];
+                        [metaInfo setDetail:self->githubCatalog->version forKey:@"version"];
+                    }
+                    //
                     self->catalogFileInfo = [self->catalogFileReader metaInfo];
                     self->catalogWasUnzipped = YES;
                     [self performSelectorOnMainThread:@selector(setupNavigationUnzipFinished) withObject:nil waitUntilDone:NO];
@@ -565,7 +572,8 @@ static Class g_classObj = nil;
 }
 
 -(void)downloadCatalog {
-    NSURLRequest *request = [NSURLRequest requestWithURL:self->urlDownloadCatalog];
+    NSURL *zipBallUrl = [NSURL URLWithString:self->githubCatalog->zipball_url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:zipBallUrl];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     //
     NSString *nameOfInboxDir = @"Inbox";
@@ -576,7 +584,8 @@ static Class g_classObj = nil;
     NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
     NSString *inboxDirPath = [inboxDirUrl path];
     [fileMngr createDirectoryAtURL:inboxDirUrl withIntermediateDirectories:YES attributes:nil error:nil];
-    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:self->downloadCatalogFileName];
+    NSString *fileNameToCreate = [NSString stringWithFormat:@"%@.zip", self->githubCatalog->repoName];
+    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:fileNameToCreate];
     [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fullPath append:NO]];
     [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         NSUInteger step = totalBytesRead / totalBytesExpectedToRead;
@@ -593,13 +602,13 @@ static Class g_classObj = nil;
         } else {
             NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
             long long fileSize = [fileSizeNumber longLongValue];
-            MWLogInfo([g_classObj class], @"Downloaded file:%@ with size:%lld", self->downloadCatalogFileName, fileSize );
+            MWLogInfo([g_classObj class], @"Downloaded file:%@ with size:%lld", fileNameToCreate, fileSize );
         }
         [self setProgressViewComplete];
         self->urlZippedCatalog = [NSURL fileURLWithPath:fullPath];
         [self showUnzipState];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        MWLogError([g_classObj class], @"Can not download file:%@ details:%@", self->downloadCatalogFileName, [error description] );
+        MWLogError([g_classObj class], @"Can not download file:%@ details:%@", fileNameToCreate, [error description] );
     }];
     
     [operation start];
@@ -613,6 +622,7 @@ static Class g_classObj = nil;
     //
     self->maxImportSteps = 0;
     self->currentImportStep = 0;
+    
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:self->catalogFileReader];
     LayCatalogImportReport* importReport = [catalogImport importWithStateDelegate:self];
     [self performSelectorOnMainThread:@selector(setProgressViewComplete) withObject:nil waitUntilDone:NO];
@@ -623,7 +633,7 @@ static Class g_classObj = nil;
         // delete temorary import files
         [LayCatalogManager cleanupInboxAndTmpDir];
     } else {
-        [NSThread sleepForTimeInterval:1.5];
+        [NSThread sleepForTimeInterval:1.0];
         [self performSelectorOnMainThread:@selector(showImportFinished:) withObject:importReport waitUntilDone:NO];
         // delete temorary import files
         [LayCatalogManager cleanupInboxAndTmpDir];

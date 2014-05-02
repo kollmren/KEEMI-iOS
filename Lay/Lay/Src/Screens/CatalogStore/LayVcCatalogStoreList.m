@@ -22,6 +22,7 @@
 #import "LayVcSettings.h"
 #import "LayMediaData.h"
 #import "LayVcImport.h"
+#import "LayGithubCatalog.h"
 
 #import "OctoKit.h"
 
@@ -29,22 +30,6 @@
 #import "Catalog+Utilities.h"
 #import "MWLogging.h"
 
-
-@interface LayGithubCatalog : NSObject {
-@public
-    NSString *title;
-    NSData *cover;
-    NSString *owner;
-    NSString *version;
-    NSString *url;
-    NSString *name;
-    NSString *repoName;
-    NSString *zipball_url;
-}
-
-+(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url  andVersion:(NSString*)version;
-
-@end
 
 //
 //
@@ -186,9 +171,7 @@ typedef enum : NSUInteger {
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LayGithubCatalog *catalog = [self->githubCatalogList objectAtIndex:[indexPath row]];
-    NSURL *catalogDownloadUrl = [NSURL URLWithString:catalog->zipball_url];
-    NSString *fileNameToCreate = [NSString stringWithFormat:@"%@.zip", catalog->repoName];
-    LayVcImport *vcImport = [[LayVcImport alloc] initWithDownloadURL:catalogDownloadUrl andFileNameToCreate:fileNameToCreate];
+    LayVcImport *vcImport = [[LayVcImport alloc] initWithGithubCatalogToDownload:catalog];
     UINavigationController* navigationController = (UINavigationController* )self.navigationController;
     [navigationController pushViewController:vcImport animated:YES];
 }
@@ -400,7 +383,7 @@ typedef enum : NSUInteger {
     for (Catalog *storedCatalog in self->catalogsInStore) {
         NSString *publisherOfStoredCatalog =  [storedCatalog publisher];
         if( [storedCatalog.title isEqualToString:githubCatalog->title] &&
-           [publisherOfStoredCatalog isEqualToString:githubCatalog->owner] ) {
+           [publisherOfStoredCatalog isEqualToString:githubCatalog->name] ) {
             float storedVersion = [storedCatalog.version floatValue];
             float githubVersion = [githubCatalog->version floatValue];
             if( storedVersion < githubVersion ) {
@@ -415,19 +398,3 @@ typedef enum : NSUInteger {
 
 @end
 
-
-//
-//
-@implementation LayGithubCatalog
-
-+(LayGithubCatalog*) catalogWithTitle:(NSString*)title cover:(NSData*)cover owner:(NSString*)owner url:(NSString*)url andVersion:(NSString*)version {
-    LayGithubCatalog *catalog = [LayGithubCatalog new];
-    catalog->title = title;
-    catalog->cover = cover;
-    catalog->owner = owner;
-    catalog->version = version;
-    catalog->url = url;
-    return catalog;
-}
-
-@end

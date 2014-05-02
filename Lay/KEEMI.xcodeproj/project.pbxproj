@@ -12,6 +12,7 @@
 		A704948A177C6EFE000DCA41 /* LayVcStatisticListHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7049484177C6EFE000DCA41 /* LayVcStatisticListHeader.m */; };
 		A704948B177C6EFE000DCA41 /* LayVcStatisticListHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7049485177C6EFE000DCA41 /* LayVcStatisticListHeader.xib */; };
 		A704948E177C7245000DCA41 /* LayPublisherLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = A704948D177C7245000DCA41 /* LayPublisherLogoView.m */; };
+		A70C36EA19140ECE007B17B9 /* LayGithubCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = A70C36E919140ECE007B17B9 /* LayGithubCatalog.m */; };
 		A7110C8F164AA7C400BC4943 /* libLayCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7110C8E164AA7C400BC4943 /* libLayCore.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A71166A016594818006FF27E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A711669F16594818006FF27E /* CoreData.framework */; };
 		A71166A2165948FA006FF27E /* libLayCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A71166A1165948FA006FF27E /* libLayCore.a */; };
@@ -150,6 +151,8 @@
 		A7049485177C6EFE000DCA41 /* LayVcStatisticListHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LayVcStatisticListHeader.xib; path = Statistic/LayVcStatisticListHeader.xib; sourceTree = "<group>"; };
 		A704948C177C7245000DCA41 /* LayPublisherLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayPublisherLogoView.h; sourceTree = "<group>"; };
 		A704948D177C7245000DCA41 /* LayPublisherLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayPublisherLogoView.m; sourceTree = "<group>"; };
+		A70C36E819140ECE007B17B9 /* LayGithubCatalog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayGithubCatalog.h; sourceTree = "<group>"; };
+		A70C36E919140ECE007B17B9 /* LayGithubCatalog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayGithubCatalog.m; sourceTree = "<group>"; };
 		A7110C8E164AA7C400BC4943 /* libLayCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLayCore.a; path = "/Users/rene/Lay/LayCore/build/Release-iphoneos/libLayCore.a"; sourceTree = "<absolute>"; };
 		A711669F16594818006FF27E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		A71166A1165948FA006FF27E /* libLayCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLayCore.a; path = "/Users/rene/iphone/LayCore/build/Release-iphoneos/libLayCore.a"; sourceTree = "<absolute>"; };
@@ -490,6 +493,8 @@
 				A740C973190F895900E2574B /* LayVcCatalogStoreList.h */,
 				A740C974190F895900E2574B /* LayVcCatalogStoreList.m */,
 				A740C975190F895900E2574B /* LayVcCatalogStoreList.xib */,
+				A70C36E819140ECE007B17B9 /* LayGithubCatalog.h */,
+				A70C36E919140ECE007B17B9 /* LayGithubCatalog.m */,
 			);
 			path = CatalogStore;
 			sourceTree = "<group>";
@@ -1086,6 +1091,7 @@
 				A7222DFC185F122B00B15CF8 /* LayVcExplanationList.m in Sources */,
 				A73DCCC717D4C68400283626 /* LayImportStateViewHandler.m in Sources */,
 				A7363EA517E09169005DFAAB /* LayAdditionalButton.m in Sources */,
+				A70C36EA19140ECE007B17B9 /* LayGithubCatalog.m in Sources */,
 				A71FBC0B17E2F16900986BE9 /* LayAnswerViewWordResponse.m in Sources */,
 				A743E35217E84A35002F007E /* LayVcSettings.m in Sources */,
 			);

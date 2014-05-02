@@ -55,7 +55,7 @@
 
 @required
 
-// Informations like the title, file url, version are accessed before readinf the entire catalog
+// Informations like the title, file url, version are accessed before reading the entire catalog
 -(LayCatalogFileInfo*)metaInfo;
 
 // The catalog is alreay instantiated and must be used to created the other entities

@@ -12,6 +12,7 @@
 #import "LayImportProgressDelegate.h"
 #import "LayImportStateView.h"
 #import "LayVcNavigationBarDelegate.h"
+#import "LayGithubCatalog.h"
 
 
 #import <MessageUI/MessageUI.h>
@@ -21,6 +22,6 @@
 
 -(id)initWithZippedFile:(NSURL*)urlZippedCatalog;
 
--(id)initWithDownloadURL:(NSURL*)urlDownloadCatalog_ andFileNameToCreate:(NSString*)downloadCatalogFileName_;
+-(id)initWithGithubCatalogToDownload:(LayGithubCatalog*)githubCatalog_;
 
 @end
