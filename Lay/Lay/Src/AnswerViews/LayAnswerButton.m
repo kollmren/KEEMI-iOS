@@ -97,6 +97,7 @@ showInfoIconIfEvaluated, showCorrectnessIconIfEvaluated, showMarkIndicator, butt
 }
 
 static const NSInteger TAG_TEXT = 100;
+static const NSInteger TAG_KEYWORD_TEXT = 102;
 static const NSInteger TAG_MEDIA = 101;
 
 -(void)setupButtonWithMedia:(AnswerItem*)answerItem_ {
@@ -129,8 +130,8 @@ static const NSInteger TAG_MEDIA = 101;
         textLabel.numberOfLines = [style numberOfLines];
         textLabel.text = answerItem_.text;
         [textLabel sizeToFit];
-        //[LayFrame setWidthWith:itemWidth toView:textLabel];
         [self addSubview:textLabel];
+        //[LayFrame setWidthWith:itemWidth toView:textLabel];
         [self adjustButtonHeight];
         [self adjustLayerTo:self.frame];
     } else {
@@ -177,6 +178,29 @@ static const NSInteger TAG_MEDIA = 101;
     [self adjustLayerTo:self.frame];
 }
 
+-(void) showKeyWordListIfEvaluated:(AnswerItem*)answerItem_ {
+    UIView *textLabel = [self viewWithTag:TAG_TEXT];
+    if( textLabel && answerItem_.longTermWordList ) {
+        LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
+        const CGFloat vIndent = [style buttonIndentVertical];
+        const CGFloat hIndent = [style getHorizontalScreenSpace];
+        const CGSize buttonFrameSize = self.frame.size;
+        const CGFloat widthOfTextLabel = buttonFrameSize.width - 2*hIndent;
+        CGFloat yPosLabel = textLabel.frame.origin.y + textLabel.frame.size.height + vIndent;
+        const CGRect keywordLabelFrame = CGRectMake(textLabel.frame.origin.x, yPosLabel, widthOfTextLabel, 0.0f);
+        UILabel *keywordLabel = [[UILabel alloc]initWithFrame:keywordLabelFrame];
+        keywordLabel.backgroundColor = [UIColor clearColor];
+        keywordLabel.tag = TAG_KEYWORD_TEXT;
+        keywordLabel.font = [style getFont:SmallPreferredFont];
+        keywordLabel.textColor = [UIColor lightGrayColor];
+        keywordLabel.numberOfLines = [style numberOfLines];
+        keywordLabel.text = answerItem_.longTermWordList;
+        [keywordLabel sizeToFit];
+        [self addSubview:keywordLabel];
+    }
+
+}
+
 -(void)adjustButtonHeight {
     CGFloat newButtonHeight = 0.0f;
     UIView *media = [self viewWithTag:TAG_MEDIA];
@@ -189,6 +213,10 @@ static const NSInteger TAG_MEDIA = 101;
     }
     
     UIView *text = [self viewWithTag:TAG_TEXT];
+    UIView *keywordText = [self viewWithTag:TAG_KEYWORD_TEXT];
+    if( keywordText ) {
+        text = keywordText;
+    }
     if(text) {
         CGFloat textHeight = text.frame.origin.y + text.frame.size.height + vIndent;
         if(textHeight > newButtonHeight) {
@@ -327,6 +355,8 @@ static const NSInteger TAG_MEDIA = 101;
 
 -(void)showCorrectness {
     self->evaluated = YES;
+    [self showKeyWordListIfEvaluated:self->answerItem];
+    [self adjustButtonHeight];
     [self adjustBorder];
  //   if(self.showCorrectnessIconIfEvaluated || self.showInfoIconIfEvaluated || self.showMarkIndicator ) {
         [self adjustIconsForStateEvaluated];
@@ -340,6 +370,10 @@ static const NSInteger TAG_MEDIA = 101;
     static const CGFloat SPACE = 15.0f;
     UIView *media = [self viewWithTag:TAG_MEDIA];
     UIView *text = [self viewWithTag:TAG_TEXT];
+    UIView *textKeywords = [self viewWithTag:TAG_KEYWORD_TEXT];
+    if(textKeywords) {
+        text = textKeywords;
+    }
     const CGFloat yDimensionMedia = media.frame.origin.y + media.frame.size.height;
     const CGFloat yDimensionText = text.frame.origin.y + text.frame.size.height;
     const CGFloat maxDimensionSubview = fmaxf(yDimensionMedia,yDimensionText);
