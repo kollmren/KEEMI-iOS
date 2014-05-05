@@ -40,9 +40,9 @@
 "ImportCatalogDownloadCatalog" = "Herunterladen";
 /* General */
 "Help" = "Hilfe";
-"BackToMyCatalogs" = "Zeige meine Kataloge";
+"BackToMyCatalogs" = "Zeige gespeicherte Kataloge";
 "OpenCatalog" = "Öffne Katalog";
-"MyCatalogs" = "Meine Kataloge";
+"MyCatalogs" = "Gespeicherte Kataloge";
 "MyCatalogsNoCatalogsStored" = "Keine Kataloge gespeichert.";
 "CatalogLearn" = "Lernen";
 "CatalogLearnOverview" = "Übersicht";

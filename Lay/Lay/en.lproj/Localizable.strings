@@ -40,9 +40,9 @@
 "ImportCatalogDownloadCatalog" = "Download";
 /* General */
 "Help" = "Help";
-"BackToMyCatalogs" = "Show my catalogs";
+"BackToMyCatalogs" = "Show stored catalogs";
 "OpenCatalog" = "Open catalog";
-"MyCatalogs" = "My catalogs";
+"MyCatalogs" = "Stored Catalogs";
 "MyCatalogsNoCatalogsStored" = "No catalogs stored.";
 "CatalogLearn" = "Learn";
 "CatalogLearnOverview" = "Overview";

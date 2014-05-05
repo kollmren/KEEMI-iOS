@@ -21,7 +21,7 @@
     CGFloat unzipStateViewLabelWidth;
 }
 
-@property (nonatomic) id<LayImportStateViewDelegate> delegate;
+@property (nonatomic, weak) id<LayImportStateViewDelegate> delegate;
 @property (nonatomic, readonly) UIProgressView* progressView;
 
 - (id)initWithWidth:(CGFloat)width icon:(UIImage*)icon andButtonText:(NSString*)buttonText;

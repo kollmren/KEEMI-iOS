@@ -80,9 +80,9 @@ static Class g_classObj = nil;
     Author *author = catalog.authorRef;
     [fileInfo setDetail:author.name forKey:@"author"];
     [fileInfo setDetail:author.emailAuthor forKey:@"emailAuthor"];
-    NSString *numberOfQuestions = [NSString stringWithFormat:@"%u", [catalog numberOfQuestions]];
+    NSString *numberOfQuestions = [NSString stringWithFormat:@"%lu", [catalog numberOfQuestions]];
     [fileInfo setDetail:numberOfQuestions forKey:@"numberOfQuestions"];
-    NSString *numberOfExplanations = [NSString stringWithFormat:@"%u", [catalog numberOfExplanations]];
+    NSString *numberOfExplanations = [NSString stringWithFormat:@"%lu", [catalog numberOfExplanations]];
     [fileInfo setDetail:numberOfExplanations forKey:@"numberOfExplanations"];
     [fileInfo setDetail:catalog.topic forKey:@"topic"];
     [fileInfo setDetail:catalog.language forKey:@"language"];
@@ -156,9 +156,11 @@ static Class g_classObj = nil;
     additionalInfoView.textColor = [UIColor darkGrayColor];
     NSString *numberOfQuestionsLabel = NSLocalizedString(@"CatalogNumberOfQuestionsLabel", nil);
     NSString *numberOfQuestions = [catalogFileInfo detailForKey:@"numberOfQuestions"];
-    NSInteger numberOfQuestionsInteger = [numberOfQuestions integerValue];
-    NSString *textToShow = [NSString stringWithFormat:numberOfQuestionsLabel, numberOfQuestionsInteger];
-    additionalInfoView.text = textToShow;
+    if(numberOfQuestions) {
+        NSInteger numberOfQuestionsInteger = [numberOfQuestions integerValue];
+        NSString *textToShow = [NSString stringWithFormat:numberOfQuestionsLabel, numberOfQuestionsInteger];
+        additionalInfoView.text = textToShow;
+    }
     [additionalInfoView sizeToFit];
     [self->coverTitleContainer addSubview:additionalInfoView];
     [self->container addSubview:self->coverTitleContainer];

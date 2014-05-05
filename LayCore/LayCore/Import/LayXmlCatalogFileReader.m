@@ -78,7 +78,7 @@ static const NSInteger NUMBER_OF_DEFAULT_TOPIC = 1;
     NSURL* catalogFile;
     LayXmlDocumentDataCatcher *xmlDataCatcher;
     LayCatalogFileInfo *catalogInfo;
-    id<LayImportProgressDelegate> importProgressStateDelegate;
+    __weak id<LayImportProgressDelegate> importProgressStateDelegate;
     NSUInteger importStepCounter;
     //
     Catalog *importCatalog;

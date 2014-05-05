@@ -34,6 +34,7 @@
 static const CGFloat V_SPACE = 10.0f;
 static const NSInteger TAG_MY_VIEWS = 6001;
 static const NSInteger TAG_STATE_VIEW = 6002;
+static const NSInteger TAG_CATALOG_INFO_DOWNLOAD = 6003;
 
 @interface LayVcImport () {
     NSURL *urlZippedCatalog;
@@ -91,19 +92,6 @@ static Class g_classObj = nil;
     MWLogDebug(g_classObj, @"dealloc");
 }
 
-
-/*- (void)loadView
-{
-    const CGRect screenFrame = [[UIScreen mainScreen] bounds];
-    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    const CGFloat heightOfNavigation = self.navigationController.navigationBar.frame.size.height;
-    const CGRect viewFrame = CGRectMake(0.0f, 0.0f, screenFrame.size.width, screenFrame.size.height - heightOfNavigation);
-    UIView *view = [[UIView alloc]initWithFrame:viewFrame];
-    view.backgroundColor = [styleGuide getColor:BackgroundColor];
-    [self setView:view];
-}*/
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -111,10 +99,6 @@ static Class g_classObj = nil;
     self.view.backgroundColor = [styleGuide getColor:BackgroundColor];
     [self registerEvents];
     
-    LayCatalogFileInfo *catalogFileInfo2 = [LayCatalogFileInfo new];
-    catalogFileInfo.catalogTitle = self->githubCatalog->title;
-    LayCatalogDetails *catalogView = [[LayCatalogDetails alloc]initWithCatalogFileInfo:catalogFileInfo2 andPositionY:0.0f];
-    [self.view addSubview:catalogView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -197,13 +181,15 @@ static Class g_classObj = nil;
 -(void)setupNavigationDownloadState {
     // Setup the navigation controller
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
-    [self->navBarViewController showTitle:self->githubCatalog->title atPosition:TITLE_CENTER];
+    [self->navBarViewController showTitle:self->githubCatalog->url atPosition:TITLE_CENTER];
     self->navBarViewController.delegate = self;
     self->navBarViewController.cancelButtonInNavigationBar = YES;
     [self->navBarViewController showButtonsInNavigationBar];
 }
 
 -(void)setupUnzipStateView {
+    UIView *downloadCatalogInfoView = [self.view viewWithTag:TAG_CATALOG_INFO_DOWNLOAD];
+    [downloadCatalogInfoView removeFromSuperview];
     const CGFloat viewWidth = self.view.frame.size.width;
     UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_UNPACK];
     NSString *buttonText = NSLocalizedString(@"BackToMyCatalogs", nil);
@@ -217,6 +203,19 @@ static Class g_classObj = nil;
 }
 
 -(void)setupDownloadStateView {
+    LayCatalogFileInfo *catalogFileInfo2 = [LayCatalogFileInfo new];
+    catalogFileInfo2.catalogTitle = self->githubCatalog->title;
+    [catalogFileInfo2 setDetail:self->githubCatalog->name forKey:@"publisher"];
+    [catalogFileInfo2 setDetail:self->githubCatalog->version forKey:@"version"];
+    catalogFileInfo2.cover = self->githubCatalog->cover;
+    catalogFileInfo2.coverMediaFormat = LAY_FORMAT_JPG;
+    catalogFileInfo2.coverMediaType = LAY_MEDIA_IMAGE;
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    const CGFloat heightOfStatusAndNavBar = [styleGuide heightOfStatusAnsNavigationBar];
+    LayCatalogDetails *catalogView = [[LayCatalogDetails alloc]initWithCatalogFileInfo:catalogFileInfo2 andPositionY:heightOfStatusAndNavBar];
+    catalogView.tag = TAG_CATALOG_INFO_DOWNLOAD;
+    [self.view addSubview:catalogView];
+    //
     const CGFloat viewWidth = self.view.frame.size.width;
     UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_DOWNLOAD];
     NSString *buttonText = NSLocalizedString(@"BackToMyCatalogs", nil);
@@ -617,12 +616,37 @@ static Class g_classObj = nil;
             self->urlZippedCatalog = [NSURL fileURLWithPath:fullPath];
             [self showUnzipState];
         }
+        self->downlaodOperation = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        static const NSInteger API_RATE_LIMIT_EXCEEDED_EEROR = 674;
+        if ( error.code == API_RATE_LIMIT_EXCEEDED_EEROR ) {
+            [self showRateLimitExceededFailureMessage];
+        }
+        //AFNetworkingErrorDomain
+        
         MWLogError([g_classObj class], @"Can not download file:%@ details:%@", fileNameToCreate, [error description] );
+        self->downlaodOperation = nil;
     }];
     
     [self->downlaodOperation start];
+}
 
+-(void)showRateLimitExceededFailureMessage {
+    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
+    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
+    const CGFloat width = self.view.frame.size.width - 2 * hSpace;
+    const CGRect labelRect = CGRectMake(0.0f, 0.0f, width, 0.0f);
+    UILabel *label = [[UILabel alloc]initWithFrame:labelRect];
+    label.textColor = [UIColor lightGrayColor];
+    label.text = @"Search limit exceeded, Try it later again ...";//NSLocalizedString(@"MyCatalogsNoCatalogsStored", nil);
+    // adjust size
+    label.textColor = [UIColor lightGrayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [styleGuide getFont:NormalPreferredFont];
+    label.numberOfLines = 10;
+    [label sizeToFit];
+    label.center = self.view.center;
+    [self.view addSubview:label];
 }
 
 -(void)importCatalog {
@@ -858,11 +882,7 @@ static Class g_classObj = nil;
 }
 
 -(void)showMyCatalogsNoAnimation {
-    if(self->githubCatalog) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } else {
-        [self.navigationController popViewControllerAnimated:NO];
-    }
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)sendErrorReport {
@@ -1004,9 +1024,10 @@ static Class g_classObj = nil;
 
 -(void)cancelPressed {
     [self->downlaodOperation cancel];
+    self->downlaodOperation = nil;
      LayCatalogManager *catalogManager = [LayCatalogManager instance];
     [catalogManager performSelectorInBackground:@selector(cleanupInboxAndTmpDir) withObject:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
