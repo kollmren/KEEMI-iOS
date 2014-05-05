@@ -39,6 +39,7 @@
 "ImportCatalogUpdateCatalog" = "Aktualisieren";
 "ImportCatalogDownloadCatalog" = "Herunterladen";
 "ImportCatalogDownloadCatalogFromGithub" = "Kataloge auf GitHub";
+"ImportDownloadRateLimitReached" = "Das GiHub API Nutzungs-Limit ist erreicht! Versuch es in fünf Minuten noch einmal.";
 /* General */
 "Help" = "Hilfe";
 "BackToMyCatalogs" = "Zeige gespeicherte Kataloge";

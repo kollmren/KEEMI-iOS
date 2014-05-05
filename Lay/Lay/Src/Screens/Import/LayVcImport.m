@@ -618,35 +618,11 @@ static Class g_classObj = nil;
         }
         self->downlaodOperation = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        static const NSInteger API_RATE_LIMIT_EXCEEDED_EEROR = 674;
-        if ( error.code == API_RATE_LIMIT_EXCEEDED_EEROR ) {
-            [self showRateLimitExceededFailureMessage];
-        }
-        //AFNetworkingErrorDomain
-        
         MWLogError([g_classObj class], @"Can not download file:%@ details:%@", fileNameToCreate, [error description] );
         self->downlaodOperation = nil;
     }];
     
     [self->downlaodOperation start];
-}
-
--(void)showRateLimitExceededFailureMessage {
-    LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
-    const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
-    const CGFloat width = self.view.frame.size.width - 2 * hSpace;
-    const CGRect labelRect = CGRectMake(0.0f, 0.0f, width, 0.0f);
-    UILabel *label = [[UILabel alloc]initWithFrame:labelRect];
-    label.textColor = [UIColor lightGrayColor];
-    label.text = @"Search limit exceeded, Try it later again ...";//NSLocalizedString(@"MyCatalogsNoCatalogsStored", nil);
-    // adjust size
-    label.textColor = [UIColor lightGrayColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [styleGuide getFont:NormalPreferredFont];
-    label.numberOfLines = 10;
-    [label sizeToFit];
-    label.center = self.view.center;
-    [self.view addSubview:label];
 }
 
 -(void)importCatalog {

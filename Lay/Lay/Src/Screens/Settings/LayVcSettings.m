@@ -16,8 +16,7 @@
 #import "MWLogging.h"
 
 static const NSInteger SECTION_HELP_IDX = 0;
-static const NSInteger SECTION_HELP_SAMPLE_CATALOGS_IDX = 0;
-static const NSInteger SECTION_HELP_FAQ_IDX = 1;
+static const NSInteger SECTION_HELP_FAQ_IDX = 0;
 //
 static const NSInteger SECTION_SUPPORT_IDX = 1;
 static const NSInteger SECTION_SUPPORT_FEEDBACK_IDX = 0;
@@ -107,7 +106,7 @@ static const NSInteger SECTION_GENERAL_IDX = 2;
     if(section == SECTION_GENERAL_IDX) {
         numberOfRowsInSection = 1;
     } else if(section == SECTION_HELP_IDX) {
-        numberOfRowsInSection = 2;
+        numberOfRowsInSection = 1;
     } else if(section == SECTION_SUPPORT_IDX) {
         numberOfRowsInSection = 2;
     }
@@ -127,9 +126,7 @@ static const NSInteger SECTION_GENERAL_IDX = 2;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.enabled = NO;
     } else if(section == SECTION_HELP_IDX) {
-        if(row == SECTION_HELP_SAMPLE_CATALOGS_IDX) {
-            cell.textLabel.text = NSLocalizedString(@"InfoHelpSampleCatalogs", nil);
-        } else if( row == SECTION_HELP_FAQ_IDX ) {
+        if( row == SECTION_HELP_FAQ_IDX ) {
             cell.textLabel.text = NSLocalizedString(@"InfoHelpFaq", nil);
         }
     } else if(section == SECTION_SUPPORT_IDX) {
@@ -162,14 +159,7 @@ static const NSInteger SECTION_GENERAL_IDX = 2;
         if([language isEqualToString:@"de"]) {
             faqPath = @"faqs-studenten";
         }*/
-        if(row == SECTION_HELP_SAMPLE_CATALOGS_IDX) {
-            NSString *catalogLink = @"https://github.com/PaaSQ";
-            NSURL *link = [NSURL URLWithString:catalogLink];
-            MWLogInfo([LayVcSettings class], @"Try to open link:%@", catalogLink);
-            if (![[UIApplication sharedApplication] openURL:link]) {
-                MWLogError([LayVcSettings class], @"Could not open link to:%@", catalogLink);
-            }
-        } else if( row == SECTION_HELP_FAQ_IDX ) {
+        if( row == SECTION_HELP_FAQ_IDX ) {
             NSString *faqLink = [NSString stringWithFormat:@"http://www.keemimobile.com/%@/features", language];
             NSURL *link = [NSURL URLWithString:faqLink];
             MWLogInfo([LayVcSettings class], @"Try to open link:%@", faqLink);
