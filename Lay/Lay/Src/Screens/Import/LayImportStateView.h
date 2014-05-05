@@ -28,6 +28,8 @@
 
 -(void)setLabelText:(NSString*)text;
 
+-(void)setIcon:(UIImage *)icon;
+
 -(void)showErrorStateWithText:(NSString*)text;
 
 @end

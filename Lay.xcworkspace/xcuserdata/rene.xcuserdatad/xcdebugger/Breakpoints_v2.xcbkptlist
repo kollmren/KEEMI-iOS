@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Lay/Lay/Src/Screens/CatalogStore/LayVcCatalogStoreList.m"
-            timestampString = "420752673.427881"
+            filePath = "Lay/Lay/Src/Screens/Import/LayVcImport.m"
+            timestampString = "420924397.074554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "-loadKeemiCatalogListFromGitHub"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Lay/Lay/Src/Screens/CatalogStore/LayVcCatalogStoreList.m"
-            timestampString = "420752709.010101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "-loadKeemiCatalogListFromGitHub"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

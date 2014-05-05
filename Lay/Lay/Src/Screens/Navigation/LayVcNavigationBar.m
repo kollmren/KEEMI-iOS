@@ -65,7 +65,11 @@ delegate;
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]
                                        initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                        target:nil action:nil];
-    negativeSpacer.width = -16;
+    // clean the current settings
+    [self->viewController navigationItem].leftBarButtonItems = @[];
+    [self->viewController navigationItem].rightBarButtonItems = @[];
+    //
+    negativeSpacer.width = 0;//-16;
     [navigationButtonItemList addObject:negativeSpacer];
     
     if(self.queryButtonInNavigationBar) {

@@ -43,6 +43,13 @@ static const NSInteger TAG_ICON = 3006;
     [LayFrame setHeightWith:height toView:unzipStateView animated:NO];
 }
 
+-(void)setIcon:(UIImage *)icon {
+    UIImageView *imageView = (UIImageView*)[self viewWithTag:TAG_ICON];
+    if(imageView) {
+        imageView.image = icon;
+    }
+}
+
 -(void)showErrorStateWithText:(NSString*)text {
     if(progressView) {
         LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];

@@ -25,6 +25,7 @@
 #import "LayHintView.h"
 #import "LayError.h"
 #import "LayAppNotifications.h"
+
 #import "MWLogging.h"
 #import "OctoKit.h"
 
@@ -55,6 +56,7 @@ static const NSInteger TAG_STATE_VIEW = 6002;
     UILabel* sendReportMessage;
     NSTimer *deleteDuplicateCatalogStepTimer;
     BOOL catalogWasUnzipped;
+    AFHTTPRequestOperation *downlaodOperation;
 }
 @end
 
@@ -108,6 +110,11 @@ static Class g_classObj = nil;
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     self.view.backgroundColor = [styleGuide getColor:BackgroundColor];
     [self registerEvents];
+    
+    LayCatalogFileInfo *catalogFileInfo2 = [LayCatalogFileInfo new];
+    catalogFileInfo.catalogTitle = self->githubCatalog->title;
+    LayCatalogDetails *catalogView = [[LayCatalogDetails alloc]initWithCatalogFileInfo:catalogFileInfo2 andPositionY:0.0f];
+    [self.view addSubview:catalogView];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -182,6 +189,8 @@ static Class g_classObj = nil;
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
     NSString *nameOfCatalogFile = [self->urlZippedCatalog lastPathComponent];
     [self->navBarViewController showTitle:nameOfCatalogFile atPosition:TITLE_CENTER];
+    self->navBarViewController.delegate = self;
+    self->navBarViewController.cancelButtonInNavigationBar = NO;
     [self->navBarViewController showButtonsInNavigationBar];
 }
 
@@ -189,6 +198,8 @@ static Class g_classObj = nil;
     // Setup the navigation controller
     self->navBarViewController = [[LayVcNavigationBar alloc]initWithViewController:self];
     [self->navBarViewController showTitle:self->githubCatalog->title atPosition:TITLE_CENTER];
+    self->navBarViewController.delegate = self;
+    self->navBarViewController.cancelButtonInNavigationBar = YES;
     [self->navBarViewController showButtonsInNavigationBar];
 }
 
@@ -220,7 +231,7 @@ static Class g_classObj = nil;
 
 
 -(void)showDownloadState {
-    MWLogDebug(g_classObj, @"Download catalog:", self->githubCatalog->title );
+    MWLogDebug(g_classObj, @"Download catalog:%@", self->githubCatalog->title );
     [self setupNavigationDownloadState];
     [self setupDownloadStateView];
     [self performSelectorInBackground:@selector(downloadCatalog) withObject:nil];
@@ -236,6 +247,12 @@ static Class g_classObj = nil;
     LayImportStateView *importStateView = (LayImportStateView *)[self.view viewWithTag:TAG_STATE_VIEW];
     if( !importStateView ) {
         [self setupUnzipStateView];
+    } else {
+        NSString *text = NSLocalizedString(@"ImportUnpackCatalog", nil);
+        LayImportStateView *importStateView = (LayImportStateView *)[self.view.window viewWithTag:TAG_STATE_VIEW];
+        [importStateView setLabelText:text];
+        UIImage *imageUnpack = [LayImage imageWithId:LAY_IMAGE_UNPACK];
+        [importStateView setIcon:imageUnpack];
     }
     [self performSelectorInBackground:@selector(unzipCatalog) withObject:nil];
 }
@@ -574,26 +591,19 @@ static Class g_classObj = nil;
 -(void)downloadCatalog {
     NSURL *zipBallUrl = [NSURL URLWithString:self->githubCatalog->zipball_url];
     NSURLRequest *request = [NSURLRequest requestWithURL:zipBallUrl];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    self->downlaodOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     //
-    NSString *nameOfInboxDir = @"Inbox";
-    NSFileManager* fileMngr = [NSFileManager defaultManager];
-    NSArray *dirList = [fileMngr URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *documentDirUrl = [dirList objectAtIndex:0];
-    // TODO: get the name of the Inbox directory programmatically !
-    NSURL *inboxDirUrl = [documentDirUrl URLByAppendingPathComponent:nameOfInboxDir];
-    NSString *inboxDirPath = [inboxDirUrl path];
-    [fileMngr createDirectoryAtURL:inboxDirUrl withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *pathToTmpDir = NSTemporaryDirectory();
     NSString *fileNameToCreate = [NSString stringWithFormat:@"%@.zip", self->githubCatalog->repoName];
-    NSString *fullPath = [inboxDirPath stringByAppendingPathComponent:fileNameToCreate];
-    [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:fullPath append:NO]];
-    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        NSUInteger step = totalBytesRead / totalBytesExpectedToRead;
-        LayImportStateView *importStateView = (LayImportStateView *)[self.view.window viewWithTag:TAG_STATE_VIEW];
-        [importStateView.progressView setProgress:step animated:YES];
+    NSString *fullPath = [pathToTmpDir stringByAppendingPathComponent:fileNameToCreate];
+    NSOutputStream *fullPathOutStream = [NSOutputStream outputStreamToFileAtPath:fullPath append:NO];
+    [self->downlaodOperation setOutputStream:fullPathOutStream];
+    [self->downlaodOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        [self setMaxSteps:totalBytesExpectedToRead];
+        [self setStep:totalBytesRead];
     }];
     //
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self->downlaodOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         //NSLog(@"RES: %@", [[[operation response] allHeaderFields] description]);
         NSError *error;
         NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:fullPath error:&error];
@@ -603,15 +613,15 @@ static Class g_classObj = nil;
             NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
             long long fileSize = [fileSizeNumber longLongValue];
             MWLogInfo([g_classObj class], @"Downloaded file:%@ with size:%lld", fileNameToCreate, fileSize );
+            [self performSelectorOnMainThread:@selector(setProgressViewComplete) withObject:nil waitUntilDone:NO];
+            self->urlZippedCatalog = [NSURL fileURLWithPath:fullPath];
+            [self showUnzipState];
         }
-        [self setProgressViewComplete];
-        self->urlZippedCatalog = [NSURL fileURLWithPath:fullPath];
-        [self showUnzipState];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         MWLogError([g_classObj class], @"Can not download file:%@ details:%@", fileNameToCreate, [error description] );
     }];
     
-    [operation start];
+    [self->downlaodOperation start];
 
 }
 
@@ -990,6 +1000,13 @@ static Class g_classObj = nil;
 //
 -(void)backPressed {
     [self showMyCatalogs];
+}
+
+-(void)cancelPressed {
+    [self->downlaodOperation cancel];
+     LayCatalogManager *catalogManager = [LayCatalogManager instance];
+    [catalogManager performSelectorInBackground:@selector(cleanupInboxAndTmpDir) withObject:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
