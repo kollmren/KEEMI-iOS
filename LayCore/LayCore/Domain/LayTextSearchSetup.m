@@ -22,9 +22,19 @@
 
 #import "MWLogging.h"
 
+
+static NSMutableDictionary *searchWorldRelationCache = nil;
+
 @implementation LayTextSearchSetup
 
-+(void)setupTextSearchForQuestion:(Question*)question {
++(void)clearSearchWordRelationCache {
+    if(!searchWorldRelationCache) {
+        searchWorldRelationCache = [NSMutableDictionary dictionaryWithCapacity:300];
+    }
+    [searchWorldRelationCache removeAllObjects];
+}
+
++(void)setupTextSearchForQuestion:(Question*)question andStopWordSet:(NSSet *)stopWordSet{
     //
     // Prepare searchable text for the question
     //
@@ -53,14 +63,14 @@
     // Get or create SearchWord and SearchWordRelations for the catalog
     //
     Catalog* catalog = question.catalogRef;
-    NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog];
+    NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog andStopWordSet:stopWordSet];
     // Link the relations with the question
     for (SearchWordRelation *searchWordRelation in searchWordRelationsForCatalog) {
         [LayTextSearchSetup linkSearchWordRelation:searchWordRelation withManagedObject:question];
     }
 }
 
-+(void)setupTextSearchForExplanation:(Explanation*)explanation {
++(void)setupTextSearchForExplanation:(Explanation*)explanation andStopWordSet:(NSSet *)stopWordSet{
     //
     // Prepare searchable text for the explanation
     //
@@ -87,7 +97,7 @@
     // Get or create SearchWord and SearchWordRelations for the catalog
     //
     Catalog* catalog = explanation.catalogRef;
-    NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog];
+    NSArray *searchWordRelationsForCatalog = [LayTextSearchSetup searchWordRelationsFrom:textToPrepareForSearch linkedWithCatalog:catalog andStopWordSet:stopWordSet];
     // Link the relations with the explanation
     for (SearchWordRelation *searchWordRelation in searchWordRelationsForCatalog) {
         [LayTextSearchSetup linkSearchWordRelation:searchWordRelation withManagedObject:explanation];
@@ -134,17 +144,23 @@
 }
 
 // Returns a list of SearchWordRelations linked with catalog.
-+(NSArray*)searchWordRelationsFrom:(NSString*)text linkedWithCatalog:(Catalog*)catalog {
++(NSArray*)searchWordRelationsFrom:(NSString*)text linkedWithCatalog:(Catalog*)catalog andStopWordSet:(NSSet*)stopWordSet {
     NSMutableArray *searchWordRelationCatalogList = [NSMutableArray arrayWithCapacity:100];
     LayTokenizer *tokenizer = [LayTokenizer sharedTokenizer];
-    NSSet *tokenSet = [tokenizer tokenize:text];
+    NSMutableSet *tokenSet = [tokenizer tokenize:text];
+    [tokenSet minusSet:stopWordSet];
     for (NSString *word in tokenSet) {
-        SearchWord *searchWord = [LayTextSearchSetup searchWordFor:word inManagedObjectContext:catalog.managedObjectContext];
-        if(searchWord) {
-            SearchWordRelation* searchWordRelation = [LayTextSearchSetup searchWordRelationListFor:searchWord inCatalog:catalog];
-            [searchWordRelationCatalogList addObject:searchWordRelation];
+        SearchWordRelation* relationFromCache = [searchWorldRelationCache valueForKey:word];
+        if( relationFromCache ) {
+            [searchWordRelationCatalogList addObject:relationFromCache];
         } else {
-            MWLogError([LayTextSearchSetup class], @"No SearchWord object created!");
+            SearchWord *searchWord = [LayTextSearchSetup searchWordFor:word inManagedObjectContext:catalog.managedObjectContext];
+            if(searchWord) {
+                SearchWordRelation* searchWordRelation = [LayTextSearchSetup searchWordRelationListFor:searchWord inCatalog:catalog];
+                [searchWordRelationCatalogList addObject:searchWordRelation];
+            } else {
+                MWLogError([LayTextSearchSetup class], @"No SearchWord object created!");
+            }
         }
     }
     return searchWordRelationCatalogList;

@@ -657,8 +657,9 @@ static Class g_classObj = nil;
     self->maxImportSteps = 0;
     self->currentImportStep = 0;
     
+    NSSet *stopWordSet = [self stopWordSet];
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:self->catalogFileReader];
-    LayCatalogImportReport* importReport = [catalogImport importWithStateDelegate:self];
+    LayCatalogImportReport* importReport = [catalogImport importWithStateDelegate:self andStopWordSet:stopWordSet];
     [self performSelectorOnMainThread:@selector(setProgressViewComplete) withObject:nil waitUntilDone:NO];
     if(importReport.imported) {
         [self performSelectorOnMainThread:@selector(setProgressViewComplete) withObject:nil waitUntilDone:NO];
@@ -679,6 +680,30 @@ static Class g_classObj = nil;
         MWLogInfo(g_classObj, @"Mark import task as finished.");
         [[UIApplication sharedApplication] endBackgroundTask:taskId];
     }
+}
+
+-(NSSet*)stopWordSet {
+    NSMutableSet *allKeywordSet = [NSMutableSet setWithCapacity:200];
+    NSError *error = nil;
+    NSString *deStopWordListFilePath = [[NSBundle mainBundle] pathForResource:@"stopwords_de" ofType:@"txt"];
+    NSString *germanStopWords = [NSString stringWithContentsOfFile:deStopWordListFilePath encoding:NSUTF8StringEncoding error:&error];
+    if( !germanStopWords && error ) {
+        MWLogError(g_classObj, @"Could not read german stop word list. Details:%@", [error description]);
+    } else {
+        NSSet *germanSet = [NSSet setWithArray:[germanStopWords componentsSeparatedByString:@"\r\n"]];
+        [allKeywordSet unionSet:germanSet];
+    }
+    
+    NSString *enStopWordListFilePath = [[NSBundle mainBundle] pathForResource:@"stopwords_en" ofType:@"txt"];
+    NSString *enStopWords = [NSString stringWithContentsOfFile:enStopWordListFilePath encoding:NSUTF8StringEncoding error:&error];
+    if( !enStopWords && error ) {
+        MWLogError(g_classObj, @"Could not read english stop word list. Details:%@", [error description]);
+    } else {
+        NSSet *enSet = [NSSet setWithArray:[enStopWords componentsSeparatedByString:@"\r\n"]];
+        [allKeywordSet unionSet:enSet];
+    }
+    
+    return allKeywordSet;
 }
 
 -(void)deleteDuplicateCatalog {
@@ -882,7 +907,11 @@ static Class g_classObj = nil;
 }
 
 -(void)showMyCatalogsNoAnimation {
-    [self.navigationController popViewControllerAnimated:NO];
+    if(self->githubCatalog) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 -(void)sendErrorReport {

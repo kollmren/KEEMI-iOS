@@ -12,8 +12,10 @@
 
 @interface LayTextSearchSetup : NSObject
 
-+(void)setupTextSearchForQuestion:(Question*)question;
++(void)clearSearchWordRelationCache;
 
-+(void)setupTextSearchForExplanation:(Explanation*)explanation;
++(void)setupTextSearchForQuestion:(Question*)question andStopWordSet:(NSSet*)stopWordSet;
+
++(void)setupTextSearchForExplanation:(Explanation*)explanation andStopWordSet:(NSSet*)stopWordSet;
 
 @end

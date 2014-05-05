@@ -125,6 +125,8 @@
 		A79EFF0B17734E5F003BD38C /* LayVcCatalogTopics.m in Sources */ = {isa = PBXBuildFile; fileRef = A79EFF0A17734E5F003BD38C /* LayVcCatalogTopics.m */; };
 		A7ADCC84167271D600A5F0B8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A711669F16594818006FF27E /* CoreData.framework */; };
 		A7D51FE216EF466C00E1D241 /* LayConfigurationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A7D51FE116EF466C00E1D241 /* LayConfigurationManager.m */; };
+		A7DAA27819179F6B00527F57 /* stopwords_de.txt in Resources */ = {isa = PBXBuildFile; fileRef = A7DAA27619179F6B00527F57 /* stopwords_de.txt */; };
+		A7DAA27919179F6B00527F57 /* stopwords_en.txt in Resources */ = {isa = PBXBuildFile; fileRef = A7DAA27719179F6B00527F57 /* stopwords_en.txt */; };
 		A7DDAA301733E8C300894790 /* LayMinimizeAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DDAA2F1733E8C300894790 /* LayMinimizeAnimator.m */; };
 		A7F456F6190F93A10001F146 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F456F5190F93A10001F146 /* SystemConfiguration.framework */; };
 		A7F456F8190F93DA0001F146 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F456F7190F93DA0001F146 /* Security.framework */; };
@@ -363,6 +365,8 @@
 		A7D51FE016EF466C00E1D241 /* LayConfigurationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayConfigurationManager.h; sourceTree = "<group>"; };
 		A7D51FE116EF466C00E1D241 /* LayConfigurationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayConfigurationManager.m; sourceTree = "<group>"; };
 		A7D5CD6D167C7B0200FCC1D2 /* Lay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Lay.entitlements; sourceTree = "<group>"; };
+		A7DAA27619179F6B00527F57 /* stopwords_de.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stopwords_de.txt; sourceTree = "<group>"; };
+		A7DAA27719179F6B00527F57 /* stopwords_en.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stopwords_en.txt; sourceTree = "<group>"; };
 		A7DDAA2E1733E8C300894790 /* LayMinimizeAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayMinimizeAnimator.h; sourceTree = "<group>"; };
 		A7DDAA2F1733E8C300894790 /* LayMinimizeAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayMinimizeAnimator.m; sourceTree = "<group>"; };
 		A7F456F1190F93250001F146 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -724,6 +728,8 @@
 		A77AE143170046F500C119AB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7DAA27619179F6B00527F57 /* stopwords_de.txt */,
+				A7DAA27719179F6B00527F57 /* stopwords_en.txt */,
 				A73BD81D19128A73003C39F3 /* LayUserDataModel.xcdatamodeld */,
 				A73BD81A19128A4A003C39F3 /* LayDataModel.xcdatamodeld */,
 				A7955CC3181151DF003CDD0A /* Images.xcassets */,
@@ -963,6 +969,7 @@
 			files = (
 				A75B4727163EA7F20062C3C5 /* InfoPlist.strings in Resources */,
 				A77AE12C1700433E00C119AB /* LayVcCatalogList.xib in Resources */,
+				A7DAA27919179F6B00527F57 /* stopwords_en.txt in Resources */,
 				A7222DFD185F122B00B15CF8 /* LayVcExplanationList.xib in Resources */,
 				A77AE12E1700433E00C119AB /* LayVcCatalogListHeader.xib in Resources */,
 				A740C979190F895900E2574B /* LayVcCatalogStoreList.xib in Resources */,
@@ -972,6 +979,7 @@
 				A77AE1DE17004BB300C119AB /* Icons in Resources */,
 				A776AE801743777B0010659D /* Localizable.strings in Resources */,
 				A7049489177C6EFE000DCA41 /* LayVcStatisticList.xib in Resources */,
+				A7DAA27819179F6B00527F57 /* stopwords_de.txt in Resources */,
 				A7955CC4181151DF003CDD0A /* Images.xcassets in Resources */,
 				A704948B177C6EFE000DCA41 /* LayVcStatisticListHeader.xib in Resources */,
 				A7238BBD17B281E70075E90B /* LayVcFavouriteList.xib in Resources */,

@@ -18,6 +18,7 @@ extern const NSInteger LayCatalogImportProgressPartIdentifierOptimizeSearch;
 @interface LayCatalogImport : NSObject {
     @private
     id<LayCatalogFileReader> dataFileReader;
+    NSSet* stopWordSet;
 }
 
 -(id) initWithDataFileReader:(id<LayCatalogFileReader>) dataFile;
@@ -26,5 +27,7 @@ extern const NSInteger LayCatalogImportProgressPartIdentifierOptimizeSearch;
 -(LayCatalogImportReport*) import;
 
 -(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate;
+
+-(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate andStopWordSet:(NSSet*)stopWordSet;
 
 @end

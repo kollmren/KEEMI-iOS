@@ -38,6 +38,7 @@
 "ImportCatalogOpenCatalog" = "Öffnen";
 "ImportCatalogUpdateCatalog" = "Aktualisieren";
 "ImportCatalogDownloadCatalog" = "Herunterladen";
+"ImportCatalogDownloadCatalogFromGithub" = "Kataloge auf GitHub";
 /* General */
 "Help" = "Hilfe";
 "BackToMyCatalogs" = "Zeige gespeicherte Kataloge";

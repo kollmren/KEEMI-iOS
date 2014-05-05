@@ -38,6 +38,7 @@
 "ImportCatalogOpenCatalog" = "Open";
 "ImportCatalogUpdateCatalog" = "Update";
 "ImportCatalogDownloadCatalog" = "Download";
+"ImportCatalogDownloadCatalogFromGithub" = "Catalogs at GitHub";
 /* General */
 "Help" = "Help";
 "BackToMyCatalogs" = "Show stored catalogs";

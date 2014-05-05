@@ -62,9 +62,10 @@ static Class _classObj = nil;
     return [self importWithStateDelegate:nil];
 }
 
--(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate {
-     [LayDataStoreConfiguration cleanupDataStore];
+-(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate andStopWordSet:(NSSet*)stopWordSet_ {
+    [LayDataStoreConfiguration cleanupDataStore];
     //
+    self->stopWordSet = stopWordSet_;
     LayCatalogImportReport *report = [[LayCatalogImportReport alloc]init];
     LayImportDataStore *datastore = [LayImportDataStore store];
     if(nil == datastore) {
@@ -98,6 +99,10 @@ static Class _classObj = nil;
     }
     
     return report;
+}
+
+-(LayCatalogImportReport*) importWithStateDelegate:(id<LayImportProgressDelegate>)stateDelegate {
+    return [self importWithStateDelegate:stateDelegate andStopWordSet:nil];
 }
 
 -(Catalog*) importNewCatalog:(LayCatalogImportReport *)report andImportStateDelegate:(id<LayImportProgressDelegate>)stateDelegate {
@@ -135,6 +140,7 @@ static Class _classObj = nil;
                         [stateDelegate setMaxSteps:searchableItemsTotal];
                     }
                     NSUInteger step = 0;
+                    [LayTextSearchSetup clearSearchWordRelationCache];
                     [self setupTextSearchForQuestionSet:importCatalog.questionRef andProgressDelegate:stateDelegate step:&step];
                     [self setupTextSearchForExplanationSet:importCatalog.explanationRef andProgressDelegate:stateDelegate step:&step];
                     imported = [importStore saveChanges];
@@ -220,14 +226,14 @@ static Class _classObj = nil;
 
 -(void)setupTextSearchForQuestionSet:(NSSet*)questionSet andProgressDelegate:(id<LayImportProgressDelegate>)stateDelegate step:(NSUInteger*)step {
     for (Question *question in questionSet) {
-        [LayTextSearchSetup setupTextSearchForQuestion:question];
+        [LayTextSearchSetup setupTextSearchForQuestion:question andStopWordSet:self->stopWordSet];
         [stateDelegate setStep:(*step)++];
     }
 }
 
 -(void)setupTextSearchForExplanationSet:(NSSet*)explanationSet andProgressDelegate:(id<LayImportProgressDelegate>)stateDelegate step:(NSUInteger*)step{
     for (Explanation *explanation in explanationSet) {
-        [LayTextSearchSetup setupTextSearchForExplanation:explanation];
+        [LayTextSearchSetup setupTextSearchForExplanation:explanation andStopWordSet:self->stopWordSet];
         [stateDelegate setStep:(*step)++];
     }
 }

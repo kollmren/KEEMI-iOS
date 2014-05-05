@@ -91,7 +91,8 @@ typedef enum : NSUInteger {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     UIFont *appTitleFont = [styleGuide getFont:AppTitleFont];
     UIColor *appNameColor = [styleGuide getColor:TextColor];
-    [self->navBarViewController showTitle:@"Catalogs at GitHub" atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
+    NSString *label = NSLocalizedString(@"ImportCatalogDownloadCatalogFromGithub", nil);
+    [self->navBarViewController showTitle:label atPosition:TITLE_CENTER withFont:appTitleFont andColor:appNameColor];
     //
     //NSString *sectionMyCatalogsTitle = NSLocalizedString(@"MyCatalogs", nil);
     //self->sectionMyCatalog = [self sectionLabelWithTitle:sectionMyCatalogsTitle];
@@ -113,7 +114,6 @@ typedef enum : NSUInteger {
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     if( [self->githubCatalogList count] == 0 ) {
         // The view appears from the import of a catalog
         self->activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
