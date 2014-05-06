@@ -6,13 +6,13 @@
   Copyright (c) 2013 Rene. All rights reserved.
 */
 /* Import */
-"ImportQuestion" = "Do you want to import the catalog?";
-"ImportOkLabel" = "Import";
+"ImportQuestion" = "Do you want to store the catalog?";
+"ImportOkLabel" = "Store";
 "ImportAbortLabel" = "Cancel";
-"ImportSuccessfully" = "Catalog imported successfully";
-"ImportErrorShort" = "Failure during import.";
-"ImportError" = "Could not import the catalog.";
-"ImportErrorEmailAuthor" = "Could not import the catalog. If you have already setup the Mail app you can send an error report to the author of the catalog now.";
+"ImportSuccessfully" = "Catalog stored successfully";
+"ImportErrorShort" = "Failure during storing.";
+"ImportError" = "Could not store the catalog.";
+"ImportErrorEmailAuthor" = "Could not store the catalog. If you have already setup the Mail app you can send an error report to the author of the catalog now.";
 "ImportSendReportMail" = "Send error report.";
 "ImportNotSentReport" = "Did not send the report.";
 "ImportSavedReport" = "Saved the report.";
@@ -21,7 +21,7 @@
 "ImportOpenCatalogError" = "Could not open the catalog. Please send an error report.";
 "ImportShowDescription" = "Show description ...";
 "ImportHiddeDescription" = "Hide description";
-"ImportInfoDuplicateCatalog" = "The catalog below is already stored in your list of catalogs. If you want to import the new catalog delete the already stored catalog first!";
+"ImportInfoDuplicateCatalog" = "The catalog below is already stored in your list of catalogs. If you want to store the new catalog delete the already stored catalog first!";
 "ImportDeleteDuplicateCatalogButton" = "Delete stored catalog";
 "ImportDeletedDuplicateCatalogSuccessfully" = "Stored catalog successfully deleted";
 "ImportDeletedDuplicateCatalogWithErrors" = "Could not delete stored catalog.";
@@ -29,7 +29,7 @@
 "ImportUnpackCatalog" = "Unpack catalog ...";
 "ImportUnpackCatalogError" = "Unpacking failed!";
 "ImportReadCatalogInfo" = "Read catalog information ...";
-"ImportCatalogState" = "Importing catalog ...";
+"ImportCatalogState" = "Storing catalog ...";
 "ImportCatalogCreateThumbnailState" = "Create thumbnails ...";
 "ImportCatalogCreateOptimizeSearch" = "Optimize search ...";
 "ImportDeleteCatalogState" = "Delete catalog ...";
@@ -69,7 +69,7 @@
 "CatalogStatisticMenuTitle" = "Knowledge Level";
 "Save" = "Save";
 "Cancel" = "Cancel";
-"Finished" = "Finished";
+"Finished" = "Close";
 "CatalogQuestionAnswerTitle" = "Answer:";
 "CatalogQuestionAnswerItemTitle" = "Keyword:";
 /* Share */
@@ -128,9 +128,9 @@
 /* Question-Session */
 "QuestionSessionSelectTopicsTitle" = "Topics";
 "QuestionSessionDefaultTopicTitle" = "without topic";
-"QuestionSessionCancelToImportCatalogTitle" = "Cancel session to import a catalog?";
+"QuestionSessionCancelToImportCatalogTitle" = "Cancel session to store a catalog?";
 "QuestionSessionCancelToImportCatalogCancelSession" = "Cancel session";
-"QuestionSessionCancelToImportCatalogContinueSession" = "Don't want to import a catalog";
+"QuestionSessionCancelToImportCatalogContinueSession" = "Don't want to store a catalog";
 "QuestionSessionAnswerCorrect" = "Correct";
 "QuestionSessionAnswerWrong" = "Incorrect";
 "QuestionSessionAnswerSkipped" = "Skipped";

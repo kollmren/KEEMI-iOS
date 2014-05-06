@@ -6,13 +6,13 @@
   Copyright (c) 2013 Rene. All rights reserved.
 */
 /* Import */
-"ImportQuestion" = "Möchtest Du den Katalog importieren?";
-"ImportOkLabel" = "Importieren";
+"ImportQuestion" = "Möchtest Du den Katalog speichern?";
+"ImportOkLabel" = "Speichern";
 "ImportAbortLabel" = "Abbrechen";
-"ImportSuccessfully" = "Der Katalog wurde importiert.";
-"ImportErrorShort" = "Fehler beim importieren";
-"ImportError" = "Beim Importieren des Katalogs traten Fehler auf.";
-"ImportErrorEmailAuthor" = "Beim Importieren des Katalogs traten Fehler auf. Wenn Du Mail bereits eingerichtet hast kannst Du jetzt einen Fehlerbericht an den Autor des Katalogs senden.";
+"ImportSuccessfully" = "Der Katalog wurde gespeichert.";
+"ImportErrorShort" = "Fehler beim Speichern";
+"ImportError" = "Beim Speichern des Katalogs traten Fehler auf.";
+"ImportErrorEmailAuthor" = "Beim Speichern des Katalogs traten Fehler auf. Wenn Du Mail bereits eingerichtet hast kannst Du jetzt einen Fehlerbericht an den Autor des Katalogs senden.";
 "ImportSendReportMail" = "Sende Fehlerbericht";
 "ImportNotSentReport" = "Bericht wurde nicht gesendet.";
 "ImportSavedReport" = "Bericht wurde gespeichert.";
@@ -21,7 +21,7 @@
 "ImportOpenCatalogError" = "Der Katalog konnte nicht geöffnet werden. Bitte schicke einen Fehlerbericht zum Entwickler von KEEMI.";
 "ImportShowDescription" = "Zeige Beschreibung ...";
 "ImportHiddeDescription" = "Beschreibung ausblenden";
-"ImportInfoDuplicateCatalog" = "Der unten aufgeführte Fragenkatalog(Titel, Verleger) ist bereits gespeichert. Der gespeicherte Katalog muss gelöscht werden, um ein Import durchzuführen!";
+"ImportInfoDuplicateCatalog" = "Der unten aufgeführte Fragenkatalog(Titel, Verleger) ist bereits gespeichert. Der gespeicherte Katalog muss gelöscht werden!";
 "ImportDeleteDuplicateCatalogButton" = "Lösche gespeicherten Katalog";
 "ImportDeletedDuplicateCatalogSuccessfully" = "Der gespeicherte Katalog wurde gelöscht!";
 "ImportDeletedDuplicateCatalogWithErrors" = "Der gespeicherte Katalog konnte nicht gelöscht werden.";
@@ -29,7 +29,7 @@
 "ImportUnpackCatalog" = "Entpacke Katalog ...";
 "ImportUnpackCatalogError" = "Der Katalog konnte nicht entpackt werden!";
 "ImportReadCatalogInfo" = "Lese Kataloginformationen ...";
-"ImportCatalogState" = "Katalog wird importiert ...";
+"ImportCatalogState" = "Katalog wird gespeichert ...";
 "ImportDeleteCatalogState" = "Lösche Katalog ...";
 "ImportDownloadCatalogState" = "Download Katalog: %@";
 "ImportStillATaskInProgress" = "Das Öffnen eines Katalogs wurde ignoriert, da ein Katalog gerade verarbeitet wird!";
@@ -69,7 +69,7 @@
 "CatalogStatisticMenuTitle" = "Lernstand";
 "Save" = "Speichern";
 "Cancel" = "Abbrechen";
-"Finished" = "Fertig";
+"Finished" = "Schließen";
 "CatalogQuestionAnswerTitle" = "Antwort:";
 "CatalogQuestionAnswerItemTitle" = "Stichwort:";
 /* Share */
@@ -128,9 +128,9 @@
 /* Question-Session */
 "QuestionSessionSelectTopicsTitle" = "Themen";
 "QuestionSessionDefaultTopicTitle" = "ohne Thema";
-"QuestionSessionCancelToImportCatalogTitle" = "Abfragen beenden um einen Fragenkatalog zu importieren?";
+"QuestionSessionCancelToImportCatalogTitle" = "Abfragen beenden um einen Fragenkatalog zu speichern?";
 "QuestionSessionCancelToImportCatalogCancelSession" = "Abfragen beenden";
-"QuestionSessionCancelToImportCatalogContinueSession" = "Fragenkatalog nicht importieren";
+"QuestionSessionCancelToImportCatalogContinueSession" = "Fragenkatalog nicht speichern";
 "QuestionSessionAnswerCorrect" = "Richtig";
 "QuestionSessionAnswerWrong" = "Falsch";
 "QuestionSessionAnswerSkipped" = "Übersprungen";
@@ -148,7 +148,7 @@
 "QuestionItemMatch" = "Treffer";
 "QuestionItemNoMatch" = "Kein Treffer";
 /* Error messages */
-"ErrorCatalogToOpenDoesnNotExist" = "Die zu öffnende Datei existiert nicht. Der Katalog kann nicht importiert werden";
+"ErrorCatalogToOpenDoesnNotExist" = "Die zu öffnende Datei existiert nicht. Der Katalog kann nicht gespeichert werden";
 "ErrorCouldNotConfigureApp" = "Bei der Konfiguration der Anwendung traten Fehler auf!";
 "ErrorAlertMessageSendBugReport" = "KEEMI wurde nicht ordnungsgemäß beendet! Bitte sende uns den Fehlerbericht um die App zu verbessern. Danke.";
 /* Info */
