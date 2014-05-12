@@ -314,6 +314,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     const CGFloat vSpace = 10.0f;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
     LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
+    choiceView.showExplanationForAnswerButton = YES;
     if(self->answer.numberOfVisibleChoices) {
         NSUInteger numberOfVisibleChoicesAsInteger = [self->answer.numberOfVisibleChoices integerValue];
         NSUInteger numberOfCorrectAnsweredItems = 0;
@@ -398,6 +399,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
                     const CGFloat vSpace = 10.0f;
                     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
                     LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
+                    choiceView.showExplanationForAnswerButton = NO;
                     [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
                     [choiceView showSolution];
                     numberOfKnownItems++;

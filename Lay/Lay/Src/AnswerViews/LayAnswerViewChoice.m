@@ -37,7 +37,7 @@
 @implementation LayAnswerViewChoice
 
 @synthesize mode, showMarkIndicatorInButtons, showMediaList, showAnswerItemsOrdered, showAnswerItemsRespectingLearnState;
-@synthesize showAnswerItemsKnownByUserOnly;
+@synthesize showAnswerItemsKnownByUserOnly, showExplanationForAnswerButton;
 
 static const CGFloat VERTICAL_SPACE = 0.0f;
 static const NSInteger HEIGTH_FILLED_RIBBON = 190.0f;
@@ -55,6 +55,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         self.showAnswerItemsKnownByUserOnly = NO;
         self.showAnswerItemsOrdered = NO;
         self.showMarkIndicatorInButtons = YES;
+        self.showExplanationForAnswerButton = YES;
         self.mode = LAY_ANSWER_VIEW_MULTIPLE_CHOICE;
         LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
         const CGSize ribbonEntrySize = [styleGuide maxRibbonEntrySize];
@@ -173,7 +174,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
 }
 
 -(void)addButtonWithExplanationFor:(Answer*)answer_ {
-    if([answer_ hasExplanation]) {
+    if(self.showExplanationForAnswerButton && [answer_ hasExplanation]) {
         LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
         const CGFloat hSpace = 0.0f;//[style getHorizontalScreenSpace];
         CGFloat widthOfButton = self.frame.size.width - 2 * hSpace;
@@ -454,10 +455,6 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     [self addButtonsForAnswer:answer_ enableButton:userCanSetAnswer];
     [self layoutView:VERTICAL_SPACE];
     return self.frame.size;
-}
-
--(CGSize)showAnswerItems:(NSArray*)answerItemList andSize:(CGSize)viewSize userCanSetAnswer:(BOOL)userCanSetAnswer {
-    
 }
 
 -(void)showSolution {

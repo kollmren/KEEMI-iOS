@@ -31,4 +31,6 @@ typedef enum LAY_ANSWER_VIEW_CHOICE_MODE_ {
 
 @property (nonatomic) BOOL showAnswerItemsKnownByUserOnly;
 
+@property (nonatomic) BOOL showExplanationForAnswerButton;
+
 @end
