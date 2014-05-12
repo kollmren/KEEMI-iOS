@@ -128,6 +128,7 @@ static Class g_classObj = nil;
                                                    type:catalogFileInfo_.coverMediaType
                                               andFormat:catalogFileInfo_.coverMediaFormat];
     LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:coverFrame andMediaData:coverMediaData];
+    mediaView.zoomable = NO;
     mediaView.scaleToFrame = YES;
     mediaView.ignoreEvents = YES;
     mediaView.tag = TAG_MEDIA_VIEW;

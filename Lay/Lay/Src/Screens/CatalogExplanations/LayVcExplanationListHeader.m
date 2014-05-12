@@ -45,6 +45,7 @@ static const NSInteger TAG_MEDIA_VIEW = 1001;
     const CGRect coverMediaRect = CGRectMake(hSpace, YPOS_COVER, coverSize.width, coverSize.height);
     LayMediaData *coverMediaData = [LayMediaData byMediaObject:cover_];
     LayMediaView *mediaView = [[LayMediaView alloc]initWithFrame:coverMediaRect andMediaData:coverMediaData];
+    mediaView.zoomable = NO;
     mediaView.scaleToFrame = YES;
     mediaView.ignoreEvents = YES;
     mediaView.tag = TAG_MEDIA_VIEW;

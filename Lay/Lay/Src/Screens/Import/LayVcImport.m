@@ -205,8 +205,8 @@ static Class g_classObj = nil;
 -(void)setupDownloadStateView {
     LayCatalogFileInfo *catalogFileInfo2 = [LayCatalogFileInfo new];
     catalogFileInfo2.catalogTitle = self->githubCatalog->title;
-    [catalogFileInfo2 setDetail:self->githubCatalog->name forKey:@"publisher"];
-    [catalogFileInfo2 setDetail:self->githubCatalog->version forKey:@"version"];
+    //[catalogFileInfo2 setDetail:self->githubCatalog->name forKey:@"publisher"];
+    //[catalogFileInfo2 setDetail:self->githubCatalog->version forKey:@"version"];
     catalogFileInfo2.cover = self->githubCatalog->cover;
     catalogFileInfo2.coverMediaFormat = LAY_FORMAT_JPG;
     catalogFileInfo2.coverMediaType = LAY_MEDIA_IMAGE;
