@@ -131,7 +131,7 @@ static const NSInteger TAG_MEDIA = 101;
         textLabel.text = answerItem_.text;
         [textLabel sizeToFit];
         [self addSubview:textLabel];
-        //[LayFrame setWidthWith:itemWidth toView:textLabel];
+        [self showKeyWordList:self->answerItem];
         [self adjustButtonHeight];
         [self adjustLayerTo:self.frame];
     } else {
@@ -165,20 +165,13 @@ static const NSInteger TAG_MEDIA = 101;
     textLabel.numberOfLines = [style numberOfLines];
     textLabel.text = answerItem_.text;
     [textLabel sizeToFit]; // adjust the height only
-    /*const CGFloat maxLabelHeight = buttonFrameSize.height - 2*vIndent;
-    if(textLabel.frame.size.height > maxLabelHeight) {
-        [LayFrame setHeightWith:maxLabelHeight toView:textLabel animated:NO];
-    }
-    // center label vertically
-    [LayFrame setWidthWith:widthOfTextLabel toView:textLabel];
-     */
     [self addSubview:textLabel];
-    // adjust the height only
+    [self showKeyWordList:self->answerItem];
     [self adjustButtonHeight];
     [self adjustLayerTo:self.frame];
 }
 
--(void) showKeyWordListIfEvaluated:(AnswerItem*)answerItem_ {
+-(void) showKeyWordList:(AnswerItem*)answerItem_ {
     UIView *textLabel = [self viewWithTag:TAG_TEXT];
     if( textLabel && answerItem_.longTermWordList ) {
         LayStyleGuide *style = [LayStyleGuide instanceOf:nil];
@@ -355,7 +348,6 @@ static const NSInteger TAG_MEDIA = 101;
 
 -(void)showCorrectness {
     self->evaluated = YES;
-    [self showKeyWordListIfEvaluated:self->answerItem];
     [self adjustButtonHeight];
     [self adjustBorder];
  //   if(self.showCorrectnessIconIfEvaluated || self.showInfoIconIfEvaluated || self.showMarkIndicator ) {

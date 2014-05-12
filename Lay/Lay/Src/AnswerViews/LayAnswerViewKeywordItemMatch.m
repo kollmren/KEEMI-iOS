@@ -315,7 +315,19 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
     LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
     if(self->answer.numberOfVisibleChoices) {
-        choiceView.showAnswerItemsKnownByUserOnly = YES;
+        NSUInteger numberOfVisibleChoicesAsInteger = [self->answer.numberOfVisibleChoices integerValue];
+        NSUInteger numberOfCorrectAnsweredItems = 0;
+        for (AnswerItem *item in [self->answer completeAnswerItemListSessionOrderPreserved]) {
+            if( [item.sessionKnownByUser boolValue] ) {
+                numberOfCorrectAnsweredItems++;
+            }
+        }
+        if( numberOfCorrectAnsweredItems == numberOfVisibleChoicesAsInteger ) {
+            choiceView.showAnswerItemsKnownByUserOnly = YES;
+        } else {
+            choiceView.showAnswerItemsKnownByUserOnly = NO;
+        }
+        
     } else {
         choiceView.showAnswerItemsKnownByUserOnly = NO;
     }
@@ -435,6 +447,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     }
     
 
+    NSInteger numberOfVisibleCorrectItems = [self->answer.numberOfVisibleChoices integerValue];
     if( answerMatched ) {
         static const NSUInteger MAX_LENGTH_OF_ANSWER_TO_SHOW = 40;
         NSUInteger lengthOfCurrentAnswer = [currentMatchedAnswer length];
@@ -449,21 +462,32 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
         } else {
             textToShow = currentMatchedAnswer;
         }
-        [self showMatchHintWithText:textToShow andState:YES];
+        
+        if( self->answer.numberOfVisibleChoices ) {
+            if( numberOfKnownItems != numberOfVisibleCorrectItems ) {
+                [self showMatchHintWithText:textToShow andState:YES];
+            }
+        } else if( numberOfKnownItems != [answerItemList count] ) {
+            [self showMatchHintWithText:textToShow andState:YES];
+        }
         answerTextField.text = @"";
+    
     } else {
         NSString *message = NSLocalizedString(@"QuestionItemNoMatch", nil);
         [self showMatchHintWithText:message andState:NO];
     }
     
     if( self->answer.numberOfVisibleChoices ) {
-        NSInteger numberOfVisibleCorrectItems = [self->answer.numberOfVisibleChoices integerValue];
         if( numberOfKnownItems == numberOfVisibleCorrectItems ) {
             [self removeTextInputDialog];
+            if(self.answerViewDelegate) {
+                [self.answerViewDelegate evaluate];
+            }
         }
-    } else {
-        if( numberOfKnownItems == [answerItemList count] ) {
-            [self removeTextInputDialog];
+    } else if( numberOfKnownItems == [answerItemList count] ) {
+        [self removeTextInputDialog];
+        if(self.answerViewDelegate) {
+            [self.answerViewDelegate evaluate];
         }
     }
     
@@ -471,21 +495,6 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     if(self.answerViewDelegate ) {
         [self.answerViewDelegate resizedToSize:self.frame.size];
     }
-    
-    /*
-    self->answer.sessionAnswer = textToCheck;
-    //
-    answerTextField.enabled = NO;
-    answerTextField.layer.borderColor = [UIColor clearColor].CGColor;
-    UIView *buttonContainer = [self viewWithTag:TAG_BUTTON_CONTAINER];
-    buttonContainer.hidden = YES;
-    UIView *answerContainer = [self viewWithTag:TAG_ANSWER_CONTAINER];
-    //
-    [self layoutContainer:answerContainer withStartYPos:0.0f];
-    if(self.answerViewDelegate) {
-        [self.answerViewDelegate evaluate];
-    }
-     */
 }
 
 -(void)showMatchHintWithText:(NSString*)text andState:(BOOL)wrongOrCorrect {
