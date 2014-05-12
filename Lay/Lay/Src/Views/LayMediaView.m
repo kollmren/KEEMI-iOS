@@ -206,7 +206,16 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
 }
 
 -(void)addAdditionalButton {
-    if( self->mediaData && self->mediaData.type == LAY_MEDIA_XML && !self.showFullscreen) {
+    BOOL addButton = NO;
+    if( self->mediaData && self->mediaData.type == LAY_MEDIA_XML
+       && !self.showFullscreen) {
+        addButton = YES;
+    } else if( self->mediaData && self->mediaData.type == LAY_MEDIA_IMAGE && self.zoomable
+              && !self.showFullscreen ) {
+        addButton = YES;
+    }
+    
+    if( addButton ) {
         // Is shown in webview. As we dont know if the xml or html is rendered entirely we give the user the chance to open in in fullscreen.
         const CGFloat xPosAddButton = self.frame.size.width - additionalButtonSize.width;
         const CGFloat yPosAddButton = self.frame.size.height - additionalButtonSize.height;
@@ -255,11 +264,11 @@ static const NSInteger TAG_IMAGE_FULLSCREEN_BACKGROUND = 1005;
             //webView.delegate = self;
         }
         
-        if(self.zoomable) {
+        /**if(self.zoomable) {
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self action:@selector(showContentInFullScreen)];
             [self addGestureRecognizer:tap];
-        }
+        }*/
     }
     [self addAdditionalButton];
 }

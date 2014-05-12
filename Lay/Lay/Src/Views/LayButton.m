@@ -85,6 +85,7 @@ static const NSInteger TAG_CONTAINER = 103;
     if(self) {
         const CGRect mediaViewFrame = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
         self->mediaView = [[LayMediaView alloc]initWithFrame:mediaViewFrame andMediaData:mediaData];
+        self->mediaView.zoomable = NO;
         self->mediaView.tag = TAG_IMAGE;
         self->mediaView.fitToContent = YES;
         self->mediaView.border = NO;
