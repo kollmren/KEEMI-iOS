@@ -1025,7 +1025,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents/TestData\ncp -r /Users/rene/Programming/KEEMI/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.0.3/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Copy test-data to simulator test-data-dir\nmkdir -p /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.1/Documents\nrm -rf /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.1/Documents/TestData\ncp -r /Users/rene/Programming/KEEMI/LayCore/LayCoreTests/TestData /Users/rene/Library/Application\\ Support/iPhone\\ Simulator/7.1/Documents/TestData\n# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

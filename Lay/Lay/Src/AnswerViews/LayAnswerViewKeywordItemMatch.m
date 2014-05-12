@@ -261,12 +261,25 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
 }
 
 -(BOOL)answerCorrect {
-    BOOL answerCorrect = YES;
-    for (AnswerItem *answerItem in [self->answer answerItemListSessionOrderPreserved]) {
-        if([answerItem.sessionKnownByUser boolValue] == NO) {
-            answerCorrect = NO;
+    NSInteger numberOfCorrectItems = 0;
+    NSArray *completeItemList = [self->answer completeAnswerItemListSessionOrderPreserved];
+    for (AnswerItem *answerItem in completeItemList) {
+        if( [answerItem.sessionKnownByUser boolValue] == YES) {
+            ++numberOfCorrectItems;
         }
     }
+    
+    BOOL answerCorrect = NO;
+    NSInteger numberOfVisibleCorrectItems = 0;
+    if( self->answer.numberOfVisibleChoices ) {
+        numberOfVisibleCorrectItems = [self->answer.numberOfVisibleChoices integerValue];
+        if( numberOfVisibleCorrectItems == numberOfCorrectItems  ) {
+            answerCorrect = YES;
+        }
+    } else if( numberOfCorrectItems == [completeItemList count]) {
+        answerCorrect = YES;
+    }
+    
     return answerCorrect;
 }
 
@@ -301,7 +314,12 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     const CGFloat vSpace = 10.0f;
     CGSize sizeForChoiceView = CGSizeMake(viewSize.width, viewSize.height-vSpace);
     LayAnswerViewChoice *choiceView = (LayAnswerViewChoice*)[self viewWithTag:TAG_ANSWER_CHOICE_VIEW];
-    choiceView.showAnswerItemsKnownByUserOnly = NO;
+    if(self->answer.numberOfVisibleChoices) {
+        choiceView.showAnswerItemsKnownByUserOnly = YES;
+    } else {
+        choiceView.showAnswerItemsKnownByUserOnly = NO;
+    }
+    
     [choiceView showAnswer:self->answer andSize:sizeForChoiceView userCanSetAnswer:YES];
     [choiceView showSolution];
     [self layoutView];
@@ -349,7 +367,7 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
     NSUInteger numberOfKnownItems = 0;
     BOOL answerMatched = NO;
     NSString *currentMatchedAnswer = nil;
-    NSArray *answerItemList = [self->answer answerItemListSessionOrderPreserved];
+    NSArray *answerItemList = [self->answer completeAnswerItemListSessionOrderPreserved];
     if( [question questionType] == ANSWER_TYPE_KEY_WORD_ITEM_MATCH ) {
         // The order of the items is ignored
         for (AnswerItem *answerItem in answerItemList) {
@@ -438,8 +456,15 @@ static const CGFloat ANSWER_CONTAINER_SPACE_ABOVE = 15.0f;
         [self showMatchHintWithText:message andState:NO];
     }
     
-    if( numberOfKnownItems == [answerItemList count] ) {
-        [self removeTextInputDialog];
+    if( self->answer.numberOfVisibleChoices ) {
+        NSInteger numberOfVisibleCorrectItems = [self->answer.numberOfVisibleChoices integerValue];
+        if( numberOfKnownItems == numberOfVisibleCorrectItems ) {
+            [self removeTextInputDialog];
+        }
+    } else {
+        if( numberOfKnownItems == [answerItemList count] ) {
+            [self removeTextInputDialog];
+        }
     }
     
     [self layoutView];

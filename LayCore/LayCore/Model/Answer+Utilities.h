@@ -23,6 +23,8 @@
 
 -(NSArray*)answerItemListSessionOrderPreserved;
 
+-(NSArray*)completeAnswerItemListSessionOrderPreserved;
+
 -(AnswerItem*)answerItemInstance;
 
 -(void)addAnswerItem:(AnswerItem*)answerItem;

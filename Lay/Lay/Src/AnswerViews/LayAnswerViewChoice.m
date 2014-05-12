@@ -40,8 +40,6 @@
 @synthesize showAnswerItemsKnownByUserOnly;
 
 static const CGFloat VERTICAL_SPACE = 0.0f;
-static const CGFloat BORDER_MEDIA_BUTTON = 10.0f;
-static const NSInteger NUMBER_MEDIA_BUTTONS_IN_ROW = 2;
 static const NSInteger HEIGTH_FILLED_RIBBON = 190.0f;
 static const NSInteger TAG_IMAGE_RIBBON = 1001;
 static const NSInteger TAG_FOR_EXPLANATION_BUTTON = 2001;
@@ -456,6 +454,10 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     [self addButtonsForAnswer:answer_ enableButton:userCanSetAnswer];
     [self layoutView:VERTICAL_SPACE];
     return self.frame.size;
+}
+
+-(CGSize)showAnswerItems:(NSArray*)answerItemList andSize:(CGSize)viewSize userCanSetAnswer:(BOOL)userCanSetAnswer {
+    
 }
 
 -(void)showSolution {

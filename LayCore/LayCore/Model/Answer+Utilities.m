@@ -116,6 +116,41 @@ static const NSInteger invalidSessionNumber = 0;
     return answerItemList;
 }
 
+-(NSArray*)completeAnswerItemListSessionOrderPreserved {
+    NSMutableArray* answerItemList = [[NSMutableArray alloc]initWithCapacity:[self.answerItemRef count]];
+    BOOL itemListIsSessionPreserved = [self answerItemListIsPreserved];
+    if( !itemListIsSessionPreserved ) {
+        [answerItemList setArray:[self.answerItemRef allObjects]];
+        BOOL shuffleAnswers = [self.shuffleAnswers boolValue];
+        if(shuffleAnswers) {
+            [self answerItemListRandom:answerItemList];
+        } else {
+            [self answerItemListOrderedByNumber:answerItemList];
+        }
+        
+        // Set a session number to ensure the same order of the items within a session.
+        NSUInteger sessionNumber = 1;
+        for (AnswerItem* answerItem in answerItemList) {
+            answerItem.sessionNumber = [NSNumber numberWithUnsignedInteger:sessionNumber];
+            ++sessionNumber;
+        }
+    } else {
+        for (AnswerItem *item in self.answerItemRef) {
+            NSInteger sessionNumber = [[item sessionNumber]integerValue];
+            if(sessionNumber != invalidSessionNumber ) {
+                [answerItemList addObject:item];
+            }
+        }
+    }
+    
+    NSSortDescriptor *sd = [NSSortDescriptor
+                            sortDescriptorWithKey:@"sessionNumber"
+                            ascending:YES];
+    [answerItemList sortUsingDescriptors:[NSArray arrayWithObject:sd]];
+    
+    return answerItemList;
+}
+
 -(void)answerItemListRandom:(NSMutableArray*)answerItemList {
     for (NSUInteger x = 0; x < [answerItemList count]; x++) {
         NSUInteger randInt = (random() % ([answerItemList count] - x)) + x;
