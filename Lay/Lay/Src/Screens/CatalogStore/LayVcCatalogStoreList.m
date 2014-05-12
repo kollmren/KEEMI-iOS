@@ -121,17 +121,7 @@ typedef enum : NSUInteger {
         [self.tableView setBackgroundView:self->activity];
         [self->activity startAnimating];
         //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
-        NSError *error = nil;
-        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.github.com"] encoding:NSUTF8StringEncoding error:&error];
-        if( URLString ) {
-            [self searchKeemiCatalogsAtGitHub];
-        } else {
-            NSString *errorMesg = NSLocalizedString(@"ImportDownloadNoConnection", nil);
-            [self showErrorMessage:errorMesg];
-            if(error) {
-                MWLogError([LayVcCatalogStoreList class], @"No connection! Details:%@", [error description] );
-            }
-        }
+        [self searchKeemiCatalogsAtGitHub];
         
     } else {
         catalogsInStore = [[LayMainDataStore store] findAllCatalogs];
@@ -427,6 +417,9 @@ typedef enum : NSUInteger {
     static const NSInteger API_RATE_LIMIT_EXCEEDED_EEROR = 674;
     if ( error.code == API_RATE_LIMIT_EXCEEDED_EEROR ) {
         NSString *errorMesg = NSLocalizedString(@"ImportDownloadRateLimitReached", nil);
+        [self showErrorMessage:errorMesg];
+    } else {
+        NSString *errorMesg = NSLocalizedString(@"ImportDownloadNoConnection", nil);
         [self showErrorMessage:errorMesg];
     }
 }
