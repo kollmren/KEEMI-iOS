@@ -27,7 +27,7 @@
     NSArray *explanationList;
     LayExplanationLearnSession* explanationLearnSession;
     UIView *askOpenRelatedQuestionsDialog;
-    NSMutableArray *relatedQuestions;
+    NSMutableSet *relatedQuestions;
 }
 @end
 
@@ -210,7 +210,7 @@
 -(void)prepareRecallSessionForPresentedExplanations {
     if(self->relatedQuestions) {
         LayCatalogManager *catalogManager = [LayCatalogManager instance];
-        catalogManager.selectedQuestions = relatedQuestions;
+        catalogManager.selectedQuestions = [relatedQuestions allObjects];
         catalogManager.currentCatalogShouldBeQueriedDirectly = YES;
     }
     [self closeViewController];
@@ -238,12 +238,13 @@
         NSDictionary *presentedExplanationsInSession = [self->explanationLearnSession presentedExplanations];
         const NSUInteger numberOfPresentedExplanationsInSession = [presentedExplanationsInSession count];
         if(presentedExplanationsInSession && numberOfPresentedExplanationsInSession > 1) {
-            relatedQuestions = [NSMutableArray arrayWithCapacity:20];
+            relatedQuestions = [NSMutableSet setWithCapacity:20];
             NSArray *presentedExplanationsList = [presentedExplanationsInSession allValues];
             for (Explanation* explanation in presentedExplanationsList) {
                 if([explanation hasRelatedQuestions]) {
-                    NSArray* relatedQuestionsForExplanation = [explanation relatedQuestionList];
-                    [relatedQuestions addObjectsFromArray:relatedQuestionsForExplanation];
+                    NSArray *relatedQuestionsForExplanation = [explanation relatedQuestionList];
+                    NSSet* relatedQuestionsForExplanationSet = [NSSet setWithArray:relatedQuestionsForExplanation];
+                    [relatedQuestions unionSet:relatedQuestionsForExplanationSet];
                 }
             }
             NSUInteger numberOfRelatedQuestions = [relatedQuestions count];
