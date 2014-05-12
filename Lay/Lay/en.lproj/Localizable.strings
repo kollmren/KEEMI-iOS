@@ -40,6 +40,7 @@
 "ImportCatalogDownloadCatalog" = "Download";
 "ImportCatalogDownloadCatalogFromGithub" = "Catalogs at GitHub";
 "ImportDownloadRateLimitReached" = "The GiHub API rate limit is exceeded. Try it in five minutes again!";
+"ImportDownloadNoConnection" = "No connection to www.GitHub.com";
 /* General */
 "Help" = "Help";
 "BackToMyCatalogs" = "Show stored catalogs";

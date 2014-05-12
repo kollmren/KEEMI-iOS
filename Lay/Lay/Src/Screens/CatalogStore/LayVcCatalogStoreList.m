@@ -121,7 +121,18 @@ typedef enum : NSUInteger {
         [self.tableView setBackgroundView:self->activity];
         [self->activity startAnimating];
         //[self performSelectorInBackground:@selector(searchKeemiCatalogsAtGitHub) withObject:nil];
-        [self searchKeemiCatalogsAtGitHub];
+        NSError *error = nil;
+        NSString *URLString = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://www.github.com"] encoding:NSUTF8StringEncoding error:&error];
+        if( URLString ) {
+            [self searchKeemiCatalogsAtGitHub];
+        } else {
+            NSString *errorMesg = NSLocalizedString(@"ImportDownloadNoConnection", nil);
+            [self showErrorMessage:errorMesg];
+            if(error) {
+                MWLogError([LayVcCatalogStoreList class], @"No connection! Details:%@", [error description] );
+            }
+        }
+        
     } else {
         catalogsInStore = [[LayMainDataStore store] findAllCatalogs];
     }
@@ -334,14 +345,14 @@ typedef enum : NSUInteger {
     }
 }
 
--(void)showRateLimitExceededFailureMessage {
+-(void)showErrorMessage:(NSString*)error {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];
     const CGFloat width = self.view.frame.size.width - 2 * hSpace;
     const CGRect labelRect = CGRectMake(0.0f, 0.0f, width, 0.0f);
     UILabel *label = [[UILabel alloc]initWithFrame:labelRect];
     label.textColor = [UIColor lightGrayColor];
-    label.text = NSLocalizedString(@"ImportDownloadRateLimitReached", nil);
+    label.text = error;
     // adjust size
     label.textColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentCenter;
@@ -415,7 +426,8 @@ typedef enum : NSUInteger {
     MWLogError([LayVcCatalogStoreList class], @"Could not search for KEEMI catalogs! Details:%@!", [error description]);
     static const NSInteger API_RATE_LIMIT_EXCEEDED_EEROR = 674;
     if ( error.code == API_RATE_LIMIT_EXCEEDED_EEROR ) {
-        [self showRateLimitExceededFailureMessage];
+        NSString *errorMesg = NSLocalizedString(@"ImportDownloadRateLimitReached", nil);
+        [self showErrorMessage:errorMesg];
     }
 }
 
