@@ -390,9 +390,12 @@ typedef enum : NSUInteger {
         NSError *error = nil;
         NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:&error];
         catalog->name = userInfo[@"name"];
-        if( [catalog->name length] > 1 ) {
+        BOOL isVersionSchemaConform = [self isVersionSchemaConform:catalog->version];
+        if( [catalog->name length] > 1 && isVersionSchemaConform ) {
             [self->githubCatalogList addObject:catalog];
             [self performSelectorOnMainThread:@selector(addCatalogToTable) withObject:nil waitUntilDone:NO];
+        } else if( !isVersionSchemaConform ) {
+            MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the catalog's version: is not conform to the version schema!", catalog->title, catalog->version );
         } else {
             MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the owner has no name set!", catalog->title );
         }
@@ -462,6 +465,22 @@ typedef enum : NSUInteger {
         }
     }
     return catalog;
+}
+-(BOOL)isVersionSchemaConform:(NSString*)version {
+    BOOL isConform = YES;
+    NSArray *majorMinor = [version componentsSeparatedByString:@"."];
+    if( [majorMinor count] == 2 ) {
+        NSString *major = majorMinor[0];
+        NSInteger majorNumber = [major integerValue];
+        NSString *minor = majorMinor[1];
+        NSInteger minorNumber = [minor integerValue];
+        if(majorNumber == 0 && minorNumber == 0) {
+            isConform = NO;
+        }
+    } else {
+        isConform = NO;
+    }
+    return isConform;
 }
 
 @end
