@@ -121,7 +121,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         // button gets whole row
         const CGRect buttonRect = CGRectMake(hSpace, 0.0f, widthOfButton, [style maxHeightOfAnswerButton]);
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
-        if( self.showAnswerItemsRespectingLearnState ) {
+        if( self.showAnswerItemsRespectingLearnState || self.showAnswerItemsOrdered  ) {
             answerButton.showAsMarked = YES;
         }
         answerButton.enabled = enable;
@@ -161,7 +161,7 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
         if(self.showAnswerItemsKnownByUserOnly && [answerItem.sessionKnownByUser boolValue] == NO) continue;
         
         LayAnswerButton *answerButton = [[LayAnswerButton alloc]initWithFrame:buttonRect and:answerItem];
-        if( self.showAnswerItemsRespectingLearnState ) {
+        if( self.showAnswerItemsRespectingLearnState || self.showAnswerItemsOrdered ) {
             answerButton.showAsMarked = YES;
         }
         answerButton.enabled = enable;

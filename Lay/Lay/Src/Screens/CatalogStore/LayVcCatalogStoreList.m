@@ -392,8 +392,7 @@ typedef enum : NSUInteger {
         catalog->name = userInfo[@"name"];
         BOOL isVersionSchemaConform = [self isVersionSchemaConform:catalog->version];
         if( [catalog->name length] > 1 && isVersionSchemaConform ) {
-            [self->githubCatalogList addObject:catalog];
-            [self performSelectorOnMainThread:@selector(addCatalogToTable) withObject:nil waitUntilDone:NO];
+            [self performSelectorOnMainThread:@selector(addCatalogToTable:) withObject:catalog waitUntilDone:NO];
         } else if( !isVersionSchemaConform ) {
             MWLogError([LayVcCatalogStoreList class], @"Ignore catalog:%@ as the catalog's version: is not conform to the version schema!", catalog->title, catalog->version );
         } else {
@@ -428,7 +427,8 @@ typedef enum : NSUInteger {
 }
 
 
--(void)addCatalogToTable {
+-(void)addCatalogToTable:(LayGithubCatalog*)catalog {
+    [self->githubCatalogList addObject:catalog];
     int lastRow = [self->githubCatalogList count] - 1;
     NSIndexPath *ip = [NSIndexPath indexPathForRow:lastRow inSection:0];
     [[self tableView] insertRowsAtIndexPaths:@[ip] withRowAnimation:UITableViewRowAnimationBottom];
