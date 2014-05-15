@@ -335,6 +335,11 @@ typedef enum : NSUInteger {
     }
 }
 
+-(void)showRateLimitExceededFailureMessage {
+    NSString *errorMesg = NSLocalizedString(@"ImportDownloadRateLimitReached", nil);
+    [self showErrorMessage:errorMesg];
+}
+
 -(void)showErrorMessage:(NSString*)error {
     LayStyleGuide *styleGuide = [LayStyleGuide instanceOf:nil];
     const CGFloat hSpace = [styleGuide getHorizontalScreenSpace];

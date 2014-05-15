@@ -1231,6 +1231,17 @@
 					$SOURCE_ROOT/../ThirdParty/OctoKit/OctoKit,
 					$SOURCE_ROOT/../LayCore/LayCore/Model/UserGeneratedContent,
 				);
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					$SOURCE_ROOT/../LayCore/LayCore,
+					$SOURCE_ROOT/../LayCore/LayCore/Model,
+					$SOURCE_ROOT/../LayCore/LayCore/Utilities,
+					$SOURCE_ROOT/../LayCore/LayCore/Datastore,
+					$SOURCE_ROOT/../LayCore/LayCore/Domain,
+					$SOURCE_ROOT/../LayCore/LayCore/Import,
+					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
+					$SOURCE_ROOT/../ThirdParty/OctoKit/OctoKit,
+					$SOURCE_ROOT/../LayCore/LayCore/Model/UserGeneratedContent,
+				);
 				INFOPLIST_FILE = "Lay/KEEMI-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -1267,6 +1278,7 @@
 					"$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts/include",
 					"$(inherited)",
 					$SOURCE_ROOT/../LayCore/LayCore/Model/UserGeneratedContent,
+					$SOURCE_ROOT/../ThirdParty/OctoKit/OctoKit,
 				);
 				INFOPLIST_FILE = "Lay/KEEMI-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
