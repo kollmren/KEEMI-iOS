@@ -104,7 +104,13 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
 }
 
 -(void)addButtonsForAnswerItemsRowStyle:(Answer*)answer_ enableButton:(BOOL)enable {
-    NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
+    NSArray *answerItemList = nil;
+    if( self.showAnswerItemsOrdered ) {
+        answerItemList = [self->answer answerItemListOrdered];
+    } else {
+        answerItemList = [self answerItemListFromAnswer:answer_];
+    }
+    
     for (AnswerItem* answerItem in answerItemList) {
         
         if(self.showAnswerItemsKnownByUserOnly && [answerItem.sessionKnownByUser boolValue] == NO) continue;
@@ -144,7 +150,12 @@ static const NSInteger TAG_RIGHT_COLUMN_BUTTON_CONTAINER = 140;
     UIView* buttonContainerRightColumn = [[UIView alloc]initWithFrame:containerFrameRight];
     buttonContainerRightColumn.tag = TAG_RIGHT_COLUMN_BUTTON_CONTAINER;
     BOOL leftRight = YES;
-    NSArray *answerItemList = [self answerItemListFromAnswer:answer_];
+    NSArray *answerItemList = nil;
+    if( self.showAnswerItemsOrdered ) {
+        answerItemList = [self->answer answerItemListOrdered];
+    } else {
+        answerItemList = [self answerItemListFromAnswer:answer_];
+    }
     for (AnswerItem* answerItem in answerItemList) {
         
         if(self.showAnswerItemsKnownByUserOnly && [answerItem.sessionKnownByUser boolValue] == NO) continue;

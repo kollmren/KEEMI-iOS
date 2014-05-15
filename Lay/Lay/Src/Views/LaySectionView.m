@@ -118,7 +118,12 @@ static const NSInteger TAG_SECTION_ITEM_MEDIA_LIST = 1004;
 -(void)addAnswerItemList:(SectionQuestion*)sectionQuestion {
     LayAnswerViewChoice *choiceView = [[LayAnswerViewChoice alloc]initAnswerView];
     choiceView.showMediaList = NO;
-    choiceView.showAnswerItemsRespectingLearnState = YES;
+    if( [sectionQuestion.questionRef questionType] == ANSWER_TYPE_ORDER ) {
+        choiceView.showAnswerItemsOrdered = YES;
+    } else {
+        choiceView.showAnswerItemsRespectingLearnState = YES;
+    }
+    
     [choiceView showMarkIndicator:NO];
     CGSize sizeForChoiceView = CGSizeMake(self.frame.size.width, 0.0f);
     Answer* answer = sectionQuestion.questionRef.answerRef;

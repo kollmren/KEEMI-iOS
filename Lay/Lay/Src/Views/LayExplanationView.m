@@ -15,8 +15,6 @@
 #import "Explanation+Utilities.h"
 #import "Section+Utilities.h"
 
-static const CGFloat V_SPACE_TITLE = 15.0f;
-
 @implementation LayExplanationView
 
 -(id)initWithFrame:(CGRect)frame andExplanation:(Explanation*)explanation;
