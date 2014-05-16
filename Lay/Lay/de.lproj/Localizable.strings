@@ -160,6 +160,7 @@
 "InfoAppVersionTitle" = "App-Version";
 "InfoSupportFeedback" = "Kontaktiere uns";
 "InfoHelpFaq" = "Funktionen";
+"InfoHelpCreateCatalog" = "Einen Katalog auf GitHub publizieren";
 "InfoBuy" = "KEEMI Professional";
 "InfoBuyProVersion" = "KEEMI Pro kaufen";
 "InfoBuyButton" = "Für %@ kaufen";
