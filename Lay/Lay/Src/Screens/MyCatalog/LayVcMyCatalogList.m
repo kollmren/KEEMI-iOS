@@ -28,8 +28,6 @@
 #import "MWLogging.h"
 
 
-static const NSInteger NUMBER_OF_SECTIONS = 1;
-
 @interface LayVcMyCatalogList () {
     LayTableSectionView* sectionMyCatalog;
     LayImportStateViewHandler *stateViewHandler;
@@ -174,6 +172,7 @@ static const NSInteger NUMBER_OF_SECTIONS = 1;
     NSString *numberOfQuestionsFormat = NSLocalizedString(@"CatalogNumberOfQuestionsLabel", nil);
     NSString *numberOfQuestions = [NSString stringWithFormat:numberOfQuestionsFormat, [catalog numberOfQuestions]];
     [column setCover:catalog.coverRef title:catalog.title publisher:[catalog publisher] andNumberOfQuestions:numberOfQuestions];
+    
     return cell;
 }
 

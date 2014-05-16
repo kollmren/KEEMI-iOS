@@ -598,7 +598,11 @@ static Class g_classObj = nil;
     NSOutputStream *fullPathOutStream = [NSOutputStream outputStreamToFileAtPath:fullPath append:NO];
     [self->downlaodOperation setOutputStream:fullPathOutStream];
     [self->downlaodOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        [self setMaxSteps:totalBytesExpectedToRead];
+        long long maxSteps = totalBytesRead;
+        if(totalBytesExpectedToRead != -1) {
+            maxSteps = totalBytesExpectedToRead;
+        }
+        [self setMaxSteps:maxSteps];
         [self setStep:totalBytesRead];
     }];
     //
