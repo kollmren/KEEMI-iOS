@@ -45,64 +45,64 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
 
 -(void)tearDown {
     LayMainDataStore *mainStore = [LayMainDataStore store];
-    STAssertTrue([mainStore deleteAllCatalogsFromStore], nil);
+    XCTAssertTrue([mainStore deleteAllCatalogsFromStore]);
 }
 
 -(void)testInitWithXmlFile{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
 }
 
 -(void)testInitWithZippedFile{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptestZipped];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithZippedFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
 }
 
 -(void)testInitWithXmlFileNotExistingFile{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [NSURL URLWithString:@"dir/notExistingFile.xml"];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNil(xmlDataFileReader, nil);
+    XCTAssertNil(xmlDataFileReader);
 }
 
 -(void)testMetaInfo{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogFileInfo *catalogInfo = [xmlDataFileReader metaInfo];
-    STAssertNotNil(catalogInfo, nil);
+    XCTAssertNotNil(catalogInfo);
     NSString *titleOfCatalog = catalogInfo.catalogTitle;
     NSString *expectedTitleOfCatalog = titleOfTestCatalogCitizenship;
-    STAssertEqualObjects(expectedTitleOfCatalog, titleOfCatalog, nil);
+    XCTAssertEqualObjects(expectedTitleOfCatalog, titleOfCatalog);
     
     NSString *authorOfCatalog = [catalogInfo detailForKey:@"author"];
     NSString *expectedAuthorOfCatalog = @"Bundesamt für Migration und Flüchtlinge";
-    STAssertEqualObjects(expectedAuthorOfCatalog, authorOfCatalog, nil);
+    XCTAssertEqualObjects(expectedAuthorOfCatalog, authorOfCatalog);
     
     NSString *publisherOfCatalog = [catalogInfo detailForKey:@"publisher"];
     NSString *expectedPublisherOfCatalog = @"Bundesamt für Migration und Flüchtlinge";
-    STAssertEqualObjects(expectedPublisherOfCatalog, publisherOfCatalog, nil);
+    XCTAssertEqualObjects(expectedPublisherOfCatalog, publisherOfCatalog);
     
     NSString *numberOfQuestions = [catalogInfo detailForKey:@"numberOfQuestions"];
     NSString *expectedNumberOfQuestions = @"2";
-    STAssertEqualObjects(expectedNumberOfQuestions, numberOfQuestions, nil);
+    XCTAssertEqualObjects(expectedNumberOfQuestions, numberOfQuestions);
     
     NSString *language = [catalogInfo detailForKey:@"language"];
     NSString *expectedLanguage = @"deutsch";
-    STAssertEqualObjects(expectedLanguage, language, nil);
+    XCTAssertEqualObjects(expectedLanguage, language);
     
     NSString *topic = [catalogInfo detailForKey:@"topic"];
     NSString *expectedTopic = @"Allgemeinbildung";
-    STAssertEqualObjects(expectedTopic, topic, nil);
+    XCTAssertEqualObjects(expectedTopic, topic);
     
     NSString *version = [catalogInfo detailForKey:@"version"];
     NSString *expectedVersion = @"0.1";
-    STAssertEqualObjects(version, expectedVersion, nil);
+    XCTAssertEqualObjects(version, expectedVersion);
 }
 
 -(void)testReadCatalogGallery {
@@ -110,12 +110,12 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     [self importAddtionalTestData];
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogGallery];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport *importReport = [catalogImport import];
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertTrue(importReport.imported);
     BOOL readOk = [self checkReadCatalogGallery:importReport.importedCatalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
 }
 
 -(void)testReadCitizenshiptest1 {
@@ -123,27 +123,27 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     [self importAddtionalTestData];
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest1];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport *importReport = [catalogImport import];
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertTrue(importReport.imported);
     LayCatalogFileInfo *catalogFileInfo = [xmlDataFileReader metaInfo];
     NSString *catalogTitle = [catalogFileInfo catalogTitle];
     NSString *catalogPublisher = [catalogFileInfo detailForKey:@"publisher"];
     LayMainDataStore *mainStore = [LayMainDataStore store];
     Catalog *referenceCatalog = [mainStore findCatalogByTitle:catalogTitle andPublisher:catalogPublisher];
-    STAssertNotNil(referenceCatalog, nil);
+    XCTAssertNotNil(referenceCatalog);
     BOOL readOk = [self checkReadCitizenshiptest1Catalog:referenceCatalog];
-    STAssertTrue(readOk, nil);
-    STAssertNotNil(referenceCatalog.description, nil);
+    XCTAssertTrue(readOk);
+    XCTAssertNotNil(referenceCatalog.description);
     readOk = [self checkTopicsOnCitizenshiptest1Catalog:referenceCatalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
     readOk = [self checkExplanationsOnCitizenshiptest1Catalog:referenceCatalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
     readOk = [self checkResourcesOnCitizenshiptest1Catalog:referenceCatalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
     readOk = [self checkAbouInfosOnCitizenshiptest1Catalog:referenceCatalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
 }
 
 -(void)importAddtionalTestData {
@@ -168,44 +168,44 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport *importReport = [catalogImport import];
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertTrue(importReport.imported);
     LayCatalogFileInfo *catalogFileInfo = [xmlDataFileReader metaInfo];
     NSString *catalogTitle = [catalogFileInfo catalogTitle];
     NSString *catalogPublisher = [catalogFileInfo detailForKey:@"publisher"];
     LayMainDataStore *mainStore = [LayMainDataStore store];
     Catalog *catalog = [mainStore findCatalogByTitle:catalogTitle andPublisher:catalogPublisher];
-    STAssertNotNil(catalog, nil);
+    XCTAssertNotNil(catalog);
     BOOL readOk = [self checkReadCatalogCitizenshiptest:catalog];
-    STAssertTrue(readOk, nil);
+    XCTAssertTrue(readOk);
 }
 
 -(void)testImportInvalidCatalog{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathInvalidXmlCatalogCitizenshiptest];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport* importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertFalse(importReport.imported, nil);
-    STAssertNotNil(importReport.error, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertFalse(importReport.imported);
+    XCTAssertNotNil(importReport.error);
 }
 
 -(void)testReadNotWellFormedXmlCatalog{
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathNotWellFormedXmlCatalogCitizenshiptest];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlDataFileReader readCatalog:catalog : &error ];
-    STAssertFalse(read, nil);
-    STAssertNotNil(error, nil);
-    STAssertTrue([error hasError:LayImportCatalogParsingError], nil);
+    XCTAssertFalse(read);
+    XCTAssertNotNil(error);
+    XCTAssertTrue([error hasError:LayImportCatalogParsingError]);
     [importStore clearStore];
 }
 
@@ -213,14 +213,14 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogCitizenshiptestWithMissingResources];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlDataFileReader readCatalog:catalog : &error ];
-    STAssertFalse(read, nil);
-    STAssertNotNil(error, nil);
-    STAssertTrue([error hasError:LayImportCatalogResourceError], nil);
+    XCTAssertFalse(read);
+    XCTAssertNotNil(error);
+    XCTAssertTrue([error hasError:LayImportCatalogResourceError]);
     [importStore clearStore];
 }
 
@@ -228,14 +228,14 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogWithNoQuestion];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlDataFileReader readCatalog:catalog : &error ];
-    STAssertFalse(read, nil);
-    STAssertNotNil(error, nil);
-    STAssertTrue([error hasError:LayImportCatalogParsingError], nil);
+    XCTAssertFalse(read);
+    XCTAssertNotNil(error);
+    XCTAssertTrue([error hasError:LayImportCatalogParsingError]);
     [importStore clearStore];
 }
 
@@ -243,13 +243,13 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogEinbuerungstest];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlDataFileReader readCatalog:catalog : &error ];
-    STAssertTrue(read, nil);
-    STAssertNil(error, nil);
+    XCTAssertTrue(read);
+    XCTAssertNil(error);
     [importStore clearStore];
 }
 
@@ -257,19 +257,19 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogOneQuestionCatalog];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlDataFileReader readCatalog:catalog : &error ];
-    STAssertTrue(read, nil);
-    STAssertNil(error, nil);
+    XCTAssertTrue(read);
+    XCTAssertNil(error);
 
     BOOL hasExplanations = [catalog hasExplanations];
-    STAssertFalse(hasExplanations, nil);
+    XCTAssertFalse(hasExplanations);
     
     BOOL hasTopics = [catalog hasTopicsWithQuestions];
-    STAssertFalse(hasTopics, nil);
+    XCTAssertFalse(hasTopics);
     
     [importStore clearStore];
 }
@@ -277,12 +277,12 @@ static NSString* titleOfTestCatalogCitizenship = @"Einbürgerungstest";
 -(void)testCatalogWithBase64EncodedImage {
     NSURL *pathToCatalog = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogBase64Image];
     LayXmlCatalogFileReader *xmlCatalogReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:pathToCatalog];
-    STAssertNotNil(xmlCatalogReader, nil);
+    XCTAssertNotNil(xmlCatalogReader);
     LayImportDataStore *importStore = [LayImportDataStore store];
     Catalog *catalog = [importStore catalogToImportInstance];
     LayError *error = nil;
     BOOL read = [xmlCatalogReader readCatalog:catalog : &error ];
-    STAssertFalse(read, nil);
+    XCTAssertFalse(read);
 }
 
 -(BOOL) checkReadCatalogCitizenshiptest:(Catalog*)catalog {

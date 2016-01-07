@@ -37,7 +37,7 @@ static Class _classObj = nil;
 
 -(void)tearDown {
     LayMainDataStore *mainStore = [LayMainDataStore store];
-    STAssertTrue([mainStore deleteAllCatalogsFromStore], nil);
+    XCTAssertTrue([mainStore deleteAllCatalogsFromStore]);
 }
 
 
@@ -50,22 +50,22 @@ static Class _classObj = nil;
     LayCatalogDataFileReaderDummy *dataFileReader = [[LayCatalogDataFileReaderDummy alloc]initWithDataFileDummy:catalogFileHeadFirstDesign];
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:dataFileReader];
     LayCatalogImportReport* importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertTrue(importReport.imported);
     // Check if catalog was imported / catalog is stored in the datastore
     LayMainDataStore *mainStore = [LayMainDataStore store];
     NSString *titleCatalog = [dataFileReader metaInfo].catalogTitle;
     Catalog* catalog = [mainStore findCatalogByTitle:titleCatalog];
-    STAssertNotNil(catalog, nil);
+    XCTAssertNotNil(catalog);
     NSArray *questionList = [catalog questionListSortedByNumber];
-    STAssertTrue(questionList.count==GENERATE_NUMBER_OF_QUESTIONS, @"Actually value is:%u", questionList.count);
-    STAssertTrue([[questionList objectAtIndex:0] isKindOfClass:[Question class]], nil);
+    XCTAssertTrue(questionList.count==GENERATE_NUMBER_OF_QUESTIONS, @"Actually value is:%u", questionList.count);
+    XCTAssertTrue([[questionList objectAtIndex:0] isKindOfClass:[Question class]]);
     Question *firstQuestion = (Question*)[questionList objectAtIndex:0];
-    STAssertTrue([firstQuestion numberAsPrimitive] == 1, nil);
+    XCTAssertTrue([firstQuestion numberAsPrimitive] == 1);
     Question *lastQuestion = (Question*)[questionList lastObject];
     NSNumber *lastQuestionNumber = [lastQuestion questionNumber];
     NSNumber *expectedLastNumber = [NSNumber numberWithInt:GENERATE_NUMBER_OF_QUESTIONS];
-    STAssertTrue([lastQuestionNumber isEqualToNumber:expectedLastNumber], @"Actually value is:%u", [lastQuestionNumber unsignedIntegerValue]);
+    XCTAssertTrue([lastQuestionNumber isEqualToNumber:expectedLastNumber], @"Actually value is:%u", [lastQuestionNumber unsignedIntegerValue]);
 }
 
 @end

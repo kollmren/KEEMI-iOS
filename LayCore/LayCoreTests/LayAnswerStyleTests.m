@@ -22,9 +22,9 @@ static Class _classObj = nil;
     MWLogNameOfTest(_classObj);
     NSString *validStyleFormat = @"column;keep-height";
     LayAnswerStyle* itemStyle = [LayAnswerStyle styleWithString:validStyleFormat];
-    STAssertNotNil(itemStyle, nil);
+    XCTAssertNotNil(itemStyle);
     BOOL hasStyle = [itemStyle hasStyle:StyleColumn];
-    STAssertTrue(hasStyle, nil);
+    XCTAssertTrue(hasStyle);
 }
 
 

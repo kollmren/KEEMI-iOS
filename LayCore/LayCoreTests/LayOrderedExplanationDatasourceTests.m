@@ -45,7 +45,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedExplanationDatasource *datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Catalog* catalogFromDatasource = datasource.catalog;
-    STAssertEqualObjects(catalog, catalogFromDatasource, nil);
+    XCTAssertEqualObjects(catalog, catalogFromDatasource);
 }
 
 -(void)testNextExplanation{
@@ -57,24 +57,24 @@ static Class _classObj = nil;
     LayOrderedExplanationDatasource *datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Explanation *firstExplanation = datasource.nextExplanation;
     NSString *nameOfExplanation = firstExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation);
     Explanation *secondExplanation = datasource.nextExplanation;
     nameOfExplanation = secondExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation);
     Explanation *thirdExplanation = datasource.nextExplanation;
     nameOfExplanation = thirdExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfThirdExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfThirdExplanation);
     //
     NSString *titleOfExplanation = firstExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfFirstExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfFirstExplanation);
     titleOfExplanation = secondExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfSecondExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfSecondExplanation);
     titleOfExplanation = thirdExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfThirdExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfThirdExplanation);
     
     for (NSUInteger e=0; e < [datasource numberOfExplanations]; ++e) {
         Explanation *explanation = datasource.nextExplanation;
-        STAssertNotNil(explanation, nil);
+        XCTAssertNotNil(explanation);
     }
 }
 
@@ -91,12 +91,12 @@ static Class _classObj = nil;
     
     explanation = datasource.previousExplanation;
     NSString *nameOfExplanation = explanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation);
     Explanation *firstExplanation = datasource.previousExplanation;
     nameOfExplanation = firstExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation);
     explanation = datasource.previousExplanation;
-    STAssertEqualObjects(firstExplanation, explanation, nil);
+    XCTAssertEqualObjects(firstExplanation, explanation);
 }
 
 -(void)testNumberOfExplanations{
@@ -106,7 +106,7 @@ static Class _classObj = nil;
     LayCatalogManager *catalogManager = [LayCatalogManager instance];
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedExplanationDatasource *datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
-    STAssertEquals(infoReferenceCatalog.expectedNumberOfExplanations, [datasource numberOfExplanations], nil);
+    XCTAssertEqual(infoReferenceCatalog.expectedNumberOfExplanations, [datasource numberOfExplanations]);
 }
 
 

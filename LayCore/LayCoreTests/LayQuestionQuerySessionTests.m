@@ -81,9 +81,9 @@ static Class _classObj = nil;
     [user actionsQuestionCurrent];
     
     Question* questionOne = [querySession answeredQuestionByNumber:1];
-    STAssertNotNil(questionOne, nil);
-    STAssertTrue([questionOne isChecked]==YES, nil);
-    STAssertTrue([questionOne isFavourite]==YES, nil);
+    XCTAssertNotNil(questionOne);
+    XCTAssertTrue([questionOne isChecked]==YES);
+    XCTAssertTrue([questionOne isFavourite]==YES);
     // TODO
 }
 
@@ -97,13 +97,13 @@ static Class _classObj = nil;
     LayQuestionQuerySession *querySession = [[LayQuestionQuerySession alloc]initWithDatasource:datasource];
     Question *question = [querySession nextQuestion];
     NSString *expectedQuestionText = @"Welches Wappen gehört zum Bundesland Berlin?";
-    STAssertEqualObjects(question.question, expectedQuestionText, nil);
+    XCTAssertEqualObjects(question.question, expectedQuestionText);
     NSString *expectedQuestionName = @"wappenBundeslandBerlin";
-    STAssertEqualObjects(question.name, expectedQuestionName, nil);
+    XCTAssertEqualObjects(question.name, expectedQuestionName);
     Answer *answer = question.answerRef;
     NSArray *answerItemSet = [answer answerItemListSessionOrderPreserved];
     const NSUInteger expectedNumberOfAnswerItems = 4;
-    STAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems, nil);
+    XCTAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems);
     for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) { // answer correctly
         if([item.correct boolValue]) {
             item.setByUser = [NSNumber numberWithBool:YES];
@@ -116,10 +116,10 @@ static Class _classObj = nil;
     
     LayUserDataStore *uStore = [LayUserDataStore store];
     UGCCatalog *uCatalog = [uStore findCatalogByTitle:catalog.title andPublisher:[catalog publisher]];
-    STAssertNotNil(uCatalog, nil);
+    XCTAssertNotNil(uCatalog);
     UGCBoxCaseId boxCaseId = [uCatalog boxCaseIdOfQuestionWithName:question.name];
-    STAssertTrue(boxCaseId!=UGC_BOX_CASE_NOT_ANSWERED_QUESTION, nil);
-    STAssertEquals(UGC_BOX_CASE2, boxCaseId, nil);
+    XCTAssertTrue(boxCaseId!=UGC_BOX_CASE_NOT_ANSWERED_QUESTION);
+    XCTAssertEqual(UGC_BOX_CASE2, boxCaseId);
     
     //
     // a new session
@@ -127,10 +127,10 @@ static Class _classObj = nil;
     datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     querySession = [[LayQuestionQuerySession alloc]initWithDatasource:datasource];
     question = [querySession nextQuestion];
-    STAssertEqualObjects(question.name, expectedQuestionName, nil);
+    XCTAssertEqualObjects(question.name, expectedQuestionName);
     answer = question.answerRef;
     answerItemSet = [answer answerItemListSessionOrderPreserved];
-    STAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems, nil);
+    XCTAssertTrue([answerItemSet count]==expectedNumberOfAnswerItems);
     for (AnswerItem* item in [answer answerItemListSessionOrderPreserved]) { // answer correctly
         if([item.correct boolValue]) {
             item.setByUser = [NSNumber numberWithBool:YES];
@@ -141,10 +141,10 @@ static Class _classObj = nil;
     
     [querySession finish];
     uCatalog = [uStore findCatalogByTitle:catalog.title andPublisher:[catalog publisher]];
-    STAssertNotNil(uCatalog, nil);
+    XCTAssertNotNil(uCatalog);
     boxCaseId = [uCatalog boxCaseIdOfQuestionWithName:question.name];
-    STAssertTrue(boxCaseId!=UGC_BOX_CASE_NOT_ANSWERED_QUESTION, nil);
-    STAssertEquals(UGC_BOX_CASE3, boxCaseId, nil);
+    XCTAssertTrue(boxCaseId!=UGC_BOX_CASE_NOT_ANSWERED_QUESTION);
+    XCTAssertEqual(UGC_BOX_CASE3, boxCaseId);
 }
 
 -(void)testWithRandomLeitnerDatasource {
@@ -153,7 +153,7 @@ static Class _classObj = nil;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     LayQuestionQuerySession *querySession = [[LayQuestionQuerySession alloc]initWithDatasource:datasource];
     
-    STAssertNotNil(querySession, nil);
+    XCTAssertNotNil(querySession);
     
     [querySession finish];
 

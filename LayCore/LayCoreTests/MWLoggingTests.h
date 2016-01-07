@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Rene. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface MWLoggingTests : SenTestCase
+@interface MWLoggingTests : XCTestCase
 
 @end

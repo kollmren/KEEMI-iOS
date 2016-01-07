@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Rene. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface LayXmlDocumentDataCatcherTests : SenTestCase
+@interface LayXmlDocumentDataCatcherTests : XCTestCase
 
 @end

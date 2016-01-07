@@ -47,7 +47,7 @@ static Class _classObj = nil;
     LayOrderedExplanationDatasource *datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc]initWithDatasource:datasource];
     Catalog* catalogFromDatasource = session.catalog;
-    STAssertEqualObjects(catalog, catalogFromDatasource, nil);
+    XCTAssertEqualObjects(catalog, catalogFromDatasource);
 }
 
 -(void)testNextExplanation{
@@ -60,24 +60,24 @@ static Class _classObj = nil;
     LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc]initWithDatasource:datasource];
     Explanation *firstExplanation = session.nextExplanation;
     NSString *nameOfExplanation = firstExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation);
     Explanation *secondExplanation = session.nextExplanation;
     nameOfExplanation = secondExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation);
     Explanation *thirdExplanation = session.nextExplanation;
     nameOfExplanation = thirdExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfThirdExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfThirdExplanation);
     //
     NSString *titleOfExplanation = firstExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfFirstExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfFirstExplanation);
     titleOfExplanation = secondExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfSecondExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfSecondExplanation);
     titleOfExplanation = thirdExplanation.title;
-    STAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfThirdExplanation, nil);
+    XCTAssertEqualObjects(titleOfExplanation, infoReferenceCatalog.titleOfThirdExplanation);
     
     for (NSUInteger e=0; e < [datasource numberOfExplanations]; ++e) {
         Explanation *explanation = session.nextExplanation;
-        STAssertNotNil(explanation, nil);
+        XCTAssertNotNil(explanation);
     }
     
 }
@@ -96,12 +96,12 @@ static Class _classObj = nil;
     
     explanation = session.previousExplanation;
     NSString *nameOfExplanation = explanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfSecondExplanation);
     Explanation *firstExplanation = session.previousExplanation;
     nameOfExplanation = firstExplanation.name;
-    STAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation, nil);
+    XCTAssertEqualObjects(nameOfExplanation, infoReferenceCatalog.nameOfFirstExplanation);
     explanation = session.previousExplanation;
-    STAssertEqualObjects(firstExplanation, explanation, nil);
+    XCTAssertEqualObjects(firstExplanation, explanation);
 }
 
 -(void)testNumberOfExplanations{
@@ -112,7 +112,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedExplanationDatasource *datasource = [[LayOrderedExplanationDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
      LayExplanationLearnSession *session = [[LayExplanationLearnSession alloc]initWithDatasource:datasource];
-    STAssertEquals(infoReferenceCatalog.expectedNumberOfExplanations, [session numberOfExplanations], nil);
+    XCTAssertEqual(infoReferenceCatalog.expectedNumberOfExplanations, [session numberOfExplanations]);
 }
 
 @end

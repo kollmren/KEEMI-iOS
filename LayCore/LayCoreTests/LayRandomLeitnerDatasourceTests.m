@@ -49,7 +49,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Catalog* catalogFromDatasource = datasource.catalog;
-    STAssertEqualObjects(catalog, catalogFromDatasource, nil);
+    XCTAssertEqualObjects(catalog, catalogFromDatasource);
 }
 
 -(void)testNextQuestion{
@@ -60,13 +60,13 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     NSString *questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
 }
 
 -(void)testPreviousQuestion {
@@ -80,23 +80,23 @@ static Class _classObj = nil;
     question = datasource.nextQuestion;
     question = datasource.nextQuestion;
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     NSString *questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
 }
 
 -(void)testQuestionGroup {
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathCatalogGallery];
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport *importReport = [catalogImport import];
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertTrue(importReport.imported);
     //
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:importReport.importedCatalog considerTopicSelection:NO];
     const NSString *nameOfExpectedGroup = @"borderCanada";
@@ -112,7 +112,7 @@ static Class _classObj = nil;
         nextQuestion = datasource.nextQuestion;
     } while (nextQuestion != currenQuestion );
     
-    STAssertTrue(foundGroup, nil);
+    XCTAssertTrue(foundGroup);
     BOOL groupIsAsExpected = YES;
     const NSInteger numberOfExpectedQuestionsInGroup = 4;
     for (NSInteger questionInGroupIdx = 0; questionInGroupIdx < numberOfExpectedQuestionsInGroup; ++questionInGroupIdx) {
@@ -147,10 +147,10 @@ static Class _classObj = nil;
             }
         }
     }
-    STAssertTrue(groupIsAsExpected, nil);
+    XCTAssertTrue(groupIsAsExpected);
     
     currenQuestion = datasource.nextQuestion;
-    STAssertNotNil(currenQuestion, nil);
+    XCTAssertNotNil(currenQuestion);
 }
 
 -(void)testNumberOfQuestions{
@@ -160,7 +160,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     const NSUInteger expectedNumberOfQuestions = 13;
-    STAssertEquals(expectedNumberOfQuestions, [datasource numberOfQuestions], nil);
+    XCTAssertEqual(expectedNumberOfQuestions, [datasource numberOfQuestions]);
 }
 
 -(void)testNextQuestionRepeated{
@@ -171,25 +171,25 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 -(void)testPreviousQuestionRepeated{
@@ -200,25 +200,25 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:NO];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 
@@ -226,18 +226,18 @@ static Class _classObj = nil;
     LayMainDataStore *mainStore = [LayMainDataStore store];
     NSString *titleOfCatalog = @"One question catalog";
     Catalog *oneQuestionCatalog = [mainStore findCatalogByTitle:titleOfCatalog];
-    STAssertNotNil(oneQuestionCatalog, nil);
+    XCTAssertNotNil(oneQuestionCatalog);
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:oneQuestionCatalog considerTopicSelection:NO];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 -(void)testWithNoSelectedTopics{
@@ -251,25 +251,25 @@ static Class _classObj = nil;
     }
     LayRandomLeitnerDatasource *datasource = [[LayRandomLeitnerDatasource alloc]initWithCatalog:catalog considerTopicSelection:YES];
     Question *question = datasource.nextQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
     question = datasource.previousQuestion;
-    STAssertNil(question, nil);
+    XCTAssertNil(question);
 }
 
 @end

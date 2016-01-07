@@ -24,10 +24,10 @@ static Class _classObj = nil;
     MWLogNameOfTest(_classObj);
     NSString *path1 = @"catalog/info_publisher";
     LayXmlPath *xmlPath1 = [[LayXmlPath alloc]initWithXmlPath:path1];
-    STAssertNil(xmlPath1, @"Must be nil due to the invalid path");
+    XCTAssertNil(xmlPath1, @"Must be nil due to the invalid path");
     path1 = @"cataloginfo_publisher";
     xmlPath1 = [[LayXmlPath alloc]initWithXmlPath:path1];
-    STAssertNil(xmlPath1, @"Must be nil due to the invalid path");
+    XCTAssertNil(xmlPath1, @"Must be nil due to the invalid path");
 }
 
 -(void)testPath{
@@ -38,7 +38,7 @@ static Class _classObj = nil;
     LayXmlPath *xmlPath2 = [[LayXmlPath alloc]initWithXmlPath:path2];
     [xmlPath2 pushElementWithName:@"info"];
     [xmlPath2 pushElementWithName:@"publisher"];
-    STAssertEqualObjects([xmlPath1 path] ,[xmlPath2 path], nil);
+    XCTAssertEqualObjects([xmlPath1 path] ,[xmlPath2 path]);
 }
 
 -(void)testPop{
@@ -49,7 +49,7 @@ static Class _classObj = nil;
     LayXmlPath *xmlPath2 = [[LayXmlPath alloc]initWithXmlPath:path2];
     [xmlPath1 popElement];
     [xmlPath1 popElement];
-    STAssertEqualObjects([xmlPath1 path] ,[xmlPath2 path], nil);
+    XCTAssertEqualObjects([xmlPath1 path] ,[xmlPath2 path]);
     //
     LayXmlPath *xmlPath3 = [[LayXmlPath alloc]init];
     LayXmlPath *xmlPath4 = [[LayXmlPath alloc]init];
@@ -65,7 +65,7 @@ static Class _classObj = nil;
     LayXmlPath *xmlPath2 = [[LayXmlPath alloc]initWithXmlPath:path2];
     [xmlPath2 pushElementWithName:@"info"];
     [xmlPath2 pushElementWithName:@"publisher"];
-    STAssertTrue([xmlPath1 isEqual:xmlPath2], nil);
+    XCTAssertTrue([xmlPath1 isEqual:xmlPath2]);
 }
 
 @end

@@ -18,7 +18,7 @@
     MWLogNameOfTest([LayCatalogManagerTests class]);
     LayCatalogManager* catalogManager1 = [LayCatalogManager instance];
     LayCatalogManager* catalogManager2 = [LayCatalogManager instance];
-    STAssertEqualObjects(catalogManager1, catalogManager2, nil);
+    XCTAssertEqualObjects(catalogManager1, catalogManager2);
 }
 
 @end

@@ -48,97 +48,97 @@ static Class _classObj = nil;
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNotNil(xmlDataCatcher, nil);
+    XCTAssertNotNil(xmlDataCatcher);
 }
 
 -(void)testInitWithNotExistingFile{
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [NSURL URLWithString:@"tmp/notExistingFile"];
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNil(xmlDataCatcher, nil);
+    XCTAssertNil(xmlDataCatcher);
 }
 
 -(void)testRegisterPath{
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];;
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNotNil(xmlDataCatcher, nil);
+    XCTAssertNotNil(xmlDataCatcher);
     //
     LayXmlNode *infoNode = [[LayXmlNode alloc]initWithName:@"info"];
     NodeCatcherTarget *nodeCatcherTarget = [[NodeCatcherTarget alloc]initWithExpectedNode:infoNode];
     BOOL registered = [xmlDataCatcher registerPath:nodeCatcherTarget action:@selector(nodeCatcher:) forPath:@"/catalog/info"];
-    STAssertTrue(registered, nil);
+    XCTAssertTrue(registered);
 }
 
 -(void)testUnregisterPath{
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];;
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNotNil(xmlDataCatcher, nil);
+    XCTAssertNotNil(xmlDataCatcher);
     //
     LayXmlNode *infoNode = [[LayXmlNode alloc]initWithName:@"info"];
     NodeCatcherTarget *nodeCatcherTarget = [[NodeCatcherTarget alloc]initWithExpectedNode:infoNode];
     NSString *pathToCatchData = @"/catalog/info";
     BOOL registered = [xmlDataCatcher registerPath:nodeCatcherTarget action:@selector(nodeCatcher:) forPath:pathToCatchData];
-    STAssertTrue(registered, nil);
+    XCTAssertTrue(registered);
     BOOL unregistered = [xmlDataCatcher unregisterPath:pathToCatchData];
-    STAssertTrue(unregistered, nil);
+    XCTAssertTrue(unregistered);
     //
     LayError *layError = nil;
     BOOL parsed = [xmlDataCatcher startCatching:&layError];
-    STAssertTrue(parsed, nil);
+    XCTAssertTrue(parsed);
     // no data catched
-    STAssertFalse(nodeCatcherTarget.result, nil);
+    XCTAssertFalse(nodeCatcherTarget.result);
 }
 
 -(void)testStartCatching{
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNotNil(xmlDataCatcher, nil);
+    XCTAssertNotNil(xmlDataCatcher);
     //
     LayXmlNode *infoNode = [[LayXmlNode alloc]initWithName:@"info"];
     NodeCatcherTarget *nodeCatcherTarget = [[NodeCatcherTarget alloc]initWithExpectedNode:infoNode];
     BOOL registered = [xmlDataCatcher registerPath:nodeCatcherTarget action:@selector(nodeCatcher:) forPath:@"/catalog/info"];
-    STAssertTrue(registered, nil);
+    XCTAssertTrue(registered);
     LayError *layError = nil;
     BOOL parsed = [xmlDataCatcher startCatching:&layError];
-    STAssertTrue(parsed, nil);
-    STAssertTrue(nodeCatcherTarget.result, nil);
+    XCTAssertTrue(parsed);
+    XCTAssertTrue(nodeCatcherTarget.result);
     // check node
     NSArray *nodeList = [nodeCatcherTarget catchedNodeList];
-    STAssertNotNil(nodeList, nil);
-    STAssertTrue([nodeList count]>0, nil);
+    XCTAssertNotNil(nodeList);
+    XCTAssertTrue([nodeList count]>0);
     LayXmlNode* node = [nodeList objectAtIndex:0];
-    STAssertNotNil(node, nil);
+    XCTAssertNotNil(node);
     LayXmlNode* titleNode = [node nodeByName:@"title"];
-    STAssertNotNil(titleNode, nil);
+    XCTAssertNotNil(titleNode);
     NSString* title = [titleNode content];
-    STAssertEqualObjects(@"Einbürgerungstest", title, nil);
+    XCTAssertEqualObjects(@"Einbürgerungstest", title);
 }
 
 -(void)testStartCatchingNodesWithAttributes{
     MWLogNameOfTest(_classObj);
     NSURL* catalofFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];
     LayXmlDocumentDataCatcher *xmlDataCatcher = [[LayXmlDocumentDataCatcher alloc]initWithPathToXmlFile:catalofFile];
-    STAssertNotNil(xmlDataCatcher, nil);
+    XCTAssertNotNil(xmlDataCatcher);
     //
     LayXmlNode *questionNode = [[LayXmlNode alloc]initWithName:@"question"];
     NodeCatcherTarget *nodeCatcherTarget = [[NodeCatcherTarget alloc]initWithExpectedNode:questionNode];
     BOOL registered = [xmlDataCatcher registerPath:nodeCatcherTarget action:@selector(nodeCatcher:) forPath:@"/catalog/questionList/question"];
-    STAssertTrue(registered, nil);
+    XCTAssertTrue(registered);
     LayError *layError = nil;
     BOOL parsed = [xmlDataCatcher startCatching:&layError];
-    STAssertTrue(parsed, nil);
-    STAssertTrue(nodeCatcherTarget.result, nil);
+    XCTAssertTrue(parsed);
+    XCTAssertTrue(nodeCatcherTarget.result);
     // check node
     NSArray *nodeList = [nodeCatcherTarget catchedNodeList];
-    STAssertNotNil(nodeList, nil);
-    STAssertTrue([nodeList count]>0, nil);
+    XCTAssertNotNil(nodeList);
+    XCTAssertTrue([nodeList count]>0);
     LayXmlNode* catchedQuestionNode = [nodeList objectAtIndex:0];
-    STAssertNotNil(catchedQuestionNode, nil);
+    XCTAssertNotNil(catchedQuestionNode);
     NSString *typeOfAnswer = [catchedQuestionNode valueOfAttribute:@"type"];
-    STAssertEqualObjects(@"singleChoice", typeOfAnswer, nil);
+    XCTAssertEqualObjects(@"singleChoice", typeOfAnswer);
 }
 
 @end

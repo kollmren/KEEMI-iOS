@@ -45,7 +45,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     Catalog* catalogFromDatasource = datasource.catalog;
-    STAssertEqualObjects(catalog, catalogFromDatasource, nil);
+    XCTAssertEqualObjects(catalog, catalogFromDatasource);
 }
 
 -(void)testNextQuestion{
@@ -56,13 +56,13 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     NSString *questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
 }
 
 -(void)testPreviousQuestion{
@@ -76,13 +76,13 @@ static Class _classObj = nil;
     question = datasource.nextQuestion;
     question = datasource.nextQuestion;
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     NSString *questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     questionText = question.question;
-    STAssertNotNil(questionText, nil);
+    XCTAssertNotNil(questionText);
 }
 
 -(void)testNumberOfQuestions{
@@ -92,7 +92,7 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     const NSUInteger expectedNumberOfQuestions = 13;
-    STAssertEquals(expectedNumberOfQuestions, [datasource numberOfQuestions], nil);
+    XCTAssertEqual(expectedNumberOfQuestions, [datasource numberOfQuestions]);
 }
 
 -(void)testNextQuestionRepeated{
@@ -103,25 +103,25 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 -(void)testPreviousQuestionRepeated{
@@ -132,25 +132,25 @@ static Class _classObj = nil;
     Catalog *catalog = catalogManager.currentSelectedCatalog;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 -(void)testWithNoSelectedTopics {
@@ -162,25 +162,25 @@ static Class _classObj = nil;
     LayOrderedQuestionDatasource *datasource = [[LayOrderedQuestionDatasource alloc]initWithCatalog:catalog];
     // The orderded-datasource ignores topics, so the deselection has no effect!
     Question *question = datasource.nextQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
     question = datasource.previousQuestion;
-    STAssertNotNil(question, nil);
+    XCTAssertNotNil(question);
 }
 
 @end

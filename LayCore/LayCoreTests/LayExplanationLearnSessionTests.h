@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Rene. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface LayExplanationLearnSessionTests : SenTestCase
+@interface LayExplanationLearnSessionTests : XCTestCase
 
 @end

@@ -28,18 +28,18 @@ static Class _classObj = nil;
     LayXmlNode *node1 = [[LayXmlNode alloc]initWithName:nameOfNode1];
     LayXmlNode *node2 = [[LayXmlNode alloc]initWithName:nameOfNode2];
     LayXmlNode *node3 = [[LayXmlNode alloc]initWithName:nameOfNode3];
-    STAssertNotNil(node1, nil);
-    STAssertNotNil(node2, nil);
-    STAssertNotNil(node3, nil);
+    XCTAssertNotNil(node1);
+    XCTAssertNotNil(node2);
+    XCTAssertNotNil(node3);
     
     [node1 addChildNode:node2];
     [node1 addChildNode:node3];
     LayXmlNode *parentNodeOfNode2 = node2.parentNode;
-    STAssertTrue(node1 == parentNodeOfNode2, nil);
+    XCTAssertTrue(node1 == parentNodeOfNode2);
     
     LayXmlNode *refNode2 = [node1 nodeByName:nameOfNode2];
-    STAssertNotNil(refNode2, nil);
-    STAssertEquals(refNode2.name, nameOfNode2, nil);
+    XCTAssertNotNil(refNode2);
+    XCTAssertEqual(refNode2.name, nameOfNode2);
 }
 
 -(void)testChildNodeList {
@@ -50,24 +50,24 @@ static Class _classObj = nil;
     LayXmlNode *node1 = [[LayXmlNode alloc]initWithName:nameOfNode1];
     LayXmlNode *node2 = [[LayXmlNode alloc]initWithName:nameOfNode2];
     LayXmlNode *node3 = [[LayXmlNode alloc]initWithName:nameOfNode3];
-    STAssertNotNil(node1, nil);
-    STAssertNotNil(node2, nil);
-    STAssertNotNil(node3, nil);
+    XCTAssertNotNil(node1);
+    XCTAssertNotNil(node2);
+    XCTAssertNotNil(node3);
     
     [node1 addChildNode:node2];
     [node1 addChildNode:node3];
     NSArray *childNodeList = [node1 childNodeList];
-    STAssertNotNil(childNodeList, nil);
-    STAssertTrue( 2 == [childNodeList count], nil);
+    XCTAssertNotNil(childNodeList);
+    XCTAssertTrue( 2 == [childNodeList count]);
 }
 
 -(void)testhasContent {
     MWLogNameOfTest(_classObj);
     NSString *nameOfNode1 = @"element1";
     LayXmlNode *node1 = [[LayXmlNode alloc]initWithName:nameOfNode1];
-    STAssertNotNil(node1, nil);
+    XCTAssertNotNil(node1);
     [node1 appendContent:@"content"];
-    STAssertTrue(node1.hasContent, nil);
+    XCTAssertTrue(node1.hasContent);
 }
 
 @end

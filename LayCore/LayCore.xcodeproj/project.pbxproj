@@ -17,7 +17,6 @@
 		A71399211785A74B00B294FE /* LayConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = A71399201785A74B00B294FE /* LayConstants.m */; };
 		A715930116E9F3AB0068786C /* LayQuestionDatasourceDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A715930016E9F3AB0068786C /* LayQuestionDatasourceDummy.m */; };
 		A718EEA7163D72AE00F52061 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718EEA6163D72AE00F52061 /* Foundation.framework */; };
-		A718EEB6163D72AF00F52061 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718EEB5163D72AF00F52061 /* SenTestingKit.framework */; };
 		A718EEB8163D72AF00F52061 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718EEB7163D72AF00F52061 /* UIKit.framework */; };
 		A718EEB9163D72AF00F52061 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718EEA6163D72AE00F52061 /* Foundation.framework */; };
 		A718EEBC163D72AF00F52061 /* libLayCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A718EEA3163D72AE00F52061 /* libLayCore.a */; };
@@ -191,8 +190,7 @@
 		A715930016E9F3AB0068786C /* LayQuestionDatasourceDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayQuestionDatasourceDummy.m; sourceTree = "<group>"; };
 		A718EEA3163D72AE00F52061 /* libLayCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLayCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A718EEA6163D72AE00F52061 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		A718EEB4163D72AF00F52061 /* LayCoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LayCoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A718EEB5163D72AF00F52061 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A718EEB4163D72AF00F52061 /* LayCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LayCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A718EEB7163D72AF00F52061 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		A718EEBF163D72AF00F52061 /* LayCoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LayCoreTests-Info.plist"; sourceTree = "<group>"; };
 		A718EEC1163D72AF00F52061 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -480,7 +478,6 @@
 				A7C01FCF173BF7E1004D6E2B /* libc++.dylib in Frameworks */,
 				A7C01FCD173BF73F004D6E2B /* libz.1.2.5.dylib in Frameworks */,
 				A7471DC816569FBC000A8467 /* CoreData.framework in Frameworks */,
-				A718EEB6163D72AF00F52061 /* SenTestingKit.framework in Frameworks */,
 				A718EEB8163D72AF00F52061 /* UIKit.framework in Frameworks */,
 				A718EEB9163D72AF00F52061 /* Foundation.framework in Frameworks */,
 				A718EEBC163D72AF00F52061 /* libLayCore.a in Frameworks */,
@@ -514,7 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				A718EEA3163D72AE00F52061 /* libLayCore.a */,
-				A718EEB4163D72AF00F52061 /* LayCoreTests.octest */,
+				A718EEB4163D72AF00F52061 /* LayCoreTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -525,7 +522,6 @@
 				A7D0967216AF2A8F00B9B1B8 /* UIKit.framework */,
 				A77C7D44165412110041382B /* CoreData.framework */,
 				A718EEA6163D72AE00F52061 /* Foundation.framework */,
-				A718EEB5163D72AF00F52061 /* SenTestingKit.framework */,
 				A718EEB7163D72AF00F52061 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -961,8 +957,8 @@
 			);
 			name = LayCoreTests;
 			productName = LayCoreTests;
-			productReference = A718EEB4163D72AF00F52061 /* LayCoreTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = A718EEB4163D72AF00F52061 /* LayCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -1279,6 +1275,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LayCore/LayCore-Prefix.pch";
@@ -1288,7 +1285,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$SOURCE_ROOT/LayCore/Utilities $SOURCE_ROOT/LayCore/Datastore $SOURCE_ROOT/LayCore/Domain $SOURCE_ROOT/LayCore/Import $SOURCE_ROOT/LayCore/Model";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -1298,6 +1294,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LayCore/LayCore-Prefix.pch";
@@ -1306,7 +1303,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$SOURCE_ROOT/LayCore/Utilities $SOURCE_ROOT/LayCore/Datastore $SOURCE_ROOT/LayCore/Domain $SOURCE_ROOT/LayCore/Import $SOURCE_ROOT/LayCore/Model";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};

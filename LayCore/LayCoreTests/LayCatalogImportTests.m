@@ -36,7 +36,7 @@ static Class _classObj = nil;
 
 -(void)tearDown {
     LayMainDataStore *mainStore = [LayMainDataStore store];
-    STAssertTrue([mainStore deleteAllCatalogsFromStore], nil);
+    XCTAssertTrue([mainStore deleteAllCatalogsFromStore]);
 }
 
 
@@ -49,13 +49,13 @@ static Class _classObj = nil;
     LayCatalogDataFileReaderDummy *dataFileReader = [[LayCatalogDataFileReaderDummy alloc]initWithDataFileDummy:catalogFileHeadFirstDesign];
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:dataFileReader];
     LayCatalogImportReport* importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertTrue(importReport.imported);
     // Check if catalog was imported / catalog is stored in the datastore
     LayMainDataStore *mainStore = [LayMainDataStore store];
     NSString *titleCatalog = [dataFileReader metaInfo].catalogTitle;
     Catalog* catalog = [mainStore findCatalogByTitle:titleCatalog];
-    STAssertNotNil(catalog, nil);
+    XCTAssertNotNil(catalog);
 }
 
 -(void)testImportOfMultipleCatalogs {
@@ -67,47 +67,47 @@ static Class _classObj = nil;
         LayCatalogDataFileReaderDummy *dataFileReader = [[LayCatalogDataFileReaderDummy alloc]initWithDataFileDummy:catalogFileHeadFirstDesign];
         LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:dataFileReader];
         LayCatalogImportReport* importReport = [catalogImport import];
-        STAssertNotNil(importReport, nil);
-        STAssertTrue(importReport.imported, nil);
+        XCTAssertNotNil(importReport);
+        XCTAssertTrue(importReport.imported);
 
     }
     LayMainDataStore *mainStore = [LayMainDataStore store];
     NSArray* catalogList = [mainStore findAllCatalogs];
-    STAssertEquals(MAX_CATALOGS_TO_IMPORT, [catalogList count], nil);
+    XCTAssertEqual(MAX_CATALOGS_TO_IMPORT, [catalogList count]);
 }
 
 -(void)testImportOfTheSameCatalogTwice {
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport* importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertTrue(importReport.imported);
     // twice
     importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertFalse(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertFalse(importReport.imported);
 }
 
 -(void)testImportOfCatalogsWithSameTitle {
     MWLogNameOfTest(_classObj);
     NSURL* catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptestOtherPublisher];;
     LayXmlCatalogFileReader *xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     LayCatalogImport *catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     LayCatalogImportReport* importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertTrue(importReport.imported);
     // twice
     catalogFile = [LayCoreTestConfig pathToTestCatalog:TestDataPathXmlCatalogCitizenshiptest];;
     xmlDataFileReader = [[LayXmlCatalogFileReader alloc]initWithXmlFile:catalogFile];
-    STAssertNotNil(xmlDataFileReader, nil);
+    XCTAssertNotNil(xmlDataFileReader);
     catalogImport = [[LayCatalogImport alloc]initWithDataFileReader:xmlDataFileReader];
     importReport = [catalogImport import];
-    STAssertNotNil(importReport, nil);
-    STAssertTrue(importReport.imported, nil);
+    XCTAssertNotNil(importReport);
+    XCTAssertTrue(importReport.imported);
 }
 
 @end
